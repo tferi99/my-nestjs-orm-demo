@@ -1,0 +1,28 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">First Name</th>
+    <th scope="col">Last Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Birth</th>
+    <th scope="col">Employee Type</th>
+    <th scope="col">Rank</th>
+    <th scope="col">Active</th>
+    <th scope="col">Note</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let p of persons">
+    <td>{{p.id}}</td>
+    <td>{{p.firstName}}</td>
+    <td>{{p.lastName}}</td>
+    <td>{{p.email}}</td>
+    <td>{{p.birth | date: dateFormat}}</td>
+    <td>{{p.employeeType | employeeType}}</td>
+    <td>{{p.rank}}</td>
+    <td>{{p.active}}</td>
+    <td>{{p.note}}</td>
+  </tr>
+</table>

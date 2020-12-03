@@ -1,0 +1,45 @@
+<h5>ID: {{in?.id}}</h5>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <div class="col-md-6 mb-3">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" [formControl]="firstName" [ngClass]="{'is-invalid' : name.invalid}" placeholder="Name">
+      <div class="invalid-feedback" *ngIf="name.invalid">{{getFormControlErrorMessage(name)}}</div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" [formControl]="email" [ngClass]="{'is-invalid' : email.invalid}" placeholder="Email" >
+      <div class="invalid-feedback" *ngIf="email.errors">{{getFormControlErrorMessage(email)}}</div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-4 mb-3">
+      <label for="employeeType">Employee Type</label>
+      <select class="custom-select" id="employeeType" [formControl]="employeeType" [ngClass]="{'is-invalid' : employeeType.invalid}" placeholder="Employee Type">
+        <option *ngFor="let t of employeeTypes" [value]="t.value">{{t.key}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="true && employeeType.invalid">{{getFormControlErrorMessage(employeeType)}}</div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="email">Birth</label>
+      <input type="text" class="form-control" id="birth" [formControl]="birth" [ngClass]="{'is-invalid' : birth.invalid}" placeholder="Birth" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
+      <div class="invalid-feedback" *ngIf="birth.errors">{{getFormControlErrorMessage(birth)}}</div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="rank">Rank</label>
+      <input type="number" class="form-control" id="rank" [formControl]="rank" [ngClass]="{'is-invalid' : rank.invalid}" placeholder="Rank">
+      <div class="invalid-feedback" *ngIf="rank.errors">{{getFormControlErrorMessage(rank)}}</div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" [formControl]="active" id="invalidCheck3">
+        <label class="form-check-label" for="invalidCheck3">Active</label>
+      </div>
+    </div>
+  </div>
+</form>
