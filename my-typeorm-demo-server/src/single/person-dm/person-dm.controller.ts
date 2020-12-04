@@ -28,8 +28,7 @@ export class PersonDmController {
   dummy(): PersonDm {
     const p: PersonDm = {
       id: 0,
-      firstName: 'John',
-      lastName: 'Smith',
+      name: 'John Smith',
       email: 'js@test.org',
       birth: new Date(1975, 3, 14),
       employeeType: EmployeeType.DIRECTOR,

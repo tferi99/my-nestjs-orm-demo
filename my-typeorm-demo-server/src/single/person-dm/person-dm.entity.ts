@@ -7,10 +7,7 @@ export class PersonDm implements Person {
   id: number;
 
   @Column()
-  firstName: string;
-
-  @Column()
-  lastName: string;
+  name: string;
 
   @Column()
   email: string;
