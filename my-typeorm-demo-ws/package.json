@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve my-typeorm-demo --proxy-config ./proxy.json",
-    "build": "ng build",
+    "start": "ng serve my-typeorm-demo --proxy-config proxy.config.json",
+    "build": "ng build my-typeorm-demo",
     "build-lib": "ng build my-typeorm-demo-lib",
     "build-lib-watch": "ng build my-typeorm-demo-lib --watch",
     "test": "ng test",

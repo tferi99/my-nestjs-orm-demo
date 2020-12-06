@@ -3,12 +3,14 @@ import {RouterModule, Routes} from '@angular/router';
 import {PersonComponent} from './person/person.component';
 import {PersonFormComponent} from './person/person-form/person-form.component';
 import {PersonsResolverService} from './person/persons-resolver.service';
+import {HomeComponent} from './home/home.component';
 
 const routes: Routes = [
-  {path: 'person', component: PersonComponent, resolve: PersonsResolverService},
+  {path: 'home', component: HomeComponent},
+  {path: 'person', component: PersonComponent, resolve: {persons: PersonsResolverService}},
   {path: 'person/new', component: PersonFormComponent},
   {path: 'person/:id/edit', component: PersonFormComponent},
-  {path: '',   redirectTo: '/person', pathMatch: 'full' },   // default
+  {path: '',   redirectTo: '/home', pathMatch: 'full' },   // default
 ];
 
 @NgModule({

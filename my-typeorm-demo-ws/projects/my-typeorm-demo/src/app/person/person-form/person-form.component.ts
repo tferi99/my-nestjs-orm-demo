@@ -17,8 +17,7 @@ export class PersonFormComponent implements OnInit {
 
   form = this.fb.group({
     id: [0],
-    firstName: ['', [Validators.required]],
-    lastName: ['', [Validators.required]],
+    name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     employeeType: ['', Validators.required],
     birth: ['', Validators.required],
@@ -27,8 +26,7 @@ export class PersonFormComponent implements OnInit {
   });
 
   // form controls (used in template here)
-  firstName = this.form.controls.firstName;
-  lastName = this.form.controls.lastName;
+  name = this.form.controls.name;
   email = this.form.controls.email;
   employeeType = this.form.controls.employeeType;
   rank = this.form.controls.rank;
@@ -52,13 +50,12 @@ export class PersonFormComponent implements OnInit {
       const id = this.route.snapshot.params.id;
       this.in = {
         id,
-        firstName: 'f',
-        lastName: 'l',
+        name: 'Proba Lajos',
         active: true,
         birth: new Date(),
         rank: 2,
         employeeType: EmployeeType.DIRECTOR,
-        email: 'fl@a.b'
+        email: 'pl@a.b'
       };
     }
     this.form.patchValue(this.in);

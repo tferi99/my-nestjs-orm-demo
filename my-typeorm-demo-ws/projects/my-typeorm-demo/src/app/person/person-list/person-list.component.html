@@ -2,11 +2,10 @@
   <thead>
   <tr>
     <th scope="col">#</th>
-    <th scope="col">First Name</th>
-    <th scope="col">Last Name</th>
+    <th scope="col">Name</th>
     <th scope="col">Email</th>
     <th scope="col">Birth</th>
-    <th scope="col">Employee Type</th>
+    <th scope="col">EmpType</th>
     <th scope="col">Rank</th>
     <th scope="col">Active</th>
     <th scope="col">Note</th>
@@ -16,8 +15,7 @@
   <tbody>
   <tr *ngFor="let p of persons">
     <td>{{p.id}}</td>
-    <td>{{p.firstName}}</td>
-    <td>{{p.lastName}}</td>
+    <td>{{p.name}}</td>
     <td>{{p.email}}</td>
     <td>{{p.birth | date: dateFormat}}</td>
     <td>{{p.employeeType | employeeType}}</td>

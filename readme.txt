@@ -18,7 +18,8 @@ First steps
 	
 - softlinks to library:
 
-	cd my-typeorm-demo-ws\dist\my-typeorm-demo-lib 
+	cd my-typeorm-demo-ws\dist\my-typeorm-demo-lib
 	npm link
 	
-	
+	cd my-typeorm-demo-server
+	npm link my-typeorm-demo-lib

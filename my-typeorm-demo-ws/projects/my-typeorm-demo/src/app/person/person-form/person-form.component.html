@@ -4,13 +4,8 @@
   <div class="form-row">
     <div class="col-md-6 mb-3">
       <label for="name">Name</label>
-      <input type="text" class="form-control" id="name" [formControl]="firstName" [ngClass]="{'is-invalid' : name.invalid}" placeholder="Name">
+      <input type="text" class="form-control" id="name" [formControl]="name" [ngClass]="{'is-invalid' : name.invalid}" placeholder="Name">
       <div class="invalid-feedback" *ngIf="name.invalid">{{getFormControlErrorMessage(name)}}</div>
-    </div>
-    <div class="col-md-6 mb-3">
-      <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" [formControl]="email" [ngClass]="{'is-invalid' : email.invalid}" placeholder="Email" >
-      <div class="invalid-feedback" *ngIf="email.errors">{{getFormControlErrorMessage(email)}}</div>
     </div>
   </div>
 
@@ -23,7 +18,7 @@
       <div class="invalid-feedback" *ngIf="true && employeeType.invalid">{{getFormControlErrorMessage(employeeType)}}</div>
     </div>
     <div class="col-md-4 mb-3">
-      <label for="email">Birth</label>
+      <label for="birth">Birth</label>
       <input type="text" class="form-control" id="birth" [formControl]="birth" [ngClass]="{'is-invalid' : birth.invalid}" placeholder="Birth" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
       <div class="invalid-feedback" *ngIf="birth.errors">{{getFormControlErrorMessage(birth)}}</div>
     </div>

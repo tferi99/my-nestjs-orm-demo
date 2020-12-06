@@ -17,8 +17,7 @@ export class AppComponent implements OnInit {
 
     this.data = {
       id: 0,
-      firstName: 'John',
-      lastName: 'Smith',
+      name: 'John Smith',
       birth,
       email: 'js@test.org',
       employeeType: EmployeeType.WORKER,

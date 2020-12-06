@@ -16,7 +16,12 @@ export class PersonComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.persons = this.route.snapshot.data as Person[];
+    this.persons = this.route.snapshot.data.persons as Person[];
+    console.log('######## ', this.persons);
+/*    this.route.data.subscribe((data: { persons: Person[] }) => {
+      console.log('######## ', data);
+      this.persons = data.persons;
+    });*/
   }
 
   create(): void {

@@ -11,6 +11,9 @@ import {ErrorMessageComponent} from './general/error-message/error-message.compo
 import {PersonListComponent} from './person/person-list/person-list.component';
 import {EmployeeTypePipe} from './general/pipe/employee-type-pipe';
 import {PersonComponent} from './person/person.component';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import { HomeComponent } from './home/home.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,16 +24,18 @@ import {PersonComponent} from './person/person.component';
     PersonListComponent,
     EmployeeTypePipe,
     EmployeeTypePipe,
-    PersonComponent
+    PersonComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    HttpClientModule
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
