@@ -13,6 +13,10 @@ export class PersonDmService {
     private repo: Repository<PersonDm>        // custom repository was not created explicitly, only injected repo from TypeOrm
   ) {}
 
+  async get(id: number): Promise<PersonDm> {
+    return this.repo.findOne(id);
+  }
+
   async getAll(): Promise<PersonDm[]> {
     return this.repo.find();
   }

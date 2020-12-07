@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { PersonDm } from './person-dm.entity';
 import { PersonDmService } from './person-dm.service';
 import { EmployeeType } from 'my-typeorm-demo-lib';
@@ -14,7 +14,17 @@ export class PersonDmController {
     return this.service.getAll();
   }
 
+  @Get('/:id')
+  async get(@Param('id', ParseIntPipe) id: number): Promise<PersonDm> {
+    return this.service.get(id);
+  }
+
   @Post()
+  async create(@Body() p: PersonDm): Promise<PersonDm> {
+    return this.service.save(p);
+  }
+
+  @Put()
   async save(@Body() p: PersonDm): Promise<PersonDm> {
     return this.service.save(p);
   }

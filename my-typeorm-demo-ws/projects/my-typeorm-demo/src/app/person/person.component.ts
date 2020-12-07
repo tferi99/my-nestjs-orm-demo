@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Person} from 'my-typeorm-demo-lib';
+import {PersonService} from './person.service';
+import {ToastrService} from 'ngx-toastr';
+import {AppMessengerService} from '../shared/app-messenger.service';
+import {Subscription} from 'rxjs';
+import {AppMessageType} from '../shared/app-message-type';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-person',
@@ -12,19 +18,12 @@ export class PersonComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private personService: PersonService,
+  ) {
+  }
 
   ngOnInit(): void {
     this.persons = this.route.snapshot.data.persons as Person[];
-    console.log('######## ', this.persons);
-/*    this.route.data.subscribe((data: { persons: Person[] }) => {
-      console.log('######## ', data);
-      this.persons = data.persons;
-    });*/
-  }
-
-  create(): void {
-    this.router.navigateByUrl('person-new');
   }
 }

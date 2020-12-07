@@ -9,6 +9,7 @@
     <th scope="col">Rank</th>
     <th scope="col">Active</th>
     <th scope="col">Note</th>
+    <th scope="col">&nbsp;</th>
   </tr>
   </thead>
 
@@ -20,7 +21,17 @@
     <td>{{p.birth | date: dateFormat}}</td>
     <td>{{p.employeeType | employeeType}}</td>
     <td>{{p.rank}}</td>
-    <td>{{p.active}}</td>
+    <td>
+      <i class="fas" [ngClass]="p.active ? 'fa-check' : 'fa-times'" [style.color]="p.active ? 'green' : 'red'" ></i>
+    </td>
     <td>{{p.note}}</td>
+    <td>
+      <button  class="btn btn-outline-warning mr-2" [routerLink]="['/person', p.id, 'edit']">
+        <i class="fas fa-pen"></i>
+      </button>
+
+      <button  class="btn btn-outline-danger">
+        <i class="fas fa-trash"></i>
+      </button>
   </tr>
 </table>

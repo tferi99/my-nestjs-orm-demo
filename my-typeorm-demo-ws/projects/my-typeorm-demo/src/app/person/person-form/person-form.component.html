@@ -1,4 +1,5 @@
-<h5>ID: {{in?.id}}</h5>
+<h2>Person[{{in?.id}}]</h2>
+<hr>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="form-row">
@@ -6,6 +7,11 @@
       <label for="name">Name</label>
       <input type="text" class="form-control" id="name" [formControl]="name" [ngClass]="{'is-invalid' : name.invalid}" placeholder="Name">
       <div class="invalid-feedback" *ngIf="name.invalid">{{getFormControlErrorMessage(name)}}</div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="email">Email</label>
+      <input type="text" class="form-control" id="email" [formControl]="email" [ngClass]="{'is-invalid' : email.invalid}" placeholder="Email">
+      <div class="invalid-feedback" *ngIf="email.invalid">{{getFormControlErrorMessage(email)}}</div>
     </div>
   </div>
 
@@ -37,4 +43,5 @@
       </div>
     </div>
   </div>
+  <button type="submit" class="btn btn-primary">OK</button>
 </form>

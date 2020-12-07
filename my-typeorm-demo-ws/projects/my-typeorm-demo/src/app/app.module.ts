@@ -14,6 +14,7 @@ import {PersonComponent} from './person/person.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
