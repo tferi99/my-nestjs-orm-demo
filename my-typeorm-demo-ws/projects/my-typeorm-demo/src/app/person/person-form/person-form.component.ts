@@ -4,8 +4,6 @@ import {EmployeeType, Person} from 'my-typeorm-demo-lib';
 import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../general/util/key-value-pair';
 import {FormValidatorService} from '../../general/form-validator.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AppMessengerService} from '../../shared/app-messenger.service';
-import {AppMessageType} from '../../shared/app-message-type';
 import {PersonService} from '../person.service';
 import {ToastrService} from 'ngx-toastr';
 
@@ -72,14 +70,14 @@ export class PersonFormComponent implements OnInit {
     if (this.isNew) {
       this.personService.create(p).subscribe(
         result => {
-          this.toastr.info(`Person[${p}] created.`);
+          this.toastr.info(`Person[${p.id}] created.`);
           this.router.navigateByUrl('/person');
         }
       );
     } else {
       this.personService.save(p).subscribe(
         result => {
-          this.toastr.info(`Person[${p}] saved.`);
+          this.toastr.info(`Person[${p.id}] saved.`);
           this.router.navigateByUrl('/person');
         }
       );
@@ -88,6 +86,10 @@ export class PersonFormComponent implements OnInit {
 
   getFormControlErrorMessage(ctr: AbstractControl): string {
     return this.formValidatorService.getFormControlErrorMessage(ctr);
+  }
+
+  onCancel(): void {
+    this.router.navigateByUrl('/person');
   }
 }
 

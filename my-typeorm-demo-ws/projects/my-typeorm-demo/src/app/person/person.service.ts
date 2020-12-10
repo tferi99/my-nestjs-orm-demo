@@ -26,4 +26,8 @@ export class PersonService {
   save(person: Person): Observable<Person> {
     return this.http.put<Person>(SERVER_API_CONTEXT_PATH + '/person-dm', person);
   }
+
+  delete(personId: number): Observable<any> {
+    return this.http.delete<number>(SERVER_API_CONTEXT_PATH + '/person-dm/' + personId);
+  }
 }

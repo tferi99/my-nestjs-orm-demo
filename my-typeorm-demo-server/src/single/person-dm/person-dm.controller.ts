@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@
 import { PersonDm } from './person-dm.entity';
 import { PersonDmService } from './person-dm.service';
 import { EmployeeType } from 'my-typeorm-demo-lib';
+import { DeleteResult } from 'typeorm';
 
 @Controller('person-dm')
 export class PersonDmController {
@@ -30,8 +31,8 @@ export class PersonDmController {
   }
 
   @Delete('/:id')
-  async delete(@Param('id', ParseIntPipe) id: number) {
-    this.service.delete(id);
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
+    return this.service.delete(id);
   }
 
   @Get('dummy')

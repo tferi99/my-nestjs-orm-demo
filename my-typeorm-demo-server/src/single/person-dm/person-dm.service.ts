@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PersonDm } from './person-dm.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { DeleteResult } from 'typeorm/query-builder/result/DeleteResult';
 
 /**
  * Service which doesn't inject custom repository.
@@ -26,7 +27,7 @@ export class PersonDmService {
     return this.repo.save(person);
   }
 
-  async delete(id: number) {
-    this.repo.delete(id);
+  async delete(id: number): Promise<DeleteResult> {
+    return this.repo.delete(id);
   }
 }
