@@ -4,7 +4,7 @@ import {Person} from 'my-typeorm-demo-lib';
 import {PersonService} from './person.service';
 import {ToastrService} from 'ngx-toastr';
 import {AppMessengerService} from '../shared/app-messenger.service';
-import {Subscription} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {AppMessageType} from '../shared/app-message-type';
 import {tap} from 'rxjs/operators';
 
@@ -15,6 +15,7 @@ import {tap} from 'rxjs/operators';
 })
 export class PersonComponent implements OnInit {
   persons: Person[];
+  deleteEnable = new Subject<number>();
 
   constructor(
     private router: Router,
@@ -25,5 +26,11 @@ export class PersonComponent implements OnInit {
 
   ngOnInit(): void {
     this.persons = this.route.snapshot.data.persons as Person[];
+    this.route.data.subscribe(
+      (data)  => {
+        this.persons = data.persons;
+        this.deleteEnable.next(0);      // send signal to child to enable delete buttons
+      }
+    );
   }
 }

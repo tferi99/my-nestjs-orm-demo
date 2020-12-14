@@ -1,7 +1,8 @@
-<h2>Person[{{in?.id}}]</h2>
+<h2 *ngIf="isNew">New Person</h2>
+<h2 *ngIf="!isNew">Edit Person[{{in?.id}}]</h2>
 <hr>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus (appOnEscape)="onCancel()">
   <div class="form-row">
     <div class="col-md-6 mb-3">
       <label for="name">Name</label>
@@ -44,7 +45,7 @@
     </div>
   </div>
   <div class="form-row">
-    <button type="submit" class="btn btn-primary mr-2">OK</button>
+    <button type="submit" class="btn btn-primary mr-2" [disabled]="!form.valid">OK</button>
     <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
   </div>
 </form>

@@ -1,8 +1,9 @@
 <h2>Persons</h2>
 <hr>
-<div class="mb-3">
+<div class="d-flex flex-row mb-3">
   <button class="btn btn-primary" [routerLink]="['/person', 'new']">New</button>
+  <button class="btn btn-primary ml-auto" routerLink='/home'><i class="fas fa-home"></i></button>
 </div>
 
-<app-person-list [persons]="persons"></app-person-list>
+<app-person-list [persons]="persons" [enableDeletingTrigger]="deleteEnable"></app-person-list>
 

@@ -19,7 +19,9 @@ export class PersonDmService {
   }
 
   async getAll(): Promise<PersonDm[]> {
-    return this.repo.find();
+    return this.repo.find({
+      order: {name: 'ASC'}
+    });
   }
 
   async save(person: PersonDm): Promise<PersonDm> {

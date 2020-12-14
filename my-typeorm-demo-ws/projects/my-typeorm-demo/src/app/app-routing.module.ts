@@ -8,7 +8,7 @@ import {PersonResolverService} from './person/person-resolver.service';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
-  {path: 'person', component: PersonComponent, resolve: {persons: PersonsResolverService}},
+  {path: 'person', component: PersonComponent, resolve: {persons: PersonsResolverService}, runGuardsAndResolvers: 'always'},
   {path: 'person/new', component: PersonFormComponent},
   {path: 'person/:id/edit', component: PersonFormComponent, resolve: {person: PersonResolverService}},
   {path: '',   redirectTo: '/home', pathMatch: 'full' },   // default
@@ -16,7 +16,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { enableTracing: false })    // <-- debugging purposes only
+    RouterModule.forRoot(routes, {
+      enableTracing: true,                  // <-- debugging purposes only
+      onSameUrlNavigation: 'reload',
+    })
   ],
   exports: [RouterModule]
 })

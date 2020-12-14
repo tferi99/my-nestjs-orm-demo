@@ -26,12 +26,9 @@
     </td>
     <td>{{p.note}}</td>
     <td>
-      <button  class="btn btn-outline-warning mr-2" [routerLink]="['/person', p.id, 'edit']">
-        <i class="fas fa-pen"></i>
-      </button>
-
-      <button  class="btn btn-outline-danger" (click)="delete(p)">
-        <i class="fas fa-trash"></i>
-      </button>
+      <button  class="btn btn-outline-primary mr-2" [routerLink]="['/person', p.id, 'edit']"><i class="fas fa-pen"></i></button>
+      <button  class="btn btn-outline-primary mr-2" (click)="copy(p)"><i class="fas fa-copy"></i></button>
+      <button  class="btn btn-outline-danger" (click)="delete(p)" [disabled]="deleting"><i class="fas fa-trash"></i></button>
   </tr>
 </table>
+<h5>Total: {{persons.length}}</h5>

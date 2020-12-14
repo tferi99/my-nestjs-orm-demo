@@ -15,6 +15,8 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
+import { FormFocusDirective } from './general/directive/form-focus.directive';
+import { OnEscapeDirective } from './general/directive/on-escape.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import {ToastrModule} from 'ngx-toastr';
     EmployeeTypePipe,
     EmployeeTypePipe,
     PersonComponent,
-    HomeComponent
+    HomeComponent,
+    FormFocusDirective,
+    OnEscapeDirective
   ],
   imports: [
     BrowserModule,

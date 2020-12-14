@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import {EmployeeType, Person} from 'my-typeorm-demo-lib';
 import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../general/util/key-value-pair';
@@ -46,17 +46,22 @@ export class PersonFormComponent implements OnInit {
     private formValidatorService: FormValidatorService,
     private route: ActivatedRoute,
     private router: Router,
-    private personService : PersonService,
+    private personService: PersonService,
     private toastr: ToastrService
   ) {
     this.employeeTypes = stringEnumToKeyValuePairArray(EmployeeType, true);
   }
 
   ngOnInit(): void {
+    // retrieving input data
+    // from router
     if (!this.in) {
       this.in = this.route.snapshot.data.person;
     }
-    this.isNew = this.in === undefined;
+    if (!this.in) {
+      this.in = history.state;
+    }
+    this.isNew = this.in === undefined || this.in.id === undefined;
 
     if (this.in) {
       this.form.patchValue(this.in);
@@ -70,14 +75,14 @@ export class PersonFormComponent implements OnInit {
     if (this.isNew) {
       this.personService.create(p).subscribe(
         result => {
-          this.toastr.info(`Person[${p.id}] created.`);
+          this.toastr.info(`Person[${result.id}] created.`);
           this.router.navigateByUrl('/person');
         }
       );
     } else {
       this.personService.save(p).subscribe(
         result => {
-          this.toastr.info(`Person[${p.id}] saved.`);
+          this.toastr.info(`Person[${result.id}] updated.`);
           this.router.navigateByUrl('/person');
         }
       );
