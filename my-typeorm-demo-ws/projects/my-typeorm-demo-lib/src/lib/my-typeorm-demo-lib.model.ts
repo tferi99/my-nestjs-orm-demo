@@ -4,13 +4,22 @@ export enum EmployeeType {
   DIRECTOR = 'd'
 }
 
-export class Person {
+export interface PersonDto {
   id: number;
   name: string;
   email: string;
   birth: Date;
   employeeType: EmployeeType;
   rank: number;
+  active: boolean;
+  note?: string;
+}
+
+export interface CompanyDto {
+  id: number;
+  name: string;
+  established: Date;
+  workers: PersonDto[];
   active: boolean;
   note?: string;
 }

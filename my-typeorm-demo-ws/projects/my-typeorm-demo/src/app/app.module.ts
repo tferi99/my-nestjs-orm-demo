@@ -12,11 +12,15 @@ import {PersonListComponent} from './person/person-list/person-list.component';
 import {EmployeeTypePipe} from './general/pipe/employee-type-pipe';
 import {PersonComponent} from './person/person.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-import { HomeComponent } from './home/home.component';
+import {HomeComponent} from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
-import { FormFocusDirective } from './general/directive/form-focus.directive';
-import { OnEscapeDirective } from './general/directive/on-escape.directive';
+import {FormFocusDirective} from './general/directive/form-focus.directive';
+import {OnEscapeDirective} from './general/directive/on-escape.directive';
+import {PopoverModule} from 'ngx-bootstrap/popover';
+import {CompanyComponent} from './company/company.component';
+import { CompanyListComponent } from './company/company-list/company-list.component';
+import { CompanyFormComponent } from './company/company-form/company-form.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,10 @@ import { OnEscapeDirective } from './general/directive/on-escape.directive';
     PersonComponent,
     HomeComponent,
     FormFocusDirective,
-    OnEscapeDirective
+    OnEscapeDirective,
+    CompanyComponent,
+    CompanyListComponent,
+    CompanyFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,8 @@ import { OnEscapeDirective } from './general/directive/on-escape.directive';
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    PopoverModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

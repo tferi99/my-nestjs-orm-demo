@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EmployeeType, Person} from 'my-typeorm-demo-lib';
+import {EmployeeType, PersonDto} from 'my-typeorm-demo-lib';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +8,8 @@ import {EmployeeType, Person} from 'my-typeorm-demo-lib';
 })
 export class AppComponent implements OnInit {
   title = 'my-typeorm-demo';
-  data: Person;
-  persons: Person[] = [];
+  data: PersonDto;
+  persons: PersonDto[] = [];
 
   ngOnInit(): void {
     const birth = new Date();

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PersonDm } from './person-dm.entity';
+import { Person } from './person.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DeleteResult } from 'typeorm/query-builder/result/DeleteResult';
@@ -8,24 +8,23 @@ import { DeleteResult } from 'typeorm/query-builder/result/DeleteResult';
  * Service which doesn't inject custom repository.
  */
 @Injectable()
-export class PersonDmService {
+export class PersonService {
   constructor(
-    @InjectRepository(PersonDm)
-    private repo: Repository<PersonDm>        // custom repository was not created explicitly, only injected repo from TypeOrm
+    @InjectRepository(Person)
+    private repo: Repository<Person>        // custom repository was not created explicitly, only injected repo from TypeOrm
   ) {}
 
-  async get(id: number): Promise<PersonDm> {
+  async get(id: number): Promise<Person> {
     return this.repo.findOne(id);
   }
 
-  async getAll(): Promise<PersonDm[]> {
+  async getAll(): Promise<Person[]> {
     return this.repo.find({
       order: {name: 'ASC'}
     });
   }
 
-  async save(person: PersonDm): Promise<PersonDm> {
-    console.log("PersonDmService.save()")
+  async save(person: Person): Promise<Person> {
     return this.repo.save(person);
   }
 

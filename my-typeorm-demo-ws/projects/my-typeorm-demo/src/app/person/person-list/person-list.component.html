@@ -22,9 +22,18 @@
     <td>{{p.employeeType | employeeType}}</td>
     <td>{{p.rank}}</td>
     <td>
+      <!--
       <i class="fas" [ngClass]="p.active ? 'fa-check' : 'fa-times'" [style.color]="p.active ? 'green' : 'red'" ></i>
+      -->
+      <i *ngIf="p.active" class="fas fa-check" style="color: green" ></i>
     </td>
-    <td>{{p.note}}</td>
+    <td>
+      <button type="button" class="btn btn-outline-primary" *ngIf="p.note"
+              [popover]="p.note"
+              triggers="mouseenter:mouseleave">
+        <i class="far fa-eye"  popover="I will hide on blur" triggers="mouseenter:mouseleave"></i>
+      </button>
+    </td>
     <td>
       <button  class="btn btn-outline-primary mr-2" [routerLink]="['/person', p.id, 'edit']"><i class="fas fa-pen"></i></button>
       <button  class="btn btn-outline-primary mr-2" (click)="copy(p)"><i class="fas fa-copy"></i></button>

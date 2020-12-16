@@ -1,8 +1,8 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { EmployeeType, Person } from 'my-typeorm-demo-lib';
+import { EmployeeType, PersonDto } from 'my-typeorm-demo-lib';
 
 @Entity()
-export class PersonAc extends BaseEntity implements Person {
+export class PersonAc extends BaseEntity implements PersonDto {
   @PrimaryGeneratedColumn()
   id: number;
 

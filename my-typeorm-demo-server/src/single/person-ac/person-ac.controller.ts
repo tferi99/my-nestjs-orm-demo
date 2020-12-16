@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Param, ParseIntPipe, Post } from '@nestjs/common';
-import { PersonDm } from '../person-dm/person-dm.entity';
 import { PersonAcService } from './person-ac.service';
 import { PersonAc } from './person-ac.entity';
 

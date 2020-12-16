@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Person} from 'my-typeorm-demo-lib';
+import {PersonDto} from 'my-typeorm-demo-lib';
 import {DATE_FORMAT} from '../../general/app.constants';
 import {PersonService} from '../person.service';
 import {ToastrService} from 'ngx-toastr';
@@ -12,7 +12,7 @@ import {Observable, Subscription} from 'rxjs';
   styleUrls: ['./person-list.component.scss']
 })
 export class PersonListComponent implements OnInit, OnDestroy {
-  @Input() persons: Person[];
+  @Input() persons: PersonDto[];
   @Input() enableDeletingTrigger: Observable<number>;
 
   dateFormat = DATE_FORMAT;
@@ -52,7 +52,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
     }
   }
 
-  delete(p: Person): void {
+  delete(p: PersonDto): void {
     if (!p) {
       return;
     }
@@ -65,7 +65,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
     );
   }
 
-  copy(p: Person): void  {
+  copy(p: PersonDto): void  {
     p.id = undefined;
     this.router.navigateByUrl('/person/new', {state: p});
   }

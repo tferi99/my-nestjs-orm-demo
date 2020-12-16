@@ -1,41 +1,35 @@
-import {Component, HostListener, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import {EmployeeType, PersonDto} from 'my-typeorm-demo-lib';
+import {CompanyDto, EmployeeType} from 'my-typeorm-demo-lib';
 import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../general/util/key-value-pair';
 import {FormValidatorService} from '../../general/form-validator.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PersonService} from '../person.service';
+import {CompanyService} from '../company.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
-  selector: 'app-person-form',
-  templateUrl: './person-form.component.html',
-  styleUrls: ['./person-form.component.scss']
+  selector: 'app-company-form',
+  templateUrl: './company-form.component.html',
+  styleUrls: ['./company-form.component.scss']
 })
-export class PersonFormComponent implements OnInit {
+export class CompanyFormComponent implements OnInit {
   isNew = false;
 
-  @Input() in: PersonDto;
+  @Input() in: CompanyDto;
 
   employeeTypes: KeyValuePair<string, string>[];
 
   form = this.fb.group({
     id: [0],
     name: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
-    employeeType: ['', Validators.required],
-    birth: ['', Validators.required],
-    rank: ['0', [Validators.required, Validators.min(1), Validators.max(10)]],
+    established: ['', Validators.required],
     note: [null, [Validators.maxLength(1024)]],
     active: [true]
   });
 
   // form controls (used in template here)
   name = this.form.controls.name;
-  email = this.form.controls.email;
-  employeeType = this.form.controls.employeeType;
-  rank = this.form.controls.rank;
-  birth = this.form.controls.birth;
+  established = this.form.controls.established;
   note = this.form.controls.note;
   active = this.form.controls.active;
 
@@ -48,7 +42,7 @@ export class PersonFormComponent implements OnInit {
     private formValidatorService: FormValidatorService,
     private route: ActivatedRoute,
     private router: Router,
-    private personService: PersonService,
+    private companyService: CompanyService,
     private toastr: ToastrService
   ) {
     this.employeeTypes = stringEnumToKeyValuePairArray(EmployeeType, true);
@@ -58,7 +52,7 @@ export class PersonFormComponent implements OnInit {
     // retrieving input data
     // from router
     if (!this.in) {
-      this.in = this.route.snapshot.data.person;
+      this.in = this.route.snapshot.data.company;
     }
     if (!this.in) {
       this.in = history.state;
@@ -71,21 +65,21 @@ export class PersonFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const p: PersonDto = this.form.getRawValue();
+    const p: CompanyDto = this.form.getRawValue();
     console.log('SUBMIT isNew:' + this.isNew, p);
 
     if (this.isNew) {
-      this.personService.create(p).subscribe(
+      this.companyService.create(p).subscribe(
         result => {
-          this.toastr.info(`Person[${result.id}] created.`);
-          this.router.navigateByUrl('/person');
+          this.toastr.info(`Company[${result.id}] created.`);
+          this.router.navigateByUrl('/company');
         }
       );
     } else {
-      this.personService.save(p).subscribe(
+      this.companyService.save(p).subscribe(
         result => {
-          this.toastr.info(`Person[${result.id}] updated.`);
-          this.router.navigateByUrl('/person');
+          this.toastr.info(`Company[${result.id}] updated.`);
+          this.router.navigateByUrl('/company');
         }
       );
     }
@@ -96,7 +90,7 @@ export class PersonFormComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigateByUrl('/person');
+    this.router.navigateByUrl('/company');
   }
 }
 

@@ -1,33 +1,18 @@
 import {Injectable} from '@angular/core';
-import {EmployeeType, Person} from 'my-typeorm-demo-lib';
-import {Observable, of} from 'rxjs';
+import {PersonDto} from 'my-typeorm-demo-lib';
+import {Observable} from 'rxjs';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
-import {delay} from 'rxjs/operators';
 import {PersonService} from './person.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PersonsResolverService implements Resolve<Person[]> {
+export class PersonsResolverService implements Resolve<PersonDto[]> {
   constructor(
     private personService: PersonService
   ) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Person[]> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<PersonDto[]> {
     return this.personService.getAll();
-/*    const persons: Person[] = [
-      {
-        id: 0,
-        name: 'Dummy',
-        birth: new Date(),
-        email: 'a@b.c',
-        employeeType: EmployeeType.MANAGER,
-        rank: 3,
-        active: true
-      }
-    ];
-    return of(persons).pipe(
-      delay(1000)
-    );*/
   }
 }

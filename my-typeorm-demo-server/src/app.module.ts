@@ -4,16 +4,16 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { createTypeOrmConfig } from './config/typeorm.config';
 import { PersonAcModule } from './single/person-ac/person-ac.module';
-import { PersonDmModule } from './single/person-dm/person-dm.module';
-import { ClientModule } from './single/client/client.module';
+import { PersonModule } from './single/person/person.module';
+import { CompanyModule } from './single/company/company.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(createTypeOrmConfig()),
     PersonAcModule,
-    PersonDmModule,
-    ClientModule
-  ],
+    PersonModule,
+    CompanyModule
+   ],
   controllers: [AppController],
   providers: [AppService],
 })

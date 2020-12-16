@@ -1,32 +1,32 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { PersonDm } from './person-dm.entity';
-import { PersonDmService } from './person-dm.service';
+import { Person } from './person.entity';
+import { PersonService } from './person.service';
 import { EmployeeType } from 'my-typeorm-demo-lib';
 import { DeleteResult } from 'typeorm';
 
-@Controller('person-dm')
-export class PersonDmController {
+@Controller('person')
+export class PersonController {
   constructor(
-    private service: PersonDmService
+    private service: PersonService
   ) {}
 
   @Get()
-  async getAll(): Promise<PersonDm[]> {
+  async getAll(): Promise<Person[]> {
     return this.service.getAll();
   }
 
   @Get('/:id')
-  async get(@Param('id', ParseIntPipe) id: number): Promise<PersonDm> {
+  async get(@Param('id', ParseIntPipe) id: number): Promise<Person> {
     return this.service.get(id);
   }
 
   @Post()
-  async create(@Body() p: PersonDm): Promise<PersonDm> {
+  async create(@Body() p: Person): Promise<Person> {
     return this.service.save(p);
   }
 
   @Put()
-  async save(@Body() p: PersonDm): Promise<PersonDm> {
+  async save(@Body() p: Person): Promise<Person> {
     return this.service.save(p);
   }
 
@@ -36,8 +36,8 @@ export class PersonDmController {
   }
 
   @Get('dummy')
-  dummy(): PersonDm {
-    const p: PersonDm = {
+  dummy(): Person {
+    const p: Person = {
       id: 0,
       name: 'John Smith',
       email: 'js@test.org',
@@ -45,6 +45,7 @@ export class PersonDmController {
       employeeType: EmployeeType.DIRECTOR,
       rank: 5,
       note: 'This is dummy person',
+      company: undefined,
       active: true
     };
     return p;

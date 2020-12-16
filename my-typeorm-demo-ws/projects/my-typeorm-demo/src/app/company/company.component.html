@@ -1,0 +1,9 @@
+<h2>Companies</h2>
+<hr>
+<div class="d-flex flex-row mb-3">
+  <button class="btn btn-primary" [routerLink]="['/company', 'new']">New</button>
+  <button class="btn btn-primary ml-auto" routerLink='/home'><i class="fas fa-home"></i></button>
+</div>
+
+<app-company-list [companies]="companies" [enableDeletingTrigger]="deleteEnable"></app-company-list>
+

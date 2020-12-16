@@ -1,12 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Person} from 'my-typeorm-demo-lib';
 import {PersonService} from './person.service';
-import {ToastrService} from 'ngx-toastr';
-import {AppMessengerService} from '../shared/app-messenger.service';
-import {Subject, Subscription} from 'rxjs';
-import {AppMessageType} from '../shared/app-message-type';
-import {tap} from 'rxjs/operators';
+import {Subject} from 'rxjs';
+import {PersonDto} from 'my-typeorm-demo-lib';
 
 @Component({
   selector: 'app-person',
@@ -14,18 +10,17 @@ import {tap} from 'rxjs/operators';
   styleUrls: ['./person.component.scss']
 })
 export class PersonComponent implements OnInit {
-  persons: Person[];
+  persons: PersonDto[];
   deleteEnable = new Subject<number>();
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private personService: PersonService,
   ) {
   }
 
   ngOnInit(): void {
-    this.persons = this.route.snapshot.data.persons as Person[];
+    this.persons = this.route.snapshot.data.persons as PersonDto[];
     this.route.data.subscribe(
       (data)  => {
         this.persons = data.persons;
