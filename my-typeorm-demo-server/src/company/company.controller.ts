@@ -34,4 +34,8 @@ export class CompanyController {
     return this.service.delete(id);
   }
 
+  @Post('/withPerson')
+  async saveWithPerson(@Body() dto: Company): Promise<Company> {
+    return this.service.saveWithPerson(dto);
+  }
 }

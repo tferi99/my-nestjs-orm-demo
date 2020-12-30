@@ -1,6 +1,6 @@
 import { CompanyDto } from "my-typeorm-demo-lib/lib/my-typeorm-demo-lib.model";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Person } from '../person/person.entity';
+import { Person } from './person.entity';
 
 @Entity()
 export class Company implements CompanyDto {
@@ -19,6 +19,7 @@ export class Company implements CompanyDto {
   @Column({length: 1024, nullable: true})
   note: string;
 
-  @OneToMany(() => Person, person => person.company, {nullable: false})
+  @OneToMany(() => Person, person => person.company, {nullable: true})
+  //@OneToMany(() => Person)
   workers: Person[];
 }

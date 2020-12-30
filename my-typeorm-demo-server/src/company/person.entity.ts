@@ -1,6 +1,6 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PersonDto, EmployeeType } from 'my-typeorm-demo-lib';
-import { Company } from '../company/company.entity';
+import { Company } from './company.entity';
 
 @Entity()
 export class Person implements PersonDto {
@@ -32,7 +32,7 @@ export class Person implements PersonDto {
   @Column({length: 1024, nullable: true})
   note: string;
 
-  @ManyToOne(() => Company, company => company.workers)
+  @ManyToOne(() => Company, company => company.workers, {nullable: true})
   company: Company
 }
 
