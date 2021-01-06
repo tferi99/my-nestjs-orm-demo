@@ -1,0 +1,170 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "my-ts-orm-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/my-ts-orm-demo",
+      "sourceRoot": "projects/my-ts-orm-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/my-ts-orm-demo",
+            "index": "projects/my-ts-orm-demo/src/index.html",
+            "main": "projects/my-ts-orm-demo/src/main.ts",
+            "polyfills": "projects/my-ts-orm-demo/src/polyfills.ts",
+            "tsConfig": "projects/my-ts-orm-demo/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/my-ts-orm-demo/src/favicon.ico",
+              "projects/my-ts-orm-demo/src/assets"
+            ],
+            "styles": [
+              "projects/my-ts-orm-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/my-ts-orm-demo/src/environments/environment.ts",
+                  "with": "projects/my-ts-orm-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "my-ts-orm-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "my-ts-orm-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "my-ts-orm-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/my-ts-orm-demo/src/test.ts",
+            "polyfills": "projects/my-ts-orm-demo/src/polyfills.ts",
+            "tsConfig": "projects/my-ts-orm-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/my-ts-orm-demo/karma.conf.js",
+            "assets": [
+              "projects/my-ts-orm-demo/src/favicon.ico",
+              "projects/my-ts-orm-demo/src/assets"
+            ],
+            "styles": [
+              "projects/my-ts-orm-demo/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/my-ts-orm-demo/tsconfig.app.json",
+              "projects/my-ts-orm-demo/tsconfig.spec.json",
+              "projects/my-ts-orm-demo/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/my-ts-orm-demo/e2e/protractor.conf.js",
+            "devServerTarget": "my-ts-orm-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "my-ts-orm-demo:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "my-ts-orm-demo-lib": {
+      "projectType": "library",
+      "root": "projects/my-ts-orm-demo-lib",
+      "sourceRoot": "projects/my-ts-orm-demo-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/my-ts-orm-demo-lib/tsconfig.lib.json",
+            "project": "projects/my-ts-orm-demo-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/my-ts-orm-demo-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/my-ts-orm-demo-lib/src/test.ts",
+            "tsConfig": "projects/my-ts-orm-demo-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/my-ts-orm-demo-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/my-ts-orm-demo-lib/tsconfig.lib.json",
+              "projects/my-ts-orm-demo-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "cli": {
+    "analytics": false
+  },
+  "defaultProject": "my-ts-orm-demo"
+}
