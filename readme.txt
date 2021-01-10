@@ -1,21 +1,45 @@
-======================
+==============
+my-ts-orm-demo
+==============
+
+- Projects
+- How to build projects?
+
+
+------------------------------------------------------------------------------------------------------------------------------
+Projects
+========
+This projects demostrates how to build NestJS based servers which access database with ORM
+and how to build Angular client application connected to server.
+
+Client:					my-ts-orm-demo/projects/my-ts-orm-demo
+Common library:			my-ts-orm-demo/projects/my-ts-orm-demo-lib
+Server 1 (MikroORM):	my-mikroorm-demo-server
+Server 2 (TypeORM):		my-typeorm-demo-server
+
+NOTE:
+	It's not a mono-repo project. I didn't want to use common libraries for client and server applications.
+	You have to build projects separately - one-by-one.
+	
+------------------------------------------------------------------------------------------------------------------------------
 How to build projects?
 ======================
-
 - NPM packages:
-	- server:
+	- client+lib:
+		
+		cd my-ts-orm-demo
+		npm i
+		
+	- server 1:
 
 		cd my-mikroorm-demo-server
 		npm i
 		
-	- app:
-		
-		cd my-ts-orm-demo
+	- server 2:
+
+		cd my-typeorm-demo-server
 		npm i
-	
-	NOTE: Since I preferred MikroORM to TypeORM 'my-typeorm-demo-server' finished.
-		It became an abandoned project.		
-		You can also try to build it but it maybe consists inconsistent model classes.
+		
 	
 - library:
 		
@@ -43,11 +67,17 @@ How to build projects?
 	cd my-mikroorm-demo-server
 	npm link my-ts-orm-demo-lib
 
+	cd my-typeorm-demo-server
+	npm link my-ts-orm-demo-lib
+	
 - build:
 
 	cd my-mikroorm-demo-server
 	npm run build
-	
+
+	cd my-typeorm-demo-server
+	npm run build
+
 - run:
 
 	- Pre-requisites:
@@ -58,13 +88,14 @@ How to build projects?
 		
 		
 	- run server:
-	
-		cd my-mikroorm-demo-server
-		npm run start
 		
-			OR
+		- server 1:
+			cd my-mikroorm-demo-server
+			npm run start
 			
-		npm run start:dev
+				OR
+				
+			npm run start:dev
 		
 	- run app:
 	

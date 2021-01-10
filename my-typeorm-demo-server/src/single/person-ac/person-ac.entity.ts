@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { EmployeeType, PersonDto } from 'my-typeorm-demo-lib';
+import { PersonDto, EmployeeType } from 'my-ts-orm-demo-lib';
 
 @Entity()
 export class PersonAc extends BaseEntity implements PersonDto {

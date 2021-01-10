@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { PersonDto, EmployeeType } from 'my-typeorm-demo-lib';
+import { PersonDto, EmployeeType } from 'my-ts-orm-demo-lib';
 import { Company } from './company.entity';
 
 @Entity()

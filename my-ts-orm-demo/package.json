@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.config.json",
     "build": "ng build my-ts-orm-demo",
+    "bp": "ng build --prod",
     "build-lib": "ng build my-ts-orm-demo-lib",
     "build-lib-watch": "ng build my-ts-orm-demo-lib --watch",
     "test": "ng test",

@@ -1,4 +1,4 @@
-import { CompanyDto } from "my-typeorm-demo-lib/lib/my-typeorm-demo-lib.model";
+import { CompanyDto } from 'my-ts-orm-demo-lib';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Person } from './person.entity';
 

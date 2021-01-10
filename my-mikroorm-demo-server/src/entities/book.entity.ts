@@ -1,4 +1,4 @@
-import { Collection, Entity, ManyToMany, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core';
+import { BaseEntity, Collection, Entity, ManyToMany, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core';
 import { Author } from './author.entity';
 
 class Publisher {
@@ -33,4 +33,8 @@ export class Book {
     this.title = title;
     this.author = author;
   }
+}
+
+export interface Dummy extends BaseEntity {
+
 }
