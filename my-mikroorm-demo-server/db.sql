@@ -126,6 +126,78 @@ ALTER SEQUENCE public.book_id_seq OWNED BY public.book.id;
 
 
 --
+-- Name: company; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.company (
+    id integer NOT NULL
+);
+
+
+ALTER TABLE public.company OWNER TO postgres;
+
+--
+-- Name: company_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.company_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.company_id_seq OWNER TO postgres;
+
+--
+-- Name: company_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.company_id_seq OWNED BY public.company.id;
+
+
+--
+-- Name: person; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.person (
+    id integer NOT NULL,
+    name character varying(64) NOT NULL,
+    email character varying(256) NOT NULL,
+    birth timestamp(0) with time zone NOT NULL,
+    employee_type text NOT NULL,
+    rank integer NOT NULL,
+    active boolean NOT NULL,
+    note character varying(1024),
+    CONSTRAINT person_employee_type_check CHECK ((employee_type = ANY (ARRAY['w'::text, 'm'::text, 'd'::text])))
+);
+
+
+ALTER TABLE public.person OWNER TO postgres;
+
+--
+-- Name: person_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.person_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.person_id_seq OWNER TO postgres;
+
+--
+-- Name: person_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.person_id_seq OWNED BY public.person.id;
+
+
+--
 -- Name: publisher; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -170,6 +242,20 @@ ALTER TABLE ONLY public.author ALTER COLUMN id SET DEFAULT nextval('public.autho
 --
 
 ALTER TABLE ONLY public.book ALTER COLUMN id SET DEFAULT nextval('public.book_id_seq'::regclass);
+
+
+--
+-- Name: company id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.company ALTER COLUMN id SET DEFAULT nextval('public.company_id_seq'::regclass);
+
+
+--
+-- Name: person id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person ALTER COLUMN id SET DEFAULT nextval('public.person_id_seq'::regclass);
 
 
 --
@@ -218,6 +304,40 @@ SELECT pg_catalog.setval('public.book_id_seq', 1, false);
 
 
 --
+-- Data for Name: company; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.company (id) FROM stdin;
+\.
+
+
+--
+-- Name: company_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.company_id_seq', 1, false);
+
+
+--
+-- Data for Name: person; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.person (id, name, email, birth, employee_type, rank, active, note) FROM stdin;
+0	John Smith	js@b.c	1986-05-29 00:00:00+02	m	2	t	cica mica
+1	John Smith	js@b.c	1986-05-29 00:00:00+02	m	2	t	cica mica
+2	John Smith	js@b.c	1986-05-29 00:00:00+02	m	2	t	cica mica
+3	John Smith	js@b.c	1986-05-29 00:00:00+02	m	2	t	cica mica
+\.
+
+
+--
+-- Name: person_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.person_id_seq', 3, true);
+
+
+--
 -- Data for Name: publisher; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -254,6 +374,22 @@ ALTER TABLE ONLY public.author
 
 ALTER TABLE ONLY public.book
     ADD CONSTRAINT book_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: company company_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.company
+    ADD CONSTRAINT company_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: person person_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person
+    ADD CONSTRAINT person_pkey PRIMARY KEY (id);
 
 
 --

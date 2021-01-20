@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {DATE_FORMAT} from '../../general/app.constants';
+import {DATE_FORMAT} from '../../common/app.constants';
 import {CompanyService} from '../company.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';

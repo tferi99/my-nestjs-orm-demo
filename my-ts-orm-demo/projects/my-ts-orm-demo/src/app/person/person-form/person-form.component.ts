@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../general/util/key-value-pair';
-import {FormValidatorService} from '../../general/form-validator.service';
+import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../common/util/key-value-pair';
+import {FormValidatorService} from '../../common/form-validator.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PersonService} from '../person.service';
 import {ToastrService} from 'ngx-toastr';

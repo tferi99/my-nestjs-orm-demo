@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {DATE_FORMAT} from '../../general/app.constants';
+import {DATE_FORMAT} from '../../common/app.constants';
 import {PersonService} from '../person.service';
 import {ToastrService} from 'ngx-toastr';
 import {NavigationEnd, Router} from '@angular/router';
@@ -47,7 +47,8 @@ export class PersonListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.enableDeletingTrigger) {
       this.enableDeletingTrigger.subscribe(
-        data => this.deleting = false
+        data => this.deleting = false,
+        error => this.deleting = false
       );
     }
   }

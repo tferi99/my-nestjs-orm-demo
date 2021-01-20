@@ -35,6 +35,4 @@ export class Book {
   }
 }
 
-export interface Dummy extends BaseEntity {
 
-}

@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "lib-link": "npm link my-ts-orm-demo-lib",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -24,7 +25,6 @@
     "h": "node_modules/.bin/mikro-orm schema:update -h"
   },
   "dependencies": {
-    "@mikro-orm/cli": "^4.3.4",
     "@mikro-orm/core": "^4.3.4",
     "@mikro-orm/nestjs": "^4.2.0",
     "@mikro-orm/postgresql": "^4.3.4",
@@ -37,6 +37,7 @@
     "rxjs": "^6.5.4"
   },
   "devDependencies": {
+    "@mikro-orm/cli": "^4.3.4",
     "@nestjs/cli": "^7.0.0",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",

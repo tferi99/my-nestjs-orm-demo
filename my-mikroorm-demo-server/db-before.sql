@@ -30,6 +30,416 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: author; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.author (
+    id integer NOT NULL,
+    created_at jsonb NOT NULL,
+    updated_at jsonb NOT NULL,
+    name character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    age integer NOT NULL,
+    terms_accepted jsonb NOT NULL,
+    identities text[] NOT NULL,
+    born timestamp(0) with time zone NOT NULL,
+    favourite_book_id integer NOT NULL,
+    version integer DEFAULT 1 NOT NULL
+);
+
+
+ALTER TABLE public.author OWNER TO postgres;
+
+--
+-- Name: author_friends; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.author_friends (
+    author_1_id integer NOT NULL,
+    author_2_id integer NOT NULL
+);
+
+
+ALTER TABLE public.author_friends OWNER TO postgres;
+
+--
+-- Name: author_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.author_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.author_id_seq OWNER TO postgres;
+
+--
+-- Name: author_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.author_id_seq OWNED BY public.author.id;
+
+
+--
+-- Name: book; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.book (
+    id integer NOT NULL,
+    created_at jsonb NOT NULL,
+    updated_at jsonb NOT NULL,
+    title character varying(255),
+    author_id integer NOT NULL,
+    publisher_id integer NOT NULL
+);
+
+
+ALTER TABLE public.book OWNER TO postgres;
+
+--
+-- Name: book_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.book_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.book_id_seq OWNER TO postgres;
+
+--
+-- Name: book_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.book_id_seq OWNED BY public.book.id;
+
+
+--
+-- Name: company; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.company (
+    id integer NOT NULL
+);
+
+
+ALTER TABLE public.company OWNER TO postgres;
+
+--
+-- Name: company_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.company_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.company_id_seq OWNER TO postgres;
+
+--
+-- Name: company_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.company_id_seq OWNED BY public.company.id;
+
+
+--
+-- Name: person; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.person (
+    id integer NOT NULL,
+    name character varying(64) NOT NULL,
+    email character varying(256) NOT NULL,
+    birth timestamp(0) with time zone NOT NULL,
+    employee_type text NOT NULL,
+    rank integer NOT NULL,
+    active boolean NOT NULL,
+    note character varying(1024),
+    CONSTRAINT person_employee_type_check CHECK ((employee_type = ANY (ARRAY['w'::text, 'm'::text, 'd'::text])))
+);
+
+
+ALTER TABLE public.person OWNER TO postgres;
+
+--
+-- Name: person_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.person_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.person_id_seq OWNER TO postgres;
+
+--
+-- Name: person_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.person_id_seq OWNED BY public.person.id;
+
+
+--
+-- Name: publisher; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.publisher (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.publisher OWNER TO postgres;
+
+--
+-- Name: publisher_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.publisher_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.publisher_id_seq OWNER TO postgres;
+
+--
+-- Name: publisher_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.publisher_id_seq OWNED BY public.publisher.id;
+
+
+--
+-- Name: author id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.author ALTER COLUMN id SET DEFAULT nextval('public.author_id_seq'::regclass);
+
+
+--
+-- Name: book id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.book ALTER COLUMN id SET DEFAULT nextval('public.book_id_seq'::regclass);
+
+
+--
+-- Name: company id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.company ALTER COLUMN id SET DEFAULT nextval('public.company_id_seq'::regclass);
+
+
+--
+-- Name: person id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person ALTER COLUMN id SET DEFAULT nextval('public.person_id_seq'::regclass);
+
+
+--
+-- Name: publisher id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.publisher ALTER COLUMN id SET DEFAULT nextval('public.publisher_id_seq'::regclass);
+
+
+--
+-- Data for Name: author; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.author (id, created_at, updated_at, name, email, age, terms_accepted, identities, born, favourite_book_id, version) FROM stdin;
+\.
+
+
+--
+-- Data for Name: author_friends; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.author_friends (author_1_id, author_2_id) FROM stdin;
+\.
+
+
+--
+-- Name: author_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.author_id_seq', 1, false);
+
+
+--
+-- Data for Name: book; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.book (id, created_at, updated_at, title, author_id, publisher_id) FROM stdin;
+\.
+
+
+--
+-- Name: book_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.book_id_seq', 1, false);
+
+
+--
+-- Data for Name: company; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.company (id) FROM stdin;
+\.
+
+
+--
+-- Name: company_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.company_id_seq', 1, false);
+
+
+--
+-- Data for Name: person; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.person (id, name, email, birth, employee_type, rank, active, note) FROM stdin;
+0	John Smith	js@b.c	1986-05-29 00:00:00+02	m	2	t	cica mica
+1	John Smith	js@b.c	1986-05-29 00:00:00+02	m	2	t	cica mica
+2	John Smith	js@b.c	1986-05-29 00:00:00+02	m	2	t	cica mica
+3	John Smith	js@b.c	1986-05-29 00:00:00+02	m	2	t	cica mica
+\.
+
+
+--
+-- Name: person_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.person_id_seq', 3, true);
+
+
+--
+-- Data for Name: publisher; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.publisher (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: publisher_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.publisher_id_seq', 1, false);
+
+
+--
+-- Name: author_friends author_friends_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.author_friends
+    ADD CONSTRAINT author_friends_pkey PRIMARY KEY (author_1_id, author_2_id);
+
+
+--
+-- Name: author author_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.author
+    ADD CONSTRAINT author_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: book book_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.book
+    ADD CONSTRAINT book_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: company company_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.company
+    ADD CONSTRAINT company_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: person person_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.person
+    ADD CONSTRAINT person_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: publisher publisher_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.publisher
+    ADD CONSTRAINT publisher_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: author author_favourite_book_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.author
+    ADD CONSTRAINT author_favourite_book_id_foreign FOREIGN KEY (favourite_book_id) REFERENCES public.book(id) ON UPDATE CASCADE;
+
+
+--
+-- Name: author_friends author_friends_author_1_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.author_friends
+    ADD CONSTRAINT author_friends_author_1_id_foreign FOREIGN KEY (author_1_id) REFERENCES public.author(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: author_friends author_friends_author_2_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.author_friends
+    ADD CONSTRAINT author_friends_author_2_id_foreign FOREIGN KEY (author_2_id) REFERENCES public.author(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: book book_author_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.book
+    ADD CONSTRAINT book_author_id_foreign FOREIGN KEY (author_id) REFERENCES public.author(id) ON UPDATE CASCADE;
+
+
+--
+-- Name: book book_publisher_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.book
+    ADD CONSTRAINT book_publisher_id_foreign FOREIGN KEY (publisher_id) REFERENCES public.publisher(id) ON UPDATE CASCADE;
+
+
 --
 -- PostgreSQL database dump complete
 --
