@@ -44,6 +44,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
       this.navigationSubs.unsubscribe();
     }
   }
+
   ngOnInit(): void {
     if (this.enableDeletingTrigger) {
       this.enableDeletingTrigger.subscribe(
