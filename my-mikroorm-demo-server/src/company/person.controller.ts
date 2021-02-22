@@ -21,12 +21,15 @@ export class PersonController {
 
   @Post()
   async create(@Body() p: Person): Promise<Person> {
-    return this.service.save(p);
+    p.id = -1;
+    p.birth = new Date(1975, 3, 14);
+    p.rank = 5;
+    return this.service.create(p);
   }
 
   @Put()
-  async save(@Body() p: Person): Promise<Person> {
-    return this.service.save(p);
+  async update(@Param('id', ParseIntPipe) id: number, @Body() p: Person): Promise<Person> {
+    return this.service.update(p.id, p);
   }
 
   @Delete('/:id')
@@ -36,17 +39,16 @@ export class PersonController {
 
   @Get('dummy')
   dummy(): Person {
-    const p: Person = {
-      id: 0,
-      name: 'John Smith',
-      email: 'js@test.org',
-      birth: new Date(1975, 3, 14),
-      employeeType: EmployeeType.DIRECTOR,
-      rank: 5,
-      note: 'This is dummy person',
-//      company: undefined,
-      active: true
-    };
+    const p: Person = new Person();
+    p.id = 0;
+    p.name = 'John Smith';
+      p.email = 'js@test.org';
+    p.birth = new Date(1975, 3, 14);
+    p.employeeType = EmployeeType.DIRECTOR;
+    p.rank = 5;
+    p.note = 'This is dummy person',
+    p.active = true;
+
     return p;
   }
 }
