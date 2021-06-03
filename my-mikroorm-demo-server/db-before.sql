@@ -2,19 +2,13 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.13
--- Dumped by pg_dump version 9.6.13
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
-SET xmloption = content;
 SET client_min_messages = warning;
-SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
@@ -35,13 +29,13 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: author; Type: TABLE; Schema: public; Owner: postgres
+-- Name: author; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE public.author (
     id integer NOT NULL,
-    created_at jsonb NOT NULL,
-    updated_at jsonb NOT NULL,
+    created_at date NOT NULL,
+    updated_at date NOT NULL,
     name character varying(255) NOT NULL,
     email character varying(255) NOT NULL,
     age integer NOT NULL,
@@ -56,7 +50,7 @@ CREATE TABLE public.author (
 ALTER TABLE public.author OWNER TO postgres;
 
 --
--- Name: author_friends; Type: TABLE; Schema: public; Owner: postgres
+-- Name: author_friends; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE public.author_friends (
@@ -89,7 +83,7 @@ ALTER SEQUENCE public.author_id_seq OWNED BY public.author.id;
 
 
 --
--- Name: book; Type: TABLE; Schema: public; Owner: postgres
+-- Name: book; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE public.book (
@@ -126,7 +120,7 @@ ALTER SEQUENCE public.book_id_seq OWNED BY public.book.id;
 
 
 --
--- Name: company; Type: TABLE; Schema: public; Owner: postgres
+-- Name: company; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE public.company (
@@ -158,7 +152,7 @@ ALTER SEQUENCE public.company_id_seq OWNED BY public.company.id;
 
 
 --
--- Name: person; Type: TABLE; Schema: public; Owner: postgres
+-- Name: person; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE public.person (
@@ -198,7 +192,7 @@ ALTER SEQUENCE public.person_id_seq OWNED BY public.person.id;
 
 
 --
--- Name: publisher; Type: TABLE; Schema: public; Owner: postgres
+-- Name: publisher; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE public.publisher (
@@ -231,35 +225,35 @@ ALTER SEQUENCE public.publisher_id_seq OWNED BY public.publisher.id;
 
 
 --
--- Name: author id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.author ALTER COLUMN id SET DEFAULT nextval('public.author_id_seq'::regclass);
 
 
 --
--- Name: book id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.book ALTER COLUMN id SET DEFAULT nextval('public.book_id_seq'::regclass);
 
 
 --
--- Name: company id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.company ALTER COLUMN id SET DEFAULT nextval('public.company_id_seq'::regclass);
 
 
 --
--- Name: person id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.person ALTER COLUMN id SET DEFAULT nextval('public.person_id_seq'::regclass);
 
 
 --
--- Name: publisher id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.publisher ALTER COLUMN id SET DEFAULT nextval('public.publisher_id_seq'::regclass);
@@ -323,10 +317,6 @@ SELECT pg_catalog.setval('public.company_id_seq', 1, false);
 --
 
 COPY public.person (id, name, email, birth, employee_type, rank, active, note) FROM stdin;
-0	John Smith	js@b.c	1986-05-29 00:00:00+02	m	2	t	cica mica
-1	John Smith	js@b.c	1986-05-29 00:00:00+02	m	2	t	cica mica
-2	John Smith	js@b.c	1986-05-29 00:00:00+02	m	2	t	cica mica
-3	John Smith	js@b.c	1986-05-29 00:00:00+02	m	2	t	cica mica
 \.
 
 
@@ -334,7 +324,7 @@ COPY public.person (id, name, email, birth, employee_type, rank, active, note) F
 -- Name: person_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.person_id_seq', 3, true);
+SELECT pg_catalog.setval('public.person_id_seq', 1, false);
 
 
 --
@@ -353,7 +343,7 @@ SELECT pg_catalog.setval('public.publisher_id_seq', 1, false);
 
 
 --
--- Name: author_friends author_friends_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: author_friends_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY public.author_friends
@@ -361,7 +351,7 @@ ALTER TABLE ONLY public.author_friends
 
 
 --
--- Name: author author_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: author_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY public.author
@@ -369,7 +359,7 @@ ALTER TABLE ONLY public.author
 
 
 --
--- Name: book book_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY public.book
@@ -377,7 +367,7 @@ ALTER TABLE ONLY public.book
 
 
 --
--- Name: company company_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: company_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY public.company
@@ -385,7 +375,7 @@ ALTER TABLE ONLY public.company
 
 
 --
--- Name: person person_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: person_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY public.person
@@ -393,7 +383,7 @@ ALTER TABLE ONLY public.person
 
 
 --
--- Name: publisher publisher_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: publisher_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY public.publisher
@@ -401,7 +391,7 @@ ALTER TABLE ONLY public.publisher
 
 
 --
--- Name: author author_favourite_book_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: author_favourite_book_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.author
@@ -409,7 +399,7 @@ ALTER TABLE ONLY public.author
 
 
 --
--- Name: author_friends author_friends_author_1_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: author_friends_author_1_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.author_friends
@@ -417,7 +407,7 @@ ALTER TABLE ONLY public.author_friends
 
 
 --
--- Name: author_friends author_friends_author_2_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: author_friends_author_2_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.author_friends
@@ -425,7 +415,7 @@ ALTER TABLE ONLY public.author_friends
 
 
 --
--- Name: book book_author_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_author_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.book
@@ -433,11 +423,21 @@ ALTER TABLE ONLY public.book
 
 
 --
--- Name: book book_publisher_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: book_publisher_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.book
     ADD CONSTRAINT book_publisher_id_foreign FOREIGN KEY (publisher_id) REFERENCES public.publisher(id) ON UPDATE CASCADE;
+
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --

@@ -1,5 +1,5 @@
 import {
-  Collection,
+  Collection, DateType,
   Entity,
   ManyToMany,
   ManyToOne,
@@ -14,13 +14,12 @@ import { Book } from './book.entity';
 export class Author {
 
   @PrimaryKey()
-  @PrimaryKey()
   id!: number;
 
-  @Property()
+  @Property({ type: DateType})
   createdAt = new Date();
 
-  @Property({ onUpdate: () => new Date() })
+  @Property({ type: DateType, onUpdate: () => new Date() })
   updatedAt = new Date();
 
   @Property()
