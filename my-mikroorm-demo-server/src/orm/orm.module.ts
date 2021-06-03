@@ -3,8 +3,8 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs/typings';
 import { UnderscoreNamingStrategy } from '@mikro-orm/core';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
-import { Company } from '../entities/company.entity';
-import { Person } from '../entities/person.entity';
+import { Company } from '../entities_SAVE/company.entity';
+import { Person } from '../entities_SAVE/person.entity';
 
 const logger = new Logger('MikroORM');
 

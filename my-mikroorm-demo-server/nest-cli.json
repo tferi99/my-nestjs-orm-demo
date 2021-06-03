@@ -1,4 +1,18 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+  "sourceRoot": "src",
+  "projects": {
+    "orm-types": {
+      "type": "library",
+      "root": "libs/orm-types",
+      "entryFile": "index",
+      "sourceRoot": "libs/orm-types/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/orm-types/tsconfig.lib.json"
+      }
+    }
+  },
+  "compilerOptions": {
+    "webpack": false
+  }
 }

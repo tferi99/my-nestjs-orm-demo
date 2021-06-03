@@ -1,5 +1,6 @@
 import { FilterQuery, Primary } from '@mikro-orm/core/typings';
 import { BaseEntity, EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
+import { filter } from 'rxjs/operators';
 
 export abstract class MikroOrmCrudServiceBase<T extends BaseEntity<T, PK>, PK extends keyof T> {
   abstract getEntityRepository(): EntityRepository<T>;
@@ -13,12 +14,21 @@ export abstract class MikroOrmCrudServiceBase<T extends BaseEntity<T, PK>, PK ex
     return obj;
   }
 
+/*  async createAll(dto: T[]): Promise<T> {
+    const obj = this.newEntity();
+    wrap(obj).assign(dto);
+    await this.getEntityRepository().persistAndFlush(obj);
+
+    return obj;
+  }*/
+
   async getAll(where?: FilterQuery<T>): Promise<T[]> {
     return this.getEntityRepository().find(where, [], { id: QueryOrder.ASC });
   }
 
-  async get(id: Primary<T>): Promise<T> {
-    return this.getEntityRepository().findOne({id});
+  async get(id: PK): Promise<T> {
+    //const filter: FilterQuery<T> = { id: idField };
+    return this.getEntityRepository().findOne({});
 
     //User extends BaseEntity
 /*    const u = this.getEntityRepository().getReference(id);
@@ -31,7 +41,7 @@ export abstract class MikroOrmCrudServiceBase<T extends BaseEntity<T, PK>, PK ex
    * @param id
    * @param dto
    */
-  async update(id: Primary<T>, dto: T): Promise<T> {
+  async update(id: PK, dto: T): Promise<T> {
     const user = await this.get(id);
     if (!user) {
       return null;

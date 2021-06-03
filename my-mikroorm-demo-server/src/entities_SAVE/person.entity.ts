@@ -1,8 +1,8 @@
 import { BaseEntity, Entity, Enum, PrimaryKey, Property } from '@mikro-orm/core';
-import { PersonDto, EmployeeType } from 'my-ts-orm-demo-lib';
+import { EmployeeType, IPerson } from '@lib/orm-types';
 
 @Entity()
-export class Person extends BaseEntity<Person, 'id'> implements PersonDto {
+export class Person extends BaseEntity<Person, 'id'> implements IPerson {
   @PrimaryKey()
   id: number;
 

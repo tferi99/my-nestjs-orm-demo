@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Person } from '../entities/person.entity';
+import { Person } from '../entities_SAVE/person.entity';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager, EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
 import { createWaitPromise } from '../common/AsyncUtil';
@@ -11,13 +11,13 @@ const waitForTest = (cb, ms) => new Promise(() => setTimeout(cb, ms));
  * Service which doesn't inject custom repository.
  */
 @Injectable()
-export class PersonService extends MikroOrmCrudServiceBase<Person, 'id'> {
+/*export class PersonService extends MikroOrmCrudServiceBase<Person, 'id'> {
   constructor(
     @InjectRepository(Person)
     private repo: EntityRepository<Person>,        // custom repository was not created explicitly, only injected repo from TypeOrm
     private em: EntityManager
   ) {
-    super();
+    //super();
   }
 
   //-------------------- abstract ------------------------
@@ -28,10 +28,9 @@ export class PersonService extends MikroOrmCrudServiceBase<Person, 'id'> {
   newEntity(): Person {
     return new Person();
   }
+}*/
 
-}
-
-/*export class PersonService {
+export class PersonService {
   constructor(
     @InjectRepository(Person)
     private repo: EntityRepository<Person>,        // custom repository was not created explicitly, only injected repo from TypeOrm
@@ -46,11 +45,15 @@ export class PersonService extends MikroOrmCrudServiceBase<Person, 'id'> {
     return this.repo.findAll({}, { name: QueryOrder.ASC });
   }
 
-  async save(dto: Person): Promise<Person> {
+  async create(dto: Person): Promise<Person> {
     const obj = new Person();
     wrap(obj).assign(dto);
     await this.repo.persistAndFlush(obj);
     return obj;
+  }
+
+  async update(id: number, dto: Person): Promise<Person> {
+    return null;
   }
 
   async delete(id: number): Promise<void> {
@@ -63,4 +66,4 @@ export class PersonService extends MikroOrmCrudServiceBase<Person, 'id'> {
 //    );
     return this.repo.removeAndFlush({id});
   }
-}*/
+}

@@ -6,14 +6,13 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "lib-link": "npm link my-ts-orm-demo-lib",
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/ain",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -21,8 +20,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db-update": "node_modules/.bin/mikro-orm schema:update --fk-checks -r",
-    "db-update-dump-only": "node_modules/.bin/mikro-orm schema:update --fk-checks -d",
-    "h": "node_modules/.bin/mikro-orm schema:update -h"
+    "db-update-dump-only": "node_modules/.bin/mikro-orm schema:update --fk-checks -d"
   },
   "dependencies": {
     "@mikro-orm/core": "^4.3.4",
@@ -65,19 +63,27 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "@lib/orm-types/(.*)": "<rootDir>/libs/orm-types/src/$1",
+      "@lib/orm-types": "<rootDir>/libs/orm-types/src"
+    }
   },
   "mikro-orm": {
     "useTsNode": true,
     "configPaths": [
       "./src/mikro-orm.config.ts",
-      "./dist/mikro-orm.config.js"
+      "./dist/src/mikro-orm.config.js"
     ]
   }
 }

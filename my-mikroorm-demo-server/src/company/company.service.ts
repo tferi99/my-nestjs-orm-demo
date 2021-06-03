@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Person } from '../entities/person.entity';
-import { Company } from '../entities/company.entity';
+import { Person } from '../entities_SAVE/person.entity';
+import { Company } from '../entities_SAVE/company.entity';
 import { EntityManager, EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 
