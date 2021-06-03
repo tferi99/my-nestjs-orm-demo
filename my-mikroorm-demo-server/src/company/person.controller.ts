@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { Person } from '../entities/person.entity';
+import { Person } from '../entities_SAVE/person.entity';
 import { PersonService } from './person.service';
-import { EmployeeType } from 'my-ts-orm-demo-lib';
+import { EmployeeType } from '@lib/orm-types';
 
 @Controller('person')
 export class PersonController {

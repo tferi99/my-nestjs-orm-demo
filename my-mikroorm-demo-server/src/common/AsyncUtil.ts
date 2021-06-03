@@ -1,4 +1,4 @@
-import { Person } from '../entities/person.entity';
+import { Person } from '../entities_SAVE/person.entity';
 
 export const createWaitPromise = (action, waitBeforeMsecs, waitAfterMsecs?):Promise<any> => {
   return new Promise((resolve, reject) => {

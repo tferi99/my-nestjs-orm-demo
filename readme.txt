@@ -60,17 +60,18 @@ How to build projects?
 	- if 'my-ts-orm-demo-lib' exists, try to open
 	
 		If it doesn't exist or you cannot open it it's inconsistent.
-		If it exists remove it. Create it again.
+		If it exists remove it and create it again:
 
-	cd my-ts-orm-demo\dist\my-ts-orm-demo-lib
-	npm link
-	
-	cd my-mikroorm-demo-server
-	npm run lib-link					(which calls:	npm link my-ts-orm-demo-lib)
+			cd my-ts-orm-demo\dist\my-ts-orm-demo-lib
+			npm link
+
+	- then bind lib link into projects:
+		cd my-mikroorm-demo-server
+		npm run lib-link					(which calls:	npm link my-ts-orm-demo-lib)
 	
 
-	cd my-typeorm-demo-server
-	npm run lib-link					(which calls:	npm link my-ts-orm-demo-lib)
+		cd my-typeorm-demo-server
+		npm run lib-link					(which calls:	npm link my-ts-orm-demo-lib)
 	
 - build:
 
@@ -78,7 +79,7 @@ How to build projects?
 	npm run build
 
 	cd my-typeorm-demo-server
-	npm run build
+		
 
 - run:
 
@@ -86,7 +87,7 @@ How to build projects?
 	
 		- PostgreSQL database:	mymikroormdemo 
 			
-		Create database with:	createDbWithSchema.bat
+		Create database with:	createDbWithSchema.sh
 		
 		
 	- run server:

@@ -10,6 +10,14 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@lib/orm-types": [
+        "libs/orm-types/src"
+      ],
+      "@lib/orm-types/*": [
+        "libs/orm-types/src/*"
+      ]
+    }
   }
 }

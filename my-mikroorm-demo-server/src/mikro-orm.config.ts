@@ -6,7 +6,7 @@ export default {
   type: 'postgresql',
   dbName: 'mymikroormdemo',
   entitiesTs: ['./src/entities'],
-  entities: ['./dist/entities'],
+  entities: ['./dist/src/entities'],
   autoLoadEntities: true,
   discovery: {
     warnWhenNoEntities: true
