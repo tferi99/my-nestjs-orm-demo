@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Person } from '../entities_SAVE/person.entity';
+import { Person } from '../orm/entities/person.entity';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager, EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
 import { createWaitPromise } from '../common/AsyncUtil';
@@ -32,12 +32,12 @@ const waitForTest = (cb, ms) => new Promise(() => setTimeout(cb, ms));
 
 export class PersonService {
   constructor(
-    @InjectRepository(Person)
+/*    @InjectRepository(Person)
     private repo: EntityRepository<Person>,        // custom repository was not created explicitly, only injected repo from TypeOrm
-    private em: EntityManager
+    private em: EntityManager*/
   ) {}
 
-  async get(id: number): Promise<Person> {
+/*  async get(id: number): Promise<Person> {
     return this.repo.findOne(id);
   }
 
@@ -65,5 +65,5 @@ export class PersonService {
 //      3000
 //    );
     return this.repo.removeAndFlush({id});
-  }
+  }*/
 }

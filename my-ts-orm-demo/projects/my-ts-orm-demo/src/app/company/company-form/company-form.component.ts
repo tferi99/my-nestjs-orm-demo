@@ -14,7 +14,6 @@ import {CompanyDto, EmployeeType} from 'my-ts-orm-demo-lib';
 })
 export class CompanyFormComponent implements OnInit {
   isNew = false;
-
   @Input() in: CompanyDto;
 
   employeeTypes: KeyValuePair<string, string>[];

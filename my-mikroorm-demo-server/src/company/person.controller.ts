@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { Person } from '../entities_SAVE/person.entity';
+import { Person } from '../orm/entities/person.entity';
 import { PersonService } from './person.service';
 import { EmployeeType } from '@lib/orm-types';
 
@@ -9,7 +9,7 @@ export class PersonController {
     private service: PersonService
   ) {}
 
-  @Get()
+/*  @Get()
   async getAll(): Promise<Person[]> {
     return this.service.getAll();
   }
@@ -50,5 +50,5 @@ export class PersonController {
     p.active = true;
 
     return p;
-  }
+  }*/
 }

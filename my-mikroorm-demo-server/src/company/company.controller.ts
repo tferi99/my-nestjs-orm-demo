@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CompanyService } from './company.service';
-import { Company } from '../entities_SAVE/company.entity';
+import { Company } from '../orm/entities/company.entity';
 
 @Controller('company')
 export class CompanyController {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Person } from '../entities_SAVE/person.entity';
-import { Company } from '../entities_SAVE/company.entity';
+import { Person } from '../orm/entities/person.entity';
+import { Company } from '../orm/entities/company.entity';
 import { EntityManager, EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 
@@ -10,8 +10,8 @@ export class CompanyService {
     @InjectRepository(Company)
     private repo: EntityRepository<Company>,        // custom repository was not created explicitly, only injected repo from TypeOrm
 
-    @InjectRepository(Person)
-    private personRepo: EntityRepository<Person>,        // custom repository was not created explicitly, only injected repo from TypeOrm
+/*    @InjectRepository(Person)
+    private personRepo: EntityRepository<Person>,        // custom repository was not created explicitly, only injected repo from TypeOrm*/
 
     private em: EntityManager
   ) {}
