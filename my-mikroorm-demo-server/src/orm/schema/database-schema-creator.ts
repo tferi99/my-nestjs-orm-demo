@@ -1,5 +1,5 @@
 import { MikroORM } from '@mikro-orm/core';
-import { MIKRO_ORM_OPTIONS } from './mikro-orm-options';
+import { MIKRO_ORM_OPTIONS } from '../../config/mikro-orm-options';
 
 export class DatabaseSchemaCreator {
   static async create() {

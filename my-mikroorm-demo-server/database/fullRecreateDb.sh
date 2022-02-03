@@ -9,5 +9,6 @@ then
 	exit
 fi
 
-node ../dist/src/orm/call-create-schema.js
+cd $ORM_DIST
+node call-create-schema.js
 

@@ -1,7 +1,8 @@
 import { Entity, Enum, ManyToOne, Property } from '@mikro-orm/core';
-import { EmployeeType } from '@lib/orm-types';
-import { Company } from '../company/company.entity';
-import { OrmIntTimestampEntity } from '../orm/orm.entity';
+import { Company } from '../../company/model/company.entity';
+import { OrmIntTimestampEntity } from '../../orm/orm.entity';
+import { EmployeeType } from './employee-type';
+
 
 @Entity()
 export class Person extends OrmIntTimestampEntity {
@@ -20,7 +21,7 @@ export class Person extends OrmIntTimestampEntity {
   @Property()
   rank: number;
 
-  @Property()
+  @Property({default: true})
   active: boolean;
 
   @Property({length: 1024, nullable: true})

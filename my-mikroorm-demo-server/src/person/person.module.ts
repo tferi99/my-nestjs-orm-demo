@@ -12,7 +12,9 @@ import { PersonController } from './person.controller';
   ],
   controllers: [
     PersonController
+  ],
+  exports: [
+    PersonService
   ]
-
 })
 export class PersonModule {}

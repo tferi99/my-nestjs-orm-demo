@@ -1,5 +1,3 @@
-import { Person } from '../person/person.entity';
-import { Company } from '../company/company.entity';
 import {
   OrmBaseEntity,
   OrmBigIntEntity,
@@ -19,7 +17,3 @@ export const BASE_ENTITIES = [
   OrmUuidEntity,
   OrmUuidTimestampEntity,
 ];
-
-export const ENTITIES = [Company];
-//export const ENTITIES = [Company, Person];
-

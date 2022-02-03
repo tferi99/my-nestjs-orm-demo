@@ -1,6 +1,6 @@
-import { Entity, OneToMany, PrimaryKey, Property, Unique } from '@mikro-orm/core';
-import { Person } from '../person/person.entity';
-import { OrmIntTimestampEntity } from '../orm/orm.entity';
+import { Collection, Entity, OneToMany, PrimaryKey, Property, Unique } from '@mikro-orm/core';
+import { Person } from '../../person/model/person.entity';
+import { OrmIntTimestampEntity } from '../../orm/orm.entity';
 
 @Entity()
 export class Company extends OrmIntTimestampEntity {
@@ -20,9 +20,9 @@ export class Company extends OrmIntTimestampEntity {
   @Property({length: 1024, nullable: true})
   note: string;
 
-/*  @OneToMany({
+  @OneToMany({
     entity: () => Person,
     mappedBy: (person) => person.company,
   })
-  workers: Person[];*/
+  workers = new Collection<Person>(this);
 }

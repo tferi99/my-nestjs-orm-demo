@@ -1,3 +1,5 @@
-node ../dist/src/orm/call-create-schema.js
+. .config
+cd $ORM_DIST
+node call-create-schema.js
 
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { EntityManager, EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Company } from './company.entity';
+import { Company } from './model/company.entity';
 
 @Injectable()
 export class CompanyService {
@@ -43,5 +43,9 @@ export class CompanyService {
     }
     return this.repo.save(dto);*/
     return null;
+  }
+
+  async deleteAll() {
+    this.repo.nativeDelete({});
   }
 }
