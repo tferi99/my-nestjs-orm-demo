@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CompanyController } from './company.controller';
-import { PersonService } from './person.service';
-import { PersonController } from './person.controller';
 import { OrmModule } from '../orm/orm.module';
 
 @Module({
@@ -11,11 +9,12 @@ import { OrmModule } from '../orm/orm.module';
   ],
   providers: [
     CompanyService,
-    PersonService
   ],
   controllers: [
     CompanyController,
-    PersonController
+  ],
+  exports: [
+    CompanyService
   ]
 })
 export class CompanyModule {}

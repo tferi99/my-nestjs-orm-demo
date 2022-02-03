@@ -27,7 +27,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      enableTracing: false,                  // <-- debugging purposes only
+      enableTracing: true,                  // <-- debugging purposes only
       onSameUrlNavigation: 'reload',
     })
   ],

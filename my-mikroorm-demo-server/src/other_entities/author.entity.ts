@@ -1,18 +1,9 @@
-import {
-  Collection, DateType,
-  Entity,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  PrimaryKey,
-  Property,
-  SerializedPrimaryKey,
-} from '@mikro-orm/core';
+import { Collection, Entity, ManyToMany, ManyToOne, OneToMany, Property } from '@mikro-orm/core';
 import { Book } from './book.entity';
-import { EntityBase } from './entity.base';
+import { OrmIntTimestampEntity } from '../orm/orm.entity';
 
 @Entity()
-export class Author extends EntityBase {
+export class Author extends OrmIntTimestampEntity {
   @Property()
   name!: string;
 

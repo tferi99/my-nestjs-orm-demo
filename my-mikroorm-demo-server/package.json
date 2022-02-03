@@ -21,7 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db-update": "node_modules/.bin/mikro-orm schema:update --fk-checks -r",
     "db-update-dump-only": "node_modules/.bin/mikro-orm schema:update --fk-checks -d",
-	"lib-link": "npm link my-ts-orm-demo-lib"
+    "lib-link": "npm link my-ts-orm-demo-lib"
   },
   "dependencies": {
     "@mikro-orm/core": "^4.3.4",
@@ -36,10 +36,10 @@
     "rxjs": "^6.5.4"
   },
   "devDependencies": {
-    "@mikro-orm/cli": "^4.3.4",
     "@nestjs/cli": "^7.0.0",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
+    "@nestjs/schedule": "^1.0.1",
     "@types/express": "^4.17.3",
     "@types/jest": "26.0.10",
     "@types/node": "^13.9.1",
@@ -52,11 +52,11 @@
     "jest": "26.4.2",
     "prettier": "^1.19.1",
     "supertest": "^4.0.2",
-    "ts-jest": "26.2.0",
-    "ts-loader": "^6.2.1",
-    "ts-node": "9.0.0",
-    "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.7.4"
+    "ts-jest": "^27.0.3",
+    "ts-loader": "^9.2.3",
+    "ts-node": "^10.0.0",
+    "tsconfig-paths": "^3.10.1",
+    "typescript": "^4.3.5"
   },
   "jest": {
     "moduleFileExtensions": [

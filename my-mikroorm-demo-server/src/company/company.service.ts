@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Person } from '../orm/entities/person.entity';
-import { Company } from '../orm/entities/company.entity';
 import { EntityManager, EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
+import { Company } from './company.entity';
 
 @Injectable()
 export class CompanyService {

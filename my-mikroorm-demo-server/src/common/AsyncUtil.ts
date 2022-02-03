@@ -1,5 +1,3 @@
-import { Person } from '../orm/entities/person.entity';
-
 export const createWaitPromise = (action, waitBeforeMsecs, waitAfterMsecs?):Promise<any> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
