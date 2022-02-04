@@ -17,7 +17,8 @@ const logger = new Logger('MikroORM');
     OrmService
   ],
   exports: [
-    MikroOrmModule
+    MikroOrmModule,
+    OrmService
   ]
 })
 export class OrmModule {
