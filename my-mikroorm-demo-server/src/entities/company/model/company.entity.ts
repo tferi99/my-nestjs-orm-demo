@@ -1,6 +1,6 @@
 import { Collection, Entity, OneToMany, PrimaryKey, Property, Unique } from '@mikro-orm/core';
 import { Person } from '../../person/model/person.entity';
-import { OrmIntTimestampEntity } from '../../orm/orm.entity';
+import { OrmIntTimestampEntity } from '../../../orm/orm.entity';
 
 @Entity()
 export class Company extends OrmIntTimestampEntity {

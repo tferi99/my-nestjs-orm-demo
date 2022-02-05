@@ -1,5 +1,6 @@
 . .config
 cd $ORM_DIST
-node call-create-schema.js
+node main.js createdbschema
+
 
 

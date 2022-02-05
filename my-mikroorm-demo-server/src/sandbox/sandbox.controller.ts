@@ -1,0 +1,14 @@
+import { Controller, Delete, Get, Logger } from "@nestjs/common";
+import { SandboxService } from './sandbox.service';
+
+@Controller('sandbox')
+export class SandboxController {
+  constructor(
+    private sandboxService: SandboxService,
+  ) {}
+
+  @Get('emDumpWithFind')
+  emDumpWithFind() {
+    this.sandboxService.emDumpWithFind();
+  }
+}

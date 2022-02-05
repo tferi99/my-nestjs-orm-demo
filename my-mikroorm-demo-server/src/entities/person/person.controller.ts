@@ -4,15 +4,13 @@ import { Person } from './model/person.entity';
 
 @Controller('person')
 export class PersonController {
-  constructor(
-    private service: PersonService
-  ) {}
+  constructor(private service: PersonService) {}
 
-/*  @Get()
+  /*  @Get()
   async getAll(): Promise<Person[]> {
     return this.service.getAll();
   }*/
-/*
+  /*
   @Get('/:id')
   async get(@Param('id', ParseIntPipe) id: number): Promise<Person> {
     return this.service.get(id);

@@ -4,14 +4,14 @@
     "json",
     "ts"
   ],
-  "rootDir": "./src/",
+  "rootDir": ".",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "moduleNameMapper": {
-    "@lib/orm-types/(.*)": "<rootDir>/../libs/orm-types/src/$1",
-    "@lib/orm-types": "<rootDir>/../libs/orm-types/src"
+    "@app/my-mikroorm-demo-lib/(.*)": "<rootDir>/../libs/my-mikroorm-demo-lib/src/$1",
+    "@app/my-mikroorm-demo-lib": "<rootDir>/../libs/my-mikroorm-demo-lib/src"
   }
 }

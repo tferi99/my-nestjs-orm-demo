@@ -7,4 +7,3 @@ export class CompanyRepository extends EntityRepository<Company> {
     return this._em;
   }
 }
-

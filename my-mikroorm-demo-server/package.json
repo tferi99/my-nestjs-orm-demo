@@ -12,47 +12,46 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/src/ain",
+    "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db-update": "node_modules/.bin/mikro-orm schema:update --fk-checks -r",
-    "db-update-dump-only": "node_modules/.bin/mikro-orm schema:update --fk-checks -d",
-    "lib-link": "npm link my-ts-orm-demo-lib"
+    "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@mikro-orm/core": "^4.3.4",
-    "@mikro-orm/nestjs": "^4.2.0",
-    "@mikro-orm/postgresql": "^4.3.4",
+    "@mikro-orm/core": "^4.5.10",
+    "@mikro-orm/nestjs": "^4.3.1",
+    "@mikro-orm/postgresql": "^4.5.10",
     "@mikro-orm/sql-highlighter": "^1.0.1",
-    "@nestjs/common": "^7.0.0",
-    "@nestjs/core": "^7.0.0",
-    "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/common": "^8.0.0",
+    "@nestjs/core": "^8.0.0",
+    "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/schedule": "^1.0.2",
     "moment": "^2.29.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.4"
+    "rxjs": "^7.2.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^7.0.0",
-    "@nestjs/schedule": "^1.0.1",
-    "@nestjs/schematics": "^7.0.0",
-    "@nestjs/testing": "^7.0.0",
-    "@types/express": "^4.17.3",
-    "@types/jest": "26.0.10",
-    "@types/node": "^13.9.1",
-    "@types/supertest": "^2.0.8",
-    "@typescript-eslint/eslint-plugin": "3.9.1",
-    "@typescript-eslint/parser": "3.9.1",
-    "eslint": "7.7.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-import": "^2.20.1",
-    "jest": "26.4.2",
-    "prettier": "^1.19.1",
-    "supertest": "^4.0.2",
+    "@nestjs/cli": "^8.0.0",
+    "@nestjs/schematics": "^8.0.0",
+    "@nestjs/testing": "^8.0.0",
+    "@types/cron": "^1.7.3",
+    "@types/express": "^4.17.13",
+    "@types/jest": "27.0.2",
+    "@types/node": "^16.0.0",
+    "@types/supertest": "^2.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.2.5",
+    "prettier": "^2.3.2",
+    "source-map-support": "^0.5.20",
+    "supertest": "^6.1.3",
     "ts-jest": "^27.0.3",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
@@ -66,10 +65,13 @@
       "ts"
     ],
     "rootDir": ".",
-    "testRegex": ".spec.ts$",
+    "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
@@ -77,15 +79,7 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "@lib/orm-types/(.*)": "<rootDir>/libs/orm-types/src/$1",
-      "@lib/orm-types": "<rootDir>/libs/orm-types/src"
+      "^@app/my-mikroorm-demo-lib(|/.*)$": "<rootDir>/libs/my-mikroorm-demo-lib/src/$1"
     }
-  },
-  "mikro-orm": {
-    "useTsNode": true,
-    "configPaths": [
-      "./src/mikro-orm.config.ts",
-      "./dist/src/mikro-orm.config.js"
-    ]
   }
 }

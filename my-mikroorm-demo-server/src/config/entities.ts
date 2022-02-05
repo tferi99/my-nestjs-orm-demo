@@ -1,5 +1,4 @@
-import { Company } from '../company/model/company.entity';
-import { Person } from '../person/model/person.entity';
+import { Company } from '../entities/company/model/company.entity';
+import { Person } from '../entities/person/model/person.entity';
 
 export const ENTITIES = [Company, Person];
-

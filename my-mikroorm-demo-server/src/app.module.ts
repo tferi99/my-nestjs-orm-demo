@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from "@nestjs/common";
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CompanyModule } from './company/company.module';
-import { OrmModule } from './orm/orm.module';
-import { PersonModule } from './person/person.module';
-import { InitModule } from './init/init.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { OrmModule } from './orm/orm.module';
+import { InitModule } from './init/init.module';
+import { CompanyModule } from './entities/company/company.module';
+import { PersonModule } from './entities/person/person.module';
+import { SandboxModule } from './sandbox/sandbox.module';
 
 @Module({
   imports: [
@@ -15,9 +16,13 @@ import { ScheduleModule } from '@nestjs/schedule';
     OrmModule,
     InitModule,
     CompanyModule,
-    PersonModule
+    PersonModule,
+    SandboxModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    Logger,
+    AppService
+  ],
 })
 export class AppModule {}
