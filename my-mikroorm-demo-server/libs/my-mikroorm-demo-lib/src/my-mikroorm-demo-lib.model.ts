@@ -1,11 +1,22 @@
 //!!!!!!!!!!!!!!!!!! GENARATED BY createModelInterface.sh - DON'T CHANGE IT !!!!!!!!!!!!!!!!!!
 
+import { Collection } from '@mikro-orm/core';
+
+export enum EmployeeType {
+  WORKER = 'w',
+  MANAGER = 'm',
+  DIRECTOR = 'd',
+}
+
+
 export interface Company extends OrmIntTimestampEntity {
   id: number;
   name: string;
   established: Date;
   active: boolean;
   note: string;
+  workers: Person[];
+}
 
 export interface Person extends OrmIntTimestampEntity {
   name: string;
@@ -16,10 +27,6 @@ export interface Person extends OrmIntTimestampEntity {
   active: boolean;
   note?: string;
   company?: Company;
-  constructor(obj?: Partial<Person>) {
-    super();
-    assign(this, obj);
-  }
 }
 
 export interface OrmBigIntEntity {
@@ -51,8 +58,3 @@ export interface OrmUuidTimestampEntity extends OrmTimestampEntity {
   id?: string;
 }
 
-export interface Author extends OrmIntTimestampEntity {
-
-export interface Book extends OrmIntTimestampEntity {
-
-export interface Publisher extends OrmIntTimestampEntity {

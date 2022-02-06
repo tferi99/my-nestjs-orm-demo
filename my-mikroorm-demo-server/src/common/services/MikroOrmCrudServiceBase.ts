@@ -29,7 +29,7 @@ export abstract class MikroOrmCrudServiceBase<T extends BaseEntity<T, PK>, PK ex
     //const filter: FilterQuery<T> = { id: idField };
     return this.getEntityRepository().findOne({});
 
-    //User extends BaseEntity
+    //AuthModel extends BaseEntity
 /*    const u = this.getEntityRepository().getReference(id);
     return u.init();*/
   }
