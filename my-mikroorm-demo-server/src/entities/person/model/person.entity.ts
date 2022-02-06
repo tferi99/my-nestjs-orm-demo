@@ -1,4 +1,4 @@
-import { Entity, Enum, ManyToOne, Property } from '@mikro-orm/core';
+import { assign, Entity, Enum, ManyToOne, Property } from "@mikro-orm/core";
 import { Company } from '../../company/model/company.entity';
 import { OrmIntTimestampEntity } from '../../../orm/orm.entity';
 import { EmployeeType } from './employee-type';
@@ -21,21 +21,16 @@ export class Person extends OrmIntTimestampEntity {
   rank: number;
 
   @Property({ default: true })
-  active: boolean = true;
+  active: boolean;
 
   @Property({ length: 1024, nullable: true })
   note?: string;
 
-  @ManyToOne({ entity: () => Company })
-  company: Company;
+  @ManyToOne({ entity: () => Company, nullable: true })
+  company?: Company;
 
-  constructor(name: string, email: string, birth: Date, employeeType: EmployeeType, rank: number, active = true) {
+  constructor(obj?: Partial<Person>) {
     super();
-    this.name = name;
-    this.email = email;
-    this.birth = birth;
-    this.employeeType = employeeType;
-    this.rank = rank;
-    this.active = active;
+    assign(this, obj);
   }
 }

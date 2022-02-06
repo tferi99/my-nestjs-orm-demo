@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Logger } from "@nestjs/common";
+import { Controller, Delete, Get, Logger, ParseBoolPipe, Post, Query } from "@nestjs/common";
 import { SandboxService } from './sandbox.service';
 
 @Controller('sandbox')
@@ -10,5 +10,10 @@ export class SandboxController {
   @Get('emDumpWithFind')
   emDumpWithFind() {
     this.sandboxService.emDumpWithFind();
+  }
+
+  @Post('manyToOneOptional')
+  manyToOneOptional(@Query('assign', ParseBoolPipe) assign: boolean) {
+    this.sandboxService.manyToOneOptional(assign);
   }
 }

@@ -1,15 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Timeout } from '@nestjs/schedule';
 import { Company } from '../entities/company/model/company.entity';
-import { PersonService } from '../entities/person/person.service';
 import { CompanyRepository } from '../entities/company/company.repository';
 import { EntityManager } from '@mikro-orm/core';
 import { OrmUtils } from '../orm/orm-utils';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { PersonRepository } from "../entities/person/person.repository";
-import { Person } from "../entities/person/model/person.entity";
-import { DateTimeUtils, DurationUnit } from "../util/datetime-util";
-import { EmployeeType } from "../entities/person/model/employee-type";
+import { PersonRepository } from '../entities/person/person.repository';
+import { Person } from '../entities/person/model/person.entity';
+import { DateTimeUtils, DurationUnit } from '../util/datetime-util';
+import { EmployeeType } from '../entities/person/model/employee-type';
 
 /**
  * Initialization service. It started as a task during startup.
@@ -30,9 +29,7 @@ export class InitService {
 
   @Timeout(500)
   async initApplication() {
-    this.logger.log(
-      '============================ Application initialization ============================',
-    );
+    this.logger.log('============================ Application initialization ============================');
     this.initDbContent();
   }
 
@@ -58,21 +55,15 @@ export class InitService {
 
     //OrmUtils.dumpUnitOfWork(em, '>>>>>>>>>>>>>>>>>>>>> START');
     await this.em.transactional(async (em) => {
-      const c: Company = new Company();
-      c.name = 'Abc Inc.';
-      c.established = new Date();
-      c.active = true;
+      const c: Company = new Company({ name: 'Abc Inc.', established: new Date(), active: true });
       em.persist(c);
-
-      const c2: Company = new Company();
-      c2.name = 'Other Inc.';
-      c2.established = new Date();
+      const c2: Company = new Company({ name: 'Other Inc.', established: new Date(), active: false });
       c2.active = true;
 
       const birth = new Date(Date.now() - DateTimeUtils.durationAsMilliseconds(10, DurationUnit.Years));
-      const p1 = new Person('John Smith', 'js@test.org', birth, EmployeeType.MANAGER, 5);
+      const p1 = new Person({ name: 'John Smith', email: 'js@test.org', birth, employeeType: EmployeeType.MANAGER, rank: 5 });
       c2.workers.add(p1);
-//      p.comp
+
       em.persist(c2);
       em.persist(p1);
     });
@@ -114,7 +105,7 @@ export class InitService {
     c2.workers.add(p1);
     await this.companyRepository.persistAndFlush(c2);*/
 
-/*    const companies2 = await this.companyRepository.find({});
+    /*    const companies2 = await this.companyRepository.find({});
     if (companies2.length > 0) {
       const cc = companies2[0];
       cc.name += ' !!!!!!!!!!!!!!!!!!!!';
@@ -137,7 +128,7 @@ export class InitService {
 
       await em.commit();
     } catch (e) {
-//      await em.rollback();
+      //      await em.rollback();
       throw e;
     }
   }

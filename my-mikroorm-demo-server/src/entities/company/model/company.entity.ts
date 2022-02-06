@@ -1,4 +1,4 @@
-import { Collection, Entity, OneToMany, PrimaryKey, Property, Unique } from '@mikro-orm/core';
+import { assign, Collection, Entity, OneToMany, PrimaryKey, Property, Unique } from "@mikro-orm/core";
 import { Person } from '../../person/model/person.entity';
 import { OrmIntTimestampEntity } from '../../../orm/orm.entity';
 
@@ -14,10 +14,10 @@ export class Company extends OrmIntTimestampEntity {
   @Property()
   established: Date;
 
-  @Property()
-  active: boolean = true;
+  @Property({ default: true })
+  active: boolean;
 
-  @Property({length: 1024, nullable: true})
+  @Property({ length: 1024, nullable: true })
   note: string;
 
   @OneToMany({
@@ -25,4 +25,9 @@ export class Company extends OrmIntTimestampEntity {
     mappedBy: (person) => person.company,
   })
   workers = new Collection<Person>(this);
+
+  constructor(obj?: Partial<Company>) {
+    super();
+    assign(this, obj);
+  }
 }
