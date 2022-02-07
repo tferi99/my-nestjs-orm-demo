@@ -14,16 +14,8 @@ const logger = new Logger('MikroORM');
       entities: ENTITIES,
     }),
   ],
-  providers: [
-    OrmService
-  ],
-  controllers: [
-    OrmController
-  ],
-  exports: [
-    MikroOrmModule,
-    OrmService
-  ]
+  providers: [OrmService],
+  controllers: [OrmController],
+  exports: [MikroOrmModule, OrmService],
 })
-export class OrmModule {
-}
+export class OrmModule {}

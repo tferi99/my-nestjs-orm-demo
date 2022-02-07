@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../common/util/key-value-pair';
-import {FormValidatorService} from '../../common/form-validator.service';
+import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../core/util/key-value-pair';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CompanyService} from '../company.service';
 import {ToastrService} from 'ngx-toastr';
 import {Company, EmployeeType} from '@app/my-ts-orm-demo-lib';
+import {FormValidatorService} from '../../core/service/form-validator.service';
 
 
 @Component({
@@ -76,7 +76,7 @@ export class CompanyFormComponent implements OnInit {
         }
       );
     } else {
-      this.companyService.save(p).subscribe(
+      this.companyService.save(p.id, p).subscribe(
         result => {
           this.toastr.info(`Company[${result.id}] updated.`);
           this.router.navigateByUrl('/company');

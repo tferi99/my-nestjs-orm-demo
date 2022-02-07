@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../common/util/key-value-pair';
-import {FormValidatorService} from '../../common/form-validator.service';
+import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../core/util/key-value-pair';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PersonService} from '../person.service';
 import {ToastrService} from 'ngx-toastr';
 import {EmployeeType, Person} from '@app/my-ts-orm-demo-lib';
+import {FormValidatorService} from '../../core/service/form-validator.service';
 
 @Component({
   selector: 'app-person-form',
@@ -82,7 +82,7 @@ export class PersonFormComponent implements OnInit {
         }
       );
     } else {
-      this.personService.save(p).subscribe(
+      this.personService.save(p.id, p).subscribe(
         result => {
           this.toastr.info(`Person[${result.id}] updated.`);
           this.router.navigateByUrl('/person');

@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {DATE_FORMAT} from '../../common/app.constants';
+import {DATE_FORMAT} from '../../core/app.constants';
 import {PersonService} from '../person.service';
 import {ToastrService} from 'ngx-toastr';
 import {NavigationEnd, Router} from '@angular/router';

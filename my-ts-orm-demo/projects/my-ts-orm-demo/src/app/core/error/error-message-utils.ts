@@ -1,7 +1,7 @@
-import {HttpErrorResponse} from "@angular/common/http";
+import {HttpErrorResponse} from '@angular/common/http';
 
 export class ErrorMessageUtils {
-  static getErrorMessage(prefix: string, err: any) {
+  static getErrorMessage(prefix: string, err: any): string {
     let msg = '';
     if (prefix) {
       msg += prefix + ' ';

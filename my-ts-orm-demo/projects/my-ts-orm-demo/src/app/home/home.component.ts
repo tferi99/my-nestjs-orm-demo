@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AuthState} from '../auth/store/auth.reducer';
+import {LoginAction, LogoutAction} from '../auth/store/auth.actions';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private store: Store<AuthState>,
+  ) { }
 
   ngOnInit(): void {
   }
 
+  logout(): void {
+    this.store.dispatch(LogoutAction());
+  }
 }

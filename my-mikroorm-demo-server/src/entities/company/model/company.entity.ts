@@ -1,4 +1,4 @@
-import { assign, Collection, Entity, OneToMany, PrimaryKey, Property, Unique } from "@mikro-orm/core";
+import { assign, Collection, Entity, OneToMany, PrimaryKey, Property, Unique } from '@mikro-orm/core';
 import { Person } from '../../person/model/person.entity';
 import { OrmIntTimestampEntity } from '../../../orm/orm.entity';
 

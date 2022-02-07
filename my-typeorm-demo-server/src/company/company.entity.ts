@@ -3,7 +3,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Person } from './person.entity';
 
 @Entity()
-export class Company implements CompanyDto {
+export class Company implements Company {
   @PrimaryGeneratedColumn()
   id: number;
 

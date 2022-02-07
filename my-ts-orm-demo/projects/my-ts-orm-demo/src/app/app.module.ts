@@ -6,17 +6,12 @@ import {AppComponent} from './app.component';
 import {PersonFormComponent} from './person/person-form/person-form.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
-import {ValidatorErrorMessageDirective} from './common/validator-error-message.directive';
-import {ErrorMessageComponent} from './common/error-message/error-message.component';
 import {PersonListComponent} from './person/person-list/person-list.component';
-import {EmployeeTypePipe} from './common/pipe/employee-type-pipe';
 import {PersonComponent} from './person/person.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {HomeComponent} from './home/home.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
-import {FormFocusDirective} from './common/directive/form-focus.directive';
-import {OnEscapeDirective} from './common/directive/on-escape.directive';
 import {PopoverModule} from 'ngx-bootstrap/popover';
 import {CompanyComponent} from './company/company.component';
 import { CompanyListComponent } from './company/company-list/company-list.component';
@@ -31,6 +26,11 @@ import {LoggerModule} from 'ngx-logger';
 import {HttpErrorInterceptor} from './core/error/http-error.interceptor';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {AuthModule} from './auth/auth.module';
+import {ValidatorErrorMessageDirective} from './core/directive/validator-error-message.directive';
+import {ErrorMessageComponent} from './core/error/error-message/error-message.component';
+import {EmployeeTypePipe} from './common/pipe/employee-type-pipe';
+import {FormFocusDirective} from './core/directive/form-focus.directive';
+import {OnEscapeDirective} from './core/directive/on-escape.directive';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,6 @@ import {AuthModule} from './auth/auth.module';
     ValidatorErrorMessageDirective,
     ErrorMessageComponent,
     PersonListComponent,
-    EmployeeTypePipe,
     EmployeeTypePipe,
     PersonComponent,
     HomeComponent,
@@ -51,7 +50,6 @@ import {AuthModule} from './auth/auth.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
@@ -64,6 +62,7 @@ import {AuthModule} from './auth/auth.module';
       serverLogLevel: environment.serverLogLevel,
       disableConsoleLogging: false,
     }),
+    AppRoutingModule,
 
     StoreModule.forRoot({}, {
       runtimeChecks: {

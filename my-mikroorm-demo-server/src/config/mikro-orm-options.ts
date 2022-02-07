@@ -8,9 +8,10 @@ import { BASE_ENTITIES } from '../orm/base-entities';
 export const AUTO_PRIMARY_KEY = true;
 
 export const MIKRO_ORM_OPTIONS: MikroOrmModuleSyncOptions = {
-  // registerRequestContext: false,       // by defualt enabled
+  // registerRequestContext: false,       // by default enabled
   type: 'postgresql',
   dbName: 'mymikroormdemo',
+  autoLoadEntities: false,
   entities: [...BASE_ENTITIES, ...ENTITIES],
 
   //  metadataProvider: TsMorphMetadataProvider,

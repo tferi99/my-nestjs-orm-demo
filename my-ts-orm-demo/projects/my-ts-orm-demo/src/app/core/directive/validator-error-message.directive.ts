@@ -9,7 +9,7 @@ import {
   TemplateRef,
   ViewContainerRef
 } from '@angular/core';
-import {ErrorMessageComponent} from './error-message/error-message.component';
+import {ErrorMessageComponent} from '../error/error-message/error-message.component';
 
 @Directive({
   selector: '[appValidatorErrorMessage]',

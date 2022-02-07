@@ -1,4 +1,4 @@
-import { Logger, Module } from "@nestjs/common";
+import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -16,17 +16,13 @@ import { UserService } from './auth/user.service';
 
     // features
     OrmModule,
-    InitModule,
     CompanyModule,
     PersonModule,
     SandboxModule,
     AuthModule,
+    InitModule,
   ],
   controllers: [AppController],
-  providers: [
-    Logger,
-    AppService,
-    UserService
-  ],
+  providers: [Logger, AppService, UserService],
 })
 export class AppModule {}

@@ -12,11 +12,11 @@ import {
 } from '@angular/common/http';
 import {NGXLogger} from 'ngx-logger';
 import {Store} from '@ngrx/store';
+
 import {AppState} from '../../app.state';
-import {LogoutAction} from '../../auth/store/auth.actions';
 import {ErrorMessageUtils} from './error-message-utils';
-import {ServerAppError, UniqueConstraintError} from './app-error';
 import {CustomHttpStatus, ResponseErrorPayload, ServerError} from '@app/my-ts-orm-demo-lib';
+import {ServerAppError, UniqueConstraintError} from './app-error';
 
 
 /**
@@ -71,9 +71,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           break;
         case CustomHttpStatus.ApplicationError:
           const ex = this.identifyServerApplicationErrors(err.error as ResponseErrorPayload);
-          if (ex != undefined) {
+          if (ex !== undefined) {
             console.log('!!!!!!!!!!!!!!!!!!!!!!!! IDENTIFIED');
-            // return throwError(new Error('kutyafasza'));
             return throwError(ex);
           }
           break;

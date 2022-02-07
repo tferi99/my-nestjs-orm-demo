@@ -67,51 +67,6 @@ export class InitService {
       em.persist(c2);
       em.persist(p1);
     });
-
-    /*    await em.begin();
-    try {
-      const c: Company = new Company();
-      c.name = 'Abc Inc.';
-      c.established = new Date();
-      c.active = true;
-      this.companyRepository.persist(c);
-      //em.persist(c);
-
-      console.log('-------------- em --------------');
-      OrmUtils.dumpUnitOfWork(em);
-      console.log('-------------- em from repo -------------- ');
-      OrmUtils.dumpUnitOfWork(this.companyRepository.getEm());
-
-      await em.commit();
-    } catch (e) {
-      await em.rollback();
-      throw e;
-    }*/
-
-    // only a company
-    /*    const c: Company = new Company();
-    c.name = 'Abc Inc.';
-    c.established = new Date();
-    c.active = true;
-    //await this.companyService.save(c)
-    await this.companyRepository.persist(c);*/
-
-    // company with workers
-    /*    const c2: Company = new Company();
-    c2.name = 'Other Inc.';
-    c2.established = new Date();
-    c2.active = true;
-
-    c2.workers.add(p1);
-    await this.companyRepository.persistAndFlush(c2);*/
-
-    /*    const companies2 = await this.companyRepository.find({});
-    if (companies2.length > 0) {
-      const cc = companies2[0];
-      cc.name += ' !!!!!!!!!!!!!!!!!!!!';
-      console.log('Changed!');
-    }
-    OrmUtils.dumpUnitOfWork(em, '>>>>>>>>>>>>>>>>>>>>> END');*/
   }
 
   async addCompany1(em: EntityManager) {
