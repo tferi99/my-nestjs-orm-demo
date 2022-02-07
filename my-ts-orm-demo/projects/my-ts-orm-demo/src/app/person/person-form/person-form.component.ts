@@ -5,7 +5,7 @@ import {FormValidatorService} from '../../common/form-validator.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PersonService} from '../person.service';
 import {ToastrService} from 'ngx-toastr';
-import {EmployeeType, PersonDto} from 'my-ts-orm-demo-lib';
+import {EmployeeType, Person} from '@app/my-ts-orm-demo-lib';
 
 @Component({
   selector: 'app-person-form',
@@ -15,7 +15,7 @@ import {EmployeeType, PersonDto} from 'my-ts-orm-demo-lib';
 export class PersonFormComponent implements OnInit {
   isNew = false;
 
-  @Input() in: PersonDto;
+  @Input() in: Person;
 
   employeeTypes: KeyValuePair<string, string>[];
 
@@ -71,7 +71,7 @@ export class PersonFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const p: PersonDto = this.form.getRawValue();
+    const p: Person = this.form.getRawValue();
     console.log('SUBMIT isNew:' + this.isNew, p);
 
     if (this.isNew) {

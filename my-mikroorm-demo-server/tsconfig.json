@@ -11,12 +11,18 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@lib/orm-types": [
-        "libs/orm-types/src"
+      "@app/my-mikroorm-demo-lib": [
+        "libs/my-mikroorm-demo-lib/src"
       ],
-      "@lib/orm-types/*": [
-        "libs/orm-types/src/*"
+      "@app/my-mikroorm-demo-lib/*": [
+        "libs/my-mikroorm-demo-lib/src/*"
       ]
     }
   }

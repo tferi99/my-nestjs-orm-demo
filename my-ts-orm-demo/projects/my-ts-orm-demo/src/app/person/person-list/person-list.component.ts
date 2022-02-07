@@ -4,7 +4,7 @@ import {PersonService} from '../person.service';
 import {ToastrService} from 'ngx-toastr';
 import {NavigationEnd, Router} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
-import {PersonDto} from 'my-ts-orm-demo-lib';
+import {Person} from '@app/my-ts-orm-demo-lib';
 
 @Component({
   selector: 'app-person-list',
@@ -12,7 +12,7 @@ import {PersonDto} from 'my-ts-orm-demo-lib';
   styleUrls: ['./person-list.component.scss']
 })
 export class PersonListComponent implements OnInit, OnDestroy {
-  @Input() persons: PersonDto[];
+  @Input() persons: Person[];
   @Input() enableDeletingTrigger: Observable<number>;
 
   dateFormat = DATE_FORMAT;
@@ -54,7 +54,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
     }
   }
 
-  delete(p: PersonDto): void {
+  delete(p: Person): void {
     if (!p) {
       return;
     }
@@ -67,7 +67,7 @@ export class PersonListComponent implements OnInit, OnDestroy {
     );
   }
 
-  copy(p: PersonDto): void  {
+  copy(p: Person): void  {
     p.id = undefined;
     this.router.navigateByUrl('/person/new', {state: p});
   }

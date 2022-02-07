@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subject} from 'rxjs';
-import {PersonDto} from 'my-ts-orm-demo-lib';
+import {Person} from '@app/my-ts-orm-demo-lib';
 
 @Component({
   selector: 'app-person',
@@ -9,7 +9,7 @@ import {PersonDto} from 'my-ts-orm-demo-lib';
   styleUrls: ['./person.component.scss']
 })
 export class PersonComponent implements OnInit {
-  persons: PersonDto[];
+  persons: Person[];
   deleteEnable = new Subject<number>();
 
   constructor(
@@ -19,7 +19,7 @@ export class PersonComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.persons = this.route.snapshot.data.persons as PersonDto[];
+    this.persons = this.route.snapshot.data.persons as Person[];
     this.route.data.subscribe(
       (data)  => {
         this.persons = data.persons;

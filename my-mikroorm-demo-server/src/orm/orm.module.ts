@@ -3,6 +3,7 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { ENTITIES } from '../config/entities';
 import { MIKRO_ORM_OPTIONS } from '../config/mikro-orm-options';
 import { OrmService } from './orm.service';
+import { OrmController } from './orm.controller';
 
 const logger = new Logger('MikroORM');
 
@@ -15,6 +16,9 @@ const logger = new Logger('MikroORM');
   ],
   providers: [
     OrmService
+  ],
+  controllers: [
+    OrmController
   ],
   exports: [
     MikroOrmModule,

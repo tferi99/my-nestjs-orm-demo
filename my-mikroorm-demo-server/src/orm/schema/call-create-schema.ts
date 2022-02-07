@@ -1,3 +1,3 @@
 import { DatabaseSchemaCreator } from './database-schema-creator';
 
-DatabaseSchemaCreator.create();
+DatabaseSchemaCreator.create(false);

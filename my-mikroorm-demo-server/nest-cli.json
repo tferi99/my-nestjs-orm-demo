@@ -2,17 +2,17 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "projects": {
-    "orm-types": {
+    "my-mikroorm-demo-lib": {
       "type": "library",
-      "root": "libs/orm-types",
+      "root": "libs/my-mikroorm-demo-lib",
       "entryFile": "index",
-      "sourceRoot": "libs/orm-types/src",
+      "sourceRoot": "libs/my-mikroorm-demo-lib/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/orm-types/tsconfig.lib.json"
+        "tsConfigPath": "libs/my-mikroorm-demo-lib/tsconfig.lib.json"
       }
     }
   },
   "compilerOptions": {
-    "webpack": false
+    "webpack": true
   }
 }

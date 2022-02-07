@@ -4,7 +4,8 @@ import {CompanyService} from '../company.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
-import {CompanyDto} from 'my-ts-orm-demo-lib';
+import {CompanyDto} from '../../../../../my-ts-orm-demo-lib/src/lib/my-ts-orm-demo-lib.model';
+import {Company} from '@app/my-ts-orm-demo-lib';
 
 @Component({
   selector: 'app-company-list',
@@ -52,7 +53,7 @@ export class CompanyListComponent implements OnInit, OnDestroy {
     }
   }
 
-  delete(p: CompanyDto): void {
+  delete(p: Company): void {
     if (!p) {
       return;
     }
@@ -65,7 +66,7 @@ export class CompanyListComponent implements OnInit, OnDestroy {
     );
   }
 
-  copy(p: CompanyDto): void  {
+  copy(p: Company): void  {
     p.id = undefined;
     this.router.navigateByUrl('/company/new', {state: p});
   }

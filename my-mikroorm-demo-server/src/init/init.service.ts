@@ -1,15 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Timeout } from '@nestjs/schedule';
-import { Company } from '../company/model/company.entity';
-import { Person } from '../person/model/person.entity';
-import { DateTimeUtils, DurationUnit } from '../util/datetime-util';
-import { PersonService } from '../person/person.service';
-import { CompanyRepository } from '../company/company.repository';
+import { Company } from '../entities/company/model/company.entity';
+import { CompanyRepository } from '../entities/company/company.repository';
 import { EntityManager } from '@mikro-orm/core';
-import { EmployeeType } from '../person/model/employee-type';
 import { OrmUtils } from '../orm/orm-utils';
 import { InjectRepository } from '@mikro-orm/nestjs';
-
+import { PersonRepository } from '../entities/person/person.repository';
+import { Person } from '../entities/person/model/person.entity';
+import { DateTimeUtils, DurationUnit } from '../util/datetime-util';
+import { EmployeeType } from '../entities/person/model/employee-type';
 
 /**
  * Initialization service. It started as a task during startup.
@@ -24,7 +23,8 @@ export class InitService {
     //private companyService: CompanyService,
     @InjectRepository(Company)
     private companyRepository: CompanyRepository,
-    private personService: PersonService,
+    @InjectRepository(Person)
+    private personRepository: PersonRepository,
   ) {}
 
   @Timeout(500)
@@ -35,10 +35,10 @@ export class InitService {
 
   async clean() {
     this.logger.log('============================ Application clean ============================');
+    //OrmUtils.dumpUnitOfWork(this.em, '>>>>>>>>>>>>>>>>>>>>> CLEAN');
     this.em.transactional(async (em) => {
-      await this.personService.deleteAll();
+      await this.personRepository.nativeDelete({});
       await this.companyRepository.nativeDelete({});
-      //this.companyService.deleteAll();
     });
   }
 
@@ -53,15 +53,22 @@ export class InitService {
       return; // inited
     }
 
-    console.log('EMPTY >>>>>>>>>>>>>>>');
-    //const em = this.em.fork(false);
-    const em = this.em.fork(true);
-    //const em = this.em;
+    //OrmUtils.dumpUnitOfWork(em, '>>>>>>>>>>>>>>>>>>>>> START');
+    await this.em.transactional(async (em) => {
+      const c: Company = new Company({ name: 'Abc Inc.', established: new Date(), active: true });
+      em.persist(c);
+      const c2: Company = new Company({ name: 'Other Inc.', established: new Date(), active: false });
+      c2.active = true;
 
-    await this.addCompany1(em);
-    await this.addCompany2(em);
+      const birth = new Date(Date.now() - DateTimeUtils.durationAsMilliseconds(10, DurationUnit.Years));
+      const p1 = new Person({ name: 'John Smith', email: 'js@test.org', birth, employeeType: EmployeeType.MANAGER, rank: 5 });
+      c2.workers.add(p1);
 
-/*    await em.begin();
+      em.persist(c2);
+      em.persist(p1);
+    });
+
+    /*    await em.begin();
     try {
       const c: Company = new Company();
       c.name = 'Abc Inc.';
@@ -82,7 +89,7 @@ export class InitService {
     }*/
 
     // only a company
-/*    const c: Company = new Company();
+    /*    const c: Company = new Company();
     c.name = 'Abc Inc.';
     c.established = new Date();
     c.active = true;
@@ -90,20 +97,21 @@ export class InitService {
     await this.companyRepository.persist(c);*/
 
     // company with workers
-/*    const c2: Company = new Company();
+    /*    const c2: Company = new Company();
     c2.name = 'Other Inc.';
     c2.established = new Date();
     c2.active = true;
 
-    const p1 = new Person();
-    p1.name = 'John Smith';
-    p1.email = 'js@test.org';
-    p1.rank = 5;
-    p1.employeeType = EmployeeType.MANAGER;
-    p1.birth = new Date(Date.now() - DateTimeUtils.durationAsMilliseconds(10, DurationUnit.Years));
-
     c2.workers.add(p1);
     await this.companyRepository.persistAndFlush(c2);*/
+
+    /*    const companies2 = await this.companyRepository.find({});
+    if (companies2.length > 0) {
+      const cc = companies2[0];
+      cc.name += ' !!!!!!!!!!!!!!!!!!!!';
+      console.log('Changed!');
+    }
+    OrmUtils.dumpUnitOfWork(em, '>>>>>>>>>>>>>>>>>>>>> END');*/
   }
 
   async addCompany1(em: EntityManager) {
@@ -116,28 +124,27 @@ export class InitService {
       c.active = true;
       //this.companyRepository.persist(c);
       em.persist(c);
-
-/*      console.log('-------------- em --------------');
-      OrmUtils.dumpUnitOfWork(em);
-      console.log('-------------- em from repo -------------- ');
-      OrmUtils.dumpUnitOfWork(this.companyRepository.getEm());*/
+      console.log(`Created [${c.id}]`);
 
       await em.commit();
     } catch (e) {
-      await em.rollback();
+      //      await em.rollback();
       throw e;
     }
   }
 
   async addCompany2(em: EntityManager) {
     console.log('addCompany2');
-    await em.transactional(async em => {
+    await em.transactional(async (em) => {
       const c: Company = new Company();
-      c.name = 'Abc2 Inc.';
+      c.name = 'Other Inc.';
       c.established = new Date();
       c.active = true;
       em.persist(c);
     });
   }
 
+  dumpEm() {
+    OrmUtils.dumpUnitOfWork(this.em, 'DUMP');
+  }
 }

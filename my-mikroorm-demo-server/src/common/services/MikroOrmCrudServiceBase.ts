@@ -1,6 +1,5 @@
 import { FilterQuery, Primary } from '@mikro-orm/core/typings';
 import { BaseEntity, EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
-import { filter } from 'rxjs/operators';
 
 export abstract class MikroOrmCrudServiceBase<T extends BaseEntity<T, PK>, PK extends keyof T> {
   abstract getEntityRepository(): EntityRepository<T>;
@@ -30,7 +29,7 @@ export abstract class MikroOrmCrudServiceBase<T extends BaseEntity<T, PK>, PK ex
     //const filter: FilterQuery<T> = { id: idField };
     return this.getEntityRepository().findOne({});
 
-    //User extends BaseEntity
+    //AuthModel extends BaseEntity
 /*    const u = this.getEntityRepository().getReference(id);
     return u.init();*/
   }

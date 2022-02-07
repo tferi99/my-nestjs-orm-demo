@@ -9,9 +9,13 @@ import {CompanyComponent} from './company/company.component';
 import {CompaniesResolverService} from './company/companies-resolver.service';
 import {CompanyResolverService} from './company/company-resolver.service';
 import {CompanyFormComponent} from './company/company-form/company-form.component';
+import {AuthGuard} from './auth/auth.guard';
+import {LoginComponent} from './auth/login/login.component';
 
 const routes: Routes = [
-  {path: 'home', component: HomeComponent},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+
+  { path: 'login', component: LoginComponent,  data: { title: 'Login Page' }},
 
   {path: 'person', component: PersonComponent, resolve: {persons: PersonsResolverService}, runGuardsAndResolvers: 'always'},
   {path: 'person/new', component: PersonFormComponent},
@@ -27,7 +31,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      enableTracing: true,                  // <-- debugging purposes only
+      enableTracing: false,                  // <-- debugging purposes only
       onSameUrlNavigation: 'reload',
     })
   ],
