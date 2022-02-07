@@ -13,7 +13,7 @@ import {EmployeeTypePipe} from './common/pipe/employee-type-pipe';
 import {PersonComponent} from './person/person.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {HomeComponent} from './home/home.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import {FormFocusDirective} from './common/directive/form-focus.directive';
 import {OnEscapeDirective} from './common/directive/on-escape.directive';
@@ -21,6 +21,16 @@ import {PopoverModule} from 'ngx-bootstrap/popover';
 import {CompanyComponent} from './company/company.component';
 import { CompanyListComponent } from './company/company-list/company-list.component';
 import { CompanyFormComponent } from './company/company-form/company-form.component';
+
+import {StoreModule} from '@ngrx/store';
+import * as fromAuth from './auth/store/auth.reducer';
+import {EffectsModule} from '@ngrx/effects';
+import {AuthEffects} from './auth/store/auth.effects';
+import {environment} from '../environments/environment';
+import {LoggerModule} from 'ngx-logger';
+import {HttpErrorInterceptor} from './core/error/http-error.interceptor';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {AuthModule} from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -47,9 +57,44 @@ import { CompanyFormComponent } from './company/company-form/company-form.compon
     BsDatepickerModule.forRoot(),
     HttpClientModule,
     ToastrModule.forRoot(),
-    PopoverModule.forRoot()
+    PopoverModule.forRoot(),
+    LoggerModule.forRoot({
+      colorScheme: ['purple', 'teal', 'gray', 'gray', 'red', 'red', 'red'],
+      level: environment.logLevel,
+      serverLogLevel: environment.serverLogLevel,
+      disableConsoleLogging: false,
+    }),
+
+    StoreModule.forRoot({}, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+        strictActionWithinNgZone: true,
+        strictActionTypeUniqueness: true,
+      }
+    }),
+    StoreModule.forFeature(fromAuth.featureKey, fromAuth.reducer),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+
+    EffectsModule.forRoot([]),
+    EffectsModule.forFeature(
+      [
+        AuthEffects,
+      ]
+    ),
+
+    // features
+    AuthModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

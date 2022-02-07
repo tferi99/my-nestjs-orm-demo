@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {EmployeeType} from 'my-ts-orm-demo-lib';
+import {EmployeeType} from '@app/my-ts-orm-demo-lib';
 
 @Pipe({
   name: 'employeeType'

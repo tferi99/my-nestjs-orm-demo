@@ -1,60 +1,25 @@
 //!!!!!!!!!!!!!!!!!! GENARATED BY createModelInterface.sh - DON'T CHANGE IT !!!!!!!!!!!!!!!!!!
 
-import { Collection } from '@mikro-orm/core';
-
-export enum EmployeeType {
-  WORKER = 'w',
-  MANAGER = 'm',
-  DIRECTOR = 'd',
+export enum Role {
+  None = 'none',
+  User = 'user',
+  Admin = 'admin',
 }
 
+export interface AuthRoleTest {
+  refIdx: number;
+  role: Role;
+}
 
-export interface Company extends OrmIntTimestampEntity {
+//------------------------------------ auth ------------------------------------
+export interface Auth {
   id: number;
   name: string;
-  established: Date;
-  active: boolean;
-  note: string;
-  workers: Person[];
+  roles: Role[];
 }
 
-export interface Person extends OrmIntTimestampEntity {
-  name: string;
-  email: string;
-  birth: Date;
-  employeeType: EmployeeType;
-  rank: number;
-  active: boolean;
-  note?: string;
-  company?: Company;
+export interface JwtPayload {
+  sub: string;
+  username: string;
+  roles: Role[];
 }
-
-export interface OrmBigIntEntity {
-  id: number;
-}
-
-export interface OrmBigIntTimestampEntity extends OrmTimestampEntity {
-  id: number;
-}
-
-export interface OrmIntEntity {
-  id: number;
-}
-
-export interface OrmIntTimestampEntity extends OrmTimestampEntity {
-  id: number;
-}
-
-export interface OrmTimestampEntity {
-  updated?: Date;
-  created?: Date;
-}
-
-export interface OrmUuidEntity {
-  id?: string;
-}
-
-export interface OrmUuidTimestampEntity extends OrmTimestampEntity {
-  id?: string;
-}
-

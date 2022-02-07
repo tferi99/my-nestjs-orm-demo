@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CompanyDto} from 'my-ts-orm-demo-lib';
+import {Company} from '@app/my-ts-orm-demo-lib';
 
 @Component({
   selector: 'app-company',
@@ -9,7 +9,7 @@ import {CompanyDto} from 'my-ts-orm-demo-lib';
   styleUrls: ['./company.component.scss']
 })
 export class CompanyComponent implements OnInit {
-  companies: CompanyDto[];
+  companies: Company[];
   deleteEnable = new Subject<number>();
 
   constructor(
@@ -19,7 +19,7 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.companies = this.route.snapshot.data.persons as CompanyDto[];
+    this.companies = this.route.snapshot.data.persons as Company[];
     this.route.data.subscribe(
       (data)  => {
         this.companies = data.companies;

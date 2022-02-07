@@ -5,7 +5,8 @@ import {FormValidatorService} from '../../common/form-validator.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CompanyService} from '../company.service';
 import {ToastrService} from 'ngx-toastr';
-import {CompanyDto, EmployeeType} from 'my-ts-orm-demo-lib';
+import {Company, EmployeeType} from '@app/my-ts-orm-demo-lib';
+
 
 @Component({
   selector: 'app-company-form',
@@ -14,7 +15,7 @@ import {CompanyDto, EmployeeType} from 'my-ts-orm-demo-lib';
 })
 export class CompanyFormComponent implements OnInit {
   isNew = false;
-  @Input() in: CompanyDto;
+  @Input() in: Company;
 
   employeeTypes: KeyValuePair<string, string>[];
 
@@ -64,7 +65,7 @@ export class CompanyFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const p: CompanyDto = this.form.getRawValue();
+    const p: Company = this.form.getRawValue();
     console.log('SUBMIT isNew:' + this.isNew, p);
 
     if (this.isNew) {

@@ -3,7 +3,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { jwtConstants } from '../constants';
 import { JwtService } from '@nestjs/jwt';
-import { Auth, JwtPayload, Role, User } from '../model/auth.model';
+import { User } from '../model/auth.model';
+import { Auth, JwtPayload, Role } from '@app/my-mikroorm-demo-lib';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
