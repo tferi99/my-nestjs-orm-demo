@@ -9,10 +9,10 @@ import {Company} from '@app/my-ts-orm-demo-lib';
 })
 export class CompaniesResolverService implements Resolve<Company[]> {
   constructor(
-    private service: CompanyService
+    private companyService: CompanyService
   ) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Company[]> {
-    return this.service.getAll();
+    return this.companyService.getAll();
   }
 }

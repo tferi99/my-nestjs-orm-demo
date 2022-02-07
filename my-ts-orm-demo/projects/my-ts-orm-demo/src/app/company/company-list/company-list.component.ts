@@ -4,7 +4,6 @@ import {CompanyService} from '../company.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
-import {CompanyDto} from '../../../../../my-ts-orm-demo-lib/src/lib/my-ts-orm-demo-lib.model';
 import {Company} from '@app/my-ts-orm-demo-lib';
 
 @Component({
@@ -13,7 +12,7 @@ import {Company} from '@app/my-ts-orm-demo-lib';
   styleUrls: ['./company-list.component.scss']
 })
 export class CompanyListComponent implements OnInit, OnDestroy {
-  @Input() companies: CompanyDto[];
+  @Input() companies: Company[];
   @Input() enableDeletingTrigger: Observable<number>;
 
   dateFormat = DATE_FORMAT;

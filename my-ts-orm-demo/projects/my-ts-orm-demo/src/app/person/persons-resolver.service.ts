@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {PersonService} from './person.service';
-import {PersonDto} from '../../../../my-ts-orm-demo-lib/src/lib/my-ts-orm-demo-lib.model';
 import {Person} from '@app/my-ts-orm-demo-lib';
 
 @Injectable({

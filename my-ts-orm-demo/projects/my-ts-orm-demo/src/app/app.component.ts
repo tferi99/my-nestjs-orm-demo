@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PersonDto} from '../../../my-ts-orm-demo-lib/src/lib/my-ts-orm-demo-lib.model';
-import {EmployeeType, Person} from '@app/my-ts-orm-demo-lib';
+import {Person} from '@app/my-ts-orm-demo-lib';
 
 @Component({
   selector: 'app-root',

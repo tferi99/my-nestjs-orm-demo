@@ -19,10 +19,12 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.companies = this.route.snapshot.data.persons as Company[];
+    this.companies = this.route.snapshot.data.companies as Company[];
+    console.log('COMPANIES:', this.companies);
     this.route.data.subscribe(
       (data)  => {
         this.companies = data.companies;
+        console.log('COMPANIES NEXT:', this.companies);
         this.deleteEnable.next(0);      // send signal to child to enable delete buttons
       }
     );

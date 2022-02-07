@@ -4,9 +4,7 @@ import { Company } from './model/company.entity';
 
 @Controller('company')
 export class CompanyController {
-  constructor(
-    private service: CompanyService
-  ) {}
+  constructor(private service: CompanyService) {}
 
   @Get()
   async getAll(): Promise<Company[]> {
@@ -20,12 +18,13 @@ export class CompanyController {
 
   @Post()
   async create(@Body() dto: Company): Promise<Company> {
-    return this.service.save(dto);
+    console.log('DTO:', dto );
+    return this.service.create(dto);
   }
 
-  @Put()
-  async save(@Body() dto: Company): Promise<Company> {
-    return this.service.save(dto);
+  @Put('/:id')
+  async save(@Param('id', ParseIntPipe) id: number, @Body() dto: Partial<Company>): Promise<Company> {
+    return this.service.update(id, dto);
   }
 
   @Delete('/:id')
