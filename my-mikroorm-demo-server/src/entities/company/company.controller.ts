@@ -18,7 +18,7 @@ export class CompanyController {
 
   @Post()
   async create(@Body() dto: Company): Promise<Company> {
-    console.log('DTO:', dto );
+    console.log('DTO:', dto);
     return this.service.create(dto);
   }
 

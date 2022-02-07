@@ -1,10 +1,10 @@
-import { FilterQuery, Populate, Primary } from '@mikro-orm/core/typings';
-import { BaseEntity, EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
+import { FilterQuery, Populate, Primary, PrimaryKeyType } from '@mikro-orm/core/typings';
+import { EntityRepository } from '@mikro-orm/core';
 import { QueryOrderMap } from '@mikro-orm/core/enums';
+import { OrmBaseEntity } from '../entity';
 
-export abstract class MikroOrmCrudServiceBase<T extends BaseEntity<T, PK>, PK extends keyof T> {
+export abstract class OrmCrudServiceBase<T extends OrmBaseEntity, PK extends keyof T> {
   abstract getEntityRepository(): EntityRepository<T>;
-  abstract newEntity(): T;
 
   async getAll(where: FilterQuery<T>, populate?: Populate<T>, order?: QueryOrderMap): Promise<T[]> {
     return this.getEntityRepository().find(where, [], { order });
@@ -12,7 +12,7 @@ export abstract class MikroOrmCrudServiceBase<T extends BaseEntity<T, PK>, PK ex
 
   async get(id: PK): Promise<T> {
     //const filter: FilterQuery<T> = { id: idField };
-    return this.getEntityRepository().findOne({});
+    return this.getEntityRepository().findOne({ id });
 
     //AuthModel extends BaseEntity
     /*    const u = this.getEntityRepository().getReference(id);

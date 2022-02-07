@@ -3,16 +3,24 @@ import { EntityManager, EntityRepository, QueryOrder, wrap } from '@mikro-orm/co
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Company } from './model/company.entity';
 import { CompanyRepository } from './company.repository';
+import { OrmCrudServiceBase } from '../../orm/service/orm-crud-service.base';
 
 @Injectable()
-export class CompanyService {
+export class CompanyService extends OrmCrudServiceBase<Company, 'id'> {
   constructor(
     @InjectRepository(Company)
     private repo: CompanyRepository,
+  ) {
+    super();
+  }
 
-    /*    @InjectRepository(Person)
-    private personRepo: EntityRepository<Person>,        // custom repository was not created explicitly, only injected repo from TypeOrm*/
+  getEntityRepository(): EntityRepository<Company> {
+    return this.repo;
+  }
 
+  /*  constructor(
+    @InjectRepository(Company)
+    private repo: CompanyRepository,
     private em: EntityManager,
   ) {}
 
@@ -24,14 +32,14 @@ export class CompanyService {
     return this.repo.findAll({}, { name: QueryOrder.ASC });
   }
 
-  async create(dto: Company): Promise<Company> {
+  async create(dto: Partial<Company>): Promise<Company> {
     const obj = this.repo.create(dto);
     delete obj.id;
     await this.repo.persistAndFlush(obj);
     return obj;
   }
 
-  async update(id: number, dto: Company): Promise<Company> {
+  async update(id: number, dto: Partial<Company>): Promise<Company> {
     const obj = await this.repo.findOne({ id });
     if (!obj) {
       return this.create(dto);
@@ -45,18 +53,7 @@ export class CompanyService {
     this.em.nativeDelete(Company, { id });
   }
 
-  async saveWithPerson(dto: Company): Promise<Company> {
-    /*    const newItem = await this.repo.save(dto);
-    if (dto.workers && dto.workers) {
-      for (let p of dto.workers) {
-        await this.personRepo.save(p);
-      }
-    }
-    return this.repo.save(dto);*/
-    return null;
-  }
-
   async deleteAll() {
     this.repo.nativeDelete({});
-  }
+  }*/
 }

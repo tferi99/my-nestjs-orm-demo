@@ -3,11 +3,11 @@ import { Timeout } from '@nestjs/schedule';
 import { Company } from '../entities/company/model/company.entity';
 import { CompanyRepository } from '../entities/company/company.repository';
 import { EntityManager } from '@mikro-orm/core';
-import { OrmUtils } from '../orm/orm-utils';
+import { OrmUtilsService } from '../orm/service/orm-utils.service';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { PersonRepository } from '../entities/person/person.repository';
 import { Person } from '../entities/person/model/person.entity';
-import { DateTimeUtils, DurationUnit } from '../util/datetime-util';
+import { DateTimeUtils, DurationUnit } from '../util/datetime-utils';
 import { EmployeeType } from '../entities/person/model/employee-type';
 
 /**
@@ -100,6 +100,6 @@ export class InitService {
   }
 
   dumpEm() {
-    OrmUtils.dumpUnitOfWork(this.em, 'DUMP');
+    OrmUtilsService.dumpUnitOfWork(this.em, 'DUMP');
   }
 }

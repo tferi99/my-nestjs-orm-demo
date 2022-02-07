@@ -1,6 +1,6 @@
 import { assign, Entity, Enum, ManyToOne, Property } from "@mikro-orm/core";
 import { Company } from '../../company/model/company.entity';
-import { OrmIntTimestampEntity } from '../../../orm/orm.entity';
+import { OrmIntTimestampEntity } from '../../../orm/entity';
 import { EmployeeType } from './employee-type';
 
 @Entity()

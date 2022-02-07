@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager, EntityRepository, QueryOrder, wrap } from '@mikro-orm/core';
-import { createWaitPromise } from '../../common/AsyncUtil';
-import { MikroOrmCrudServiceBase } from '../../common/services/MikroOrmCrudServiceBase';
+import { createWaitPromise } from '../../util/async-util';
+import { OrmCrudServiceBase } from '../../orm/service/orm-crud-service.base';
 import { Person } from './model/person.entity';
 
 const waitForTest = (cb, ms) => new Promise(() => setTimeout(cb, ms));

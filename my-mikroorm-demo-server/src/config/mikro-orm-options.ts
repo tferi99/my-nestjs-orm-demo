@@ -3,7 +3,7 @@ import { UnderscoreNamingStrategy } from '@mikro-orm/core';
 import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { logger } from '@mikro-orm/nestjs';
 import { ENTITIES } from './entities';
-import { BASE_ENTITIES } from '../orm/base-entities';
+import { BASE_ENTITIES } from '../orm/entity/base-entities';
 
 export const AUTO_PRIMARY_KEY = true;
 

@@ -1,6 +1,23 @@
 import { EntityManager } from '@mikro-orm/core';
+import { Injectable, Logger } from '@nestjs/common';
 
-export class OrmUtils {
+@Injectable()
+export class OrmUtilsService {
+  private readonly logger = new Logger(OrmUtilsService.name);
+
+  constructor(
+    private em: EntityManager,
+  ) {}
+
+  dumpEm(label = 'DUMP') {
+    OrmUtilsService.dumpUnitOfWork(this.em, label);
+  }
+
+  emClear() {
+    this.logger.log('EM clear');
+    this.em.clear();
+  }
+
   static dumpUnitOfWork(em: EntityManager, label?: string) {
     const uw = em.getUnitOfWork();
 

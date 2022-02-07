@@ -2,9 +2,9 @@ import { Inject, Injectable, Logger, LoggerService } from '@nestjs/common';
 import { CompanyRepository } from '../entities/company/company.repository';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Company } from '../entities/company/model/company.entity';
-import { OrmUtils } from '../orm/orm-utils';
+import { OrmUtilsService } from '../orm/service/orm-utils.service';
 import { Person } from '../entities/person/model/person.entity';
-import { DateTimeUtils, DurationUnit } from '../util/datetime-util';
+import { DateTimeUtils, DurationUnit } from '../util/datetime-utils';
 import { EmployeeType } from '../entities/person/model/employee-type';
 import { EntityManager, QueryBuilder } from '@mikro-orm/postgresql';
 
@@ -15,9 +15,9 @@ export class SandboxService {
   constructor(private em: EntityManager, @InjectRepository(Company) private companyRepository: CompanyRepository) {}
 
   async emDumpWithFind() {
-    OrmUtils.dumpUnitOfWork(this.em, 'start');
+    OrmUtilsService.dumpUnitOfWork(this.em, 'start');
     const companies = await this.companyRepository.find({});
-    OrmUtils.dumpUnitOfWork(this.em, 'after find');
+    OrmUtilsService.dumpUnitOfWork(this.em, 'after find');
   }
 
   async manyToOneOptional(assignToCompany: boolean) {
