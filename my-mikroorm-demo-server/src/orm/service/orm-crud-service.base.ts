@@ -12,7 +12,7 @@ export abstract class OrmCrudServiceBase<T extends OrmBaseEntity, PK extends key
 
   async get(id: PK): Promise<T> {
     //const filter: FilterQuery<T> = { id: idField };
-    return this.getEntityRepository().findOne({ id });
+    return this.getEntityRepository().findOne({ PK: id });
 
     //AuthModel extends BaseEntity
     /*    const u = this.getEntityRepository().getReference(id);
