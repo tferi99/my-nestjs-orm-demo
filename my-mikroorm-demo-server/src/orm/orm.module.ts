@@ -2,7 +2,6 @@ import { Logger, Module } from '@nestjs/common';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { ENTITIES } from '../config/entities';
 import { MIKRO_ORM_OPTIONS } from '../config/mikro-orm-options';
-import { OrmService } from './orm.service';
 import { OrmController } from './orm.controller';
 import { OrmUtilsService } from './service/orm-utils.service';
 
@@ -17,6 +16,6 @@ const logger = new Logger('MikroORM');
   ],
   providers: [OrmUtilsService],
   controllers: [OrmController],
-  exports: [MikroOrmModule, OrmService],
+  exports: [MikroOrmModule, OrmUtilsService],
 })
 export class OrmModule {}

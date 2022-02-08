@@ -3,23 +3,22 @@ import { EntityRepository } from '@mikro-orm/core';
 import { QueryOrderMap } from '@mikro-orm/core/enums';
 import { OrmBaseEntity } from '../entity';
 
-export abstract class OrmCrudServiceBase<T extends OrmBaseEntity, PK extends keyof T> {
+export abstract class OrmCrudServiceBase<T extends OrmBaseEntity, PK> {
   abstract getEntityRepository(): EntityRepository<T>;
 
-  async getAll(where: FilterQuery<T>, populate?: Populate<T>, order?: QueryOrderMap): Promise<T[]> {
-    return this.getEntityRepository().find(where, [], { order });
+  async getAll(where: FilterQuery<T>, populate: Populate<T>, order: QueryOrderMap): Promise<T[]> {
+    return this.getEntityRepository().find(where, [], order);
+  }
+
+  async getAll(where: FilterQuery<T>, order: QueryOrderMap): Promise<T[]> {
+    return this.getAll(where, undefined, order);
   }
 
   async get(id: PK): Promise<T> {
-    //const filter: FilterQuery<T> = { id: idField };
-    return this.getEntityRepository().findOne({ PK: id });
-
-    //AuthModel extends BaseEntity
-    /*    const u = this.getEntityRepository().getReference(id);
-    return u.init();*/
+    return this.getEntityRepository().findOne({ [PrimaryKeyType]: id });
   }
 
-  async create(dto: Partial<T>): Promise<T> {
+  async insert(dto: Partial<T>): Promise<T> {
     const obj = this.getEntityRepository().create(dto);
     await this.getEntityRepository().persistAndFlush(obj);
     return obj;
@@ -31,14 +30,14 @@ export abstract class OrmCrudServiceBase<T extends OrmBaseEntity, PK extends key
    * @param id
    * @param dto
    */
-  async update(id: PK, dto: T): Promise<T> {
-    const user = await this.get(id);
-    if (!user) {
+  async update(id: PK, dto: Partial<T>): Promise<T> {
+    const obj = await this.get(id);
+    if (!obj) {
       return null;
     }
-    await this.getEntityRepository().assign(user, dto);
+    await this.getEntityRepository().assign(obj, dto);
     await this.getEntityRepository().flush();
-    return user;
+    return obj;
   }
 
   async delete(id: Primary<T>) {

@@ -8,7 +8,7 @@ export class CompanyController {
 
   @Get()
   async getAll(): Promise<Company[]> {
-    return this.service.getAll();
+    return this.service.getAll({}, undefined, { name: 'ASC' });
   }
 
   @Get('/:id')
@@ -19,7 +19,7 @@ export class CompanyController {
   @Post()
   async create(@Body() dto: Company): Promise<Company> {
     console.log('DTO:', dto);
-    return this.service.create(dto);
+    return this.service.insert(dto);
   }
 
   @Put('/:id')
@@ -32,8 +32,8 @@ export class CompanyController {
     return this.service.delete(id);
   }
 
-  @Post('/withPerson')
+  /*  @Post('/withPerson')
   async saveWithPerson(@Body() dto: Company): Promise<Company> {
     return this.service.saveWithPerson(dto);
-  }
+  }*/
 }
