@@ -10,10 +10,6 @@ export abstract class OrmCrudServiceBase<T extends OrmBaseEntity, PK> {
     return this.getEntityRepository().find(where, [], order);
   }
 
-  async getAll(where: FilterQuery<T>, order: QueryOrderMap): Promise<T[]> {
-    return this.getAll(where, undefined, order);
-  }
-
   async get(id: PK): Promise<T> {
     return this.getEntityRepository().findOne({ [PrimaryKeyType]: id });
   }

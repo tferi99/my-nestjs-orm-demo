@@ -1,35 +1,38 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { CompanyService } from './company.service';
 import { Company } from './model/company.entity';
+import { CompanyRepository } from './company.repository';
+import { InjectRepository } from '@mikro-orm/nestjs';
 
 @Controller('company')
 export class CompanyController {
-  constructor(private service: CompanyService) {}
+  constructor(
+    @InjectRepository(Company) private repo: CompanyRepository
+  ) {}
 
   @Get()
   async getAll(): Promise<Company[]> {
-    return this.service.getAll({}, undefined, { name: 'ASC' });
+    return this.repo.findAll({}, { name: 'ASC' });
   }
 
   @Get('/:id')
   async get(@Param('id', ParseIntPipe) id: number): Promise<Company> {
-    return this.service.get(id);
+    return this.repo.crud().get(id);
   }
 
   @Post()
-  async create(@Body() dto: Company): Promise<Company> {
-    console.log('DTO:', dto);
-    return this.service.insert(dto);
+  async insert(@Body() data: Company): Promise<Company> {
+    console.log('DTO:', data);
+    return this.repo.crud().insert(data);
   }
 
   @Put('/:id')
-  async save(@Param('id', ParseIntPipe) id: number, @Body() dto: Partial<Company>): Promise<Company> {
-    return this.service.update(id, dto);
+  async update(@Param('id', ParseIntPipe) id: number, @Body() dto: Partial<Company>): Promise<Company> {
+    return this.repo.crud().update(id, dto);
   }
 
   @Delete('/:id')
   async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
-    return this.service.delete(id);
+    return this.repo.crud().delete(id);
   }
 
   /*  @Post('/withPerson')
