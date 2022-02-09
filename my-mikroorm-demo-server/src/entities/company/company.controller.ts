@@ -5,9 +5,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 
 @Controller('company')
 export class CompanyController {
-  constructor(
-    @InjectRepository(Company) private repo: CompanyRepository
-  ) {}
+  constructor(@InjectRepository(Company) private repo: CompanyRepository) {}
 
   @Get()
   async getAll(): Promise<Company[]> {
@@ -22,17 +20,32 @@ export class CompanyController {
   @Post()
   async insert(@Body() data: Company): Promise<Company> {
     console.log('DTO:', data);
-    return this.repo.crud().insert(data);
+    const obj = await this.repo.crud().insert(data);
+    await this.repo.flush();
+    return obj;
   }
 
   @Put('/:id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() dto: Partial<Company>): Promise<Company> {
-    return this.repo.crud().update(id, dto);
+    const obj = await this.repo.crud().update(id, dto);
+    await this.repo.flush();
+    return obj;
+  }
+
+  @Put('/:id/native')
+  async nativeUpdate(@Param('id', ParseIntPipe) id: number, @Body() data: Partial<Company>): Promise<number> {
+    return this.repo.crud().nativeUpdate(id, data);
   }
 
   @Delete('/:id')
   async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
-    return this.repo.crud().delete(id);
+    await this.repo.crud().delete(id);
+    await this.repo.flush();
+  }
+
+  @Delete('/:id/native')
+  async nativeDelete(@Param('id', ParseIntPipe) id: number): Promise<number> {
+    return this.repo.crud().nativeDelete(id);
   }
 
   /*  @Post('/withPerson')

@@ -1,17 +1,18 @@
-import { FilterQuery, Populate, Primary, PrimaryKeyType } from '@mikro-orm/core/typings';
+import { FilterQuery, IPrimaryKeyValue, Populate, Primary, PrimaryKeyType } from '@mikro-orm/core/typings';
 import { EntityRepository } from '@mikro-orm/core';
 import { QueryOrderMap } from '@mikro-orm/core/enums';
 import { OrmBaseEntity } from '../entity';
+import { Company } from '../../entities/company/model/company.entity';
 
-export abstract class OrmCrudServiceBase<T extends OrmBaseEntity, PK> {
+export abstract class OrmCrudServiceBase<T extends OrmBaseEntity> {
   abstract getEntityRepository(): EntityRepository<T>;
 
   async getAll(where: FilterQuery<T>, populate: Populate<T>, order: QueryOrderMap): Promise<T[]> {
     return this.getEntityRepository().find(where, [], order);
   }
 
-  async get(id: PK): Promise<T> {
-    return this.getEntityRepository().findOne({ [PrimaryKeyType]: id });
+  async get(filter: FilterQuery<T>): Promise<T> {
+    return this.getEntityRepository().findOne<T>(filter);
   }
 
   async insert(dto: Partial<T>): Promise<T> {
@@ -26,8 +27,8 @@ export abstract class OrmCrudServiceBase<T extends OrmBaseEntity, PK> {
    * @param id
    * @param dto
    */
-  async update(id: PK, dto: Partial<T>): Promise<T> {
-    const obj = await this.get(id);
+  async update(filter: FilterQuery<T>, dto: Partial<T>): Promise<T> {
+    const obj = await this.get(filter);
     if (!obj) {
       return null;
     }
@@ -41,3 +42,4 @@ export abstract class OrmCrudServiceBase<T extends OrmBaseEntity, PK> {
     await this.getEntityRepository().removeAndFlush(u);
   }
 }
+

@@ -6,7 +6,7 @@ import { CompanyRepository } from './company.repository';
 import { OrmCrudServiceBase } from '../../orm/service/orm-crud-service.base';
 
 @Injectable()
-export class CompanyService extends OrmCrudServiceBase<Company, number> {
+export class CompanyService extends OrmCrudServiceBase<Company> {
   constructor(
     @InjectRepository(Company)
     private repo: CompanyRepository,
