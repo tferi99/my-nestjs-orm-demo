@@ -1,14 +1,15 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Timeout } from '@nestjs/schedule';
-import { Company } from '../entities/company/model/company.entity';
-import { CompanyRepository } from '../entities/company/company.repository';
+import { Company } from '../features/company/model/company.entity';
+import { CompanyRepository } from '../features/company/company.repository';
 import { EntityManager } from '@mikro-orm/core';
-import { OrmUtilsService } from '../orm/service/orm-utils.service';
+import { OrmUtilsService } from '../core/orm/service/orm-utils.service';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { PersonRepository } from '../entities/person/person.repository';
-import { Person } from '../entities/person/model/person.entity';
+import { PersonRepository } from '../features/person/person.repository';
+import { Person } from '../features/person/model/person.entity';
 import { DateTimeUtils, DurationUnit } from '../util/datetime-utils';
-import { EmployeeType } from '../entities/person/model/employee-type';
+import { EmployeeType } from '../features/person/model/employee-type';
+import { EventEmitterService } from '../core/events/event-emitter.service';
 
 /**
  * Initialization service. It started as a task during startup.
@@ -25,12 +26,16 @@ export class InitService {
     private companyRepository: CompanyRepository,
     @InjectRepository(Person)
     private personRepository: PersonRepository,
+    private eventEmitterService: EventEmitterService,
   ) {}
 
   @Timeout(500)
   async initApplication() {
     this.logger.log('============================ Application initialization ============================');
     this.initDbContent();
+    this.eventEmitterService.emit({
+      id: 'app.initialized',
+    });
   }
 
   async clean() {

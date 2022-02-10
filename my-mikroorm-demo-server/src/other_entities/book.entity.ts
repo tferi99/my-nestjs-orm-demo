@@ -1,6 +1,6 @@
 import { Entity, ManyToOne, Property } from '@mikro-orm/core';
 import { Author } from './author.entity';
-import { OrmIntTimestampEntity } from '../orm/entity';
+import { OrmIntTimestampEntity } from '../core/orm/entity';
 
 class Publisher {
 }

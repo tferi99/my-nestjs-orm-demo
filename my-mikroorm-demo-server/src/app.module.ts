@@ -2,20 +2,20 @@ import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ScheduleModule } from '@nestjs/schedule';
-import { OrmModule } from './orm/orm.module';
 import { InitModule } from './init/init.module';
-import { CompanyModule } from './entities/company/company.module';
-import { PersonModule } from './entities/person/person.module';
+import { CompanyModule } from './features/company/company.module';
+import { PersonModule } from './features/person/person.module';
 import { SandboxModule } from './sandbox/sandbox.module';
 import { AuthModule } from './auth/auth.module';
 import { UserService } from './auth/user.service';
+import { EVENT_MONITOR_CONFIG_OPTIONS, EventMonitorService } from './core/events/event-monitor.service';
+import { LoggingConfig } from './config/logging.config';
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
 
     // features
-    OrmModule,
     CompanyModule,
     PersonModule,
     SandboxModule,
@@ -23,6 +23,8 @@ import { UserService } from './auth/user.service';
     InitModule,
   ],
   controllers: [AppController],
-  providers: [Logger, AppService, UserService],
+  providers: [
+    Logger, AppService, UserService,
+  ],
 })
 export class AppModule {}

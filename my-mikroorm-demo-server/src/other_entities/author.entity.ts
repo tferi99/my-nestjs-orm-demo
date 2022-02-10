@@ -1,6 +1,6 @@
 import { Collection, Entity, ManyToMany, ManyToOne, OneToMany, Property } from '@mikro-orm/core';
 import { Book } from './book.entity';
-import { OrmIntTimestampEntity } from '../orm/entity';
+import { OrmIntTimestampEntity } from '../core/orm/entity';
 
 @Entity()
 export class Author extends OrmIntTimestampEntity {

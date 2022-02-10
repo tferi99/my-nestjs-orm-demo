@@ -1,8 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { hideBin } from 'yargs/helpers';
-import { DatabaseSchemaCreator } from './orm/schema/database-schema-creator';
-import { exit } from 'yargs';
+import { DatabaseSchemaCreator } from './core/orm/schema/database-schema-creator';
 
 const argv = process.argv.slice(2);
 console.log('myArgs: ', argv);

@@ -1,11 +1,11 @@
 import { Inject, Injectable, Logger, LoggerService } from '@nestjs/common';
-import { CompanyRepository } from '../entities/company/company.repository';
+import { CompanyRepository } from '../features/company/company.repository';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Company } from '../entities/company/model/company.entity';
-import { OrmUtilsService } from '../orm/service/orm-utils.service';
-import { Person } from '../entities/person/model/person.entity';
+import { Company } from '../features/company/model/company.entity';
+import { OrmUtilsService } from '../core/orm/service/orm-utils.service';
+import { Person } from '../features/person/model/person.entity';
 import { DateTimeUtils, DurationUnit } from '../util/datetime-utils';
-import { EmployeeType } from '../entities/person/model/employee-type';
+import { EmployeeType } from '../features/person/model/employee-type';
 import { EntityManager, QueryBuilder } from '@mikro-orm/postgresql';
 
 @Injectable()

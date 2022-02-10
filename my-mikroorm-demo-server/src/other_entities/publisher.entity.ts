@@ -1,5 +1,5 @@
 import { Entity, Property } from '@mikro-orm/core';
-import { OrmIntTimestampEntity } from '../orm/entity';
+import { OrmIntTimestampEntity } from '../core/orm/entity';
 
 @Entity()
 export class Publisher extends OrmIntTimestampEntity {
