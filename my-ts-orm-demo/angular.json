@@ -8,31 +8,34 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
-      "root": "projects/my-ts-orm-demo",
-      "sourceRoot": "projects/my-ts-orm-demo/src",
+      "root": "",
+      "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/my-ts-orm-demo",
-            "index": "projects/my-ts-orm-demo/src/index.html",
-            "main": "projects/my-ts-orm-demo/src/main.ts",
-            "polyfills": "projects/my-ts-orm-demo/src/polyfills.ts",
-            "tsConfig": "projects/my-ts-orm-demo/tsconfig.app.json",
-            "aot": true,
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
-              "projects/my-ts-orm-demo/src/favicon.ico",
-              "projects/my-ts-orm-demo/src/assets"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              "projects/my-ts-orm-demo/src/styles.scss",
+              "src/styles.scss",
               "./node_modules/@fortawesome/fontawesome-free/css/all.css",
-              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "./node_modules/@fortawesome/fontawesome-free/js/all.js"
@@ -40,45 +43,49 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/my-ts-orm-demo/src/environments/environment.ts",
-                  "with": "projects/my-ts-orm-demo/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
-              ]
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "my-ts-orm-demo:build",
-            "port": 4201
-          },
           "configurations": {
             "production": {
               "browserTarget": "my-ts-orm-demo:build:production"
+            },
+            "development": {
+              "browserTarget": "my-ts-orm-demo:build:development",
+              "port": 4201
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -89,91 +96,25 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/my-ts-orm-demo/src/test.ts",
-            "polyfills": "projects/my-ts-orm-demo/src/polyfills.ts",
-            "tsConfig": "projects/my-ts-orm-demo/tsconfig.spec.json",
-            "karmaConfig": "projects/my-ts-orm-demo/karma.conf.js",
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
             "assets": [
-              "projects/my-ts-orm-demo/src/favicon.ico",
-              "projects/my-ts-orm-demo/src/assets"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              "projects/my-ts-orm-demo/src/styles.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/my-ts-orm-demo/tsconfig.app.json",
-              "projects/my-ts-orm-demo/tsconfig.spec.json",
-              "projects/my-ts-orm-demo/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/my-ts-orm-demo/e2e/protractor.conf.js",
-            "devServerTarget": "my-ts-orm-demo:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "my-ts-orm-demo:serve:production"
-            }
-          }
         }
       }
-    },
-    "my-ts-orm-demo-lib": {
-      "projectType": "library",
-      "root": "projects/my-ts-orm-demo-lib",
-      "sourceRoot": "projects/my-ts-orm-demo-lib/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "projects/my-ts-orm-demo-lib/tsconfig.lib.json",
-            "project": "projects/my-ts-orm-demo-lib/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/my-ts-orm-demo-lib/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/my-ts-orm-demo-lib/src/test.ts",
-            "tsConfig": "projects/my-ts-orm-demo-lib/tsconfig.spec.json",
-            "karmaConfig": "projects/my-ts-orm-demo-lib/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/my-ts-orm-demo-lib/tsconfig.lib.json",
-              "projects/my-ts-orm-demo-lib/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    }},
-  "cli": {
-    "analytics": false
+    }
   },
   "defaultProject": "my-ts-orm-demo"
 }

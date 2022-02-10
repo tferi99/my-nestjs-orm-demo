@@ -3,7 +3,7 @@ import { CallHandler, ExecutionContext, HttpStatus, Injectable, NestInterceptor 
 import { catchError } from 'rxjs/operators';
 import { UniqueConstraintViolationException } from '@mikro-orm/core';
 import { ServerException } from '../exception/server-exception';
-import { ServerError } from '@app/easy-trader-lib';
+import { ServerError } from '@app/client-lib';
 
 /**
  * Not used now - filter used instead: {@link GlobalExceptionFilter}

@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { jwtConstants } from '../constants';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../model/auth.model';
-import { Auth, JwtPayload, Role } from '@app/my-mikroorm-demo-lib';
+import { Auth, JwtPayload, Role } from '@app/client-lib';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

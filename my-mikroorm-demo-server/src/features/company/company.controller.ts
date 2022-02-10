@@ -2,10 +2,14 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@
 import { Company } from './model/company.entity';
 import { CompanyRepository } from './company.repository';
 import { InjectRepository } from '@mikro-orm/nestjs';
+import { EventEmitterService } from '../../core/events/event-emitter.service';
 
 @Controller('company')
 export class CompanyController {
-  constructor(@InjectRepository(Company) private repo: CompanyRepository) {}
+  constructor(
+    @InjectRepository(Company) private repo: CompanyRepository,
+    private eventEmitterService: EventEmitterService,
+  ) {}
 
   @Get()
   async getAll(): Promise<Company[]> {

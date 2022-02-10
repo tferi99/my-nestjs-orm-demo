@@ -1,23 +1,34 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es2017",
     "module": "es2020",
     "lib": [
       "es2018",
       "dom"
     ],
     "paths": {
-      "@app/my-ts-orm-demo-lib": ["../my-mikroorm-demo-server/libs/my-mikroorm-demo-lib/src"],
-      "@app/my-ts-orm-demo-lib/*": ["../my-mikroorm-demo-server/libs/my-mikroorm-demo-lib/src/*"]
+      "@app/client-lib": ["../my-mikroorm-demo-server/libs/client-lib/src"],
+      "@app/client-lib/*": ["../my-mikroorm-demo-server/libs/client-lib/src/*"]
     }
-  }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
 }

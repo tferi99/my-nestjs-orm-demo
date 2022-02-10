@@ -2,13 +2,13 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "projects": {
-    "my-mikroorm-demo-lib": {
+    "client-lib": {
       "type": "library",
-      "root": "libs/my-mikroorm-demo-lib",
+      "root": "libs/client-lib",
       "entryFile": "index",
-      "sourceRoot": "libs/my-mikroorm-demo-lib/src",
+      "sourceRoot": "libs/client-lib/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/my-mikroorm-demo-lib/tsconfig.lib.json"
+        "tsConfigPath": "libs/client-lib/tsconfig.lib.json"
       }
     }
   },

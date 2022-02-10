@@ -8,7 +8,7 @@ import {
   Logger,
   LoggerService,
 } from '@nestjs/common';
-import { CustomHttpStatus, HttpStatusExt, ResponseErrorPayload, ServerError } from '@app/easy-trader-lib';
+import { CustomHttpStatus, HttpStatusExt, ResponseErrorPayload, ServerError } from '@app/client-lib';
 import { UniqueConstraintViolationException } from '@mikro-orm/core';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-host.interface';
 

@@ -54,7 +54,6 @@ export class InitService {
     //const companies = await this.companyService.getAll();
     const companies = await this.companyRepository.find({});
     if (companies.length > 0) {
-      console.log('INITED');
       return; // inited
     }
 

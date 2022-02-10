@@ -4,7 +4,7 @@ import { AppRequest, AppResponse } from '../app/app.interface';
 import { ContextStorageKey } from './context.enum';
 import { ContextJwtPayload } from './context.interface';
 import { ContextStorage } from './context.storage';
-import { assignIfNullish } from '../../util/typescript-util';
+import { assignIfNullish } from '../util/typescript-util';
 
 @Injectable()
 export class ContextService<Metadata = Record<string, any>> {

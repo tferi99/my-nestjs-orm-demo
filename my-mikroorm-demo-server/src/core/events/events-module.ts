@@ -1,19 +1,14 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs/typings';
-import { AnyEntity, EntityName } from '@mikro-orm/core';
-import { BASE_ENTITIES } from '../orm/entity/base-entities';
-import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { OrmUtilsService } from '../orm/service/orm-utils.service';
-import { OrmController } from '../orm/orm.controller';
 import { WinstonModuleOptions } from 'nest-winston/dist/winston.interfaces';
 import { Provider } from '@nestjs/common/interfaces/modules/provider.interface';
 import { EVENT_MONITOR_CONFIG_OPTIONS, EventMonitorService } from './event-monitor.service';
 import { EventEmitterService } from './event-emitter.service';
-import { LoggingConfig } from '../../config/logging.config';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { EventEmitterModuleOptions } from '@nestjs/event-emitter/dist/interfaces';
 
 @Module({})
 export class EventsModule {
-  static forRoot(monitorLoggerConfig?: WinstonModuleOptions): DynamicModule {
+  static forRoot(config: EventEmitterModuleOptions, monitorLoggerConfig?: WinstonModuleOptions): DynamicModule {
     const dynamicProviders: Provider[] = [];
 
     // event monitor
@@ -27,7 +22,7 @@ export class EventsModule {
 
     return {
       module: EventsModule,
-      imports: [],
+      imports: [EventEmitterModule.forRoot(config)],
       providers: [EventEmitterService, ...dynamicProviders],
       controllers: [],
       exports: [EventEmitterService],

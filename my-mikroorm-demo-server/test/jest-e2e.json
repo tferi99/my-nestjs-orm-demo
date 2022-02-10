@@ -11,7 +11,7 @@
     "^.+\\.(t|j)s$": "ts-jest"
   },
   "moduleNameMapper": {
-    "@app/my-mikroorm-demo-lib/(.*)": "<rootDir>/../libs/my-mikroorm-demo-lib/src/$1",
-    "@app/my-mikroorm-demo-lib": "<rootDir>/../libs/my-mikroorm-demo-lib/src"
+    "@app/client-lib/(.*)": "<rootDir>/../libs/client-lib/src/$1",
+    "@app/client-lib": "<rootDir>/../libs/client-lib/src"
   }
 }

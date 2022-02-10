@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { applyDecorators } from '@nestjs/common';
-import { Transform } from 'class-transformer';
 
 import { TransformToStringArrayOptions, TransformToStringOptions } from './transform.interface';
-import { assignIfNullish } from '../../util/typescript-util';
+import { assignIfNullish } from '../util/typescript-util';
+import { Transform } from 'class-transformer';
 
 /**
  * Transforms a primitive to its corresponding boolean.

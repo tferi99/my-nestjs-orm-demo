@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { UserService } from './auth/user.service';
 import { EVENT_MONITOR_CONFIG_OPTIONS, EventMonitorService } from './core/events/event-monitor.service';
 import { LoggingConfig } from './config/logging.config';
+import { GlobalExceptionFilter } from './core/filter/global-exception-filter';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -24,7 +26,17 @@ import { LoggingConfig } from './config/logging.config';
   ],
   controllers: [AppController],
   providers: [
-    Logger, AppService, UserService,
+    Logger,
+    AppService,
+    // global error handling
+    {
+      provide: APP_FILTER,
+      useClass: GlobalExceptionFilter,
+    },
+
+    // features
+    UserService,
+
   ],
 })
 export class AppModule {}

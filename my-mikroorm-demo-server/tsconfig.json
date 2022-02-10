@@ -18,11 +18,11 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@app/my-mikroorm-demo-lib": [
-        "libs/my-mikroorm-demo-lib/src"
+      "@app/client-lib": [
+        "libs/client-lib/src"
       ],
-      "@app/my-mikroorm-demo-lib/*": [
-        "libs/my-mikroorm-demo-lib/src/*"
+      "@app/client-lib/*": [
+        "libs/client-lib/src/*"
       ]
     }
   }
