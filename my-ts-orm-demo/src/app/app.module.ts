@@ -31,6 +31,7 @@ import {ErrorMessageComponent} from './core/error/error-message/error-message.co
 import {EmployeeTypePipe} from './common/pipe/employee-type-pipe';
 import {FormFocusDirective} from './core/directive/form-focus.directive';
 import {OnEscapeDirective} from './core/directive/on-escape.directive';
+import { AbcComponent } from './company/abc/abc.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {OnEscapeDirective} from './core/directive/on-escape.directive';
     CompanyComponent,
     CompanyListComponent,
     CompanyFormComponent,
+    AbcComponent,
   ],
   imports: [
     BrowserModule,

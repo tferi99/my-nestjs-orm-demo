@@ -95,6 +95,11 @@
     ],
     "moduleNameMapper": {
       "^@app/client-lib(|/.*)$": "<rootDir>/libs/client-lib/src/$1"
+    },
+    "globals": {
+      "ts-jest": {
+        "isolatedModules": true
+      }
     }
   }
 }
