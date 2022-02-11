@@ -41,6 +41,11 @@ export class CompanyController {
     return this.repo.crud().nativeUpdate(id, data);
   }
 
+  @Delete('native')
+  async deleteAll(): Promise<void> {
+    await this.repo.crud().nativeDelete({});
+  }
+
   @Delete('/:id')
   async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
     await this.repo.crud().delete(id);
