@@ -13,7 +13,7 @@ export class CompanyController {
 
   @Get()
   async getAll(): Promise<Company[]> {
-    return this.repo.findAll({}, { name: 'ASC' });
+    return this.repo.findAll({ orderBy: { name: 'ASC' } });
   }
 
   @Get('/:id')

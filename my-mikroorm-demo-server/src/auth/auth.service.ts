@@ -1,9 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './model/auth.model';
+import { LoggerUtils } from '../core/util/logger.utils';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private userService: UserService,
   ) {}
@@ -17,19 +20,19 @@ export class AuthService {
   async validateUser(username: string, pwd: string): Promise<any> {
     //const user = await this.userService.get({ filter: { name: username } });
     const user: User = this.userService.getUserByName(username);
-    console.log(`--> AuthService.validateUser [${username}|${pwd}] agains `, user);
+    LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', `--> AuthService.validateUser [${username}|${pwd}]`);
 
     if (user) {
       //if (await SecurityUtils.validateString(pass, user.password)) {        // if encrypted
       if (user.password === pwd) {
         const { password, ...result } = user; // remove password
-        console.log('---> OK');
+        LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', '---> OK');
         return result;
       } else {
-        console.error('Bad password');
+        LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', '---> Bad password');
       }
     }
-    console.log('---> Err !!!');
+    LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', '---> Err !!!');
     return null;
   }
 }

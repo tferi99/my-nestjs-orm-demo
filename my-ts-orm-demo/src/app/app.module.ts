@@ -31,7 +31,8 @@ import {ErrorMessageComponent} from './core/error/error-message/error-message.co
 import {EmployeeTypePipe} from './common/pipe/employee-type-pipe';
 import {FormFocusDirective} from './core/directive/form-focus.directive';
 import {OnEscapeDirective} from './core/directive/on-escape.directive';
-import { AbcComponent } from './company/abc/abc.component';
+import { EntityDataModule } from '@ngrx/data';
+import { entityConfig } from './store/entity-metadata';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,6 @@ import { AbcComponent } from './company/abc/abc.component';
     CompanyComponent,
     CompanyListComponent,
     CompanyFormComponent,
-    AbcComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,6 +85,7 @@ import { AbcComponent } from './company/abc/abc.component';
         AuthEffects,
       ]
     ),
+    EntityDataModule.forRoot(entityConfig),
 
     // features
     AuthModule,

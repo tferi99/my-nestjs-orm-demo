@@ -12,10 +12,14 @@ import { EVENT_MONITOR_CONFIG_OPTIONS, EventMonitorService } from './core/events
 import { LoggingConfig } from './config/logging.config';
 import { GlobalExceptionFilter } from './core/filter/global-exception-filter';
 import { APP_FILTER } from '@nestjs/core';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
 
     // features
     CompanyModule,
@@ -36,7 +40,6 @@ import { APP_FILTER } from '@nestjs/core';
 
     // features
     UserService,
-
   ],
 })
 export class AppModule {}

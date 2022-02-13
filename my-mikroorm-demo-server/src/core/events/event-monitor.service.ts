@@ -20,6 +20,7 @@ export const EVENT_MONITOR_CONFIG_OPTIONS = 'EVENT_MONITOR_CONFIG_OPTIONS';
 @Injectable()
 export class EventMonitorService {
   private readonly logger = new Logger(EventMonitorService.name);
+
   private monitorLogger: LoggerService;
 
   constructor(@Inject(EVENT_MONITOR_CONFIG_OPTIONS) private options) {
