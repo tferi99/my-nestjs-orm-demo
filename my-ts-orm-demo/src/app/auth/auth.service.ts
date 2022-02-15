@@ -12,6 +12,7 @@ import {AppError} from '../core/error/app-error';
 import {ServiceBase} from '../core/service/service.base';
 import {AuthRoleTest, DateTimeUtils, JwtPayload, Role} from '@app/client-lib';
 import {AuthWithExpiration} from './model/auth-with-expiration';
+import {AuthInitilizedAction} from './store/auth.actions';
 
 /**
  * - login():
@@ -25,9 +26,17 @@ import {AuthWithExpiration} from './model/auth-with-expiration';
   providedIn: 'root'
 })
 export class AuthService extends ServiceBase {
+  /**
+   *  cached JWT token
+   */
   private authToken?: string;
+
+  /**
+   * Cached Auth (retrieved from JWT token)
+   */
   private currentAuth?: AuthWithExpiration;
-  private testRefId = 0;
+
+  //private testRefId = 0;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -36,59 +45,66 @@ export class AuthService extends ServiceBase {
     private store: Store<AuthState>
   ) {
       super('/auth');
-      this.initAuth();
   }
 
-  initAuth(): boolean {
-    this.logger.debug('----------------- initAuth() -----------------');
-    return this.validateAuth();
-  }
-
-  getCurrentAuthenticationFromToken(): AuthWithExpiration | undefined {
-    // if Auth already stored
-    if (this.currentAuth) {
-      if (this.currentAuth.expiration < Date.now()) {
-        this.logger.warn('Auth expired: ' + JSON.stringify(this.currentAuth));
-        this.currentAuth = undefined;
-        return undefined;
-      }
-      return this.currentAuth;
+  /**
+   * To initialize Auth for AuthGuard or during reloading application (F5).
+   * It returns 'true' if Auth initialized successfully.
+   *
+   * It only uses local cached Auth, that:
+   *  - cached by this service
+   *  - created from JWT token stored into local storage
+   */
+  public init(): boolean {
+    this.logger.debug('Auth initialication');
+    const auth = this.getCurrentAuth();
+    if (auth) {
+      this.store.dispatch(AuthInitilizedAction({auth}));
+      return true;
     }
-
-    // then check local storage
-    this.authToken = this.getAuthToken();
-    if (!this.authToken) {
-      this.currentAuth = undefined;
-      return undefined;
-    }
-
-    // parse JWT token and store into 
-    const payload: JwtPayload = jwt_decode(this.authToken);
-    console.log('Decoded JWT: ', payload);
-    console.log('   Issued: ' + DateTimeUtils.formatTimestamp(payload.iat) + ', expired: ' + DateTimeUtils.formatTimestamp(payload.exp));
-    this.currentAuth = {
-      id: Number(payload.sub),
-      name: payload.username,
-      roles: payload.roles,
-      expiration: payload.exp,
-      issued:  payload.iat,
-    };
-    return this.currentAuth;
+    return false;
   }
 
+  /**
+   * It returns JWT Auth token from:
+   *  - local cache
+   *  - local storage
+   */
   getAuthToken(): string | undefined {
     if (!this.authToken) {
-      // not initialized/validated yet
       this.authToken = this.localStorageService.getAuthToken();
-      console.log('AuthToken from local store: ' + this.authToken);
+      //console.log('AuthToken from local store: ' + this.authToken);
     }
     return this.authToken;
   }
 
-  setAuthToken(token: string): void {
-    this.authToken = token;
-    this.localStorageService.setAuthToken(token);
-    this.currentAuth = undefined;
+  /**
+   * To get current cached Auth.
+   *
+   * It returns 'undefined' if no cached Auth found or it's expired.
+   *
+   */
+  getCurrentAuth(): AuthWithExpiration | undefined {
+    if (!this.currentAuth) {
+      // if Auth not cached here get from cached token
+      this.authToken = this.getAuthToken();
+      if (!this.authToken) {
+        // if not cached and not found in local storage then local cached Auth also will be deleted
+        this.currentAuth = undefined;
+        return undefined;
+      }
+
+      // JWT token found -> create Auth
+      this.currentAuth = this.createAuthFromToken(this.authToken);
+    }
+
+
+    if (this.currentAuth.expiration < Date.now()) {
+      this.logger.warn('Auth expired -> cleaned: ' + JSON.stringify(this.currentAuth));
+      this.clearAuthentication();
+      return undefined;
+    }
+    return this.currentAuth;
   }
 
   clearAuthentication(): void {
@@ -105,64 +121,24 @@ export class AuthService extends ServiceBase {
     return this.getHttpClient().post<void>(this.getBasePath() + '/logout', {});
   }
 
-  testAuthRole(role: Role): Observable<AuthRoleTest> {
-    this.testRefId++;
-    const params = new HttpParams()
-      .append('refIdx', this.testRefId);
-    if (role === Role.None) {
-      return this.getHttpClient().get<AuthRoleTest>(this.getBasePath() + '/testAnon', {params});     // for anonymous (no role)
-    } else {
-      if (role === Role.Admin) {
-        return this.getHttpClient().get<AuthRoleTest>(this.getBasePath() + '/testAdmin', {params});
-      } else if (role === Role.User) {
-        return this.getHttpClient().get<AuthRoleTest>(this.getBasePath() + '/testTrader', {params});
-      } else {
-        throw new AppError(role + ' : unknow role');
-      }
-    }
+  /**
+   * It parses JWT token and creates Auth.
+   *
+   * @param authToken
+   * @private
+   */
+  private createAuthFromToken(authToken: string): AuthWithExpiration {
+    const payload: JwtPayload = jwt_decode(authToken);
+    //console.log('Decoded JWT: ', payload);
+    const auth: AuthWithExpiration = {
+      id: Number(payload.sub),
+      name: payload.username,
+      roles: payload.roles,
+      expiration: payload.exp * 1000,
+      issued:  payload.iat * 1000,
+    };
+    //console.log('   Issued: ' + DateTimeUtils.formatTimestamp(auth.issued) + ', expired: ' + DateTimeUtils.formatTimestamp(auth.expiration));
+    //console.log('   NowTS: ' + DateTimeUtils.formatTimestamp(Date.now()) + ', NowDate: ' + DateTimeUtils.formatDate(new Date()));
+    return auth;
   }
-
-  private validateAuth(): boolean {
-    const auth = this.getCurrentAuthenticationFromToken();
-    // console.log('Auth from token:', auth);
-    if (!auth) {
-      this.logger.debug('Saved Auth not found');
-      return false;
-    }
-
-    if (auth.expiration < Date.now()) {
-      this.logger.warn('Saved Auth expired at: ' + DateTimeUtils.formatTimestamp(auth.expiration));
-      return false;
-    }
-    return true;
-    // call HTTP client indirectly otherwise you get circular DI problem
-    // (Interceptor calls this service which calls HTTP in constructor which calls interceptor).
-/*    setTimeout(() => {
-      if (auth.roles.includes(Role.Admin)) {
-        this.validateAdminToken(dispatch, auth);
-      }
-      else if (auth.roles.includes(Role.User)) {
-        this.validateUserToken(dispatch, auth);
-      }
-    }, 300);
-
-    // validate...Token() will check token
-    // on error store/local storage will be cleaned + navigate to login page
-
-    return true;*/
-  }
-
-/*  private validateAdminToken(dispatch: boolean, auth: Auth, navigateTarget?: string): void {
-    this.logger.debug('Validating auth token (admin)');
-    const successAction = LoginSuccessAction({auth, navigateTarget});
-    const errorAction = LoginErrorAction({errorMessage: '?'});
-    this.store.dispatch(AuthRoleTestAction({role: Role.Admin, onOkActions: [successAction], onErrorActions: [errorAction]}));
-  }
-
-  private validateUserToken(dispatch: boolean, auth: Auth, navigateTarget?: string): void {
-    this.logger.debug('Validating auth token (user)');
-    const successAction = LoginSuccessAction({auth, navigateTarget});
-    const errorAction = LoginErrorAction({errorMessage: '?'});
-    this.store.dispatch(AuthRoleTestAction({role: Role.User, onOkActions: [successAction], onErrorActions: [errorAction]}));
-  }*/
 }

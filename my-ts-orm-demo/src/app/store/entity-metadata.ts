@@ -6,7 +6,7 @@ const entityMetadata: EntityMetadataMap = {
 };
 
 const pluralNames = {
-  Company: "Companies"
+  Company: "Company"
 };
 
 export const entityConfig: EntityDataModuleConfig = {

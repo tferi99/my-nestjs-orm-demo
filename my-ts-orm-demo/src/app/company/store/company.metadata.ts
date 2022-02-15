@@ -2,7 +2,7 @@ import { Company } from '@app/client-lib';
 import { EntityMetadata } from '@ngrx/data';
 
 export const companyEntityMetadata: EntityMetadata<Company> = {
-  entityName: 'Story',
+  entityName: 'Company',
   sortComparer: (a, b) => a.name.localeCompare(b.name),
   filterFn: (entities, pattern) =>
     entities.filter(

@@ -1,22 +1,17 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {AuthService} from '../auth.service';
-import {
-  LoginAction,
-  LoginErrorAction,
-  LoginSuccessAction,
-  LogoutAction, AuthValidatedAction
-} from './auth.actions';
-import {catchError, exhaustMap, map, switchMap, tap} from 'rxjs/operators';
+import {AuthInitilizedAction, LoginAction, LoginErrorAction, LoginSuccessAction, LogoutAction} from './auth.actions';
+import {catchError, exhaustMap, map, tap} from 'rxjs/operators';
 import {LocalStorageService} from '../../core/service/local-storage.service';
 import jwt_decode from 'jwt-decode';
-import {from, of} from 'rxjs';
+import {of} from 'rxjs';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {ErrorMessageUtils} from '../../core/error/error-message-utils';
 import {NGXLogger} from 'ngx-logger';
-import {Auth, JwtPayload} from '@app/client-lib';
-import {InitLoadAction} from '../../init/store/init.actions';
+import {JwtPayload} from '@app/client-lib';
+import {AppDataLoadAction} from '../../init/store/init.actions';
+import {AuthWithExpiration} from '../model/auth-with-expiration';
 
 @Injectable()
 export class AuthEffects {
@@ -33,17 +28,15 @@ export class AuthEffects {
     ofType(LoginAction),
     exhaustMap(action => this.authService.login(action.username, action.password).pipe(
       map(result => {
-          console.log('Result: ', result);
-          const payload: JwtPayload = jwt_decode(result.access_token);
-          console.log('Decoded token: ', payload);
+          // writing token into local storage
           this.localStorageService.setAuthToken(result.access_token);
-          const auth: Auth = {
-            id: Number(payload.sub),
-            name: payload.username,
-            roles: payload.roles
-          };
-          // return login success action with the user represented as payload from the action
-          return LoginSuccessAction({auth});
+
+          // retrieving Auth from service that initilizes it from token
+          const auth: AuthWithExpiration | undefined = this.authService.getCurrentAuth();
+          if (auth) {
+            return LoginSuccessAction({auth});
+          }
+          return LoginErrorAction({errorMessage: 'Unexpected error during login: current Auth cannot be generated.'});
         }
       ),
       catchError(err => {
@@ -58,7 +51,7 @@ export class AuthEffects {
     ofType(LoginSuccessAction),
     map(action => {
       this.router.navigateByUrl('/');
-      return InitLoadAction();
+      return AppDataLoadAction();
     })
   ));
 
@@ -72,11 +65,9 @@ export class AuthEffects {
     dispatch: false
   });
 
-  authValidated$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthValidatedAction),
-    map(action => {
-      return InitLoadAction();
-    })
+  authInitilizedAction$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthInitilizedAction),
+    map(action => AppDataLoadAction())
   ));
 
   logout$ = createEffect(() => this.actions$.pipe(

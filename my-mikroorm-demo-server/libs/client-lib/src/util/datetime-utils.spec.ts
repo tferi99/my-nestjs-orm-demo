@@ -1,4 +1,5 @@
-import { DateTimeUtils, DurationUnit } from './datetime-util';
+import { DateTimeUtils, DurationUnit } from '@app/client-lib';
+
 
 const SEC_MSECS = 1000;
 const MIN_SECS = 60;

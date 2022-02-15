@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthJwtTokenApplyInterceptor} from './auth-jwt-token-apply-interceptor.service';
 import {ReactiveFormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import {ReactiveFormsModule} from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   providers: [
     {

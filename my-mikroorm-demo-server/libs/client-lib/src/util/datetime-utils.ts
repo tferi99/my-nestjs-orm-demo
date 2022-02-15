@@ -27,6 +27,6 @@ export class DateTimeUtils {
   }
 
   static formatTimestamp(ts: number): string {
-    return moment.unix(ts).format('YYYY-MM-DD HH:mm:ss');
+    return moment.unix(ts / 1000).format('YYYY-MM-DD HH:mm:ss');
   }
 }

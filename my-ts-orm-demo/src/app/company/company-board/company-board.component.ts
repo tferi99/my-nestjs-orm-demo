@@ -15,8 +15,8 @@ const comps: Company[] = [
   styleUrls: ['./company-board.component.scss']
 })
 export class CompanyBoardComponent implements OnInit {
-  //companies$: Observable<Company[]> = this.companyDataService.populatedCompanies$;
-  companies$: Observable<Company[]> = of(comps);
+  companies$: Observable<Company[]> = this.companyDataService.populatedCompanies$;
+  //companies$: Observable<Company[]> = of(comps);
 
   constructor(private companyDataService: CompanyDataService) {}
 

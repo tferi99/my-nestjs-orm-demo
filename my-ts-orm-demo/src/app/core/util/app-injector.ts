@@ -4,12 +4,11 @@ import {Injectable, Injector} from '@angular/core';
   providedIn: 'root'
 })
 export class AppInjector {
-
   private static injector: Injector;
 
   static setInjector = (injector: Injector) => {
-    console.log('>>>>>>>>>>>>>>>>>>>>>> AppInjector initialized: ', injector);
     AppInjector.injector = injector;
+    console.log('Injector initialized');
   }
 
   static getInjector(): Injector {

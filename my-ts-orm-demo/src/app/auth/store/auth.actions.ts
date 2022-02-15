@@ -21,8 +21,8 @@ export const LoginErrorAction = createAction(
   props<{errorMessage: string}>()
 );
 
-export const AuthValidatedAction = createAction(
-  PREFIX + 'AuthValidated',
+export const AuthInitilizedAction = createAction(
+  PREFIX + 'AuthInitilized',
   props<{
     auth: AuthWithExpiration,
     navigateTarget?: string     // navigate here in (default is '')

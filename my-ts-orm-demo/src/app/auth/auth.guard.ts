@@ -32,7 +32,7 @@ export class  AuthGuard implements CanActivate {
       tap(authenticated => this.logger.log('Authenticated: ', authenticated)),
       map(authenticated => {
         if (!authenticated) {
-          if (!this.authService.initAuth()) {
+          if (!this.authService.init()) {
             this.router.navigateByUrl('/login');
             return false;
           }

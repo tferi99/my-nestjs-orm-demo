@@ -14,7 +14,7 @@ export class AuthJwtTokenApplyInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const idToken = this.authService.getAuthToken();
     if (idToken) {
-      console.log('AuthJwtTokenApplyInterceptor applies: ' + idToken);
+      //console.log('AuthJwtTokenApplyInterceptor applies: ' + idToken);
       const cloned = req.clone({
         headers: req.headers.set('Authorization', 'Bearer ' + idToken)
       });

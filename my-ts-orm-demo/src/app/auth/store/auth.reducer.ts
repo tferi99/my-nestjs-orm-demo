@@ -1,4 +1,4 @@
-import {AuthValidatedAction, LoginSuccessAction, LogoutAction} from './auth.actions';
+import {AuthInitilizedAction, LoginSuccessAction, LogoutAction} from './auth.actions';
 import {Action, createReducer, on} from '@ngrx/store';
 import {AuthWithExpiration} from '../model/auth-with-expiration';
 
@@ -14,9 +14,9 @@ export const initialState: AuthState = {
 
 const authReducer = createReducer(
   initialState,
-  on(LogoutAction, (state: AuthState) => (initialState)),
   on(LoginSuccessAction, (state: AuthState, {auth}) => ({...state, currentAuth: auth})),
-  on(AuthValidatedAction, (state: AuthState, {auth}) => ({...state, currentAuth: auth})),
+  on(AuthInitilizedAction, (state: AuthState, {auth}) => ({...state, currentAuth: auth})),
+  on(LogoutAction, (state: AuthState) => (initialState)),
 );
 
 export function reducer(state: AuthState | undefined, action: Action): AuthState {
