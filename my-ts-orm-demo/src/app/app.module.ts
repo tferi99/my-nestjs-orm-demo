@@ -33,6 +33,7 @@ import {FormFocusDirective} from './core/directive/form-focus.directive';
 import {OnEscapeDirective} from './core/directive/on-escape.directive';
 import { EntityDataModule } from '@ngrx/data';
 import { entityConfig } from './store/entity-metadata';
+import { CompanyBoardComponent } from './company/company-board/company-board.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { entityConfig } from './store/entity-metadata';
     CompanyComponent,
     CompanyListComponent,
     CompanyFormComponent,
+    CompanyBoardComponent,
   ],
   imports: [
     BrowserModule,

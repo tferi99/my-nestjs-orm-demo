@@ -13,27 +13,37 @@ import {map, tap} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class  AuthGuard implements CanActivate {
+  inited = false;
+
   constructor(
     private router: Router,
     private logger: NGXLogger,
-    private store: Store<AuthState>
+    private store: Store<AuthState>,
+    private authService: AuthService
   ) {}
 
   canActivate(): boolean | Observable<boolean> {
-    // return true;
-
+    if (this.inited) {
+      this.logger.info('AuthGuard?');
+    }
     this.logger.info('AuthGuard?');
     return this.store.select(selectIsAuthenticated).pipe(
       tap(authenticated => this.logger.log('Authenticated: ', authenticated)),
       map(authenticated => {
         if (!authenticated) {
-          this.router.navigateByUrl('/login');
-          return false;
+          if (!this.authService.initAuth()) {
+            this.router.navigateByUrl('/login');
+            return false;
+          }
         }
         return true;
       })
     );
   }
+
+/*  private fallbackFromLocalStorege(): boolean {
+    const token = this.authService.valid
+  }*/
 }
 

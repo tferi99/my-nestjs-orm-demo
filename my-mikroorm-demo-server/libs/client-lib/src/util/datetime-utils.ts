@@ -21,4 +21,12 @@ export class DateTimeUtils {
   static durationAsDays(amount: number, unit: DurationUnit): number {
     return moment.duration(amount, unit).asDays();
   }
+
+  static formatDate(date: Date): string {
+    return moment(date).format('YYYY-MM-DD HH:mm:ss');
+  }
+
+  static formatTimestamp(ts: number): string {
+    return moment.unix(ts).format('YYYY-MM-DD HH:mm:ss');
+  }
 }

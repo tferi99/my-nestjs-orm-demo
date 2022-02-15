@@ -1,5 +1,5 @@
-import {Action, createAction, props} from '@ngrx/store';
-import {Auth, Role} from '@app/client-lib';
+import {createAction, props} from '@ngrx/store';
+import {AuthWithExpiration} from '../model/auth-with-expiration';
 
 const PREFIX = '[Auth] ';
 
@@ -11,7 +11,7 @@ export const LoginAction = createAction(
 export const LoginSuccessAction = createAction(
   PREFIX + 'LoginSuccess',
   props<{
-    auth: Auth,
+    auth: AuthWithExpiration,
     navigateTarget?: string     // navigate here in (default is '')
   }>()
 );
@@ -21,10 +21,19 @@ export const LoginErrorAction = createAction(
   props<{errorMessage: string}>()
 );
 
+export const AuthValidatedAction = createAction(
+  PREFIX + 'AuthValidated',
+  props<{
+    auth: AuthWithExpiration,
+    navigateTarget?: string     // navigate here in (default is '')
+  }>()
+);
+
 export const LogoutAction = createAction(
   PREFIX + 'Logout',
 );
 
+/*
 export const AuthRoleTestAction = createAction(
   PREFIX + 'AuthRoleTest',
   props<{
@@ -60,5 +69,5 @@ export const AuthTest3Action = createAction(
 
 export const DummyAction = createAction(
   PREFIX + 'DUMMY'
-);
+);*/
 

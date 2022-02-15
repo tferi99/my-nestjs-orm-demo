@@ -7,7 +7,7 @@ import { OrmUtilsService } from '../core/orm/service/orm-utils.service';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { PersonRepository } from '../features/person/person.repository';
 import { Person } from '../features/person/model/person.entity';
-import { DateTimeUtils, DurationUnit } from '../util/datetime-utils';
+import { DateTimeUtils, DurationUnit } from '@app/client-lib/util/datetime-utils';
 import { EmployeeType } from '../features/person/model/employee-type';
 import { EventEmitterService } from '../core/events/event-emitter.service';
 

@@ -19,6 +19,8 @@ export interface JwtPayload {
   sub: string;
   username: string;
   roles: Role[];
+  exp: number;
+  iat: number;
 }
 
 export interface ChangePasswordDto {

@@ -2,13 +2,10 @@ import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {AuthService} from '../auth.service';
 import {
-  AuthRoleTestAction,
-  AuthRoleTestErrorAction,
-  AuthRoleTestOkAction,
   LoginAction,
   LoginErrorAction,
   LoginSuccessAction,
-  LogoutAction
+  LogoutAction, AuthValidatedAction
 } from './auth.actions';
 import {catchError, exhaustMap, map, switchMap, tap} from 'rxjs/operators';
 import {LocalStorageService} from '../../core/service/local-storage.service';
@@ -62,7 +59,6 @@ export class AuthEffects {
     map(action => {
       this.router.navigateByUrl('/');
       return InitLoadAction();
-      // return DummyAction();
     })
   ));
 
@@ -70,11 +66,18 @@ export class AuthEffects {
     ofType(LoginErrorAction),
     map(msg => {
       this.authService.clearAuthentication();
+      tap(() => this.router.navigateByUrl('/login'));
     })
   ), {
     dispatch: false
   });
 
+  authValidated$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthValidatedAction),
+    map(action => {
+      return InitLoadAction();
+    })
+  ));
 
   logout$ = createEffect(() => this.actions$.pipe(
     ofType(LogoutAction),
@@ -85,7 +88,7 @@ export class AuthEffects {
     dispatch: false
   });
 
-  authRoleTest$ = createEffect(() => this.actions$.pipe(
+/*  authRoleTest$ = createEffect(() => this.actions$.pipe(
     ofType(AuthRoleTestAction),
     exhaustMap(action => this.authService.testAuthRole(action.role).pipe(
       switchMap(result => {
@@ -128,5 +131,5 @@ export class AuthEffects {
   Dummy$ = createEffect(() => this.actions$.pipe(
     ofType(AuthRoleTestOkAction),
     tap(() => console.log('DUMMY ACTION !!!'))
-  ), {dispatch: false});
+  ), {dispatch: false});*/
 }

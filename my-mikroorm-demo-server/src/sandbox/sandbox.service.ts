@@ -4,7 +4,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { Company } from '../features/company/model/company.entity';
 import { OrmUtilsService } from '../core/orm/service/orm-utils.service';
 import { Person } from '../features/person/model/person.entity';
-import { DateTimeUtils, DurationUnit } from '../util/datetime-utils';
+import { DateTimeUtils, DurationUnit } from '@app/client-lib/util/datetime-utils';
 import { EmployeeType } from '../features/person/model/employee-type';
 import { EntityManager, QueryBuilder } from '@mikro-orm/postgresql';
 

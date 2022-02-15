@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class LocalStorageService {
-  public static LOC_STORE_KEY_AUTH_TOKEN = 'authToken';
+  public static LOC_STORE_KEY_AUTH_TOKEN = 'myTsOrmDemoAuthToken';
 
   constructor(private logger: NGXLogger) {}
 

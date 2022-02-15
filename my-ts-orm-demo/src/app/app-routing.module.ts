@@ -11,6 +11,7 @@ import {CompanyResolverService} from './company/company-resolver.service';
 import {CompanyFormComponent} from './company/company-form/company-form.component';
 import {AuthGuard} from './auth/auth.guard';
 import {LoginComponent} from './auth/login/login.component';
+import {CompanyBoardComponent} from './company/company-board/company-board.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'person/new', component: PersonFormComponent},
   {path: 'person/:id/edit', component: PersonFormComponent, resolve: {person: PersonResolverService}},
 
-  {path: 'company', component: CompanyComponent, resolve: {companies: CompaniesResolverService}, runGuardsAndResolvers: 'always'},
+  //{path: 'company', component: CompanyComponent, resolve: {companies: CompaniesResolverService}, runGuardsAndResolvers: 'always'},
+  {path: 'company', component: CompanyBoardComponent},
   {path: 'company/new', component: CompanyFormComponent},
   {path: 'company/:id/edit', component: CompanyFormComponent, resolve: {company: CompanyResolverService}},
 

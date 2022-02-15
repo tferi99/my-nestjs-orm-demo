@@ -8,10 +8,10 @@ import {NGXLogger} from 'ngx-logger';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {AuthState} from './store/auth.reducer';
-import {AuthRoleTestAction, LoginErrorAction, LoginSuccessAction} from './store/auth.actions';
 import {AppError} from '../core/error/app-error';
 import {ServiceBase} from '../core/service/service.base';
-import {Auth, AuthRoleTest, JwtPayload, Role} from '@app/client-lib';
+import {AuthRoleTest, DateTimeUtils, JwtPayload, Role} from '@app/client-lib';
+import {AuthWithExpiration} from './model/auth-with-expiration';
 
 /**
  * - login():
@@ -26,7 +26,7 @@ import {Auth, AuthRoleTest, JwtPayload, Role} from '@app/client-lib';
 })
 export class AuthService extends ServiceBase {
   private authToken?: string;
-  private currentAuth?: Auth;
+  private currentAuth?: AuthWithExpiration;
   private testRefId = 0;
 
   constructor(
@@ -39,29 +39,39 @@ export class AuthService extends ServiceBase {
       this.initAuth();
   }
 
-  initAuth(): void {
+  initAuth(): boolean {
     this.logger.debug('----------------- initAuth() -----------------');
-    this.validateAuth(true);    // navigate if user found
+    return this.validateAuth();
   }
 
-  getCurrentAuthenticationFromToken(): Auth | undefined {
+  getCurrentAuthenticationFromToken(): AuthWithExpiration | undefined {
+    // if Auth already stored
+    if (this.currentAuth) {
+      if (this.currentAuth.expiration < Date.now()) {
+        this.logger.warn('Auth expired: ' + JSON.stringify(this.currentAuth));
+        this.currentAuth = undefined;
+        return undefined;
+      }
+      return this.currentAuth;
+    }
+
+    // then check local storage
     this.authToken = this.getAuthToken();
     if (!this.authToken) {
       this.currentAuth = undefined;
       return undefined;
     }
 
-    if (this.currentAuth) {
-      return this.currentAuth;
-    }
-
-    // parse JWT token
+    // parse JWT token and store into 
     const payload: JwtPayload = jwt_decode(this.authToken);
-    // console.log('Decoded: ', payload);
+    console.log('Decoded JWT: ', payload);
+    console.log('   Issued: ' + DateTimeUtils.formatTimestamp(payload.iat) + ', expired: ' + DateTimeUtils.formatTimestamp(payload.exp));
     this.currentAuth = {
       id: Number(payload.sub),
       name: payload.username,
-      roles: payload.roles
+      roles: payload.roles,
+      expiration: payload.exp,
+      issued:  payload.iat,
     };
     return this.currentAuth;
   }
@@ -70,7 +80,7 @@ export class AuthService extends ServiceBase {
     if (!this.authToken) {
       // not initialized/validated yet
       this.authToken = this.localStorageService.getAuthToken();
-      // console.log('AuthToken from local store: ' + this.authToken);
+      console.log('AuthToken from local store: ' + this.authToken);
     }
     return this.authToken;
   }
@@ -112,27 +122,37 @@ export class AuthService extends ServiceBase {
     }
   }
 
-  private validateAuth(dispatch: boolean): void {
+  private validateAuth(): boolean {
     const auth = this.getCurrentAuthenticationFromToken();
     // console.log('Auth from token:', auth);
     if (!auth) {
-      this.logger.debug('Saved auth not found');
-      return;
+      this.logger.debug('Saved Auth not found');
+      return false;
     }
 
+    if (auth.expiration < Date.now()) {
+      this.logger.warn('Saved Auth expired at: ' + DateTimeUtils.formatTimestamp(auth.expiration));
+      return false;
+    }
+    return true;
     // call HTTP client indirectly otherwise you get circular DI problem
     // (Interceptor calls this service which calls HTTP in constructor which calls interceptor).
-    setTimeout(() => {
+/*    setTimeout(() => {
       if (auth.roles.includes(Role.Admin)) {
         this.validateAdminToken(dispatch, auth);
       }
       else if (auth.roles.includes(Role.User)) {
         this.validateUserToken(dispatch, auth);
       }
-    }, 100);
+    }, 300);
+
+    // validate...Token() will check token
+    // on error store/local storage will be cleaned + navigate to login page
+
+    return true;*/
   }
 
-  private validateAdminToken(dispatch: boolean, auth: Auth, navigateTarget?: string): void {
+/*  private validateAdminToken(dispatch: boolean, auth: Auth, navigateTarget?: string): void {
     this.logger.debug('Validating auth token (admin)');
     const successAction = LoginSuccessAction({auth, navigateTarget});
     const errorAction = LoginErrorAction({errorMessage: '?'});
@@ -144,5 +164,5 @@ export class AuthService extends ServiceBase {
     const successAction = LoginSuccessAction({auth, navigateTarget});
     const errorAction = LoginErrorAction({errorMessage: '?'});
     this.store.dispatch(AuthRoleTestAction({role: Role.User, onOkActions: [successAction], onErrorActions: [errorAction]}));
-  }
+  }*/
 }
