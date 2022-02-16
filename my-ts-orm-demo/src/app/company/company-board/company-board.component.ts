@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {selectCompanies} from '../store/company.selectors';
-import {Observable, of} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
 import {CompanyDataService} from '../store/company-data.service';
-import { Company } from '@app/client-lib';
+import {Company} from '@app/client-lib';
 
 const comps: Company[] = [
   { id:0, name: 'Abc', note: 'aaaa', active: true, created: new Date(), updated: new Date(), established: new Date(), workers: [] },
@@ -15,12 +14,13 @@ const comps: Company[] = [
   styleUrls: ['./company-board.component.scss']
 })
 export class CompanyBoardComponent implements OnInit {
-  companies$: Observable<Company[]> = this.companyDataService.populatedCompanies$;
+  companies$!: Observable<Company[]>;
   //companies$: Observable<Company[]> = of(comps);
 
   constructor(private companyDataService: CompanyDataService) {}
 
   ngOnInit(): void {
     this.companyDataService.getAll();
+    this.companies$ = this.companyDataService.populatedCompanies$;
   }
 }
