@@ -1,6 +1,3 @@
-<ng-content
-
-
 <div class="card" *ngFor="let c of (companies$ | async)">
     <div class="card-header">{{c.id}} - {{c.name}}</div>
     <div class="card-body">
@@ -9,3 +6,4 @@
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
 </div>
+

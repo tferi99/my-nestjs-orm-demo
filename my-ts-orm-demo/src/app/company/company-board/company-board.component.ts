@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {CompanyDataService} from '../store/company-data.service';
 import {Company} from '@app/client-lib';
 
@@ -15,7 +15,6 @@ const comps: Company[] = [
 })
 export class CompanyBoardComponent implements OnInit {
   companies$!: Observable<Company[]>;
-  //companies$: Observable<Company[]> = of(comps);
 
   constructor(private companyDataService: CompanyDataService) {}
 
