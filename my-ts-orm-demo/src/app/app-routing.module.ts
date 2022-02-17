@@ -10,6 +10,8 @@ import {CompanyFormComponent} from './company/company-form/company-form.componen
 import {AuthGuard} from './auth/auth.guard';
 import {LoginComponent} from './auth/login/login.component';
 import {CompanyBoardComponent} from './company/company-board/company-board.component';
+import {CompanyComponent} from './company/company.component';
+import {CompaniesResolverService} from './company/companies-resolver.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent,  data: { title: 'Login Page' }},
@@ -20,11 +22,11 @@ const routes: Routes = [
     {path: ':id/edit', component: PersonFormComponent, resolve: {person: PersonResolverService}},
   ]},
   { path: "company", runGuardsAndResolvers: 'always', canActivate: [AuthGuard], children: [
-    //{path: '', component: CompanyComponent, resolve: {companies: CompaniesResolverService}, runGuardsAndResolvers: 'always'},
-    {path: '', component: CompanyBoardComponent},
+    {path: '', component: CompanyComponent, resolve: {companies: CompaniesResolverService}, runGuardsAndResolvers: 'always'},
     {path: 'new', component: CompanyFormComponent},
     {path: ':id/edit', component: CompanyFormComponent, resolve: {company: CompanyResolverService}},
   ]},
+  {path: 'company-board', component: CompanyBoardComponent},
   {path: '',   redirectTo: '/home', pathMatch: 'full' },   // default
 ];
 

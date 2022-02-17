@@ -10,12 +10,12 @@ import {PersonListComponent} from './person/person-list/person-list.component';
 import {PersonComponent} from './person/person.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {HomeComponent} from './home/home.component';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import {PopoverModule} from 'ngx-bootstrap/popover';
 import {CompanyComponent} from './company/company.component';
-import { CompanyListComponent } from './company/company-list/company-list.component';
-import { CompanyFormComponent } from './company/company-form/company-form.component';
+import {CompanyListComponent} from './company/company-list/company-list.component';
+import {CompanyFormComponent} from './company/company-form/company-form.component';
 
 import {StoreModule} from '@ngrx/store';
 import * as fromAuth from './auth/store/auth.reducer';
@@ -31,9 +31,12 @@ import {ErrorMessageComponent} from './core/error/error-message/error-message.co
 import {EmployeeTypePipe} from './common/pipe/employee-type-pipe';
 import {FormFocusDirective} from './core/directive/form-focus.directive';
 import {OnEscapeDirective} from './core/directive/on-escape.directive';
-import { EntityDataModule } from '@ngrx/data';
-import { entityConfig } from './store/entity-metadata';
-import { CompanyBoardComponent } from './company/company-board/company-board.component';
+import {EntityDataModule} from '@ngrx/data';
+import {entityConfig} from './store/entity-metadata';
+import {CompanyBoardComponent} from './company/company-board/company-board.component';
+import {CollapseModule} from 'ngx-bootstrap/collapse';
+import {AccordionModule} from 'ngx-bootstrap/accordion';
+import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,6 @@ import { CompanyBoardComponent } from './company/company-board/company-board.com
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    BsDatepickerModule.forRoot(),
     HttpClientModule,
     ToastrModule.forRoot(),
     PopoverModule.forRoot(),
@@ -68,6 +70,13 @@ import { CompanyBoardComponent } from './company/company-board/company-board.com
     }),
     AppRoutingModule,
 
+    // ngx-bootstrap
+    BsDatepickerModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    CollapseModule.forRoot(),
+    AccordionModule.forRoot(),
+
+    // store
     StoreModule.forRoot({}, {
       runtimeChecks: {
         strictStateImmutability: true,

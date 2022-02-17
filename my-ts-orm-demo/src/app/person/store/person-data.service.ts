@@ -6,8 +6,9 @@ import {Person} from '@app/client-lib';
   providedIn: 'root',
 })
 export class PersonDataService extends EntityCollectionServiceBase<Person> {
-  //personOfCompany$ = this.entities$.pipe(select(selectCompanies));
-  personOfCompany$ = this.fi
+/*  //personOfCompany$ = this.entities$.pipe(select(selectCompanies));
+  personOfCompany$ = this.selectors$.count$;*/
+  //e = this.selectors$.
 
   constructor(serviceElementsFactory: EntityCollectionServiceElementsFactory) {
     super('Person', serviceElementsFactory);

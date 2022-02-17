@@ -16,6 +16,7 @@ const comps: Company[] = [
 })
 export class CompanyBoardComponent implements OnInit {
   companies$!: Observable<Company[]>;
+  loading$ = this.companyDataService.loading$;
 
   constructor(
     private companyDataService: CompanyDataService,

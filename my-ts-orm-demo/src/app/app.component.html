@@ -1,5 +1,53 @@
 <div class="container">
-  <h2 class="alert alert-info">My TypeScript ORM Demo</h2>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
+    <b><a class="navbar-brand" routerLink="/home"><img src="assets/logo-small.png" width="30px" height="30px"> [ My TypeScript ORM Demo ]</a></b>
+    <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#navbarNavMenu" (click)="isCollapsedMenu = !isCollapsedMenu" aria-controls="navbarNavMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [collapse]="isCollapsedMenu" id="#navbarNavMenu">
+      <!--
+      -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/company">Companies</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/person">Persons</a>
+        </li>
+      </ul>
+
+      <div class="btn-group" dropdown>
+        <button type="button" dropdownToggle class="btn btn-secondary btn-rounded btn-icon dropdown-toggle" aria-controls="dropdown-basic"> <i class="fa fa-user"></i> </button>
+        <!--
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
+          Button dropdown <span class="caret"></span>
+        </button>
+        -->
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
+
+      <!--
+    <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
+          Button dropdown <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+          </li>
+        </ul>
+      </div>
+      -->
+
+    </div>
+  </nav>
+
   <router-outlet></router-outlet>
 </div>
 
