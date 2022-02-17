@@ -1,51 +1,32 @@
-import { Controller, Get } from '@nestjs/common';
-import { PersonService } from './person.service';
+import { Body, Controller, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { Person } from './model/person.entity';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { EventEmitterService } from '../../core/events/event-emitter.service';
+import { PersonRepository } from './person.repository';
+import { OrmCrudControllerBase } from '../../core/orm/controller/orm-crud-controller.base';
+import { CrudEntityRepository } from '../../core/orm/service/crud-entity-repository';
+import { Company } from '../company/model/company.entity';
+import { CompanyRepository } from '../company/company.repository';
 
 @Controller('person')
-export class PersonController {
-  constructor(private service: PersonService) {}
-
-  /*  @Get()
-  async getAll(): Promise<Person[]> {
-    return this.service.getAll();
-  }*/
-  /*
-  @Get('/:id')
-  async get(@Param('id', ParseIntPipe) id: number): Promise<Person> {
-    return this.service.get(id);
+export class PersonController extends OrmCrudControllerBase<Person> {
+  constructor(
+    @InjectRepository(Person) private repo: PersonRepository,
+    @InjectRepository(Company) private companyRepo: CompanyRepository,
+    private eventEmitterService: EventEmitterService,
+  ) {
+    super({ orderBy: { name: 'ASC' } });
   }
 
-  @Post()
-  async create(@Body() p: Person): Promise<Person> {
-    p.id = -1;
-    p.birth = new Date(1975, 3, 14);
-    p.rank = 5;
-    return this.service.create(p);
+  getRepository(): CrudEntityRepository<Person> {
+    return this.repo;
   }
 
-  @Put()
-  async update(@Param('id', ParseIntPipe) id: number, @Body() p: Person): Promise<Person> {
-    return this.service.update(p.id, p);
+  @Post('company/:companyId')
+  async insertForCompany(@Body() data: Person, @Param('companyId', ParseIntPipe) companyId: number): Promise<Person> {
+    const company: Company = this.companyRepo.getReference(companyId);
+    const obj = await this.repo.crud().insertForParent(data, 'company', company);
+    await this.repo.flush();
+    return obj;
   }
-
-  @Delete('/:id')
-  async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
-    return this.service.delete(id);
-  }
-
-  @Get('dummy')
-  dummy(): Person {
-    const p: Person = new Person();
-    p.id = 0;
-    p.name = 'John Smith';
-      p.email = 'js@test.org';
-    p.birth = new Date(1975, 3, 14);
-    p.employeeType = EmployeeType.DIRECTOR;
-    p.rank = 5;
-    p.note = 'This is dummy person',
-    p.active = true;
-
-    return p;
-  }*/
 }

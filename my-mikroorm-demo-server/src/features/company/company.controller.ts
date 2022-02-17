@@ -1,17 +1,26 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { Company } from './model/company.entity';
 import { CompanyRepository } from './company.repository';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EventEmitterService } from '../../core/events/event-emitter.service';
+import { OrmCrudControllerBase } from '../../core/orm/controller/orm-crud-controller.base';
+import { CrudEntityRepository } from 'src/core/orm/service/crud-entity-repository';
 
 @Controller('company')
-export class CompanyController {
+export class CompanyController extends OrmCrudControllerBase<Company> {
   constructor(
     @InjectRepository(Company) private repo: CompanyRepository,
     private eventEmitterService: EventEmitterService,
-  ) {}
+  ) {
+    super({ orderBy: { name: 'ASC' } });
+  }
 
-  @Get()
+  getRepository(): CrudEntityRepository<Company> {
+    return this.repo;
+  }
+}
+
+/*  @Get()
   async getAll(): Promise<Company[]> {
     return this.repo.findAll({ orderBy: { name: 'ASC' } });
   }
@@ -56,9 +65,4 @@ export class CompanyController {
   async nativeDelete(@Param('id', ParseIntPipe) id: number): Promise<number> {
     return this.repo.crud().nativeDelete(id);
   }
-
-  /*  @Post('/withPerson')
-  async saveWithPerson(@Body() dto: Company): Promise<Company> {
-    return this.service.saveWithPerson(dto);
-  }*/
-}
+}*/

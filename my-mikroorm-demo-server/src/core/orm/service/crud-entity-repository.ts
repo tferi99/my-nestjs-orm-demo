@@ -44,12 +44,22 @@ class Crud<T extends AnyEntity<T>> {
    * @param data
    */
   async insert(data: EntityData<T>): Promise<T> {
-    console.log('CFG:', this.repo.config());
     if (this.repo.config()?.autoIncrement) {
       delete data[this.repo.config().pkName];
     }
 
     const obj = this.repo.create(data);
+    await this.repo.persist(obj);
+    return obj;
+  }
+
+  async insertForParent(data: EntityData<T>, parentKey: keyof T, parent: any): Promise<T> {
+    if (this.repo.config()?.autoIncrement) {
+      delete data[this.repo.config().pkName];
+    }
+
+    const obj = this.repo.create(data);
+    obj[parentKey] = parent;
     await this.repo.persist(obj);
     return obj;
   }
