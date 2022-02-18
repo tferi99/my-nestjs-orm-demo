@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {DATE_FORMAT} from '../../core/app.constants';
+import {DATE_FORMAT} from '../../../core/app.constants';
 import {CompanyService} from '../company.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
@@ -12,8 +12,8 @@ import {Company} from '@app/client-lib';
   styleUrls: ['./company-list.component.scss']
 })
 export class CompanyListComponent implements OnInit, OnDestroy {
-  @Input() companies!: Company[];
-  @Input() enableDeletingTrigger!: Observable<number>;
+  @Input() companies!: Company[] | null;
+  @Input() enableDeletingTrigger!: Observable<number | null>;
 
   dateFormat = DATE_FORMAT;
   navigationSubs!: Subscription;

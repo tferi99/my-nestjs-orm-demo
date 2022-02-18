@@ -3,19 +3,19 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {PersonFormComponent} from './person/person-form/person-form.component';
+import {PersonFormComponent} from './features/person/person-form/person-form.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
-import {PersonListComponent} from './person/person-list/person-list.component';
-import {PersonComponent} from './person/person.component';
+import {PersonListComponent} from './features/person/person-list/person-list.component';
+import {PersonComponent} from './features/person/person.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-import {HomeComponent} from './home/home.component';
+import {HomeComponent} from './layout/home/home.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import {PopoverModule} from 'ngx-bootstrap/popover';
-import {CompanyComponent} from './company/company.component';
-import {CompanyListComponent} from './company/company-list/company-list.component';
-import {CompanyFormComponent} from './company/company-form/company-form.component';
+import {CompanyComponent} from './features/company/company.component';
+import {CompanyListComponent} from './features/company/company-list/company-list.component';
+import {CompanyFormComponent} from './features/company/company-form/company-form.component';
 
 import {StoreModule} from '@ngrx/store';
 import * as fromAuth from './auth/store/auth.reducer';
@@ -33,10 +33,11 @@ import {FormFocusDirective} from './core/directive/form-focus.directive';
 import {OnEscapeDirective} from './core/directive/on-escape.directive';
 import {EntityDataModule} from '@ngrx/data';
 import {entityConfig} from './store/entity-metadata';
-import {CompanyBoardComponent} from './company/company-board/company-board.component';
+import {CompanyBoardComponent} from './features/company/company-board/company-board.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import { HeaderComponent } from './layout/header/header.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
     CompanyListComponent,
     CompanyFormComponent,
     CompanyBoardComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

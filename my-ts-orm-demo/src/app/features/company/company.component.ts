@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Company} from '@app/client-lib';
+import {CompanyDataService} from './store/company-data.service';
 
 @Component({
   selector: 'app-company',
@@ -9,17 +10,21 @@ import {Company} from '@app/client-lib';
   styleUrls: ['./company.component.scss']
 })
 export class CompanyComponent implements OnInit {
-  companies!: Company[];
-  deleteEnable = new Subject<number>();
+  companies$!: Observable<Company[]>;
+  deleteEnable: Observable<number> = new Subject<number>();
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private companyDataService: CompanyDataService,
   ) {
   }
 
   ngOnInit(): void {
-    this.companies = this.route.snapshot.data.companies as Company[];
+    this.companyDataService.getAll();
+    this.companies$ = this.companyDataService.entities$;
+  }
+/*    this.companies = this.route.snapshot.data.companies as Company[];
     console.log('COMPANIES:', this.companies);
     this.route.data.subscribe(
       (data)  => {
@@ -28,5 +33,5 @@ export class CompanyComponent implements OnInit {
         this.deleteEnable.next(0);      // send signal to child to enable delete buttons
       }
     );
-  }
+  }*/
 }

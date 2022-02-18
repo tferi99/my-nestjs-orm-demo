@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {DATE_FORMAT} from '../../core/app.constants';
+import {DATE_FORMAT} from '../../../core/app.constants';
 import {PersonService} from '../person.service';
 import {ToastrService} from 'ngx-toastr';
 import {NavigationEnd, Router} from '@angular/router';
@@ -12,7 +12,7 @@ import {Person} from '@app/client-lib';
   styleUrls: ['./person-list.component.scss']
 })
 export class PersonListComponent implements OnInit, OnDestroy {
-  @Input() persons!: Person[];
+  @Input() persons!: Person[] | null;
   @Input() enableDeletingTrigger!: Observable<number>;
 
   dateFormat = DATE_FORMAT;

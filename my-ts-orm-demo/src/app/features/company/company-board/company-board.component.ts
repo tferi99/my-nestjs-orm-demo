@@ -27,6 +27,6 @@ export class CompanyBoardComponent implements OnInit {
     this.companyDataService.getAll();
     this.personDataService.getAll();
 
-    this.companies$ = this.companyDataService.populatedCompanies$;
+    this.companies$ =  this.companyDataService.entities$;
   }
 }

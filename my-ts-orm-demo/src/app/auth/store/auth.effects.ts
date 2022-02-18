@@ -4,12 +4,10 @@ import {AuthService} from '../auth.service';
 import {AuthInitilizedAction, LoginAction, LoginErrorAction, LoginSuccessAction, LogoutAction} from './auth.actions';
 import {catchError, exhaustMap, map, tap} from 'rxjs/operators';
 import {LocalStorageService} from '../../core/service/local-storage.service';
-import jwt_decode from 'jwt-decode';
 import {of} from 'rxjs';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {NGXLogger} from 'ngx-logger';
-import {JwtPayload} from '@app/client-lib';
 import {AppDataLoadAction} from '../../init/store/init.actions';
 import {AuthWithExpiration} from '../model/auth-with-expiration';
 
