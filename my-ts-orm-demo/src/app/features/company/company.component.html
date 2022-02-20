@@ -1,12 +1,50 @@
 <h2>Companies</h2>
 <hr>
 <div class="d-flex flex-row mb-3">
-  <button class="btn btn-primary" [routerLink]="['/company', 'new']">New</button>
+  <button class="btn btn-primary" (click)="onNew()">New</button>
   <!--
+  <button class="btn btn-primary" [routerLink]="['/company', 'new']">New</button>
   <button class="btn btn-primary ml-auto" routerLink='/home'><i class="fas fa-home"></i></button>
   -->
 </div>
 
-<app-company-list [companies]="companies$ | async" [enableDeletingTrigger]="deleteEnable"></app-company-list>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Established</th>
+    <th scope="col">Active</th>
+    <th scope="col">Note</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let c of (companies$ | async)">
+    <td>{{c.id}}</td>
+    <td>{{c.name}}</td>
+    <td>{{c.established | date: dateFormat}}</td>
+    <td>
+      <!--
+      <i class="fas" [ngClass]="p.active ? 'fa-check' : 'fa-times'" [style.color]="p.active ? 'green' : 'red'" ></i>
+      -->
+      <i *ngIf="c.active" class="fas fa-check" style="color: green" ></i>
+    </td>
+    <td>
+      <button type="button" class="btn btn-outline-primary" *ngIf="c.note" [popover]="c.note"
+              triggers="mouseenter:mouseleave">
+        <i class="far fa-eye"  popover="I will hide on blur" triggers="mouseenter:mouseleave"></i>
+      </button>
+    </td>
+    <td>
+      <button  class="btn btn-outline-primary mr-2" [routerLink]="['/company', c.id, 'edit']"><i class="fas fa-pen"></i></button>
+      <button  class="btn btn-outline-primary mr-2" (click)="onCopy(c)"><i class="fas fa-copy"></i></button>
+      <button class="btn btn-outline-danger" (click)="onDelete(c)" [disabled]="deleting"><i class="fas fa-trash"></i></button>
+    </td>
+  </tr>
+</table>
+<h5>Total: {{(companies$ | async)?.length}}</h5>
+
 
 

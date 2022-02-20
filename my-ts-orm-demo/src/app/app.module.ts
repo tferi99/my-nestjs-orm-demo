@@ -13,9 +13,6 @@ import {HomeComponent} from './layout/home/home.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import {PopoverModule} from 'ngx-bootstrap/popover';
-import {CompanyComponent} from './features/company/company.component';
-import {CompanyListComponent} from './features/company/company-list/company-list.component';
-import {CompanyFormComponent} from './features/company/company-form/company-form.component';
 
 import {StoreModule} from '@ngrx/store';
 import * as fromAuth from './auth/store/auth.reducer';
@@ -29,15 +26,15 @@ import {AuthModule} from './auth/auth.module';
 import {ValidatorErrorMessageDirective} from './core/directive/validator-error-message.directive';
 import {ErrorMessageComponent} from './core/error/error-message/error-message.component';
 import {EmployeeTypePipe} from './common/pipe/employee-type-pipe';
-import {FormFocusDirective} from './core/directive/form-focus.directive';
-import {OnEscapeDirective} from './core/directive/on-escape.directive';
 import {EntityDataModule} from '@ngrx/data';
 import {entityConfig} from './store/entity-metadata';
-import {CompanyBoardComponent} from './features/company/company-board/company-board.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {AccordionModule} from 'ngx-bootstrap/accordion';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
-import { HeaderComponent } from './layout/header/header.component';
+import {HeaderComponent} from './layout/header/header.component';
+import {CompanyModule} from './features/company/company.module';
+import {CoreModule} from './core/core.module';
+import {ModalModule} from "ngx-bootstrap/modal";
 
 @NgModule({
   declarations: [
@@ -49,12 +46,6 @@ import { HeaderComponent } from './layout/header/header.component';
     EmployeeTypePipe,
     PersonComponent,
     HomeComponent,
-    FormFocusDirective,
-    OnEscapeDirective,
-    CompanyComponent,
-    CompanyListComponent,
-    CompanyFormComponent,
-    CompanyBoardComponent,
     HeaderComponent,
   ],
   imports: [
@@ -77,6 +68,7 @@ import { HeaderComponent } from './layout/header/header.component';
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
     AccordionModule.forRoot(),
+    ModalModule.forRoot(),
 
     // store
     StoreModule.forRoot({}, {
@@ -101,7 +93,9 @@ import { HeaderComponent } from './layout/header/header.component';
     EntityDataModule.forRoot(entityConfig),
 
     // features
+    CoreModule,
     AuthModule,
+    CompanyModule,
   ],
   providers: [
     {

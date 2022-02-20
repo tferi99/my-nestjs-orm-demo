@@ -2,7 +2,7 @@
 <h2 *ngIf="!isNew">Edit Company[{{in?.id}}]</h2>
 <hr>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus (appOnEscape)="onCancel()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus (appOnEscape)="onCancelForm()">
   <div class="form-row">
     <div class="col-md-6 mb-3">
       <label for="name">Name</label>
@@ -34,7 +34,7 @@
   </div>
   <div class="form-row">
     <button type="submit" class="btn btn-primary mr-2" [disabled]="!form.valid">OK</button>
-    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="onCancelForm()">Cancel</button>
   </div>
 </form>
 

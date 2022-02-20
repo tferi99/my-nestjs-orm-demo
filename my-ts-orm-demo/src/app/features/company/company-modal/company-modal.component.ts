@@ -1,24 +1,22 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {BsModalRef} from "ngx-bootstrap/modal";
+import {Company, EmployeeType} from '@app/client-lib';
+import {DialogResult, ModalResult} from '../../../core/form/modal/modal.model';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../../core/util/key-value-pair';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CompanyService} from '../company.service';
-import {ToastrService} from 'ngx-toastr';
-import {Company, EmployeeType} from '@app/client-lib';
 import {FormValidatorService} from '../../../core/service/form-validator.service';
-import {FormSaveDto} from '../../../core/form/form.model';
 
 @Component({
-  selector: 'app-company-form',
-  templateUrl: './company-form.component.html',
-  styleUrls: ['./company-form.component.scss']
+  selector: 'app-company-modal',
+  templateUrl: './company-modal.component.html',
+  styleUrls: ['./company-modal.component.scss']
 })
-export class CompanyFormComponent implements OnInit {
-  isNew = false;
+export class CompanyModalComponent implements OnInit {
   @Input() in!: Company;
-  @Output() onSave = new EventEmitter<FormSaveDto<Company>>();
-  @Output() onCancel = new EventEmitter<number>();
+  @Input() autoHide = false;
+  @Output() out = new EventEmitter<ModalResult<Company>>();
 
+  isNew = false;
   employeeTypes: KeyValuePair<string, string>[] = stringEnumToKeyValuePairArray(EmployeeType, true);
 
   form = this.fb.group({
@@ -35,56 +33,27 @@ export class CompanyFormComponent implements OnInit {
   note = this.form.controls.note as FormControl;
   active = this.form.controls.active as FormControl;
 
-  /*  get fc() {
-      return this.form.controls;
-    }*/
-
   constructor(
+    public bsModalRef: BsModalRef,
     private fb: FormBuilder,
     private formValidatorService: FormValidatorService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    // retrieving input data
-    // from router
-    if (!this.in) {
-      this.in = this.route.snapshot.data.company;
-    }
-    if (!this.in) {
-      this.in = history.state;
-    }
     this.isNew = this.in === undefined || this.in.id === undefined;
-
-    if (this.in) {
-      this.form.patchValue(this.in);
-    }
   }
 
   onSubmit(): void {
-    const company: Company = this.form.getRawValue();
-    console.log('SUBMIT isNew:' + this.isNew, company);
-
-    try {
-      this.onSave.emit({
-        data: company,
-        isNew: this.isNew
-      });
-    } catch(err) {
-      console.log('CATCHED: ', err);
-    }
-
+    const data: Partial<Company> = this.form.getRawValue();
+    console.log('RESULT: ', data);
+    this.out.emit({command: DialogResult.OK, data});
   }
 
   getFormControlErrorMessage(ctr: AbstractControl): string {
     return this.formValidatorService.getFormControlErrorMessage(ctr);
   }
 
-  onCancelForm(): void {
-    this.onCancel.emit(1)
+  onCancel() {
+    this.bsModalRef.hide();
   }
 }
-
-
