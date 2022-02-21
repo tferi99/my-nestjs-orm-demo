@@ -5,7 +5,7 @@ export enum DialogResult {
 
 export interface ModalResult<T> {
   command: DialogResult | string;
-  data: Partial<T>;
+  data: T;
 }
 
 export interface ModalLoadDto<T> {

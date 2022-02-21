@@ -6,7 +6,9 @@ import { ServerException } from '../exception/server-exception';
 import { ServerError } from '@app/client-lib';
 
 /**
- * Not used now - filter used instead: {@link GlobalExceptionFilter}
+ * !!!!!!!!!!!!!!!!!!!!!!!! NOT USED NOW !!!!!!!!!!!!!!!!!!
+ *
+ * Use filter used instead: {@link GlobalExceptionFilter}
  */
 @Injectable()
 export class ErrorsInterceptor implements NestInterceptor {

@@ -1,13 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {noop, Observable, Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Company} from '@app/client-lib';
 import {CompanyDataService} from './store/company-data.service';
 import {DATE_FORMAT} from '../../core/app.constants';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
-import {DialogResult, ModalLoadDto} from '../../core/form/modal/modal.model';
+import {DialogResult, ModalLoadDto, ModalResult} from '../../core/form/modal/modal.model';
 import {take} from 'rxjs/operators';
 import {CompanyModalComponent} from './company-modal/company-modal.component';
+import {DataServiceErrorMessageService, ErrorMessageMapping} from '../../core/store/data-service-error-message.service';
+import {UniqueConstraintError} from '../../core/error/app-error';
+
+const errorMapping: ErrorMessageMapping<Company> = {
+  'UniqueConstraintError' : {message: ': already exists', resolver: (data => data.name)}
+}
 
 @Component({
   selector: 'app-company',
@@ -26,7 +32,8 @@ export class CompanyComponent implements OnInit {
     private route: ActivatedRoute,
     private companyDataService: CompanyDataService,
     public bsModalRef: BsModalRef,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private dataServiceErrorMessageService: DataServiceErrorMessageService
   ) {
   }
 
@@ -34,33 +41,20 @@ export class CompanyComponent implements OnInit {
     this.companyDataService.getAll();
     this.companies$ = this.companyDataService.entities$;
   }
-/*    this.companies = this.route.snapshot.data.companies as Company[];
-    console.log('COMPANIES:', this.companies);
-    this.route.data.subscribe(
-      (data)  => {
-        this.companies = data.companies;
-        console.log('COMPANIES NEXT:', this.companies);
-        this.deleteEnable.next(0);      // send signal to child to enable delete buttons
-      }
-    );
-  }*/
 
   onNew() {
     this.openEditModal();
   }
 
-
-  onDelete(p: Company): void {
-    if (!p) {
+  onDelete(company: Company): void {
+    if (!company) {
       return;
     }
     this.deleting = true;
-/*    this.companyService.delete(p.id).subscribe(
-      result => {
-        this.toastr.warning(`Company[${p.id}] deleted.`);
-        this.router.navigateByUrl('/company');
-      }
-    );*/
+    this.companyDataService.delete(company).subscribe(
+      () => this.deleting = false,
+      error => this.deleting = false
+    );
   }
 
   onCopy(p: Company): void  {
@@ -76,12 +70,16 @@ export class CompanyComponent implements OnInit {
       }
     };
     const ref: BsModalRef = this.modalService.show(CompanyModalComponent, initialState);
-    console.log('REF:', ref.content);
-    ref.content.out.pipe(take(1)).subscribe((value: DialogResult) => {
-      if (value == DialogResult.OK) {
-        this.router.navigateByUrl('/user');
+    ref.content.out.subscribe((out: ModalResult<Company>) => {
+        console.log('Dialog returns:', out);
+        this.companyDataService.add(out.data).subscribe(
+          () => ref.hide(),
+          error => {
+            console.log('ERROR IN NGRX DATA: ', error);
+            this.dataServiceErrorMessageService.showErrorMessage(error, errorMapping);
+          }
+        );
       }
-    });
+    );
   }
-
 }

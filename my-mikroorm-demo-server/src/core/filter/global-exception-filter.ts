@@ -15,12 +15,20 @@ import { HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-
 
 export type HttpStatusExt = HttpStatus | CustomHttpStatus;
 
+/**
+ * Add to AppModule:
+ *    providers: [
+ *     {
+ *       provide: APP_FILTER,
+ *       useClass: GlobalExceptionFilter,
+ *     },
+ */
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
   constructor(@Inject(Logger) private readonly logger: LoggerService) {}
 
   catch(exception: unknown, host: ArgumentsHost) {
-    //console.error('GLOBAL EXCEPTION FILTER:', exception);
+    console.error('GLOBAL EXCEPTION FILTER:', exception);
 
     // logging
     if (exception instanceof Error) {
@@ -53,9 +61,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
   /**
    * Identifies application related errors.
-   * Error codes are in:   AppError
-   *
-   * If an error identified status will be: 510
+   * Error codes are in:      ServerError
+   * Custom response codes:   CustomHttpStatus
    *
    *  See more:
    *    https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
@@ -68,7 +75,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
   createCustomResponseErrorPayload(exception: any, ctx: HttpArgumentsHost, status: HttpStatusExt): ResponseErrorPayload {
     const request = ctx.getRequest();
     let appErr: ServerError = ServerError.Unknown;
-    if (exception.response && exception.response instanceof UniqueConstraintViolationException) {
+    if (exception && exception instanceof UniqueConstraintViolationException) {
       appErr = ServerError.DdUniqueConstraintError;
     }
     if (appErr != ServerError.Unknown) {

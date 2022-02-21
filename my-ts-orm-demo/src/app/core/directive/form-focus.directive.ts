@@ -1,12 +1,14 @@
-import {AfterViewInit, Directive, ElementRef, HostListener, OnInit} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, HostListener, Input, OnInit} from '@angular/core';
 
 /**
  * It puts focus automatically to the first element that has one of these classes:
  *
  *    .focus          : you can force any element to set the focus on.
- *    .focusDelayed   : same as 'focus' but with a small delay (FOCUS_DELAY)
  *    .ng-invalid     : the 1st invalid FormControl
  *    .form-control'  : the 1st FormControl
+ *
+ *    NOTE:
+ *      Why we need .focusDelayed? Sometimes CSS class not detected properly during creation (e.g. in modal dialogs)
  */
 
   // Sometimes immediate focus cannot work - for example on ngx-bootstrap modals -
@@ -17,38 +19,50 @@ const FOCUS_DELAY = 10;
   selector: '[appFormFocus]'
 })
 export class FormFocusDirective implements OnInit, AfterViewInit {
+  tracing = false;
+
+  @Input() focusDelayed = false;
+
   constructor(private el: ElementRef) {}
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
+    if (this.focusDelayed) {
+      setTimeout(() => this.applyFocus(), FOCUS_DELAY);
+    } else {
+      this.applyFocus()
+    }
+  }
+
+  private applyFocus() {
     const focus = this.el.nativeElement.querySelector('.focus');
-    console.log('>> focus:', focus);
+    this.trace('focus:', focus);
     if (focus) {
       focus.focus();
       return;
     }
 
-    const focusDelayed = this.el.nativeElement.querySelector('.focusDelayed');
-    console.log('>> focusDelayed:', focusDelayed);
-    if (focusDelayed) {
-      setTimeout(() => focusDelayed.focus(), FOCUS_DELAY);
-      return;
-    }
-
     const invalidFormControl = this.el.nativeElement.querySelector('.ng-invalid');
-    console.log('>> invalidFormControl:', invalidFormControl);
+    this.trace('invalidFormControl:', invalidFormControl);
     if (invalidFormControl) {
       invalidFormControl.focus();
       return;
     }
 
     const formControl = this.el.nativeElement.querySelector('.form-control');
-    console.log('>> formControl:', formControl);
+    this.trace('formControl:', formControl);
     if (formControl) {
       formControl.focus();
       return;
     }
   }
+
+  private trace(msg: string, elem: any) {
+    if (this.tracing) {
+      console.log('FOCUS - ' + msg, elem);
+    }
+  }
+
 }

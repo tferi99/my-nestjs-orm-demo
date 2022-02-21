@@ -2,12 +2,12 @@
   <h2 *ngIf="isNew">New Company</h2>
   <h2 *ngIf="!isNew">Edit Company[{{in?.id}}]</h2>
 </div>
-<form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus (appOnEscape)="onCancel()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus [focusDelayed]="true" (appOnEscape)="onCancel()">
   <div class="modal-body">
     <div class="form-row">
       <div class="col-md-6 mb-3">
         <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" [formControl]="name" [ngClass]="{'is-invalid' : name.invalid}" placeholder="Name">
+        <input type="text" class="form-control  " id="name" [formControl]="name" [ngClass]="{'is-invalid' : name.invalid}" placeholder="Name">
         <div class="invalid-feedback" *ngIf="name.invalid">{{getFormControlErrorMessage(name)}}</div>
       </div>
       <div class="col-md-4 mb-3">

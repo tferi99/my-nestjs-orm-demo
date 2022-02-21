@@ -44,7 +44,7 @@ export class CompanyModalComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const data: Partial<Company> = this.form.getRawValue();
+    const data: Company = this.form.getRawValue();
     console.log('RESULT: ', data);
     this.out.emit({command: DialogResult.OK, data});
   }

@@ -10,6 +10,7 @@ import {RouterModule} from '@angular/router';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {BsModalRef, ModalModule} from 'ngx-bootstrap/modal';
 import {CompanyModalComponent} from './company-modal/company-modal.component';
+import {CoreModule} from '../../core/core.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,8 @@ import {CompanyModalComponent} from './company-modal/company-modal.component';
     // ngx-bootstrap
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
+
+    CoreModule
   ],
   providers: [
     BsModalRef
