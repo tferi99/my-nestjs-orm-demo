@@ -15,6 +15,9 @@ import {
 import {take} from 'rxjs/operators';
 import {DialogResult} from '../../../core/form/modal/modal.model';
 import {DATE_FORMAT} from '../../../core/app.constants';
+import {CompanyDataService} from '../../company/store/company-data.service';
+import {Store} from '@ngrx/store';
+import {selectPersonsWithCompany} from '../store/person.selectors';
 
 const errorMapping: ErrorMessageMapping<Company> = {
   'ForeignKeyConstraintViolationError' : {message: 'Item is used'}
@@ -35,6 +38,8 @@ export class PersonListComponent implements OnInit {
   dateFormat = DATE_FORMAT;
 
   constructor(
+    private store: Store<Person>,
+    private companyDataService: CompanyDataService,
     private personDataService: PersonDataService,
     private modalService: BsModalService,
     private dataServiceErrorMessageService: DataServiceErrorMessageService
@@ -42,8 +47,10 @@ export class PersonListComponent implements OnInit {
 
   ngOnInit(): void {
     this.personDataService.getAll();
-    this.persons$ = this.personDataService.entities$;
+    this.personDataService.entities$;
+    this.companyDataService.entities$;
     this.loading$ = this.personDataService.loading$;
+    this.persons$ = this.store.select(selectPersonsWithCompany);
   }
 
   onNew() {
