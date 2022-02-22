@@ -75,8 +75,8 @@ import {ModalModule} from "ngx-bootstrap/modal";
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
-        strictStateSerializability: true,
-        strictActionSerializability: true,
+        strictStateSerializability: false,    // otherwise Date cannot be used
+        strictActionSerializability: false,   // otherwise Date cannot be used
         strictActionWithinNgZone: true,
         strictActionTypeUniqueness: true,
       }
