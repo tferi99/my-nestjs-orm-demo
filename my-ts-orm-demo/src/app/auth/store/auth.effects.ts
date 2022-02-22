@@ -10,6 +10,8 @@ import {ToastrService} from 'ngx-toastr';
 import {NGXLogger} from 'ngx-logger';
 import {AppDataLoadAction} from '../../init/store/init.actions';
 import {AuthWithExpiration} from '../model/auth-with-expiration';
+import {PersonDataService} from '../../features/person/store/person-data.service';
+import {CompanyDataService} from '../../features/company/store/company-data.service';
 
 @Injectable()
 export class AuthEffects {
@@ -20,6 +22,8 @@ export class AuthEffects {
     private router: Router,
     private toastr: ToastrService,
     private logger: NGXLogger,
+    private personDataService: PersonDataService,
+    private companyDataService: CompanyDataService
   ) {}
 
   login$ = createEffect(() => this.actions$.pipe(
@@ -70,55 +74,14 @@ export class AuthEffects {
 
   logout$ = createEffect(() => this.actions$.pipe(
     ofType(LogoutAction),
-    tap( () => this.authService.clearAuthentication()),
+    tap( () => {
+      this.authService.clearAuthentication();
+      this.personDataService.clearCache();
+      this.companyDataService.clearCache();
+    }),
     exhaustMap(action => this.authService.logout().pipe()),
     tap(() => this.router.navigateByUrl('/login'))
   ), {
     dispatch: false
   });
-
-/*  authRoleTest$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthRoleTestAction),
-    exhaustMap(action => this.authService.testAuthRole(action.role).pipe(
-      switchMap(result => {
-          this.logger.log('Role validation: OK');
-          if (action.onOkActions && action.onOkActions.length > 0) {
-            // console.log('>>> use custom OK action:', action.onErrorActions);
-            return action.onOkActions;
-          }
-          // console.log('>>> use default OK action');
-          return [
-            AuthRoleTestOkAction({role: result.role})
-          ];
-        }
-      ),
-      catchError(err => {
-        this.logger.log('Role validation: ERROR');
-        if (action.onErrorActions && action.onErrorActions.length > 0) {
-          // console.log('>>> use custom ERROR action:', action.onErrorActions);
-          return from(action.onErrorActions);
-        }
-        // console.log('>>> use default ERROR action');
-        return of(AuthRoleTestErrorAction({
-          message: ErrorMessageUtils.getErrorMessage('[AuthTestAdmin]', err),
-          role: action.role
-        }));
-      })
-    ))
-  ));
-
-  AuthRoleTestOk$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthRoleTestOkAction),
-    tap(action => this.toastr.success('Auth Role Test for: ' + action.role + ' - SUCCESSFUL'))
-  ), {dispatch: false});
-
-  AuthRoleTestError$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthRoleTestErrorAction),
-    tap(action => this.toastr.error('Auth Role Test for:' + action.role + ' - FAILED (message:' + action.message + ')'))
-  ), {dispatch: false});
-
-  Dummy$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthRoleTestOkAction),
-    tap(() => console.log('DUMMY ACTION !!!'))
-  ), {dispatch: false});*/
 }

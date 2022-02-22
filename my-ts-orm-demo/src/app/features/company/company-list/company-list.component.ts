@@ -24,7 +24,6 @@ export class CompanyListComponent implements OnInit {
 
   loading$!: Observable<boolean>;
   companies$!: Observable<Company[]>;
-  deleteEnable: Observable<number> = new Subject<number>();
   deleting = false;
 
   dateFormat = DATE_FORMAT;
@@ -33,8 +32,7 @@ export class CompanyListComponent implements OnInit {
     private companyDataService: CompanyDataService,
     private modalService: BsModalService,
     private dataServiceErrorMessageService: DataServiceErrorMessageService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.companyDataService.getAll();

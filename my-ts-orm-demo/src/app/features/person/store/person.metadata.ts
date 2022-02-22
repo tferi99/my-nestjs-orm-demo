@@ -9,4 +9,5 @@ export const personEntityMetadata: EntityMetadata<Person> = {
       (entity) =>
         entity.name?.includes(pattern) || entity.name?.includes(pattern)
     ),
+  entityDispatcherOptions: {optimisticDelete: false}
 };

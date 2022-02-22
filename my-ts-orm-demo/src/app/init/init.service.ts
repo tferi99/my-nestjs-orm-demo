@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {NGXLogger} from 'ngx-logger';
 import {Store} from '@ngrx/store';
-import {AppState} from '../store/app.state';
 import {AuthService} from '../auth/auth.service';
+import {AppState} from '../store/app.reducer';
 
 @Injectable({
   providedIn: 'root'

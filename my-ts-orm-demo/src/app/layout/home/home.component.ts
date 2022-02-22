@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AuthState} from '../../auth/store/auth.reducer';
-import {LoginAction, LogoutAction} from '../../auth/store/auth.actions';
+import {LogoutAction} from '../../auth/store/auth.actions';
 
 @Component({
   selector: 'app-home',

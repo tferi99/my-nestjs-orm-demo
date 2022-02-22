@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {LogoutAction} from '../../auth/store/auth.actions';
-import {AppState} from '../../store/app.state';
 import {Observable} from 'rxjs';
 import {selectAuthentication, selectIsAuthenticated} from '../../auth/store/auth.selectors';
 import {Auth} from '@app/client-lib';
+import {AppState} from '../../store/app.reducer';
 
 @Component({
   selector: 'app-header',

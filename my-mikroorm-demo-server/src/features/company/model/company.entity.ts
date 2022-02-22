@@ -22,8 +22,7 @@ export class Company extends OrmIntTimestampEntity {
 
   @OneToMany({
     entity: () => Person,
-    mappedBy: (person) => person.company,
-    nullable: true,
+    mappedBy: (person) => person.company
   })
   workers = new Collection<Person>(this);
 

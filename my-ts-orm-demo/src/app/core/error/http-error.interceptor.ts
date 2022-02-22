@@ -13,10 +13,10 @@ import {
 import {NGXLogger} from 'ngx-logger';
 import {Store} from '@ngrx/store';
 
-import {AppState} from '../../store/app.state';
 import {ErrorMessageUtils} from './error-message-utils';
 import {CustomHttpStatus, ResponseErrorPayload, ServerError} from '@app/client-lib';
 import {ForeignKeyConstraintViolationError, ServerAppError, UniqueConstraintError} from './app-error';
+import {AppState} from '../../store/app.reducer';
 
 
 /**
