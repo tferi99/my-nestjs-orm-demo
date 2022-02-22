@@ -17,3 +17,11 @@ export class UniqueConstraintError extends ServerAppError {
     this.cause = cause;
   }
 }
+
+export class ForeignKeyConstraintViolationError extends ServerAppError {
+  cause: any;
+  constructor(message: string, cause: any) {
+    super(message);
+    this.cause = cause;
+  }
+}

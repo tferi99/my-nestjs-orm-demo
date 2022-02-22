@@ -9,5 +9,5 @@ export const companyEntityMetadata: EntityMetadata<Company> = {
       (entity) =>
         entity.name?.includes(pattern) || entity.name?.includes(pattern)
     ),
-  //entityDispatcherOptions: {optimisticDelete: false, op}
+  entityDispatcherOptions: {optimisticDelete: false}
 };

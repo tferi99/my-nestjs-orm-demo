@@ -5,6 +5,7 @@ export enum DialogResult {
 
 export interface ModalResult<T> {
   command: DialogResult | string;
+  isNew: boolean;
   data: T;
 }
 

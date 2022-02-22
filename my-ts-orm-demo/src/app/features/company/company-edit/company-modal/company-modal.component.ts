@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BsModalRef} from "ngx-bootstrap/modal";
 import {Company, EmployeeType} from '@app/client-lib';
-import {DialogResult, ModalResult} from '../../../core/form/modal/modal.model';
+import {DialogResult, ModalResult} from '../../../../core/form/modal/modal.model';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
-import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../../core/util/key-value-pair';
-import {FormValidatorService} from '../../../core/service/form-validator.service';
+import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../../../core/util/key-value-pair';
+import {FormValidatorService} from '../../../../core/service/form-validator.service';
 
 @Component({
-  selector: 'app-company-modal',
+  selector: 'app-company-list-modal',
   templateUrl: './company-modal.component.html',
   styleUrls: ['./company-modal.component.scss']
 })
@@ -41,12 +41,16 @@ export class CompanyModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.isNew = this.in === undefined || this.in.id === undefined;
+
+    if (this.in) {
+      this.form.patchValue(this.in);
+    }
   }
 
   onSubmit(): void {
     const data: Company = this.form.getRawValue();
-    console.log('RESULT: ', data);
-    this.out.emit({command: DialogResult.OK, data});
+    //console.log('RESULT: ', data);
+    this.out.emit({command: DialogResult.OK, isNew: this.isNew, data});
   }
 
   getFormControlErrorMessage(ctr: AbstractControl): string {

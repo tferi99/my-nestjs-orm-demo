@@ -6,6 +6,7 @@ export enum CustomHttpStatus {
 export enum ServerError {
   Unknown = 'UNKNOWN',
   DdUniqueConstraintError = 'DB_UNIQUE_CONSTRAINT_ERROR',
+  DbForeignKeyConstraintViolationError = 'DB_FOREIGN_KEY_CONSTRAINT_VIOLATION_ERROR',
 }
 
 export interface ResponseErrorPayload {

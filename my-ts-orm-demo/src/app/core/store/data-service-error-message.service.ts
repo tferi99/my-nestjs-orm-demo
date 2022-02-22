@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {DataServiceError} from '@ngrx/data';
-import {UniqueConstraintError} from '../error/app-error';
+import {ForeignKeyConstraintViolationError, UniqueConstraintError} from '../error/app-error';
 
-export interface ErrorDataResolver<T> {
+/**
+ * It retrieves data from error.
+ */
+export interface ErrorDataRetriever<T> {
   (data: T): string
 }
 
 export interface ErrorMessageMappingItem<T> {
   message: string;
-  resolver?: ErrorDataResolver<T>
+  retriever?: ErrorDataRetriever<T>
 }
 
 export interface ErrorMessageMapping<T> {
@@ -35,11 +38,11 @@ export class DataServiceErrorMessageService {
         if (!mappingItem) {
           this.toastr.error('Unidentified DataServiceError error: ' + error.message);
         } else {
-          if (dataServiceErr.error instanceof UniqueConstraintError) {
+          if (dataServiceErr.error instanceof UniqueConstraintError || dataServiceErr.error instanceof ForeignKeyConstraintViolationError) {
             let msg = '';
-            if (mappingItem.resolver && dataServiceErr.requestData) {
+            if (mappingItem.retriever && dataServiceErr.requestData?.data) {
               const data: T = dataServiceErr.requestData.data;
-              msg = mappingItem.resolver(data) + ' : ' + mappingItem.message;
+              msg = mappingItem.retriever(data) + ' : ' + mappingItem.message;
             } else {
               msg = mappingItem.message;
             }

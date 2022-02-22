@@ -9,9 +9,8 @@ import {
   LoggerService,
 } from '@nestjs/common';
 import { CustomHttpStatus, ResponseErrorPayload, ServerError } from '@app/client-lib';
-import { UniqueConstraintViolationException } from '@mikro-orm/core';
+import { ForeignKeyConstraintViolationException, UniqueConstraintViolationException } from '@mikro-orm/core';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-host.interface';
-
 
 export type HttpStatusExt = HttpStatus | CustomHttpStatus;
 
@@ -78,6 +77,10 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     if (exception && exception instanceof UniqueConstraintViolationException) {
       appErr = ServerError.DdUniqueConstraintError;
     }
+    if (exception && exception instanceof ForeignKeyConstraintViolationException) {
+      appErr = ServerError.DbForeignKeyConstraintViolationError;
+    }
+
     if (appErr != ServerError.Unknown) {
       status = CustomHttpStatus.ApplicationError;
     }

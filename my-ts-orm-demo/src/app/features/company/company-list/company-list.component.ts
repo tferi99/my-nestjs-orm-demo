@@ -1,73 +1,89 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {DATE_FORMAT} from '../../../core/app.constants';
-import {CompanyService} from '../company.service';
-import {ToastrService} from 'ngx-toastr';
-import {Router} from '@angular/router';
-import {Observable, Subscription} from 'rxjs';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 import {Company} from '@app/client-lib';
+import {CompanyDataService} from '../store/company-data.service';
+import {DATE_FORMAT} from '../../../core/app.constants';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
+import {DialogResult} from '../../../core/form/modal/modal.model';
+import {take} from 'rxjs/operators';
+import {DataServiceErrorMessageService, ErrorMessageMapping} from '../../../core/store/data-service-error-message.service';
+import {ConfirmDialogComponent, ConfirmDialogConfig} from '../../../core/form/modal/confirm-dialog/confirm-dialog.component';
+import {CompanyEditComponent} from '../company-edit/company-edit.component';
+
+const errorMapping: ErrorMessageMapping<Company> = {
+  'ForeignKeyConstraintViolationError' : {message: 'Item is used'}
+}
 
 @Component({
   selector: 'app-company-list',
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss']
 })
-export class CompanyListComponent implements OnInit, OnDestroy {
-  @Input() companies!: Company[] | null;
-  @Input() enableDeletingTrigger!: Observable<number | null>;
+export class CompanyListComponent implements OnInit {
+  @ViewChild('edit') edit!: CompanyEditComponent;
 
-  dateFormat = DATE_FORMAT;
-  navigationSubs!: Subscription;
+  loading$!: Observable<boolean>;
+  companies$!: Observable<Company[]>;
+  deleteEnable: Observable<number> = new Subject<number>();
   deleting = false;
 
+  dateFormat = DATE_FORMAT;
+
   constructor(
-    private router: Router,
-    private companyService: CompanyService,
-    private toastr: ToastrService
+    private companyDataService: CompanyDataService,
+    private modalService: BsModalService,
+    private dataServiceErrorMessageService: DataServiceErrorMessageService
   ) {
-    /*    this.navigationSubs = this.router.events.subscribe((e: any) => {
-          // If it is a NavigationEnd event re-initalise the component
-          if (e instanceof NavigationEnd) {
-            this.initialiseInvites();
-          }
-        });*/
   }
 
-  /*  initialiseInvites() {
-      // Set default values and re-fetch any data you need.
-    }*/
-
-  ngOnDestroy(): void {
-    // avoid memory leaks here by cleaning up after ourselves. If we
-    // don't then we will continue to run our initialiseInvites()
-    // method on every navigationEnd event.
-    if (this.navigationSubs) {
-      this.navigationSubs.unsubscribe();
-    }
-  }
   ngOnInit(): void {
-    if (this.enableDeletingTrigger) {
-      this.enableDeletingTrigger.subscribe(
-        data => this.deleting = false
-      );
-    }
+    this.companyDataService.getAll();
+    this.companies$ = this.companyDataService.entities$;
+    this.loading$ = this.companyDataService.loading$;
   }
 
-  delete(p: Company): void {
-    if (!p) {
+  onNew() {
+    this.edit.onNew();
+  }
+
+  onCopy(company: Company): void  {
+    const copy: Company = {...company};
+    // @ts-ignore
+    delete copy['id'];
+    this.edit.onCopy(copy);
+  }
+
+  onEdit(company: Company): void  {
+    this.edit.onEdit(company);
+  }
+
+  onDelete(company: Company): void {
+    if (!company) {
       return;
     }
-    this.deleting = true;
-    this.companyService.delete(p.id).subscribe(
-      result => {
-        this.toastr.warning(`Company[${p.id}] deleted.`);
-        this.router.navigateByUrl('/company');
-      }
-    );
-  }
 
-  copy(p: Company): void  {
-    // @ts-ignore
-    p.id = undefined;
-    this.router.navigateByUrl('/company/new', {state: p});
+    const config: ConfirmDialogConfig = {
+      message: `Do you want to delete '${company?.name}'?`
+    };
+
+    const dialogConfig: ModalOptions = {
+      initialState: {
+        config
+      }
+    }
+
+    const ref: BsModalRef = this.modalService.show(ConfirmDialogComponent, dialogConfig);
+    ref.content.action.pipe(take(1)).subscribe((value: DialogResult) => {
+      if (value == DialogResult.OK) {
+        this.deleting = true;
+        this.companyDataService.delete(company).subscribe(
+          () => this.deleting = false,
+          error => {
+            this.deleting = false;
+            this.dataServiceErrorMessageService.showErrorMessage(error, errorMapping);
+          }
+        );
+      }
+    });
   }
 }

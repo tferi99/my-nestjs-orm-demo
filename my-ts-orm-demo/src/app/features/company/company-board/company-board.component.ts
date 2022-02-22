@@ -10,7 +10,7 @@ const comps: Company[] = [
 ];
 
 @Component({
-  selector: 'app-company-board',
+  selector: 'app-company-list-board',
   templateUrl: './company-board.component.html',
   styleUrls: ['./company-board.component.scss']
 })

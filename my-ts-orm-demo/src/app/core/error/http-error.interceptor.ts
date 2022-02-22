@@ -16,7 +16,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.state';
 import {ErrorMessageUtils} from './error-message-utils';
 import {CustomHttpStatus, ResponseErrorPayload, ServerError} from '@app/client-lib';
-import {ServerAppError, UniqueConstraintError} from './app-error';
+import {ForeignKeyConstraintViolationError, ServerAppError, UniqueConstraintError} from './app-error';
 
 
 /**
@@ -43,7 +43,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
 
   private handleError(err: HttpErrorResponse): Observable<any> {
-    console.log('>>>>>>> Error caught by interceptor:', err);
+    //console.log('>>>>>>> Error caught by interceptor:', err);
     let errorMessage = '';
     let errorMessageExt;
     let notify = true;
@@ -72,7 +72,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         case CustomHttpStatus.ApplicationError:
           const ex = this.identifyServerApplicationErrors(err.error as ResponseErrorPayload);
           if (ex !== undefined) {
-            console.log('!!!!!!!!!!!!!!!!!!!!!!!! IDENTIFIED');
             return throwError(ex);
           }
           break;
@@ -94,16 +93,19 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
 
   identifyServerApplicationErrors(error: ResponseErrorPayload): ServerAppError | undefined {
-    console.log('### identifyServerApplicationErrors: ', error);
+    //console.log('### identifyServerApplicationErrors: ', error);
     let ex;
     if (error.errorCode) {
       switch (error.errorCode) {
         case ServerError.DdUniqueConstraintError:
           ex = new UniqueConstraintError(error.message, error);
           break;
+        case ServerError.DbForeignKeyConstraintViolationError:
+          ex = new ForeignKeyConstraintViolationError(error.message, error);
+          break;
       }
     }
-    console.log('### identified?: ', ex);
+    //console.log('### identified?: ', ex);
     return ex;
   }
 }
