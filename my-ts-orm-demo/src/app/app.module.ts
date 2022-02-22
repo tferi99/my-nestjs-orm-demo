@@ -75,7 +75,7 @@ import {ModalModule} from "ngx-bootstrap/modal";
      *
      * If you want to save non-serialiable objects in store.
      * See also: https://nils-mehlhorn.de/posts/ngrx-store-unserializable-data
-     */
+       */
     StoreModule.forRoot({}, {
       runtimeChecks: {
         strictStateImmutability: true,
