@@ -34,7 +34,9 @@ export class CompanyListComponent extends ListComponentBase<Company, 'name'> imp
   }
 
   ngOnInit(): void {
+    // load
     this.companyDataService.getAll();
+
     this.companies$ = this.companyDataService.entities$;
     this.loading$ = this.companyDataService.loading$;
   }

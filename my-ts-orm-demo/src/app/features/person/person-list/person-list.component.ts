@@ -26,6 +26,7 @@ const errorMapping: ErrorMessageMapping<Company> = {
 export class PersonListComponent extends ListComponentBase<Person, 'name'> implements OnInit {
   @ViewChild('edit') edit!: PersonEditComponent;
 
+  companies$!: Observable<Company[]>;
   persons$!: Observable<Person[]>;
 
   constructor(
@@ -36,13 +37,17 @@ export class PersonListComponent extends ListComponentBase<Person, 'name'> imple
     private dataServiceErrorMessageService: DataServiceErrorMessageService
   ) {
     super(personDataService, modalService, dataServiceErrorMessageService);
+    this.enabledDump = true;
   }
 
   ngOnInit(): void {
+    // load
     this.personDataService.getAll();
-    this.personDataService.entities$;
-    this.companyDataService.entities$;
+    this.companyDataService.getAll();
+
     this.loading$ = this.personDataService.loading$;
+    this.companies$ = this.companyDataService.entities$;
+    //this.persons$ = this.personDataService.entities$;
     this.persons$ = this.store.select(selectPersonsWithCompany);
   }
 

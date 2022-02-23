@@ -18,7 +18,7 @@ const errorMapping: ErrorMessageMapping<Company> = {
   template: ``,
   styles: []
 })
-export class CompanyEditComponent extends DataModalEditComponentBase<Company> implements OnInit, EditComponent<Company> {
+export class CompanyEditComponent extends DataModalEditComponentBase<Company, any> implements OnInit, EditComponent<Company> {
   constructor(
     private companyDataService: CompanyDataService,
     private modalService: BsModalService,

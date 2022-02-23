@@ -9,8 +9,9 @@ import {FormValidatorService} from '../service/form-validator.service';
   template: ``,
   styles: []
 })
-export abstract class ModalComponentBase<T, PK extends keyof T> implements OnInit {
+export abstract class ModalComponentBase<T, A, PK extends keyof T> implements OnInit {
   @Input() in!: T;
+  @Input() additional!: A;
   @Input() autoHide = false;
   @Output() out = new EventEmitter<ModalResult<T>>();
 

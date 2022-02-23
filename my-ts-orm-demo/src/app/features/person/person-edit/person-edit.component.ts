@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Company, Person} from '@app/client-lib';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {PersonModalComponent} from './person-modal/person-modal.component';
 import {PersonDataService} from '../store/person-data.service';
 import {DataServiceErrorMessageService, ErrorMessageMapping} from '../../../core/store/data-service-error-message.service';
 import {DataModalEditComponentBase, EditComponent} from '../../../core/component/data-modal-edit-component.base';
+import {Observable} from 'rxjs';
 
 const errorMapping: ErrorMessageMapping<Person> = {
   'UniqueConstraintError' : {message: 'already exists', retriever: (data => data.name)},
@@ -12,10 +13,16 @@ const errorMapping: ErrorMessageMapping<Person> = {
 
 @Component({
   selector: 'app-person-edit',
-  template: ``,
+  template: `<table>
+    <tr *ngFor="let c of (companies$ | async)">
+      <td>{{c.name}}</td>
+    </tr>
+  </table>`,
   styles: []
 })
-export class PersonEditComponent extends DataModalEditComponentBase<Person> implements OnInit, EditComponent<Person> {
+export class PersonEditComponent extends DataModalEditComponentBase<Person, any> implements OnInit, EditComponent<Person> {
+  @Input() companies$!: Observable<Company[]>;
+
   constructor(
     private personDataService: PersonDataService,
     private modalService: BsModalService,
@@ -26,5 +33,9 @@ export class PersonEditComponent extends DataModalEditComponentBase<Person> impl
   }
 
   ngOnInit(): void {
+  }
+
+  dumpCompanies() {
+    console.log("COMP:", )
   }
 }

@@ -10,7 +10,7 @@ import {ModalComponentBase} from '../../../../core/component/modal.component.bas
   templateUrl: './company-modal.component.html',
   styleUrls: ['./company-modal.component.scss']
 })
-export class CompanyModalComponent extends ModalComponentBase<Company, 'id'> implements OnInit {
+export class CompanyModalComponent extends ModalComponentBase<Company, any, 'id'> implements OnInit {
   constructor(
     public bsModalRef: BsModalRef,
     private fb: FormBuilder,

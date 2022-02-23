@@ -9,7 +9,8 @@ export interface ModalResult<T> {
   data: T;
 }
 
-export interface ModalLoadDto<T> {
+export interface ModalLoadDto<T, A> {
   in: T;
+  additional: A
 }
 

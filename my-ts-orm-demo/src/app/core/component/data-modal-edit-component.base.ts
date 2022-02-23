@@ -13,7 +13,7 @@ export interface EditComponent<T> {
 /**
  * Base component to render modal form for to edit data using NgRx Data service.
  */
-export abstract class DataModalEditComponentBase<T> {
+export abstract class DataModalEditComponentBase<T, A> {
   /**
    * Pass this values from constructor of inherited class:
    *
@@ -24,7 +24,7 @@ export abstract class DataModalEditComponentBase<T> {
    * @param _errorMapping error code-message mapping
    */
   constructor(
-    private _modalComponentType: ComponentType<ModalLoadDto<T>>,
+    private _modalComponentType: ComponentType<ModalLoadDto<T, A>>,
     private _dataService: EntityCollectionServiceBase<T>,
     private _modalService: BsModalService,
     private _dataServiceErrorMessageService: DataServiceErrorMessageService,
@@ -47,7 +47,7 @@ export abstract class DataModalEditComponentBase<T> {
   }
 
   openEditModal(data?: T) {
-    const modalOptions: ModalOptions<ModalLoadDto<T>> = {
+    const modalOptions: ModalOptions<ModalLoadDto<T, A>> = {
       initialState: {
         in: data
       }

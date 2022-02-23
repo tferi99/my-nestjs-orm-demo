@@ -11,7 +11,7 @@ import {ModalComponentBase} from '../../../../core/component/modal.component.bas
   templateUrl: './Person-modal.component.html',
   styleUrls: ['./Person-modal.component.scss']
 })
-export class PersonModalComponent extends ModalComponentBase<Person, 'id'> implements OnInit {
+export class PersonModalComponent extends ModalComponentBase<Person, any, 'id'> implements OnInit {
   employeeTypes: KeyValuePair<string, string>[] = stringEnumToKeyValuePairArray(EmployeeType, true);
 
   form = this.fb.group({

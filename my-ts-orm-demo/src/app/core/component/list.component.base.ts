@@ -16,6 +16,7 @@ import {EntityCollectionServiceBase} from '@ngrx/data';
 export abstract class ListComponentBase<T, NAME extends keyof T> {
   loading$!: Observable<boolean>;
   deleting = false;
+  enabledDump = false;
 
   dateFormat = DATE_FORMAT;
 
@@ -84,4 +85,9 @@ export abstract class ListComponentBase<T, NAME extends keyof T> {
       }
     });
   }
+
+  onDump(data: T) {
+    console.log('DUMP:', data);
+  }
+
 }
