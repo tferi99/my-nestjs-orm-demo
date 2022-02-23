@@ -1,22 +1,17 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from "ngx-bootstrap/modal";
-import {Person, EmployeeType} from '@app/client-lib';
-import {DialogResult, ModalResult} from '../../../../core/form/modal/modal.model';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {EmployeeType, Person} from '@app/client-lib';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../../../core/util/key-value-pair';
 import {FormValidatorService} from '../../../../core/service/form-validator.service';
+import {ModalComponentBase} from '../../../../core/component/modal.component.base';
 
 @Component({
   selector: 'app-Person-list-modal',
   templateUrl: './Person-modal.component.html',
   styleUrls: ['./Person-modal.component.scss']
 })
-export class PersonModalComponent implements OnInit {
-  @Input() in!: Person;
-  @Input() autoHide = false;
-  @Output() out = new EventEmitter<ModalResult<Person>>();
-
-  isNew = false;
+export class PersonModalComponent extends ModalComponentBase<Person, 'id'> implements OnInit {
   employeeTypes: KeyValuePair<string, string>[] = stringEnumToKeyValuePairArray(EmployeeType, true);
 
   form = this.fb.group({
@@ -43,27 +38,15 @@ export class PersonModalComponent implements OnInit {
     public bsModalRef: BsModalRef,
     private fb: FormBuilder,
     private formValidatorService: FormValidatorService,
-  ) { }
-
-  ngOnInit(): void {
-    this.isNew = this.in === undefined || this.in.id === undefined;
-
-    if (this.in) {
-      this.form.patchValue(this.in);
-    }
+  ) {
+    super(bsModalRef, formValidatorService);
   }
 
-  onSubmit(): void {
-    const data: Person = this.form.getRawValue();
-    //console.log('RESULT: ', data);
-    this.out.emit({command: DialogResult.OK, isNew: this.isNew, data});
+  protected getForm(): FormGroup {
+    return this.form;
   }
 
-  getFormControlErrorMessage(ctr: AbstractControl): string {
-    return this.formValidatorService.getFormControlErrorMessage(ctr);
-  }
-
-  onCancel() {
-    this.bsModalRef.hide();
+  protected getNameOfId(): 'id' {
+    return 'id';
   }
 }

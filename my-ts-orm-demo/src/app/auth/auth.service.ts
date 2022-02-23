@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {HttpParams} from '@angular/common/http';
 import {LocalStorageService} from '../core/service/local-storage.service';
 import jwt_decode from 'jwt-decode';
 import {Observable} from 'rxjs';
@@ -8,11 +7,11 @@ import {NGXLogger} from 'ngx-logger';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {AuthState} from './store/auth.reducer';
-import {AppError} from '../core/error/app-error';
 import {ServiceBase} from '../core/service/service.base';
-import {AuthRoleTest, DateTimeUtils, JwtPayload, Role} from '@app/client-lib';
+import {JwtPayload} from '@app/client-lib';
 import {AuthWithExpiration} from './model/auth-with-expiration';
 import {AuthInitilizedAction} from './store/auth.actions';
+import {HttpClient} from '@angular/common/http';
 
 /**
  * - login():
@@ -39,12 +38,13 @@ export class AuthService extends ServiceBase {
   //private testRefId = 0;
 
   constructor(
+    private http: HttpClient,
     private localStorageService: LocalStorageService,
     private logger: NGXLogger,
     private router: Router,
     private store: Store<AuthState>
   ) {
-      super('/auth');
+      super(http, '/auth');
   }
 
   /**
@@ -114,11 +114,11 @@ export class AuthService extends ServiceBase {
   }
 
   login(username: string, password: string): Observable<LoginResult> {
-    return this.getHttpClient().post<LoginResult>(this.getBasePath() + '/login', { username, password });
+    return this.http.post<LoginResult>(this.getBasePath() + '/login', { username, password });
   }
 
   logout(): Observable<void> {
-    return this.getHttpClient().post<void>(this.getBasePath() + '/logout', {});
+    return this.http.post<void>(this.getBasePath() + '/logout', {});
   }
 
   /**

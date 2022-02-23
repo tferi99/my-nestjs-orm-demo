@@ -4,19 +4,34 @@ import {DataServiceErrorMessageService, ErrorMessageMapping} from '../store/data
 import {EntityCollectionServiceBase} from '@ngrx/data';
 import {ComponentType} from 'ngx-toastr';
 
+export interface EditComponent<T> {
+  onNew(): void;
+  onCopy(data: T): void;
+  onEdit(data: T): void;
+}
+
 /**
  * Base component to render modal form for to edit data using NgRx Data service.
  */
 export abstract class DataModalEditComponentBase<T> {
+  /**
+   * Pass this values from constructor of inherited class:
+   *
+   * @param _modalComponentType component type of model form
+   * @param _dataService NgRx Data service
+   * @param _modalService ngx-bootstrap modal service
+   * @param _dataServiceErrorMessageService error message generator service
+   * @param _errorMapping error code-message mapping
+   */
   constructor(
+    private _modalComponentType: ComponentType<ModalLoadDto<T>>,
     private _dataService: EntityCollectionServiceBase<T>,
     private _modalService: BsModalService,
     private _dataServiceErrorMessageService: DataServiceErrorMessageService,
-    private _errorMapping: ErrorMessageMapping<T>,
-    private _modalComponentType: ComponentType<ModalLoadDto<T>>
+    private _errorMapping: ErrorMessageMapping<T>
   ) { }
 
-  onNew() {
+  onNew(): void {
     this.openEditModal();
   }
 

@@ -1,12 +1,13 @@
-import {HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ServiceBase} from './service.base';
 
 export abstract class CrudServiceBase<T, IDT> extends ServiceBase {
   constructor(
+    http: HttpClient,
     apiBasePath: string,
   ) {
-    super(apiBasePath);
+    super(http, apiBasePath);
   }
 
   get(id: IDT, populated?: boolean): Observable<T> {
@@ -14,7 +15,7 @@ export abstract class CrudServiceBase<T, IDT> extends ServiceBase {
       populated = false;
     }
     const params = new HttpParams().set('populated', populated);
-    return this.getHttpClient().get<T>(this.getBasePath() + '/' + id, {params});
+    return this._http.get<T>(this.getBasePath() + '/' + id, {params});
   }
 
   getAll(populated?: boolean): Observable<T[]> {
@@ -22,18 +23,18 @@ export abstract class CrudServiceBase<T, IDT> extends ServiceBase {
       populated = false;
     }
     const params = new HttpParams().set('populated', populated);
-    return this.getHttpClient().get<T[]>(this.getBasePath(), {params});
+    return this._http.get<T[]>(this.getBasePath(), {params});
   }
 
   create(dto: T): Observable<T> {
-    return this.getHttpClient().post<T>(this.getBasePath(), dto);
+    return this._http.post<T>(this.getBasePath(), dto);
   }
 
   save(id: IDT, dto: T): Observable<T> {
-    return this.getHttpClient().put<T>(this.getBasePath() + '/' + id, dto);
+    return this._http.put<T>(this.getBasePath() + '/' + id, dto);
   }
 
   delete(id: IDT): Observable<any> {
-    return this.getHttpClient().delete<IDT>(this.getBasePath() + '/' + id);
+    return this._http.delete<IDT>(this.getBasePath() + '/' + id);
   }
 }

@@ -3,16 +3,18 @@ import {AppInjector} from "../util/app-injector";
 import {SERVER_API_CONTEXT_PATH} from "../../app.constants";
 
 export class ServiceBase {
-  apiBasePath: string;
-  http?: HttpClient;
+  protected apiBasePath: string;
+  protected _http: HttpClient;
 
   constructor(
+    http: HttpClient,
     apiBasePath: string,
   ) {
+    this._http = http;
     this.apiBasePath = apiBasePath;
   }
 
-  protected getHttpClient(): HttpClient {
+/*  protected getHttpClient(): HttpClient {
     if (!this.http) {
       const injector = AppInjector.getInjector();
       if (!injector) {
@@ -21,7 +23,7 @@ export class ServiceBase {
       this.http = injector.get(HttpClient);
     }
     return this.http;
-  }
+  }*/
 
   protected getBasePath(): string {
     return SERVER_API_CONTEXT_PATH + this.apiBasePath;

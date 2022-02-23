@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Company} from '@app/client-lib';
-import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
-import {ModalLoadDto, ModalResult} from '../../../core/form/modal/modal.model';
+import {BsModalService} from 'ngx-bootstrap/modal';
 import {CompanyModalComponent} from './company-modal/company-modal.component';
 import {CompanyDataService} from '../store/company-data.service';
-import {DataServiceErrorMessageService, ErrorMessageMapping} from '../../../core/store/data-service-error-message.service';
-import {DataModalEditComponentBase} from '../../../core/component/data-modal-edit-component.base';
+import {
+  DataServiceErrorMessageService,
+  ErrorMessageMapping
+} from '../../../core/store/data-service-error-message.service';
+import {DataModalEditComponentBase, EditComponent} from '../../../core/component/data-modal-edit-component.base';
 
 const errorMapping: ErrorMessageMapping<Company> = {
   'UniqueConstraintError' : {message: 'already exists', retriever: (data => data.name)},
@@ -16,14 +18,14 @@ const errorMapping: ErrorMessageMapping<Company> = {
   template: ``,
   styles: []
 })
-export class CompanyEditComponent extends DataModalEditComponentBase<Company> implements OnInit {
+export class CompanyEditComponent extends DataModalEditComponentBase<Company> implements OnInit, EditComponent<Company> {
   constructor(
     private companyDataService: CompanyDataService,
     private modalService: BsModalService,
     private dataServiceErrorMessageService: DataServiceErrorMessageService
 
   ) {
-    super(companyDataService, modalService, dataServiceErrorMessageService, errorMapping, CompanyModalComponent);
+    super(CompanyModalComponent, companyDataService, modalService, dataServiceErrorMessageService, errorMapping);
   }
 
   ngOnInit(): void {
