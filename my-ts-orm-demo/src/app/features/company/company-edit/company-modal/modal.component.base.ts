@@ -1,17 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {BsModalRef} from "ngx-bootstrap/modal";
-import {Company, EmployeeType} from '@app/client-lib';
+import {EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Company} from '@app/client-lib';
 import {DialogResult, ModalResult} from '../../../../core/form/modal/modal.model';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
-import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../../../core/util/key-value-pair';
+import {BsModalRef} from 'ngx-bootstrap/modal';
 import {FormValidatorService} from '../../../../core/service/form-validator.service';
 
-@Component({
-  selector: 'app-company-list-modal',
-  templateUrl: './company-modal.component.html',
-  styleUrls: ['./company-modal.component.scss']
-})
-export class CompanyModalComponent implements OnInit {
+export class ModalComponentBase {
   @Input() in!: Company;
   @Input() autoHide = false;
   @Output() out = new EventEmitter<ModalResult<Company>>();
@@ -38,7 +32,7 @@ export class CompanyModalComponent implements OnInit {
     private formValidatorService: FormValidatorService,
   ) { }
 
-  ngOnInit(): void {
+  protected onInit(): void {
     this.isNew = this.in === undefined || this.in.id === undefined;
 
     if (this.in) {

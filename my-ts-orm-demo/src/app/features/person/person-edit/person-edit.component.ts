@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Person} from '@app/client-lib';
-import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
-import {ModalLoadDto, ModalResult} from '../../../core/form/modal/modal.model';
+import {BsModalService} from 'ngx-bootstrap/modal';
 import {PersonModalComponent} from './person-modal/person-modal.component';
 import {PersonDataService} from '../store/person-data.service';
 import {DataServiceErrorMessageService, ErrorMessageMapping} from '../../../core/store/data-service-error-message.service';
+import {DataModalEditComponentBase} from '../../../core/component/data-modal-edit-component.base';
 
 const errorMapping: ErrorMessageMapping<Person> = {
   'UniqueConstraintError' : {message: 'already exists', retriever: (data => data.name)},
@@ -12,9 +12,24 @@ const errorMapping: ErrorMessageMapping<Person> = {
 
 @Component({
   selector: 'app-person-edit',
-  templateUrl: './Person-edit.component.html',
-  styleUrls: ['./Person-edit.component.scss']
+  template: ``,
+  styles: []
 })
+export class PersonEditComponent extends DataModalEditComponentBase<Person> implements OnInit {
+  constructor(
+    private personDataService: PersonDataService,
+    private modalService: BsModalService,
+    private dataServiceErrorMessageService: DataServiceErrorMessageService
+
+  ) {
+    super(personDataService, modalService, dataServiceErrorMessageService, errorMapping, PersonModalComponent);
+  }
+
+  ngOnInit(): void {
+  }
+}
+
+/*
 export class PersonEditComponent implements OnInit {
   constructor(
     private PersonDataService: PersonDataService,
@@ -41,13 +56,13 @@ export class PersonEditComponent implements OnInit {
   }
 
   openEditModal(Person?: Person) {
-    const initialState: ModalOptions<ModalLoadDto<Person>> = {
+    const modalOptions: ModalOptions<ModalLoadDto<Person>> = {
       initialState: {
         in: Person
       }
     };
     //console.log('DIALOG: ', initialState);
-    const ref: BsModalRef = this.modalService.show(PersonModalComponent, initialState);
+    const ref: BsModalRef = this.modalService.show(PersonModalComponent, modalOptions);
     ref.content.out.subscribe((out: ModalResult<Person>) => {
         console.log('Dialog returns:', out);
         if (out.isNew) {
@@ -69,3 +84,4 @@ export class PersonEditComponent implements OnInit {
     );
   }
 }
+*/
