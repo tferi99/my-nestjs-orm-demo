@@ -5,13 +5,14 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../../../core/util/key-value-pair';
 import {FormValidatorService} from '../../../../core/service/form-validator.service';
 import {ModalComponentBase} from '../../../../core/component/modal.component.base';
+import {PersonAdditional} from '../person-edit.component';
 
 @Component({
   selector: 'app-Person-list-modal',
   templateUrl: './Person-modal.component.html',
   styleUrls: ['./Person-modal.component.scss']
 })
-export class PersonModalComponent extends ModalComponentBase<Person, any, 'id'> implements OnInit {
+export class PersonModalComponent extends ModalComponentBase<Person, PersonAdditional, 'id'> implements OnInit {
   employeeTypes: KeyValuePair<string, string>[] = stringEnumToKeyValuePairArray(EmployeeType, true);
 
   form = this.fb.group({
@@ -22,7 +23,8 @@ export class PersonModalComponent extends ModalComponentBase<Person, any, 'id'> 
     birth: ['', Validators.required],
     rank: ['0', [Validators.required, Validators.min(1), Validators.max(10)]],
     note: [null, [Validators.maxLength(1024)]],
-    active: [true]
+    active: [true],
+    company: [undefined],
   });
 
   // form controls (used in template here)
@@ -33,6 +35,7 @@ export class PersonModalComponent extends ModalComponentBase<Person, any, 'id'> 
   birth = this.form.controls.birth as FormControl;
   note = this.form.controls.note as FormControl;
   active = this.form.controls.active as FormControl;
+  company = this.form.controls.company as FormControl;
 
   constructor(
     public bsModalRef: BsModalRef,

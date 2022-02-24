@@ -5,15 +5,22 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus [focusDelayed]="true" (appOnEscape)="onCancel()">
   <div class="modal-body">
     <div class="form-row">
-      <div class="col-md-6 mb-3">
+      <div class="col-md-4 mb-2">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name" [formControl]="name" [ngClass]="{'is-invalid' : name.invalid}" placeholder="Name">
         <div class="invalid-feedback" *ngIf="name.invalid">{{getFormControlErrorMessage(name)}}</div>
       </div>
-      <div class="col-md-6 mb-3">
+      <div class="col-md-4 mb-2">
         <label for="email">Email</label>
         <input type="text" class="form-control" id="email" [formControl]="email" [ngClass]="{'is-invalid' : email.invalid}" placeholder="Email">
         <div class="invalid-feedback" *ngIf="email.invalid">{{getFormControlErrorMessage(email)}}</div>
+      </div>
+      <div class="col-md-4 mb-2">
+        <label for="company">Company</label>
+        <select class="custom-select" id="company" [formControl]="company" [ngClass]="{'is-invalid' : company.invalid}" placeholder="Company">
+          <option *ngFor="let c of (additional.companies$ | async)" [value]="c.id">{{c.name}}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="true && company.invalid">{{getFormControlErrorMessage(company)}}</div>
       </div>
     </div>
 

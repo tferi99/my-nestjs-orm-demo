@@ -11,16 +11,20 @@ const errorMapping: ErrorMessageMapping<Person> = {
   'UniqueConstraintError' : {message: 'already exists', retriever: (data => data.name)},
 }
 
+export interface PersonAdditional {
+  companies$: Observable<Company[]>;
+}
+
 @Component({
   selector: 'app-person-edit',
   template: `<table>
     <tr *ngFor="let c of (companies$ | async)">
-      <td>{{c.name}}</td>
+      <td>{{c.id}}|{{c.name}}</td>
     </tr>
   </table>`,
   styles: []
 })
-export class PersonEditComponent extends DataModalEditComponentBase<Person, any> implements OnInit, EditComponent<Person> {
+export class PersonEditComponent extends DataModalEditComponentBase<Person, PersonAdditional> implements OnInit, EditComponent<Person> {
   @Input() companies$!: Observable<Company[]>;
 
   constructor(
@@ -37,5 +41,11 @@ export class PersonEditComponent extends DataModalEditComponentBase<Person, any>
 
   dumpCompanies() {
     console.log("COMP:", )
+  }
+
+  getAdditional(): PersonAdditional {
+    return {
+      companies$: this.companies$
+    };
   }
 }

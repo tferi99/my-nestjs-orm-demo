@@ -31,6 +31,8 @@ export abstract class DataModalEditComponentBase<T, A> {
     private _errorMapping: ErrorMessageMapping<T>
   ) { }
 
+  abstract getAdditional(): A;
+
   onNew(): void {
     this.openEditModal();
   }
@@ -49,7 +51,8 @@ export abstract class DataModalEditComponentBase<T, A> {
   openEditModal(data?: T) {
     const modalOptions: ModalOptions<ModalLoadDto<T, A>> = {
       initialState: {
-        in: data
+        in: data,
+        additional: this.getAdditional()
       }
     };
     //console.log('DIALOG: ', initialState);

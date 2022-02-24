@@ -32,7 +32,7 @@
     <td>
       <span type="button" *ngIf="c.note" [popover]="c.note" triggers="mouseenter:mouseleave"><i class="far fa-eye text-primary" ></i></span>
     </td>
-    <td style="text-align: right">
+    <td style="text-align: right; white-space: nowrap">
       <button class="btn btn-outline-primary mr-2" (click)="onEdit(c)"><i class="fas fa-pen"></i></button>
       <button class="btn btn-outline-primary mr-2" (click)="onCopy(c)"><i class="fas fa-copy"></i></button>
       <button class="btn btn-outline-danger mr-2" (click)="onDelete(c)" [disabled]="deleting"><i class="fas fa-trash"></i></button>

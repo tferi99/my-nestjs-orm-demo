@@ -30,4 +30,8 @@ export class CompanyEditComponent extends DataModalEditComponentBase<Company, an
 
   ngOnInit(): void {
   }
+
+  getAdditional(): any {
+    return undefined;
+  }
 }

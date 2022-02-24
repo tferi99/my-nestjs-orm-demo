@@ -47,8 +47,8 @@ export class PersonListComponent extends ListComponentBase<Person, 'name'> imple
 
     this.loading$ = this.personDataService.loading$;
     this.companies$ = this.companyDataService.entities$;
-    //this.persons$ = this.personDataService.entities$;
-    this.persons$ = this.store.select(selectPersonsWithCompany);
+    this.persons$ = this.personDataService.entities$;
+    //this.persons$ = this.store.select(selectPersonsWithCompany);
   }
 
   protected getEditComponent(): EditComponent<Person> {
@@ -56,5 +56,12 @@ export class PersonListComponent extends ListComponentBase<Person, 'name'> imple
   }
   protected getNameOfName(): 'name' {
     return 'name';
+  }
+
+  getCompanyById(companies: Company[], id: any): Company | undefined {
+    if (id === undefined) {
+      return undefined;
+    }
+    return companies[id];
   }
 }

@@ -4,51 +4,53 @@
   </div>
 </h4>
 
-<table class="table">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Name</th>
-    <th scope="col">Email</th>
-    <th scope="col">Birth</th>
-    <th scope="col">EmpType</th>
-    <th scope="col">Rank</th>
-    <th scope="col">Active</th>
-    <th scope="col">Note</th>
-    <th scope="col">Company</th>
-    <th scope="col" style="text-align: right">
-      <button class="btn btn-success btn-sm" (click)="onNew()"><i class="fa fa-plus"></i></button>
-    </th>
+<ng-container *ngIf="companies$ | async as companies">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Birth</th>
+      <th scope="col">EmpType</th>
+      <th scope="col">Rank</th>
+      <th scope="col">Active</th>
+      <th scope="col">Note</th>
+      <th scope="col">Company</th>
+      <th scope="col" style="text-align: right">
+        <button class="btn btn-success btn-sm" (click)="onNew()"><i class="fa fa-plus"></i></button>
+      </th>
 
-  </tr>
-  </thead>
+    </tr>
+    </thead>
 
-  <tbody>
-  <tr *ngFor="let p of (persons$ | async)">
-    <td>{{p.id}}</td>
-    <td>{{p.name}}</td>
-    <td>{{p.email}}</td>
-    <td>{{p.birth | date: dateFormat}}</td>
-    <td>{{p.employeeType | employeeType}}</td>
-    <td>{{p.rank}}</td>
-    <td>
-      <!--
-      <i class="fas" [ngClass]="p.active ? 'fa-check' : 'fa-times'" [style.color]="p.active ? 'green' : 'red'" ></i>
-      -->
-      <i *ngIf="p.active" class="fas fa-check" style="color: green" ></i>
-    </td>
-    <td>
-      <span type="button" *ngIf="p.note" [popover]="p.note" triggers="mouseenter:mouseleave"><i class="far fa-eye text-primary" ></i></span>
-    </td>
-    <td>{{p.company?.name}}</td>
-    <td style="text-align: right">
-      <button class="btn btn-outline-primary mr-2" (click)="onEdit(p)"><i class="fas fa-pen"></i></button>
-      <button class="btn btn-outline-primary mr-2" (click)="onCopy(p)"><i class="fas fa-copy"></i></button>
-      <button class="btn btn-outline-danger mr-2" (click)="onDelete(p)" [disabled]="deleting"><i class="fas fa-trash"></i></button>
-      <button class="btn btn-outline-primary mr-2" (click)="onDump(p)" *ngIf="enabledDump"><i class="fas fa-shoe-prints"></i></button>
-    </td>
-  </tr>
-</table>
+    <tbody>
+    <tr *ngFor="let p of (persons$ | async)">
+      <td>{{p.id}}</td>
+      <td>{{p.name}}</td>
+      <td>{{p.email}}</td>
+      <td>{{p.birth | date: dateFormat}}</td>
+      <td>{{p.employeeType | employeeType}}</td>
+      <td>{{p.rank}}</td>
+      <td>
+        <!--
+        <i class="fas" [ngClass]="p.active ? 'fa-check' : 'fa-times'" [style.color]="p.active ? 'green' : 'red'" ></i>
+        -->
+        <i *ngIf="p.active" class="fas fa-check" style="color: green" ></i>
+      </td>
+      <td>
+        <span type="button" *ngIf="p.note" [popover]="p.note" triggers="mouseenter:mouseleave"><i class="far fa-eye text-primary" ></i></span>
+      </td>
+      <td>{{getCompanyById(companies, p?.company)?.name}}</td>
+      <td style="text-align: right; white-space: nowrap">
+        <button class="btn btn-outline-primary mr-2" (click)="onEdit(p)"><i class="fas fa-pen"></i></button>
+        <button class="btn btn-outline-primary mr-2" (click)="onCopy(p)"><i class="fas fa-copy"></i></button>
+        <button class="btn btn-outline-danger mr-2" (click)="onDelete(p)" [disabled]="deleting"><i class="fas fa-trash"></i></button>
+        <button class="btn btn-outline-primary mr-2" (click)="onDump(p)" *ngIf="enabledDump"><i class="fas fa-shoe-prints"></i></button>
+      </td>
+    </tr>
+  </table>
+</ng-container>
 <h6>Total: {{(persons$ | async)?.length}}</h6>
 
 <app-person-edit #edit [companies$]="companies$"></app-person-edit>
