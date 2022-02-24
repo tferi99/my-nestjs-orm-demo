@@ -66,10 +66,13 @@ export class InitService {
 
       const birth = new Date(Date.now() - DateTimeUtils.durationAsMilliseconds(10, DurationUnit.Years));
       const p1 = new Person({ name: 'John Smith', email: 'js@test.org', birth, employeeType: EmployeeType.MANAGER, rank: 5 });
+      const p2 = new Person({ name: 'Jane Doe', email: 'jd@test.org', birth, employeeType: EmployeeType.WORKER, rank: 1 });
       c2.workers.add(p1);
+      c2.workers.add(p2);
 
       em.persist(c2);
       em.persist(p1);
+      em.persist(p2);
     });
   }
 

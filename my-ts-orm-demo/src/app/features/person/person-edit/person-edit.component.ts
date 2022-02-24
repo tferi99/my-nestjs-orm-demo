@@ -6,26 +6,31 @@ import {PersonDataService} from '../store/person-data.service';
 import {DataServiceErrorMessageService, ErrorMessageMapping} from '../../../core/store/data-service-error-message.service';
 import {DataModalEditComponentBase, EditComponent} from '../../../core/component/data-modal-edit-component.base';
 import {Observable} from 'rxjs';
+import {EntityCollection} from '@ngrx/data/src/reducers/entity-collection';
 
 const errorMapping: ErrorMessageMapping<Person> = {
   'UniqueConstraintError' : {message: 'already exists', retriever: (data => data.name)},
 }
 
 export interface PersonAdditional {
-  companies$: Observable<Company[]>;
+  companies: Company[] | null;
 }
 
 @Component({
   selector: 'app-person-edit',
-  template: `<table>
-    <tr *ngFor="let c of (companies$ | async)">
-      <td>{{c.id}}|{{c.name}}</td>
-    </tr>
-  </table>`,
+  template: `
+    {{companies | json}}
+
+    <table>
+      <!--
+      <tr *ngFor="let c of (companies$ | async)?.entities">
+        <td>{{c.id}}|{{c.name}}</td>
+      </tr>-->
+    </table>`,
   styles: []
 })
 export class PersonEditComponent extends DataModalEditComponentBase<Person, PersonAdditional> implements OnInit, EditComponent<Person> {
-  @Input() companies$!: Observable<Company[]>;
+  @Input() companies!: Company[] | null;
 
   constructor(
     private personDataService: PersonDataService,
@@ -45,7 +50,7 @@ export class PersonEditComponent extends DataModalEditComponentBase<Person, Pers
 
   getAdditional(): PersonAdditional {
     return {
-      companies$: this.companies$
+      companies: this.companies
     };
   }
 }

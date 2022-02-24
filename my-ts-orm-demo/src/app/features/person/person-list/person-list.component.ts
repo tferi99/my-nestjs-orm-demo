@@ -13,6 +13,7 @@ import {Store} from '@ngrx/store';
 import {selectPersonsWithCompany} from '../store/person.selectors';
 import {ListComponentBase} from '../../../core/component/list.component.base';
 import {EditComponent} from '../../../core/component/data-modal-edit-component.base';
+import {EntityCollection} from '@ngrx/data/src/reducers/entity-collection';
 
 const errorMapping: ErrorMessageMapping<Company> = {
   'ForeignKeyConstraintViolationError' : {message: 'Item is used'}
@@ -26,8 +27,10 @@ const errorMapping: ErrorMessageMapping<Company> = {
 export class PersonListComponent extends ListComponentBase<Person, 'name'> implements OnInit {
   @ViewChild('edit') edit!: PersonEditComponent;
 
-  companies$!: Observable<Company[]>;
   persons$!: Observable<Person[]>;
+  companiesEntityCollection$!: Observable<EntityCollection<Company>>;
+  companyEntities$!: Observable<Company[]>;
+
 
   constructor(
     private store: Store<Person>,
@@ -46,9 +49,9 @@ export class PersonListComponent extends ListComponentBase<Person, 'name'> imple
     this.companyDataService.getAll();
 
     this.loading$ = this.personDataService.loading$;
-    this.companies$ = this.companyDataService.entities$;
     this.persons$ = this.personDataService.entities$;
-    //this.persons$ = this.store.select(selectPersonsWithCompany);
+    this.companiesEntityCollection$ = this.companyDataService.collection$
+    this.companyEntities$ = this.companyDataService.entities$;
   }
 
   protected getEditComponent(): EditComponent<Person> {
@@ -58,10 +61,12 @@ export class PersonListComponent extends ListComponentBase<Person, 'name'> imple
     return 'name';
   }
 
-  getCompanyById(companies: Company[], id: any): Company | undefined {
-    if (id === undefined) {
+  getCompanyById(companies: EntityCollection, companyId: any, p: Person): Company | undefined {
+    //console.log(`getCompanyById(): companyId: ${companyId}, p[${p.id}]: ${p.name}`);
+    //console.log('coms: ', companies);
+    if (companyId === undefined) {
       return undefined;
     }
-    return companies[id];
+    return companies.entities[companyId];
   }
 }

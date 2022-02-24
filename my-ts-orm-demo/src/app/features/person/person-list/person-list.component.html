@@ -4,7 +4,7 @@
   </div>
 </h4>
 
-<ng-container *ngIf="companies$ | async as companies">
+<ng-container *ngIf="companiesEntityCollection$ | async as companiesEntityCollection">
   <table class="table">
     <thead>
     <tr>
@@ -41,7 +41,7 @@
       <td>
         <span type="button" *ngIf="p.note" [popover]="p.note" triggers="mouseenter:mouseleave"><i class="far fa-eye text-primary" ></i></span>
       </td>
-      <td>{{getCompanyById(companies, p?.company)?.name}}</td>
+      <td>{{getCompanyById(companiesEntityCollection, p?.company, p)?.name}}</td>
       <td style="text-align: right; white-space: nowrap">
         <button class="btn btn-outline-primary mr-2" (click)="onEdit(p)"><i class="fas fa-pen"></i></button>
         <button class="btn btn-outline-primary mr-2" (click)="onCopy(p)"><i class="fas fa-copy"></i></button>
@@ -53,6 +53,6 @@
 </ng-container>
 <h6>Total: {{(persons$ | async)?.length}}</h6>
 
-<app-person-edit #edit [companies$]="companies$"></app-person-edit>
+<app-person-edit #edit [companies]="(companyEntities$ | async)"></app-person-edit>
 
 

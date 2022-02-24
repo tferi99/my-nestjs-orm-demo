@@ -18,9 +18,10 @@
       <div class="col-md-4 mb-2">
         <label for="company">Company</label>
         <select class="custom-select" id="company" [formControl]="company" [ngClass]="{'is-invalid' : company.invalid}" placeholder="Company">
-          <option *ngFor="let c of (additional.companies$ | async)" [value]="c.id">{{c.name}}</option>
+          <option *ngFor="let c of additional.companies" value="{{c.id}}">{{c.name}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="true && company.invalid">{{getFormControlErrorMessage(company)}}</div>
+
       </div>
     </div>
 

@@ -1,9 +1,15 @@
 import { AnyEntity, EntityRepository } from '@mikro-orm/core';
 import { EntityData, FilterQuery, Primary } from '@mikro-orm/core/typings';
 
-export interface CrudEntityRepositoryConfig {
+export interface ParentKey<T> {
+  key: keyof T;
+  repository: EntityRepository<any>;
+}
+
+export interface CrudEntityRepositoryConfig<T extends AnyEntity<T>> {
   pkName: string;
   autoIncrement?: boolean;
+  parentKeys?: ParentKey<T>;
 }
 
 /**
@@ -11,7 +17,6 @@ export interface CrudEntityRepositoryConfig {
  */
 export abstract class CrudEntityRepository<T extends AnyEntity<T>> extends EntityRepository<T> {
   private _crud: Crud<T> = new Crud<T>(this);
-
   /**
    * To describes crud behavior.
    * Override to change default behavior.
@@ -20,7 +25,7 @@ export abstract class CrudEntityRepository<T extends AnyEntity<T>> extends Entit
    *  - PK name is: id
    *  - ID generated automatically in database (should be removed from input data)
    */
-  public config(): CrudEntityRepositoryConfig {
+  public config(): CrudEntityRepositoryConfig<T> {
     return {
       pkName: 'id',
       autoIncrement: true,

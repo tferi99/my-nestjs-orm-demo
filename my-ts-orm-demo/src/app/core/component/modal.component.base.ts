@@ -36,7 +36,7 @@ export abstract class ModalComponentBase<T, A, PK extends keyof T> implements On
 
   onSubmit(): void {
     const data: T = this.form.getRawValue();
-    //console.log('RESULT: ', data);
+    console.log('RESULT: ', data);
     this.out.emit({command: DialogResult.OK, isNew: this.isNew, data});
   }
 
