@@ -5,6 +5,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthJwtTokenApplyInterceptor} from './auth-jwt-token-apply-interceptor.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
+import {CoreModule} from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,9 @@ import {RouterModule} from '@angular/router';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+
+    CoreModule
   ],
   providers: [
     {
