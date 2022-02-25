@@ -2,9 +2,10 @@ import {Company, Person} from '@app/client-lib';
 import {createSelector} from '@ngrx/store';
 import {EntityCollection, EntitySelectorsFactory} from '@ngrx/data';
 import {AppState} from '../../../store/app.reducer';
+import {DataEntity} from '../../../store/data-entity';
 
-const companySelectors = new EntitySelectorsFactory().create<Company>('Company');
-const personSelectors = new EntitySelectorsFactory().create<Person>('Person');
+const companySelectors = new EntitySelectorsFactory().create<Company>(DataEntity.Company);
+const personSelectors = new EntitySelectorsFactory().create<Person>(DataEntity.Person);
 
 /**
  * Company ID (number) is sent by backend instead of Company in Person.company.

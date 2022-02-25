@@ -12,9 +12,12 @@ export interface AssociatedParentEntityExt<C extends AnyEntity, P extends AnyEnt
   parentIdName: string;
 }
 
+/**
+ * Configuration to override default behavior of {@link EntityRepository}
+ */
 export interface CrudEntityRepositoryConfig<T extends AnyEntity<T>> {
   pkName: string; // this property should be deleted if autoIncrement=true
-  autoIncrement?: boolean; // ID of database table is auto-incremrented
+  autoIncrement?: boolean; // ID of database table is auto-incremented
   associatedParentEntities?: AssociatedParentEntity<T, any>[]; // parent keys: if these fields are not empty then parent entity should be associated during insert
 }
 
@@ -23,6 +26,7 @@ export interface CrudEntityRepositoryConfig<T extends AnyEntity<T>> {
  */
 export abstract class CrudEntityRepository<T extends AnyEntity<T>> extends EntityRepository<T> {
   private _crud: Crud<T> = new Crud<T>(this);
+
   /**
    * To describes crud behavior.
    * Override to change default behavior.
@@ -65,7 +69,7 @@ class Crud<T extends AnyEntity<T>> {
     if (this.repo.config().autoIncrement) {
       delete data[this.repo.config().pkName];
     }
-    // collect parent associations
+    // collecting parent associations and deleting foreign IDs from data
     const parentAssociations = {};
     if (this.repo.config().associatedParentEntities) {
       this.repo.config().associatedParentEntities.forEach((parent) => {
@@ -79,6 +83,7 @@ class Crud<T extends AnyEntity<T>> {
 
     const obj = this.repo.create(data);
 
+    // adding collected associations to wrapped object
     Object.keys(parentAssociations).forEach((key) => {
       obj[key] = parentAssociations[key];
     });
