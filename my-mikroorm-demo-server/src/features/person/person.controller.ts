@@ -22,16 +22,13 @@ export class PersonController extends OrmCrudControllerBase<Person> {
     return this.repo;
   }
 
-  /*  @Post()
-  async insert(@Body() data: Person): Promise<Person> {
-    if (data && data.company) {
-      const id: any = data.company;
-      delete data.company;
-      return this.insertForCompany(data, id);
-    }
-    return super.insert(data);
-  }*/
-
+  /**
+   * Inserting for a parent already supported by {@link CrudEntityRepository}
+   * if you specify parents in {@link CrudEntityRepository.config()}
+   *
+   * @param data
+   * @param companyId
+   */
   @Post('company/:companyId')
   async insertForCompany(@Body() data: Person, @Param('companyId', ParseIntPipe) companyId: number): Promise<Person> {
     const company: Company = this.companyRepo.getReference(companyId);

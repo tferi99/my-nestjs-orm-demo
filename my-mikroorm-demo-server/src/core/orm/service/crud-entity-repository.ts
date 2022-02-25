@@ -13,7 +13,7 @@ export interface AssociatedParentEntityExt<C extends AnyEntity, P extends AnyEnt
 }
 
 export interface CrudEntityRepositoryConfig<T extends AnyEntity<T>> {
-  pkName: string; // this propeorty should be deleted if autoIncrement=true
+  pkName: string; // this property should be deleted if autoIncrement=true
   autoIncrement?: boolean; // ID of database table is auto-incremrented
   associatedParentEntities?: AssociatedParentEntity<T, any>[]; // parent keys: if these fields are not empty then parent entity should be associated during insert
 }
