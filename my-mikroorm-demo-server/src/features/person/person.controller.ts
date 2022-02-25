@@ -22,7 +22,7 @@ export class PersonController extends OrmCrudControllerBase<Person> {
     return this.repo;
   }
 
-  @Post()
+  /*  @Post()
   async insert(@Body() data: Person): Promise<Person> {
     if (data && data.company) {
       const id: any = data.company;
@@ -30,7 +30,7 @@ export class PersonController extends OrmCrudControllerBase<Person> {
       return this.insertForCompany(data, id);
     }
     return super.insert(data);
-  }
+  }*/
 
   @Post('company/:companyId')
   async insertForCompany(@Body() data: Person, @Param('companyId', ParseIntPipe) companyId: number): Promise<Person> {

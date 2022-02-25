@@ -12,6 +12,10 @@ html, body {
   justify-content: flex-start !important;
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 .nowrapped-truncated-text {
   white-space: nowrap;
   overflow: hidden;

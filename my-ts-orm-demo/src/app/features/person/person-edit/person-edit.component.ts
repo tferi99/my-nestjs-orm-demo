@@ -19,14 +19,9 @@ export interface PersonAdditional {
 @Component({
   selector: 'app-person-edit',
   template: `
+    <!--
     {{companies | json}}
-
-    <table>
-      <!--
-      <tr *ngFor="let c of (companies$ | async)?.entities">
-        <td>{{c.id}}|{{c.name}}</td>
-      </tr>-->
-    </table>`,
+    -->`,
   styles: []
 })
 export class PersonEditComponent extends DataModalEditComponentBase<Person, PersonAdditional> implements OnInit, EditComponent<Person> {
