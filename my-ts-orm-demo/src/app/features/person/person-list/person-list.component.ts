@@ -10,7 +10,6 @@ import {
 import {PersonDataService} from '../store/person-data.service';
 import {CompanyDataService} from '../../company/store/company-data.service';
 import {Store} from '@ngrx/store';
-import {selectPersonsWithCompany} from '../store/person.selectors';
 import {ListComponentBase} from '../../../core/component/list.component.base';
 import {EditComponent} from '../../../core/component/data-modal-edit-component.base';
 import {EntityCollection} from '@ngrx/data/src/reducers/entity-collection';
@@ -31,6 +30,8 @@ export class PersonListComponent extends ListComponentBase<Person, 'name'> imple
   companiesEntityCollection$!: Observable<EntityCollection<Company>>;
   companyEntities$!: Observable<Company[]>;
 
+  loadingP$!: Observable<boolean>;
+  loadingC$!: Observable<boolean>;
 
   constructor(
     private store: Store<Person>,
@@ -48,10 +49,12 @@ export class PersonListComponent extends ListComponentBase<Person, 'name'> imple
     this.personDataService.getAll();
     this.companyDataService.getAll();
 
-    this.loading$ = this.personDataService.loading$;
     this.persons$ = this.personDataService.entities$;
     this.companiesEntityCollection$ = this.companyDataService.collection$
     this.companyEntities$ = this.companyDataService.entities$;
+
+    this.loadingP$ = this.personDataService.loading$;
+    this.loadingC$ = this.companyDataService.loading$;
   }
 
   protected getEditComponent(): EditComponent<Person> {

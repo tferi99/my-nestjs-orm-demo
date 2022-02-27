@@ -1,8 +1,4 @@
-<h4>Companies
-  <div class="spinner-border" role="status" *ngIf="loading$ | async">
-    <span class="sr-only">Loading...</span>
-  </div>
-</h4>
+<h4>Companies</h4>
 
 <table class="table">
   <thead>
@@ -41,5 +37,11 @@
   </tr>
 </table>
 <h6>Total: {{(companies$ | async)?.length}}</h6>
+
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status" *ngIf="loading$ | async">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
 
 <app-company-edit #edit></app-company-edit>

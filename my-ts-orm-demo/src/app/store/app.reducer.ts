@@ -6,7 +6,6 @@ export interface AppState {}
 
 export const initialState: AppState = {};
 
-
 export const appReducer = createReducer(
   initialState,
   on(LogoutAction, (state: AppState) => (initialState)),

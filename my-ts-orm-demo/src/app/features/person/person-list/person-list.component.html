@@ -1,8 +1,4 @@
-<h4>Persons
-  <div class="spinner-border" role="status" *ngIf="loading$ | async">
-    <span class="sr-only">Loading...</span>
-  </div>
-</h4>
+<h4>Persons</h4>
 
 <ng-container *ngIf="companiesEntityCollection$ | async as companiesEntityCollection">
   <table class="table">
@@ -52,6 +48,12 @@
   </table>
 </ng-container>
 <h6>Total: {{(persons$ | async)?.length}}</h6>
+
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status" *ngIf="(loadingP$ | async) || (loadingC$ | async)">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
 
 <app-person-edit #edit [companies]="(companyEntities$ | async)"></app-person-edit>
 

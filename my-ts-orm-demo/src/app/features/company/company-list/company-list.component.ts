@@ -24,6 +24,7 @@ export class CompanyListComponent extends ListComponentBase<Company, 'name'> imp
   @ViewChild('edit') edit!: CompanyEditComponent;
 
   companies$!: Observable<Company[]>;
+  loading$!: Observable<boolean>;
 
   constructor(
     private companyDataService: CompanyDataService,

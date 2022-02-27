@@ -25,6 +25,7 @@
     "@ngrx/entity": "^12.4.0",
     "@ngrx/store": "^12.4.0",
     "@ngrx/store-devtools": "^12.4.0",
+    "@types/lodash": "^4.14.179",
     "bootstrap": "^4.6.1",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",

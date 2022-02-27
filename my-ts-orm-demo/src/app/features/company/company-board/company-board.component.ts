@@ -3,6 +3,10 @@ import {Observable, of} from 'rxjs';
 import {CompanyDataService} from '../store/company-data.service';
 import {Company} from '@app/client-lib';
 import {PersonDataService} from '../../person/store/person-data.service';
+import {AppState} from '../../../store/app.reducer';
+import {CompanyView, selectCompaniesMod, selectCompaniesWithPersons} from '../store/company.selectors';
+import {Store} from '@ngrx/store';
+import {Dictionary} from '@ngrx/entity';
 
 const comps: Company[] = [
   { id:0, name: 'Abc', note: 'aaaa', active: true, created: new Date(), updated: new Date(), established: new Date(), workers: [] },
@@ -15,10 +19,17 @@ const comps: Company[] = [
   styleUrls: ['./company-board.component.scss']
 })
 export class CompanyBoardComponent implements OnInit {
+  //companies$!: Observable<CompanyView>;
+  //companies$!: Observable<Dictionary<Company>>;
   companies$!: Observable<Company[]>;
-  loading$ = this.companyDataService.loading$;
+
+  loadingP$!: Observable<boolean>;
+  loadingC$!: Observable<boolean>;
+
+
 
   constructor(
+    private store: Store<AppState>,
     private companyDataService: CompanyDataService,
     private personDataService: PersonDataService
   ) {}
@@ -27,6 +38,15 @@ export class CompanyBoardComponent implements OnInit {
     this.companyDataService.getAll();
     this.personDataService.getAll();
 
-    this.companies$ =  this.companyDataService.entities$;
+/*    const store = this.personDataService.store;
+    store.subscribe(
+      state => console.log('ST: ', state)
+    );*/
+
+    //this.companies$ =  this.companyDataService.entities$;
+    this.companies$ =  this.store.select(selectCompaniesWithPersons);
+
+    this.loadingP$ = this.personDataService.loading$;
+    this.loadingC$ = this.companyDataService.loading$;
   }
 }

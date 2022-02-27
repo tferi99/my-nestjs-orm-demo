@@ -1,20 +1,14 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {Company} from '@app/client-lib';
-import {CompanyDataService} from '../../features/company/store/company-data.service';
+import {Observable} from 'rxjs';
 import {DATE_FORMAT} from '../app.constants';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
 import {DialogResult} from '../form/modal/modal.model';
 import {take} from 'rxjs/operators';
 import {DataServiceErrorMessageService, ErrorMessageMapping} from '../store/data-service-error-message.service';
 import {ConfirmDialogComponent, ConfirmDialogConfig} from '../form/modal/confirm-dialog/confirm-dialog.component';
-import {CompanyEditComponent} from '../../features/company/company-edit/company-edit.component';
 import {EditComponent} from './data-modal-edit-component.base';
 import {EntityCollectionServiceBase} from '@ngrx/data';
 
-
 export abstract class ListComponentBase<T, NAME extends keyof T> {
-  loading$!: Observable<boolean>;
   deleting = false;
   enabledDump = false;
 
