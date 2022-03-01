@@ -1,0 +1,38 @@
+.drag-list-container {
+  padding: 5px;
+}
+
+.drag-list {
+  border: #003591 1px solid;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  height: 100%;
+}
+
+.drag-list-item {
+  margin: 2px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  margin-bottom: 15px;
+}
+
+.draggable {
+  cursor: grab;
+}
+
+.dndDragging {
+  border: 1px solid blue;
+}
+
+.dndDraggingSource {
+  display: none;
+}
+
+.dndPlaceholder {
+  min-height: 48px;
+  border: 1px dashed green;
+  background-color: rgba(0, 0, 0, 0.1);
+}

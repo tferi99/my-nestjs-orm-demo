@@ -10,6 +10,9 @@ import {BsModalRef, ModalModule} from 'ngx-bootstrap/modal';
 import {CompanyModalComponent} from './company-edit/company-modal/company-modal.component';
 import {CoreModule} from '../../core/core.module';
 import { CompanyEditComponent } from './company-edit/company-edit.component';
+import { DndModule } from 'ngx-drag-drop';
+import {DragDropListDemoComponent} from './drag-drop-list-demo/drag-drop-list-demo.component';
+import {DragDropRubbishComponent} from './drag-drop-rubbish/drag-drop-rubbish.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,8 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
     CompanyBoardComponent,
     CompanyModalComponent,
     CompanyEditComponent,
+    DragDropListDemoComponent,
+    DragDropRubbishComponent
   ],
   exports: [
     CompanyBoardComponent,
@@ -27,6 +32,7 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
     CommonModule,
     PopoverModule,
     RouterModule,
+    DndModule,
 
     // ngx-bootstrap
     BsDatepickerModule.forRoot(),
