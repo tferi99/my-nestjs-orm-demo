@@ -1,7 +1,7 @@
 import {DndDropEvent, DropEffect, EffectAllowed} from 'ngx-drag-drop';
 
-export interface DragDropItem {
-  content: string;
+export interface DragDropItem<T> {
+  content: T;
   effectAllowed: EffectAllowed;
   disable: boolean;
   handle: boolean;

@@ -8,7 +8,7 @@ import {DragDropItem, DragDropListZone} from '../../../core/drag-and-drop/drag-d
 })
 export class DragDropListDemoComponent implements OnInit {
 
-  draggableListLeft: DragDropListZone<DragDropItem> = {
+  draggableListLeft: DragDropListZone<DragDropItem<String>> = {
     id: 'LEFT',
     items: [
       {
@@ -38,7 +38,7 @@ export class DragDropListDemoComponent implements OnInit {
     ]
   };
 
-  draggableListRight: DragDropListZone<DragDropItem> = {
+  draggableListRight: DragDropListZone<DragDropItem<String>> = {
     id: 'RIGHT',
     items: [
       {

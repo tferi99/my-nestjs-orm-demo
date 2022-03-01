@@ -3,7 +3,7 @@ import {DragDropComponentBase, DragDropItem, DragDropListZone} from '../drag-dro
 import {ToastrService} from 'ngx-toastr';
 import {DndDropEvent, DropEffect} from 'ngx-drag-drop';
 import {NGXLogger} from 'ngx-logger';
-import {DragDropListService} from '../drag-drop-list.service';
+import {DragDropListService} from '../../../features/company/company-list/drag-drop-list.service';
 import {DragDropEventConsumerService} from '../drag-drop-event-consumer.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class DragDropListComponent implements OnInit, DragDropComponentBase {
   id!: string;
 
   @Input()
-  data?: DragDropListZone<DragDropItem>;
+  data?: DragDropListZone<DragDropItem<String>>;
 
   dropZoneDummyVal: string[] = [];
 

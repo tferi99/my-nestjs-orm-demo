@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {DndDropEvent} from 'ngx-drag-drop';
 import {NGXLogger} from 'ngx-logger';
 import {DragDropComponentBase} from '../../../core/drag-and-drop/drag-drop.model';
-import {DragDropListService} from '../../../core/drag-and-drop/drag-drop-list.service';
+import {DragDropListService} from '../company-list/drag-drop-list.service';
 
 @Component({
   selector: 'dd-drag-drop-rubbish',

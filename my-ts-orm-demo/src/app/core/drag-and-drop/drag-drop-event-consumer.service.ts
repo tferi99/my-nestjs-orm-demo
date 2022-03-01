@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {DragDropListService} from './drag-drop-list.service';
+import {DragDropListService} from '../../features/company/company-list/drag-drop-list.service';
 
 @Injectable({
   providedIn: 'root'
