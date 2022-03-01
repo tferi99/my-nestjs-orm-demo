@@ -1,9 +1,9 @@
 <div class="card-columns">
-  <div class="card" *ngFor="let c of (companies$ | async)">
-      <div class="card-header nowrapped-truncated-text">[{{c?.id}}] : {{c?.name}}</div>
+  <div class="card" *ngFor="let ass of (companies$ | async)">
+      <div class="card-header nowrapped-truncated-text">[{{ass.parent.id}}] : {{ass.parent}}</div>
       <div class="card-body">
         <ul>
-          <li *ngFor="let p of c?.workers">{{p.name}}</li>
+          <li *ngFor="let p of ass.children">{{p.name}}</li>
         </ul>
       </div>
   </div>

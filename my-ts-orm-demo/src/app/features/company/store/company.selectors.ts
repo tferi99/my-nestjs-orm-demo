@@ -5,7 +5,7 @@ import {EntitySelectorsFactory} from '@ngrx/data';
 import {DataEntity} from '../../../store/data-entity';
 import {Dictionary} from '@ngrx/entity';
 import * as _ from 'lodash';
-
+import {OneToManyAssociation} from '../../../core/store/store-utils';
 
 const factory = new EntitySelectorsFactory();
 
@@ -84,6 +84,48 @@ export const selectCompaniesWithPersons = createSelector<AppState, Dictionary<Co
     console.log('RESULT: ', companiesMap);
     console.log('UN: ', notAssigned);
 
-    return Array.from(companiesMap.values());
+    //return Array.from(companiesMap.values());
+    return [...companiesMap.values()];
   });
 
+export const selectCompaniesWithPersonsAssoc = createSelector<AppState, Dictionary<Company>, Person[], OneToManyAssociation<Company, Person>[]>(
+  companySelectors.selectEntityMap,
+  personSelectors.selectEntities,
+  (companies: Dictionary<Company>, persons: Person[]) => {
+    console.log('COMPANIES: ', companies);
+    const resultMap: Map<string, OneToManyAssociation<Company, Person>> = new Map<string, OneToManyAssociation<Company, Person>>();
+    for (let key in companies) {
+      //console.log('ITER: ' + key,  companies[key]);
+      const c: Company = companies[key] as Company;
+      if (companies[key] !== undefined) {
+        resultMap.set(key, {parent: c, children: []});
+      }
+    }
+    console.log('COMPANIES_MAP: ', resultMap);
+
+    const notAssigned: Person[] = [];
+    persons.forEach(person => {
+      if (person.company === undefined || person.company === null) {
+        notAssigned.push(person);
+      } else {
+        const id = (person.company as any).toString();
+        const target: OneToManyAssociation<Company, Person> = resultMap.get(id) as OneToManyAssociation<Company, Person>;
+        console.log('ID: ' + id, target);
+        if (target) {
+          target.children.push(person);
+        } else {
+          notAssigned.push(person);
+        }
+      }
+    });
+
+    if (notAssigned.length > 0) {
+      const d = new Date();
+      const noCompany: Company = { name: 'Unemployed', workers: [], id: 0, active: true, established: d, created: d, updated: d, note: ''};
+      resultMap.set('un', {parent: noCompany, children: notAssigned});
+    }
+    console.log('RESULT: ', resultMap);
+    console.log('UN: ', notAssigned);
+
+    return [...resultMap.values()];
+  });
