@@ -1,33 +1,34 @@
 import {DndDropEvent, DropEffect, EffectAllowed} from 'ngx-drag-drop';
 
-export interface DragDropItem<T> {
-  content: T;
-  effectAllowed: EffectAllowed;
-  disable: boolean;
-  handle: boolean;
-};
-
-export interface DragDropListZone<T> {
-  id: string;
-  items: T[];
-}
-
-export interface DragDropComponentBase {
-  getId(): string;
-}
-
-export interface DragDropAction<Z, D> {
+//--------------------- for DragDropService ---------------------
+export interface DragDropAction {
   dragEvent: DragEvent;
+  dragZoneId: string;
+  dragZoneType: string;
   dropEvent: DndDropEvent;
-  sourceData: Z;
-  destinationData: Z;
+  dropZoneId: string;
   effect: DropEffect;
-  draggedData: D;
+  draggedData: any;
   state: DragDropState;
 }
 
 export enum DragDropState {
-  Started = 'Started',
+  Dragged = 'Dragged',
   Dropped = 'Dropped',
-  DroppedToRubbish = 'DroppedToRubbish'
+  DroppedToRubbish = 'DroppedToRubbish',
+  Cancelled = 'Cancelled'
+}
+
+//--------------------- for list management ---------------------
+export interface DraggableItem {
+  type?: string;    // if you want to specify type for typed dropzone
+  content: any;     // a zone can contain any type of content (use type to identify content type)
+  effectAllowed: EffectAllowed;
+  disable: boolean;
+  handle: boolean;  // you can start dragging of an element only by catching its sub-element with dndHandle
+};
+
+export interface DraggableItemList<D> {
+  id: string;
+  items: D[];
 }

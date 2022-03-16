@@ -1,10 +1,29 @@
 <div class="card-columns">
-  <div class="card" *ngFor="let ass of (companies$ | async)">
-      <div class="card-header nowrapped-truncated-text">[{{ass.parent.id}}] : {{ass.parent}}</div>
+  <div class="card alert alert-secondary" *ngFor="let ass of (companies$ | async)"
+       [ngClass]="getClassByCompany(ass.parent.id)"
+       [dndDropzone]="['person']"
+       (dndDrop)="handler.onDrop(ass.parent.id.toString(), $event)">
+      <div class="card-header nowrapped-truncated-text">
+        <ng-container *ngif="isTargetNormal(ass.parent.id)">
+          <span>[{{ass.parent.id}}] - {{ass.parent.name}}</span>
+        </ng-container>
+      </div>
+    <!--
+      <div *ngif="isTargetNormal(ass.parent.id)" class="card-header nowrapped-truncated-text">[{{ass.parent.id}}] - {{ass.parent.name}}</div>
+      <div *ngif="isTargetRubbishBin(ass.parent.id)" class="card-header nowrapped-truncated-text"><i class="fa fa-trash"></i></div>
+      <div *ngif="isTargetUnemployed(ass.parent.id)" class="card-header nowrapped-truncated-text"><i class="fal fa-user-hard-hat"></i></div>
+      -->
       <div class="card-body">
-        <ul>
-          <li *ngFor="let p of ass.children">{{p.name}}</li>
-        </ul>
+        <div *ngFor="let p of ass.children"
+             class="alert alert-light draggable" role="alert"
+             [dndDraggable]="p"
+             dndType="person"
+             dndEffectAllowed="move"
+             [dndDisableIf]="false"
+             (dndStart)="handler.onDragStart(ass.parent.id.toString(), $event)"
+             (dndMoved)="handler.onMoved(ass.parent.id.toString(), $event)">
+          [{{p.id}}] - {{p.name}}
+        </div>
       </div>
   </div>
 </div>
@@ -14,10 +33,4 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
-
-<hr>
-<fieldset class="mb-5">
-  <legend>List</legend>
-  <dd-drag-drop-list-demo></dd-drag-drop-list-demo>
-</fieldset>
 
