@@ -48,4 +48,13 @@ export class PersonEditComponent extends DataModalEditComponentBase<Person, Pers
       companies: this.companies
     };
   }
+
+  beforeSave(data: Person): void {
+    const companyId: number = data.company as unknown as number;
+    if (companyId < 0) {
+      // @ts-ignore
+      data.company = null;
+    }
+    console.log('BEFORE SAVE:', data);
+  }
 }

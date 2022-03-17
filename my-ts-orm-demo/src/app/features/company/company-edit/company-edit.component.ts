@@ -34,4 +34,7 @@ export class CompanyEditComponent extends DataModalEditComponentBase<Company, an
   getAdditional(): any {
     return undefined;
   }
+
+  beforeSave(data: Company): void {
+  }
 }

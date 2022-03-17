@@ -117,7 +117,7 @@ export const selectCompaniesWithPersonsAssoc = createSelector<AppState, Dictiona
       }
     });
 
-    console.log('RESULT: ', resultMap);
+    console.log('RESULT_MAP: ', resultMap);
     console.log('UN: ', notAssigned);
     const result = [...resultMap.values()];
 
@@ -129,6 +129,6 @@ export const selectCompaniesWithPersonsAssoc = createSelector<AppState, Dictiona
     // Unemployed
     const unemployed: Company = { name: 'Unemployed', workers: [], id: COMPANY_ID_UNEMPLOYED, active: true, established: d, created: d, updated: d, note: ''};
     result.push({parent: unemployed, children: notAssigned});
-
+    console.log('RESULT: ', result);
     return result;
   });

@@ -12,6 +12,8 @@ export interface EditComponent<T> {
 
 /**
  * Base component to render modal form for to edit data using NgRx Data service.
+ *    T:  type edited
+ *    A:  additional data
  */
 export abstract class DataModalEditComponentBase<T, A> {
   /**
@@ -32,6 +34,7 @@ export abstract class DataModalEditComponentBase<T, A> {
   ) { }
 
   abstract getAdditional(): A;
+  abstract beforeSave(data: T): void;
 
   onNew(): void {
     this.openEditModal();
@@ -59,6 +62,9 @@ export abstract class DataModalEditComponentBase<T, A> {
     const ref: BsModalRef = this._modalService.show(this._modalComponentType, modalOptions);
     ref.content.out.subscribe((out: ModalResult<T>) => {
         console.log('Dialog returns:', out);
+
+        this.beforeSave(out.data);
+
         if (out.isNew) {
           this._dataService.add(out.data).subscribe(
             () => ref.hide(),
