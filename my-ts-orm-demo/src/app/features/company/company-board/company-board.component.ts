@@ -32,6 +32,9 @@ export class CompanyBoardComponent implements OnInit {
   //companies$!: Observable<Company[]>;
   companies$!: Observable<OneToManyAssociation<Company, Person>[]>;
 
+  companies: string[] = [
+    'aaa', 'bbb'
+  ];
 
   comps: OneToManyAssociation<Company, Person>[] = [
     {

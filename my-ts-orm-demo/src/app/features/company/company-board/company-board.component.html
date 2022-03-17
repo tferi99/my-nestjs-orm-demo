@@ -1,4 +1,14 @@
 <div>
+  <div *ngFor="let c of companies">
+    <span>{{c}}</span>
+    <div>
+      <span *ngif="valami">FOUND!!!</span>
+    </div>
+  </div>
+</div>
+<hr>
+<!--
+<div>
   <div *ngFor="let ass3 of comps">
     <span>{{ass3.parent.name}}</span>
     <div>
@@ -7,6 +17,7 @@
   </div>
 </div>
 <hr>
+-->
 <!--
 <div class="card-columns">
   <div class="card alert alert-secondary" *ngFor="let ass2 of (companies$ | async)"
@@ -24,6 +35,7 @@
 </div>
 <hr>
 -->
+<!--
 <div class="card-columns">
   <div class="card alert alert-secondary" *ngFor="let ass of (companies$ | async)"
        [ngClass]="getClassByCompany(ass.parent.id)"
@@ -34,11 +46,9 @@
           <span>[{{ass.parent.id}}] - {{ass.parent.name}}</span>
         </ng-container>
       </div>
-    <!--
       <div *ngif="isTargetNormal(ass.parent.id)" class="card-header nowrapped-truncated-text">[{{ass.parent.id}}] - {{ass.parent.name}}</div>
       <div *ngif="isTargetRubbishBin(ass.parent.id)" class="card-header nowrapped-truncated-text"><i class="fa fa-trash"></i></div>
       <div *ngif="isTargetUnemployed(ass.parent.id)" class="card-header nowrapped-truncated-text"><i class="fal fa-user-hard-hat"></i></div>
-      -->
       <div class="card-body">
         <div *ngFor="let p of ass.children"
              class="alert alert-light draggable" role="alert"
@@ -60,3 +70,4 @@
   </div>
 </div>
 
+-->

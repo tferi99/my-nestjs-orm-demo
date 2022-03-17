@@ -12,6 +12,7 @@ import {CoreModule} from '../../core/core.module';
 import { CompanyEditComponent } from './company-edit/company-edit.component';
 import { DndModule } from 'ngx-drag-drop';
 import {BrowserModule} from '@angular/platform-browser';
+import { CompanyTestComponent } from './company-test/company-test.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +20,12 @@ import {BrowserModule} from '@angular/platform-browser';
     CompanyBoardComponent,
     CompanyModalComponent,
     CompanyEditComponent,
+    CompanyTestComponent,
   ],
   exports: [
     CompanyBoardComponent,
-    CompanyListComponent
+    CompanyListComponent,
+    CompanyTestComponent
   ],
   imports: [
     CommonModule,
