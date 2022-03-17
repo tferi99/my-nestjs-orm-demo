@@ -26,6 +26,7 @@ import {BrowserModule} from '@angular/platform-browser';
   ],
   imports: [
     CommonModule,
+    BrowserModule,
     ReactiveFormsModule,
     PopoverModule,
     RouterModule,

@@ -1,26 +1,25 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {CompanyDataService} from '../store/company-data.service';
-import {Company, Person} from '@app/client-lib';
+import {Company, EmployeeType, Person} from '@app/client-lib';
 import {PersonDataService} from '../../person/store/person-data.service';
 import {AppState} from '../../../store/app.reducer';
+
 import {
   COMPANY_ID_RUBBISH_BIN,
   COMPANY_ID_UNEMPLOYED,
-  CompanyView,
-  selectCompaniesMod,
-  selectCompaniesWithPersons, selectCompaniesWithPersonsAssoc
+  selectCompaniesWithPersonsAssoc
 } from '../store/company.selectors';
 import {Store} from '@ngrx/store';
-import {Dictionary} from '@ngrx/entity';
 import {OneToManyAssociation} from '../../../core/store/store-utils';
 import {PersonDragDropService} from './person-drag-drop.service';
-import {EffectAllowed} from 'ngx-drag-drop';
 
 const comps: Company[] = [
   { id:0, name: 'Abc', note: 'aaaa', active: true, created: new Date(), updated: new Date(), established: new Date(), workers: [] },
   { id:1, name: 'Abc1', note: 'aaaa1', active: true, created: new Date(), updated: new Date(), established: new Date(), workers: [] },
 ];
+
+const now = new Date();
 
 @Component({
   selector: 'app-company-board',
@@ -32,6 +31,36 @@ export class CompanyBoardComponent implements OnInit {
   //companies$!: Observable<Dictionary<Company>>;
   //companies$!: Observable<Company[]>;
   companies$!: Observable<OneToManyAssociation<Company, Person>[]>;
+
+
+  comps: OneToManyAssociation<Company, Person>[] = [
+    {
+      parent: {
+        id: 1,
+        name: 'aaaaaaaaaaa',
+        updated: now,
+        created: now,
+        active: true,
+        established: now,
+        workers: []
+      },
+      children: [
+        {
+          id: 1,
+          name: 'Cicus',
+          updated: now,
+          created: now,
+          active: true,
+          birth: now,
+          email: 'eee',
+          employeeType: EmployeeType.DIRECTOR,
+          rank: 5
+        }
+      ]
+    }
+  ];
+
+  valami = true;
 
   loadingP$!: Observable<boolean>;
   loadingC$!: Observable<boolean>;

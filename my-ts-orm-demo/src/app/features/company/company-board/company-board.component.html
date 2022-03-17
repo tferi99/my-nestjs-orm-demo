@@ -1,10 +1,36 @@
+<div>
+  <div *ngFor="let ass3 of comps">
+    <span>{{ass3.parent.name}}</span>
+    <div>
+        <span *ngif="valami">[{{ass3.parent.id}}] - {{ass3.parent.name}}</span>
+    </div>
+  </div>
+</div>
+<hr>
+<!--
+<div class="card-columns">
+  <div class="card alert alert-secondary" *ngFor="let ass2 of (companies$ | async)"
+     [ngClass]="getClassByCompany(ass2.parent.id)"
+     [dndDropzone]="['person']"
+     (dndDrop)="handler.onDrop(ass2.parent.id.toString(), $event)">
+
+    <span>{{ass2.parent.name}}</span>
+    <div class="card-header nowrapped-truncated-text">
+      <ng-container *ngif="valami">
+        <span>[{{ass2.parent.id}}] - {{ass2.parent.name}}</span>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<hr>
+-->
 <div class="card-columns">
   <div class="card alert alert-secondary" *ngFor="let ass of (companies$ | async)"
        [ngClass]="getClassByCompany(ass.parent.id)"
        [dndDropzone]="['person']"
        (dndDrop)="handler.onDrop(ass.parent.id.toString(), $event)">
       <div class="card-header nowrapped-truncated-text">
-        <ng-container *ngif="isTargetNormal(ass.parent.id)">
+        <ng-container *ngif="valami">
           <span>[{{ass.parent.id}}] - {{ass.parent.name}}</span>
         </ng-container>
       </div>
