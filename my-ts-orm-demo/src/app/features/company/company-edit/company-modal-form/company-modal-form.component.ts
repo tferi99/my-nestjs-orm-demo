@@ -6,11 +6,11 @@ import {FormValidatorService} from '../../../../core/service/form-validator.serv
 import {ModalComponentBase} from '../../../../core/component/modal.component.base';
 
 @Component({
-  selector: 'app-company-list-modal',
-  templateUrl: './company-modal.component.html',
-  styleUrls: ['./company-modal.component.scss']
+  selector: 'app-company-modal-form-form',
+  templateUrl: './company-modal-form.component.html',
+  styleUrls: ['./company-modal-form.component.scss']
 })
-export class CompanyModalComponent extends ModalComponentBase<Company, any, 'id'> implements OnInit {
+export class CompanyModalFormComponent extends ModalComponentBase<Company, any, 'id'> implements OnInit {
   constructor(
     public bsModalRef: BsModalRef,
     private fb: FormBuilder,

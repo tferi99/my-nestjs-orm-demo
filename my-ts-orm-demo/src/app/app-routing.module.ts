@@ -6,7 +6,6 @@ import {LoginComponent} from './auth/login/login.component';
 import {CompanyListComponent} from './features/company/company-list/company-list.component';
 import {PersonListComponent} from './features/person/person-list/person-list.component';
 import {CompanyBoardComponent} from './features/company/company-board/company-board.component';
-import {CompanyTestComponent} from './features/company/company-test/company-test.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent,  data: { title: 'Login Page' }},
@@ -14,7 +13,6 @@ const routes: Routes = [
   { path: "companyBoard", component: CompanyBoardComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
   { path: "company", component: CompanyListComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
   { path: "person", component: PersonListComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard]},
-  { path: "test", component: CompanyTestComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
 
   {path: '',   redirectTo: '/home', pathMatch: 'full' },   // default
 ];

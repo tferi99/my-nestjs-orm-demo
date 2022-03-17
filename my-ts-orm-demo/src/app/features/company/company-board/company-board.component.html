@@ -1,67 +1,51 @@
-<div>
-  <div *ngFor="let c of companies">
-    <span>{{c}}</span>
-    <div>
-      <span *ngif="valami">FOUND!!!</span>
-    </div>
-  </div>
-</div>
-<hr>
-<!--
-<div>
-  <div *ngFor="let ass3 of comps">
-    <span>{{ass3.parent.name}}</span>
-    <div>
-        <span *ngif="valami">[{{ass3.parent.id}}] - {{ass3.parent.name}}</span>
-    </div>
-  </div>
-</div>
-<hr>
--->
-<!--
-<div class="card-columns">
-  <div class="card alert alert-secondary" *ngFor="let ass2 of (companies$ | async)"
-     [ngClass]="getClassByCompany(ass2.parent.id)"
-     [dndDropzone]="['person']"
-     (dndDrop)="handler.onDrop(ass2.parent.id.toString(), $event)">
-
-    <span>{{ass2.parent.name}}</span>
-    <div class="card-header nowrapped-truncated-text">
-      <ng-container *ngif="valami">
-        <span>[{{ass2.parent.id}}] - {{ass2.parent.name}}</span>
-      </ng-container>
-    </div>
-  </div>
-</div>
-<hr>
--->
-<!--
 <div class="card-columns">
   <div class="card alert alert-secondary" *ngFor="let ass of (companies$ | async)"
        [ngClass]="getClassByCompany(ass.parent.id)"
        [dndDropzone]="['person']"
-       (dndDrop)="handler.onDrop(ass.parent.id.toString(), $event)">
-      <div class="card-header nowrapped-truncated-text">
-        <ng-container *ngif="valami">
-          <span>[{{ass.parent.id}}] - {{ass.parent.name}}</span>
-        </ng-container>
+       (dndDrop)="handler.onDrop(ass.parent.id.toString(), $event)"
+  >
+    <div *ngIf="isTargetNormal(ass.parent.id)" class="card-header nowrapped-truncated-text">
+      <i class="fas fa-industry"></i> [{{ass.parent.id}}] - {{ass.parent.name}}
+      <span class="toRight"><app-company-delete [data]="ass.parent"></app-company-delete></span>
+      <span class="toRight mr-2" role="button" (click)="editCompany(ass.parent)">
+          <i class="fa fa-pen"></i>
+        </span>
+
+    </div>
+    <div *ngIf="isTargetRubbishBin(ass.parent.id)" class="card-header nowrapped-truncated-text textCenter"><i class="fa fa-trash"></i></div>
+    <div *ngIf="isTargetUnemployed(ass.parent.id)" class="card-header nowrapped-truncated-text textCenter" title="Unemployed">
+      <i class="fas fa-users-slash"></i>
+      <span class="toRight" role="button" (click)="addPerson()">
+        <i class="fa fa-plus"></i>
+      </span>
+    </div>
+    <div class="card-body" *ngIf="isTargetNormal(ass.parent.id) || isTargetUnemployed(ass.parent.id)">
+      <div *ngFor="let p of ass.children"
+           class="alert alert-light draggable" role="alert"
+           [dndDraggable]="p"
+           dndType="person"
+           dndEffectAllowed="move"
+           [dndDisableIf]="false"
+           (dndStart)="handler.onDragStart(ass.parent.id.toString(), $event)"
+           (dndMoved)="handler.onMoved(ass.parent.id.toString(), $event)">
+        <i class="fas fa-user"></i> [{{p.id}}] - {{p.name}}
+        <span style="float: right"><app-person-delete [data]="p"></app-person-delete></span>
+        <span class="toRight mr-2" role="button" (click)="editPerson(p)">
+          <i class="fa fa-pen"></i>
+        </span>
       </div>
-      <div *ngif="isTargetNormal(ass.parent.id)" class="card-header nowrapped-truncated-text">[{{ass.parent.id}}] - {{ass.parent.name}}</div>
-      <div *ngif="isTargetRubbishBin(ass.parent.id)" class="card-header nowrapped-truncated-text"><i class="fa fa-trash"></i></div>
-      <div *ngif="isTargetUnemployed(ass.parent.id)" class="card-header nowrapped-truncated-text"><i class="fal fa-user-hard-hat"></i></div>
-      <div class="card-body">
-        <div *ngFor="let p of ass.children"
-             class="alert alert-light draggable" role="alert"
-             [dndDraggable]="p"
-             dndType="person"
-             dndEffectAllowed="move"
-             [dndDisableIf]="false"
-             (dndStart)="handler.onDragStart(ass.parent.id.toString(), $event)"
-             (dndMoved)="handler.onMoved(ass.parent.id.toString(), $event)">
-          [{{p.id}}] - {{p.name}}
-        </div>
-      </div>
+    </div>
   </div>
+
+  <div class="card alert alert-secondary">
+    <div class="card-header nowrapped-truncated-text textCenter" role="button" (click)="addCompany()"><i class="fa fa-plus"></i></div>
+  </div>
+</div>
+
+<hr>
+
+<div class="card-columns">
+  <div class="card alert alert-secondary" [dndDropzone]="['person']" (dndDrop)="handler.onDrop(COMPANY_ID_RUBBISH_BIN, $event)"></div>
 </div>
 
 <div class="d-flex justify-content-center">
@@ -70,4 +54,5 @@
   </div>
 </div>
 
--->
+<app-company-edit #companyEdit></app-company-edit>
+<app-person-edit #personEdit></app-person-edit>

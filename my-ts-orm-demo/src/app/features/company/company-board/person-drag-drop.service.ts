@@ -3,7 +3,7 @@ import {NGXLogger} from 'ngx-logger';
 import {DragDropServiceBase} from '../../../core/drag-and-drop/drag-drop-service-base';
 import {PersonDataService} from '../../person/store/person-data.service';
 import {Person} from '@app/client-lib';
-import {COMPANY_ID_RUBBISH_BIN, COMPANY_ID_UNEMPLOYED} from '../store/company.selectors';
+import {COMPANY_ID_RUBBISH_BIN, COMPANY_ID_UNEMPLOYED} from '../company.constants';
 
 /**
  * This is a drag-and-drop handler and consumer service, too.

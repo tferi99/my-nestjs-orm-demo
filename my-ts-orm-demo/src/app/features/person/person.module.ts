@@ -7,18 +7,20 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {BsModalRef, ModalModule} from 'ngx-bootstrap/modal';
 import {CoreModule} from '../../core/core.module';
 import {PersonListComponent} from './person-list/person-list.component';
-import {PersonModalComponent} from './person-edit/person-modal/person-modal.component';
+import {PersonModalFormComponent} from './person-edit/person-modal-form/person-modal-form.component';
 import {PersonEditComponent} from './person-edit/person-edit.component';
 import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
     PersonListComponent,
-    PersonModalComponent,
+    PersonModalFormComponent,
     PersonEditComponent,
   ],
   exports: [
-    PersonListComponent
+    PersonListComponent,
+    PersonEditComponent,
+    PersonModalFormComponent,
   ],
   imports: [
     ReactiveFormsModule,

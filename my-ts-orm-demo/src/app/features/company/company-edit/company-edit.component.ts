@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Company} from '@app/client-lib';
 import {BsModalService} from 'ngx-bootstrap/modal';
-import {CompanyModalComponent} from './company-modal/company-modal.component';
+import {CompanyModalFormComponent} from './company-modal-form/company-modal-form.component';
 import {CompanyDataService} from '../store/company-data.service';
 import {
   DataServiceErrorMessageService,
@@ -25,7 +25,7 @@ export class CompanyEditComponent extends DataModalEditComponentBase<Company, an
     private dataServiceErrorMessageService: DataServiceErrorMessageService
 
   ) {
-    super(CompanyModalComponent, companyDataService, modalService, dataServiceErrorMessageService, errorMapping);
+    super(CompanyModalFormComponent, companyDataService, modalService, dataServiceErrorMessageService, errorMapping);
   }
 
   ngOnInit(): void {

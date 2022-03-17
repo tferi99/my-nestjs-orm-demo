@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Company, Person} from '@app/client-lib';
 import {BsModalService} from 'ngx-bootstrap/modal';
-import {PersonModalComponent} from './person-modal/person-modal.component';
+import {PersonModalFormComponent} from './person-modal-form/person-modal-form.component';
 import {PersonDataService} from '../store/person-data.service';
 import {DataServiceErrorMessageService, ErrorMessageMapping} from '../../../core/store/data-service-error-message.service';
 import {DataModalEditComponentBase, EditComponent} from '../../../core/component/data-modal-edit-component.base';
@@ -33,7 +33,7 @@ export class PersonEditComponent extends DataModalEditComponentBase<Person, Pers
     private dataServiceErrorMessageService: DataServiceErrorMessageService
 
   ) {
-    super(PersonModalComponent, personDataService, modalService, dataServiceErrorMessageService, errorMapping);
+    super(PersonModalFormComponent, personDataService, modalService, dataServiceErrorMessageService, errorMapping);
   }
 
   ngOnInit(): void {

@@ -41,7 +41,7 @@ export class PersonListComponent extends ListComponentBase<Person, 'name'> imple
     private dataServiceErrorMessageService: DataServiceErrorMessageService
   ) {
     super(personDataService, modalService, dataServiceErrorMessageService);
-    this.enabledDump = true;
+    this.enabledDump = false;
   }
 
   ngOnInit(): void {

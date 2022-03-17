@@ -8,11 +8,11 @@ import {ModalComponentBase} from '../../../../core/component/modal.component.bas
 import {PersonAdditional} from '../person-edit.component';
 
 @Component({
-  selector: 'app-Person-list-modal',
-  templateUrl: './Person-modal.component.html',
-  styleUrls: ['./Person-modal.component.scss']
+  selector: 'app-person-modal-form-form',
+  templateUrl: './person-modal-form.component.html',
+  styleUrls: ['./person-modal-form.component.scss']
 })
-export class PersonModalComponent extends ModalComponentBase<Person, PersonAdditional, 'id'> implements OnInit {
+export class PersonModalFormComponent extends ModalComponentBase<Person, PersonAdditional, 'id'> implements OnInit {
   employeeTypes: KeyValuePair<string, string>[] = stringEnumToKeyValuePairArray(EmployeeType, true);
 
   form = this.fb.group({

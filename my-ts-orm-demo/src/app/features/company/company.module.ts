@@ -7,25 +7,24 @@ import {PopoverModule} from 'ngx-bootstrap/popover';
 import {RouterModule} from '@angular/router';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {BsModalRef, ModalModule} from 'ngx-bootstrap/modal';
-import {CompanyModalComponent} from './company-edit/company-modal/company-modal.component';
+import {CompanyModalFormComponent} from './company-edit/company-modal-form/company-modal-form.component';
 import {CoreModule} from '../../core/core.module';
-import { CompanyEditComponent } from './company-edit/company-edit.component';
-import { DndModule } from 'ngx-drag-drop';
+import {CompanyEditComponent} from './company-edit/company-edit.component';
+import {DndModule} from 'ngx-drag-drop';
 import {BrowserModule} from '@angular/platform-browser';
-import { CompanyTestComponent } from './company-test/company-test.component';
+import {SharedModule} from '../../shared/shared.module';
+import {PersonModule} from '../person/person.module';
 
 @NgModule({
   declarations: [
     CompanyListComponent,
     CompanyBoardComponent,
-    CompanyModalComponent,
+    CompanyModalFormComponent,
     CompanyEditComponent,
-    CompanyTestComponent,
   ],
   exports: [
     CompanyBoardComponent,
     CompanyListComponent,
-    CompanyTestComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +38,9 @@ import { CompanyTestComponent } from './company-test/company-test.component';
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
 
-    CoreModule
+    CoreModule,
+    SharedModule,
+    PersonModule
   ],
   providers: [
     BsModalRef
