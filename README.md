@@ -2,7 +2,39 @@
 
 ## Intro
 
-This is a full-stack application that demostrates how to handle data in a relational database with ORM and howto store hierarchical data in NgRx Store and manage with NgRx Data.
+This is a full-stack application implemented with TypeScript that demostrates how to handle data in a relational database with ORM and howto store hierarchical data in NgRx Store and manage with NgRx Data.
+
+### Technology
+
+#### Backend:
+* PostgreSQL
+* NestJS
+* MikroORM
+
+#### Frontend:
+* Angular
+* Bootstrap
+* ngx-bootstrap
+* ngrx (Entity, Data)
+
+### Features
+#### Backend:
+* Data managent with ORM (mikro-orm)
+* JWT based authentication (passport)
+* Logging (winston)
+* Generics for CRUD Entity Repository
+* Generics for CRUD Entity Service
+* Generics for CRUD REST controllers
+* Centralized error handling + sending custom error status messages about general database (unique, constrain, ...) errors 
+
+#### Frontend:
+* Reactive Forms with validation
+* Modal data editor dialogs
+* Auto-focus on forms
+* Data storage of hierarchical data with NgRx Data
+* Generics (service, components) for CRUD operations
+* Drag-and-drop operations
+* Modal confirm dialogs
 
 ## Storage of data
 
