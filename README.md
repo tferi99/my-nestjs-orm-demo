@@ -5,7 +5,10 @@
 
 ## Intro
 
-This is a full-stack application implemented with TypeScript that demostrates how to handle data in a relational database with ORM and howto store hierarchical data in NgRx Store and manage with NgRx Data.
+This is a full-stack application implemented with TypeScript that demostrates how to handle data in a relational database with ORM and howto store hierarchical data in NgRx Store and manage with NgRx Data. Repo contains two projects:
+1. my-mikroorm-demo-server (baclend)
+2. my-ts-orm-demo (frontend)
+
 
 ### Technology
 
