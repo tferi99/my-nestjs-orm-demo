@@ -106,6 +106,7 @@ export abstract class DragDropServiceBase {
       this.action.dropEvent = event;
       this.action.effect = event.dropEffect;
       this.action.state = DragDropState.Dropped;
+      this.action.type = event.type;
 
       if (this.tracing) {
         this._logger.info('onDrop(2) - [ACTION]:', this.action);
@@ -123,7 +124,10 @@ export abstract class DragDropServiceBase {
       return;
     }
     this.action.dropEvent = event;
+    this.action.draggedData = event.data;
+    this.action.effect = event.dropEffect;
     this.action.state = DragDropState.DroppedToRubbish;
+    this.action.type = event.type;
 
     this.emit('onDropRubbish');
   }

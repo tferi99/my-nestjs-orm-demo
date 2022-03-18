@@ -10,6 +10,7 @@ export interface DragDropAction {
   effect: DropEffect;
   draggedData: any;
   state: DragDropState;
+  type: string;
 }
 
 export enum DragDropState {

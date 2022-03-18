@@ -10,6 +10,9 @@
          [dndDraggable]="ass.parent"
          dndType="company"
          dndEffectAllowed="move"
+         (dndStart)="handler.onDragStart(ass.parent.id.toString(), $event)"
+         (dndMoved)="handler.onMoved(ass.parent.id.toString(), $event)"
+         title="You can drop a company into Rubbish Bin"
     >
       <i class="fas fa-industry"></i> [{{ass.parent.id}}] - {{ass.parent.name}}
       <span class="toRight"><app-company-delete [data]="ass.parent"></app-company-delete></span>
@@ -18,10 +21,11 @@
         </span>
 
     </div>
-    <div *ngIf="isTargetUnemployed(ass.parent.id)" class="card-header nowrapped-truncated-text">
-      <i class="fas fa-users-slash"></i> [{{ass.parent.id}}] UNEMPLOYED
-      <span class="toRight" role="button" (click)="addPerson()">
+    <div *ngIf="isTargetUnemployed(ass.parent.id)" class="card-header nowrapped-truncated-text" role="button" (click)="addPerson()" title="Add new person">
+      <i class="fas fa-users-slash"></i> UNEMPLOYED
+      <span class="toRight">
         <i class="fa fa-plus"></i>
+        <i class="fa fa-user"></i>
       </span>
     </div>
     <div class="card-body" *ngIf="isTargetNormal(ass.parent.id) || isTargetUnemployed(ass.parent.id)">
@@ -32,7 +36,9 @@
            dndEffectAllowed="move"
            [dndDisableIf]="false"
            (dndStart)="handler.onDragStart(ass.parent.id.toString(), $event)"
-           (dndMoved)="handler.onMoved(ass.parent.id.toString(), $event)">
+           (dndMoved)="handler.onMoved(ass.parent.id.toString(), $event)"
+           title="You can drop a person into another company or into Rubbish Bin"
+      >
         <i class="fas fa-user"></i> [{{p.id}}] - {{p.name}}
         <span style="float: right"><app-person-delete [data]="p"></app-person-delete></span>
         <span class="toRight mr-2" role="button" (click)="editPerson(p)">
@@ -46,11 +52,14 @@
 <hr>
 
 <div class="card-columns">
-  <div class="card alert alert-secondary">
-    <div class="card-header nowrapped-truncated-text textCenter" role="button" (click)="addCompany()"><i class="fa fa-plus"></i></div>
+  <div class="card alert alert-secondary" title="Add new company">
+    <div class="card-header nowrapped-truncated-text textCenter" role="button" (click)="addCompany()">
+      <i class="fa fa-plus mr-1"></i>
+      <i class="fas fa-industry"></i>
+    </div>
   </div>
 
-  <div class="card alert alert-danger" [dndDropzone]="['person', 'company']" (dndDrop)="handler.onDrop(COMPANY_ID_RUBBISH_BIN, $event)">
+  <div class="card alert alert-danger" [dndDropzone]="['person', 'company']" (dndDrop)="handler.onDropRubbish($event)" title="Rubbish Bin">
     <div class="card-header nowrapped-truncated-text textCenter"><i class="fa fa-trash"></i></div>
   </div>
 </div>

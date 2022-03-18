@@ -8,7 +8,7 @@ import {AppState} from '../../../store/app.reducer';
 import {selectCompaniesWithPersonsAssoc} from '../store/company.selectors';
 import {Store} from '@ngrx/store';
 import {OneToManyAssociation} from '../../../core/store/store-utils';
-import {PersonDragDropService} from './person-drag-drop.service';
+import {DragDropService} from './drag-drop.service';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {DataServiceErrorMessageService, ErrorMessageMapping} from '../../../core/store/data-service-error-message.service';
 import {CompanyEditComponent} from '../company-edit/company-edit.component';
@@ -43,7 +43,7 @@ export class CompanyBoardComponent implements OnInit {
     private store: Store<AppState>,
     private companyDataService: CompanyDataService,
     private personDataService: PersonDataService,
-    public handler: PersonDragDropService,
+    public handler: DragDropService,
     private modalService: BsModalService,
     private dataServiceErrorMessageService: DataServiceErrorMessageService
   ) {}
