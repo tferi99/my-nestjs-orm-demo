@@ -58,14 +58,14 @@ export class CompanyBoardComponent implements OnInit {
     this.loadingC$ = this.companyDataService.loading$;
   }
 
-  getClassByCompany(companyId: number): string {
-    switch (companyId) {
+  getClassByCompany(company: Company): string {
+    switch (company.id) {
       case COMPANY_ID_UNEMPLOYED:
         return "alert-warning";
       case COMPANY_ID_RUBBISH_BIN:
         return "alert-danger";
       default:
-        return "alert-dark";
+        return company.active ? "alert-primary" : 'alert-secondary';
     }
   }
 

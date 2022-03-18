@@ -107,6 +107,10 @@ export abstract class DragDropServiceBase {
       this.action.effect = event.dropEffect;
       this.action.state = DragDropState.Dropped;
 
+      if (this.tracing) {
+        this._logger.info('onDrop(2) - [ACTION]:', this.action);
+      }
+
       this.emit('onDrop');
     }
   }

@@ -1,11 +1,16 @@
 <h3>Companies &amp; Persons</h3>
 <div class="card-columns">
-  <div class="card alert alert-secondary" *ngFor="let ass of (companies$ | async)"
-       [ngClass]="getClassByCompany(ass.parent.id)"
+  <div class="card alert" *ngFor="let ass of (companies$ | async)"
+       [ngClass]="getClassByCompany(ass.parent)"
        [dndDropzone]="['person']"
+       [dndDisableDropIf]="!ass.parent.active"
        (dndDrop)="handler.onDrop(ass.parent.id.toString(), $event)"
   >
-    <div *ngIf="isTargetNormal(ass.parent.id)" class="card-header nowrapped-truncated-text">
+    <div *ngIf="isTargetNormal(ass.parent.id)" class="card-header nowrapped-truncated-text draggable"
+         [dndDraggable]="ass.parent"
+         dndType="company"
+         dndEffectAllowed="move"
+    >
       <i class="fas fa-industry"></i> [{{ass.parent.id}}] - {{ass.parent.name}}
       <span class="toRight"><app-company-delete [data]="ass.parent"></app-company-delete></span>
       <span class="toRight mr-2" role="button" (click)="editCompany(ass.parent)">
@@ -14,7 +19,7 @@
 
     </div>
     <div *ngIf="isTargetUnemployed(ass.parent.id)" class="card-header nowrapped-truncated-text">
-      <i class="fas fa-users-slash"></i> UNEMPLOYED
+      <i class="fas fa-users-slash"></i> [{{ass.parent.id}}] UNEMPLOYED
       <span class="toRight" role="button" (click)="addPerson()">
         <i class="fa fa-plus"></i>
       </span>
@@ -45,7 +50,7 @@
     <div class="card-header nowrapped-truncated-text textCenter" role="button" (click)="addCompany()"><i class="fa fa-plus"></i></div>
   </div>
 
-  <div class="card alert alert-danger" [dndDropzone]="['person']" (dndDrop)="handler.onDrop(COMPANY_ID_RUBBISH_BIN, $event)">
+  <div class="card alert alert-danger" [dndDropzone]="['person', 'company']" (dndDrop)="handler.onDrop(COMPANY_ID_RUBBISH_BIN, $event)">
     <div class="card-header nowrapped-truncated-text textCenter"><i class="fa fa-trash"></i></div>
   </div>
 </div>
