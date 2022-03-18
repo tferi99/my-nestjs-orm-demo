@@ -23,13 +23,37 @@ Backend:
 ```
 cd my-mikroorm-demo-server
 npm i
+npm run build
 ```
 
 Frontend:
 ```
 cd my-ts-orm-demo
 npm i
+npm run build
 ```
 
 ## Creating default database
+Create database:
+```
+createdb -U postgres mymikroormdemo
+```
 
+Create schema:
+```
+cd my-mikroorm-demo-server/dist
+node main.js createdbschema
+```
+
+## Run
+Backend:
+```
+cd my-mikroorm-demo-server
+npm run start
+```
+
+Frontend:
+```
+cd my-ts-orm-demo
+npm run start
+```
