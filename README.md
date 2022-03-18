@@ -1,27 +1,35 @@
 # MyTsOrmDemo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.16.
+## Intro
 
-## Development server
+This is a full-stack application that demostrates how to handle data in a relational database with ORM and howto store hierarchical data in NgRx Store and manage with NgRx Data.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Storage of data
 
-## Code scaffolding
+Data persisted in relational database (PostgreSQL) in normalized format.
+It's a good approach to do the same in NgRx Store. Store hierarchical data in _normalized_ form. The basic concepts of normalizing data are:
+* Each type of data gets its own "table" in the state.
+* Each "data table" should store the individual items in an object, with the IDs of the items as keys and the items themselves as the values.
+* Any references to individual items should be done by storing the item's ID.
+* Arrays of IDs should be used to indicate ordering.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Howto render normalized data hierarchical?
 
+If you need normalized data in hierarchical form you can read and convert it with NgRx selectors.
+ 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Backend:
+```
+cd my-mikroorm-demo-server
+npm i
+```
 
-## Running unit tests
+Frontend:
+```
+cd my-ts-orm-demo
+npm i
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Creating default database
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
