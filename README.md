@@ -54,7 +54,26 @@ It's a good approach to do the same in NgRx Store. Store hierarchical data in _n
 ### Howto render normalized data hierarchical?
 
 If you need normalized data in hierarchical form you can read and convert it with NgRx selectors.
- 
+
+## Database
+Create database:
+```
+createdb -U postgres mymikroormdemo
+```
+Set database credentials in _my-mikroorm-demo-server/src/config/**mikro-orm.config.ts**_:
+```
+export const MIKRO_ORM_OPTIONS: MikroOrmModuleSyncOptions = {
+  // registerRequestContext: false,       // by default enabled
+  type: 'postgresql',
+  dbName: 'mymikroormdemo',
+  user: 'postgres',                                     <<<<<
+  password: 'postgres',                                 <<<<<
+
+  //  metadataProvider: TsMorphMetadataProvider,
+  namingStrategy: UnderscoreNamingStrategy,
+  ...
+```
+
 ## Build
 
 Backend:
@@ -70,14 +89,8 @@ cd my-ts-orm-demo
 npm i
 npm run build
 ```
-
-## Creating default database
-Create database:
-```
-createdb -U postgres mymikroormdemo
-```
-
-Create schema:
+## Database schema
+Create schema (database objects):
 ```
 cd my-mikroorm-demo-server/dist
 node main.js createdbschema
