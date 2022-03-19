@@ -74,22 +74,14 @@ export const MIKRO_ORM_OPTIONS: MikroOrmModuleSyncOptions = {
   ...
 ```
 
-## Build
-
-Backend:
+## Database schema
+Build Backend:
 ```
 cd my-mikroorm-demo-server
 npm i
 npm run build
 ```
 
-Frontend:
-```
-cd my-ts-orm-demo
-npm i
-npm run build
-```
-## Database schema
 Create schema (database objects):
 ```
 cd my-mikroorm-demo-server/dist
