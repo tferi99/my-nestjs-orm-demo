@@ -21,7 +21,7 @@ export class PersonModalFormComponent extends ModalComponentBase<Person, PersonA
     email: ['', [Validators.required, Validators.email]],
     employeeType: ['', Validators.required],
     birth: ['', Validators.required],
-    rank: ['0', [Validators.required, Validators.min(1), Validators.max(10)]],
+    rank: ['0', [Validators.required, Validators.min(1), Validators.max(100)]],
     note: [null, [Validators.maxLength(1024)]],
     active: [true],
     company: [undefined],

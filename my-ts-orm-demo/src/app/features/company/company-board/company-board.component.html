@@ -1,4 +1,8 @@
 <h3>Companies &amp; Persons</h3>
+<p>
+  <small><i>Drag &amp; Drop elements</i></small>
+</p>
+
 <div class="card-columns">
   <div class="card alert" *ngFor="let ass of (companies$ | async)"
        [ngClass]="getClassByCompany(ass.parent)"
@@ -12,7 +16,7 @@
          dndEffectAllowed="move"
          (dndStart)="handler.onDragStart(ass.parent.id.toString(), $event)"
          (dndMoved)="handler.onMoved(ass.parent.id.toString(), $event)"
-         title="You can drop a company into Rubbish Bin"
+         title="You can drop a company into the Rubbish Bin"
     >
       <i class="fas fa-industry"></i> [{{ass.parent.id}}] - {{ass.parent.name}}
       <span class="toRight"><app-company-delete [data]="ass.parent"></app-company-delete></span>
@@ -21,7 +25,7 @@
         </span>
 
     </div>
-    <div *ngIf="isTargetUnemployed(ass.parent.id)" class="card-header nowrapped-truncated-text" role="button" (click)="addPerson()" title="Add new person">
+    <div *ngIf="isTargetUnemployed(ass.parent.id)" class="card-header nowrapped-truncated-text" role="button" (click)="addPerson()" title="Add new unemployed person">
       <i class="fas fa-users-slash"></i> UNEMPLOYED
       <span class="toRight">
         <i class="fa fa-plus"></i>
@@ -30,14 +34,15 @@
     </div>
     <div class="card-body" *ngIf="isTargetNormal(ass.parent.id) || isTargetUnemployed(ass.parent.id)">
       <div *ngFor="let p of ass.children"
-           class="alert alert-light draggable" role="alert"
+           class="alert draggable" role="alert"
+           [ngClass]="{'alert-light': p.active, 'alert-dark': !p.active}"
            [dndDraggable]="p"
            dndType="person"
            dndEffectAllowed="move"
            [dndDisableIf]="false"
            (dndStart)="handler.onDragStart(ass.parent.id.toString(), $event)"
            (dndMoved)="handler.onMoved(ass.parent.id.toString(), $event)"
-           title="You can drop a person into another company or into Rubbish Bin"
+           title="You can drop a person into another active company or into the Rubbish Bin"
       >
         <i class="fas fa-user"></i> [{{p.id}}] - {{p.name}}
         <span style="float: right"><app-person-delete [data]="p"></app-person-delete></span>
