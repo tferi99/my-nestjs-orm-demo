@@ -59,20 +59,44 @@ export class InitService {
 
     //OrmUtils.dumpUnitOfWork(em, '>>>>>>>>>>>>>>>>>>>>> START');
     await this.em.transactional(async (em) => {
-      const c: Company = new Company({ name: 'Abc Inc.', established: new Date(), active: true });
-      em.persist(c);
-      const c2: Company = new Company({ name: 'Other Inc.', established: new Date(), active: false });
-      c2.active = true;
-
-      const birth = new Date(Date.now() - DateTimeUtils.durationAsMilliseconds(10, DurationUnit.Years));
-      const p1 = new Person({ name: 'John Smith', email: 'js@test.org', birth, employeeType: EmployeeType.MANAGER, rank: 5 });
-      const p2 = new Person({ name: 'Jane Doe', email: 'jd@test.org', birth, employeeType: EmployeeType.WORKER, rank: 1 });
-      c2.workers.add(p1);
-      c2.workers.add(p2);
-
-      em.persist(c2);
+      // unemployed
+      const p1 = new Person({ name: 'Tim Cook', email: 'tc@test.org', birth: this.yearsBefore(51), employeeType: EmployeeType.WORKER, rank: 0 });
+      const p2 = new Person({ name: 'Mary Teresa Barra', email: 'mtb@test.org', birth: this.yearsBefore(60), employeeType: EmployeeType.DIRECTOR, rank: 0 });
+      const p3 = new Person({ name: 'Barbara Smith', email: 'bs@test.org', birth: this.yearsBefore(41), employeeType: EmployeeType.WORKER, rank: 0 });
       em.persist(p1);
       em.persist(p2);
+      em.persist(p3);
+
+      // c1
+      const c1: Company = new Company({ name: 'Abc Inc.', established: new Date(), active: false });
+      em.persist(c1);
+
+      // c2
+      const c2: Company = new Company({ name: 'Other Inc.', established: new Date(), active: true });
+      const p21 = new Person({ name: 'John Smith', email: 'js@test.org', birth: this.yearsBefore(31), employeeType: EmployeeType.MANAGER, rank: 5 });
+      const p22 = new Person({ name: 'Jane Doe', email: 'jd@test.org', birth: this.yearsBefore(24), employeeType: EmployeeType.WORKER, rank: 1, active: false });
+      c2.workers.add(p21);
+      c2.workers.add(p22);
+      em.persist(c2);
+      em.persist(p21);
+      em.persist(p22);
+
+      // c3
+      const c3: Company = new Company({ name: 'Microsoft', established: new Date(1975, 4, 4), active: true });
+      const p31 = new Person({ name: 'Bill Gates', email: 'bg@ms.com', birth: new Date(1955, 10, 28), employeeType: EmployeeType.DIRECTOR, rank: 50, active: false });
+      const p32 = new Person({ name: 'Paul Allen', email: 'pa@ms.com', birth: new Date(1953, 1, 21), employeeType: EmployeeType.MANAGER, rank: 40, active: false });
+      c3.workers.add(p31);
+      c3.workers.add(p32);
+      em.persist(c3);
+
+      const c4: Company = new Company({ name: 'Apple Inc.', established: new Date(1976, 4, 1), active: true });
+      const p41 = new Person({ name: 'Steve Jobs', email: 'sj@apple.com', birth: new Date(1955, 2, 24), employeeType: EmployeeType.DIRECTOR, rank: 50, active: false });
+      const p42 = new Person({ name: 'Steve Wozniak', email: 'sw@apple.com', birth: new Date(1950, 8, 11), employeeType: EmployeeType.ARCHITECT, rank: 39, active: false });
+      const p43 = new Person({ name: 'Timothy D. Cook', email: 'tdc@apple.com', birth: new Date(1960, 11, 1), employeeType: EmployeeType.ARCHITECT, rank: 39 });
+      c4.workers.add(p41);
+      c4.workers.add(p42);
+      c4.workers.add(p43);
+      em.persist(c4);
     });
   }
 
@@ -108,5 +132,9 @@ export class InitService {
 
   dumpEm() {
     OrmUtilsService.dumpUnitOfWork(this.em, 'DUMP');
+  }
+
+  private yearsBefore(years: number): Date {
+    return new Date(Date.now() - DateTimeUtils.durationAsMilliseconds(years, DurationUnit.Years));
   }
 }

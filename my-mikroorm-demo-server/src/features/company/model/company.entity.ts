@@ -15,14 +15,14 @@ export class Company extends OrmIntTimestampEntity {
   established: Date;
 
   @Property({ default: true })
-  active: boolean;
+  active: boolean = true;
 
   @Property({ length: 1024, nullable: true })
   note: string;
 
   @OneToMany({
     entity: () => Person,
-    mappedBy: (person) => person.company
+    mappedBy: (person) => person.company,
   })
   workers = new Collection<Person>(this);
 

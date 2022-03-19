@@ -21,7 +21,7 @@ export class Person extends OrmIntTimestampEntity {
   rank: number;
 
   @Property({ default: true })
-  active: boolean;
+  active: boolean = true;
 
   @Property({ length: 1024, nullable: true })
   note?: string;
