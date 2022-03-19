@@ -60,7 +60,7 @@ Create database:
 ```
 createdb -U postgres mymikroormdemo
 ```
-Set database credentials in _.env**_:
+Set database credentials in _**.env**_:
 ```
 DATABASE_USER=postgres
 DATABASE_PASSWORD=postgres
