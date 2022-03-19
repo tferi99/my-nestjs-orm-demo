@@ -60,18 +60,10 @@ Create database:
 ```
 createdb -U postgres mymikroormdemo
 ```
-Set database credentials in _my-mikroorm-demo-server/src/config/**mikro-orm.config.ts**_:
+Set database credentials in _.env**_:
 ```
-export const MIKRO_ORM_OPTIONS: MikroOrmModuleSyncOptions = {
-  // registerRequestContext: false,       // by default enabled
-  type: 'postgresql',
-  dbName: 'mymikroormdemo',
-  user: 'postgres',                                     <<<<<
-  password: 'postgres',                                 <<<<<
-
-  //  metadataProvider: TsMorphMetadataProvider,
-  namingStrategy: UnderscoreNamingStrategy,
-  ...
+DATABASE_USER=postgres
+DATABASE_PASSWORD=postgres
 ```
 
 ## Database schema
