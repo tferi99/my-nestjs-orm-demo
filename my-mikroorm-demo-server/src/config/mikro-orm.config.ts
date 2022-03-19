@@ -15,6 +15,8 @@ export const MIKRO_ORM_OPTIONS: MikroOrmModuleSyncOptions = {
   // registerRequestContext: false,       // by default enabled
   type: 'postgresql',
   dbName: 'mymikroormdemo',
+  user: 'postgres',
+  password: 'postgres',
 
   //  metadataProvider: TsMorphMetadataProvider,
   namingStrategy: UnderscoreNamingStrategy,
