@@ -1,27 +1,97 @@
+![](https://github.com/tferi99/my-ts-orm-demo/blob/master/my-ts-orm-demo/src/assets/logo.png)
+
+
 # MyTsOrmDemo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.16.
+## Intro
 
-## Development server
+This is a full-stack application implemented with TypeScript that demostrates how to handle data in a relational database with ORM and howto store hierarchical data in NgRx Store and manage with NgRx Data. Repo contains two projects:
+1. my-mikroorm-demo-server (baclend)
+2. my-ts-orm-demo (frontend)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+### Technology
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### Backend:
+* PostgreSQL
+* NestJS
+* MikroORM
 
+#### Frontend:
+* Angular
+* Bootstrap
+* ngx-bootstrap
+* ngrx (Entity, Data)
+
+### Features
+#### Backend:
+* Data managent with ORM (mikro-orm)
+* JWT based authentication (passport)
+* Logging (winston)
+* Generics for CRUD Entity Repository
+* Generics for CRUD Entity Service
+* Generics for CRUD REST controllers
+* Centralized error handling + sending custom error status messages about general database (unique, constrain, ...) errors 
+
+#### Frontend:
+* Reactive Forms with validation
+* Modal data editor dialogs
+* Auto-focus on forms
+* Data storage of hierarchical data with NgRx Data
+* Generics (service, components) for CRUD operations
+* Drag-and-drop operations
+* Modal confirm dialogs
+
+## Storage of data
+
+Data persisted in relational database (PostgreSQL) in normalized format.
+It's a good approach to do the same in NgRx Store. Store hierarchical data in _normalized_ form. The basic concepts of normalizing data are:
+* Each type of data gets its own "table" in the state.
+* Each "data table" should store the individual items in an object, with the IDs of the items as keys and the items themselves as the values.
+* Any references to individual items should be done by storing the item's ID.
+* Arrays of IDs should be used to indicate ordering.
+
+### Howto render normalized data hierarchical?
+
+If you need normalized data in hierarchical form you can read and convert it with NgRx selectors.
+ 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Backend:
+```
+cd my-mikroorm-demo-server
+npm i
+npm run build
+```
 
-## Running unit tests
+Frontend:
+```
+cd my-ts-orm-demo
+npm i
+npm run build
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Creating default database
+Create database:
+```
+createdb -U postgres mymikroormdemo
+```
 
-## Running end-to-end tests
+Create schema:
+```
+cd my-mikroorm-demo-server/dist
+node main.js createdbschema
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Run
+Backend:
+```
+cd my-mikroorm-demo-server
+npm run start
+```
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Frontend:
+```
+cd my-ts-orm-demo
+npm run start
+```
