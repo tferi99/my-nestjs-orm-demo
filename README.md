@@ -109,4 +109,5 @@ cd my-ts-orm-demo
 npm run start
 ```
 
+Call frontend: [http://localhost:4201](http://localhost:4201)
 
