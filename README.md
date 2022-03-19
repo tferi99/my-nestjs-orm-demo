@@ -60,7 +60,7 @@ Create database:
 ```
 createdb -U postgres mymikroormdemo
 ```
-Set database credentials in 'my-ts-orm-demo/my-mikroorm-demo-server/src/config/mikro-orm.config.ts:
+Set database credentials in _my-mikroorm-demo-server/src/config/**mikro-orm.config.ts**_:
 ```
 export const MIKRO_ORM_OPTIONS: MikroOrmModuleSyncOptions = {
   // registerRequestContext: false,       // by default enabled
