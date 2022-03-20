@@ -16,7 +16,10 @@ export class OrmModule {
 
     return {
       module: OrmModule,
-      imports: [MikroOrmModule.forRoot(mikroOrmModuleSyncOptions), MikroOrmModule.forFeature({ entities })],
+      imports: [
+        MikroOrmModule.forRoot(mikroOrmModuleSyncOptions),
+        MikroOrmModule.forFeature({ entities }),
+      ],
       providers: [OrmUtilsService],
       controllers: [OrmController],
       exports: [MikroOrmModule, OrmUtilsService],

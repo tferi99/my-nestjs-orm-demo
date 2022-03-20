@@ -11,13 +11,13 @@ import { UserService } from './auth/user.service';
 import { GlobalExceptionFilter } from './core/filter/global-exception-filter';
 import { APP_FILTER } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
+import { AppConfigModule } from './config/app-config.module';
 
 @Module({
   imports: [
+    AppConfigModule,
+
     ScheduleModule.forRoot(),
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
 
     // features
     CompanyModule,
@@ -40,4 +40,8 @@ import { ConfigModule } from '@nestjs/config';
     UserService,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    console.log('################# AppModule');
+  }
+}
