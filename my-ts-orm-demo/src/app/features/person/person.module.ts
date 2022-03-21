@@ -10,6 +10,7 @@ import {PersonListComponent} from './person-list/person-list.component';
 import {PersonModalFormComponent} from './person-edit/person-modal-form/person-modal-form.component';
 import {PersonEditComponent} from './person-edit/person-edit.component';
 import {SharedModule} from '../../shared/shared.module';
+import {MomentModule} from 'ngx-moment';
 
 @NgModule({
   declarations: [
@@ -28,9 +29,10 @@ import {SharedModule} from '../../shared/shared.module';
     PopoverModule,
     RouterModule,
 
-    // ngx-bootstrap
+    // ngx
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
+    MomentModule,
 
     CoreModule,
     SharedModule

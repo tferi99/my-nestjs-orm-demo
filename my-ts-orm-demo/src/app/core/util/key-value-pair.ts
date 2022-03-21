@@ -8,12 +8,8 @@ export class KeyValuePair<K, V> {
   }
 }
 
-export function stringEnumToKeyValuePairArray(enumObject: any, withEmpty: boolean = false): KeyValuePair<string, string>[] {
+export function stringEnumToKeyValuePairArray(enumObject: any, withEmpty: boolean = false, sorted = false): KeyValuePair<string, string>[] {
   const arr: KeyValuePair<string, string>[] = [];
-
-  if (withEmpty) {
-    arr.push(new KeyValuePair<string, string>('', ''));
-  }
 
   for (const n in enumObject) {
     if (typeof enumObject[n] === 'string') {
@@ -22,6 +18,15 @@ export function stringEnumToKeyValuePairArray(enumObject: any, withEmpty: boolea
       arr.push(new KeyValuePair<string, string>(key, value));
     }
   }
+
+  if (sorted) {
+    arr.sort((a, b) => a.value.toLocaleLowerCase().localeCompare(b.value.toLocaleLowerCase()));
+  }
+
+  if (withEmpty) {
+    arr.unshift(new KeyValuePair<string, string>('', ''));
+  }
+
   return arr;
 }
 

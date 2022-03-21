@@ -14,9 +14,13 @@ export class EmployeeTypePipe implements PipeTransform {
         return 'Manager';
       case EmployeeType.WORKER:
         return 'Worker';
+      case EmployeeType.ARCHITECT:
+        return 'Architect';
       default:
+        if (!value) {
+          return '';
+        }
         return '?';
     }
   }
-
 }

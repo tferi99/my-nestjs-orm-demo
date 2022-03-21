@@ -1,10 +1,14 @@
-import { MikroORM } from '@mikro-orm/core';
-import { MIKRO_ORM_OPTIONS } from '../../../config/mikro-orm.config';
+import { AnyEntity, EntityName, MikroORM } from '@mikro-orm/core';
+import { GET_MIKRO_ORM_OPTIONS, MIKRO_ORM_OPTIONS } from '../../../config/mikro-orm.config';
+import { BASE_ENTITIES } from '../entity/base-entities';
 
 export class DatabaseSchemaCreator {
-  static async create(exitOnError: boolean) {
+  static async create(entities: EntityName<AnyEntity<any>>[], exitOnError: boolean) {
     try {
-      const orm = await MikroORM.init(MIKRO_ORM_OPTIONS);
+      const options = GET_MIKRO_ORM_OPTIONS();
+      options.entities = [...BASE_ENTITIES, ...entities];
+
+      const orm = await MikroORM.init(options);
 
       const generator = orm.getSchemaGenerator();
 

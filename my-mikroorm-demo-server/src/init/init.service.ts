@@ -8,8 +8,8 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { PersonRepository } from '../features/person/person.repository';
 import { Person } from '../features/person/model/person.entity';
 import { DateTimeUtils, DurationUnit } from '@app/client-lib/util/datetime-utils';
-import { EmployeeType } from '../features/person/model/employee-type';
 import { EventEmitterService } from '../core/events/event-emitter.service';
+import { EmployeeType } from '@app/client-lib';
 
 /**
  * Initialization service. It started as a task during startup.
@@ -60,9 +60,9 @@ export class InitService {
     //OrmUtils.dumpUnitOfWork(em, '>>>>>>>>>>>>>>>>>>>>> START');
     await this.em.transactional(async (em) => {
       // unemployed
-      const p1 = new Person({ name: 'Tim Cook', email: 'tc@test.org', birth: this.yearsBefore(51), employeeType: EmployeeType.WORKER, rank: 0 });
-      const p2 = new Person({ name: 'Mary Teresa Barra', email: 'mtb@test.org', birth: this.yearsBefore(60), employeeType: EmployeeType.DIRECTOR, rank: 0 });
-      const p3 = new Person({ name: 'Barbara Smith', email: 'bs@test.org', birth: this.yearsBefore(41), employeeType: EmployeeType.WORKER, rank: 0 });
+      const p1 = new Person({ name: 'Tim Cook', email: 'tc@test.org', birth: this.yearsBefore(51), employeeType: EmployeeType.WORKER, rank: 1 });
+      const p2 = new Person({ name: 'Mary Teresa Barra', email: 'mtb@test.org', birth: this.yearsBefore(60), employeeType: EmployeeType.DIRECTOR, rank: 1 });
+      const p3 = new Person({ name: 'Barbara Smith', email: 'bs@test.org', birth: this.yearsBefore(41), employeeType: EmployeeType.WORKER, rank: 1 });
       em.persist(p1);
       em.persist(p2);
       em.persist(p3);

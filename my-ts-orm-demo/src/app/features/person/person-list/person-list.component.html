@@ -6,6 +6,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
+      <th scope="col">Updated</th>
       <th scope="col">Email</th>
       <th scope="col">Birth</th>
       <th scope="col">EmpType</th>
@@ -24,6 +25,7 @@
     <tr *ngFor="let p of (persons$ | async)">
       <td>{{p.id}}</td>
       <td class="nowrap">{{p.name}}</td>
+      <td>{{p.updated | amTimeAgo}}</td>
       <td class="nowrap">{{p.email}}</td>
       <td class="nowrap">{{p.birth | date: dateFormat}}</td>
       <td>{{p.employeeType | employeeType}}</td>

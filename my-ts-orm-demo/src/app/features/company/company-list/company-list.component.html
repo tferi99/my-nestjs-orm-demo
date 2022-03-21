@@ -6,6 +6,7 @@
     <th scope="col">#</th>
     <th scope="col">Name</th>
     <th scope="col">Established</th>
+    <th scope="col">Updated</th>
     <th scope="col">Active</th>
     <th scope="col">Note</th>
     <th scope="col" style="text-align: right">
@@ -19,6 +20,7 @@
     <td>{{c.id}}</td>
     <td>{{c.name}}</td>
     <td>{{c.established | date: dateFormat}}</td>
+    <td>{{c.updated | amTimeAgo}}</td>
     <td>
       <!--
       <i class="fas" [ngClass]="p.active ? 'fa-check' : 'fa-times'" [style.color]="p.active ? 'green' : 'red'" ></i>

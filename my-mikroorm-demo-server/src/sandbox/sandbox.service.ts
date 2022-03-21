@@ -5,8 +5,8 @@ import { Company } from '../features/company/model/company.entity';
 import { OrmUtilsService } from '../core/orm/service/orm-utils.service';
 import { Person } from '../features/person/model/person.entity';
 import { DateTimeUtils, DurationUnit } from '@app/client-lib/util/datetime-utils';
-import { EmployeeType } from '../features/person/model/employee-type';
 import { EntityManager, QueryBuilder } from '@mikro-orm/postgresql';
+import { EmployeeType } from '@app/client-lib';
 
 @Injectable()
 export class SandboxService {

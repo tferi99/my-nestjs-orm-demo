@@ -9,7 +9,7 @@ import { DynamicModule } from '@nestjs/common';
 
 const AUTO_PRIMARY_KEY = true;
 
-const ENTITIES: EntityName<AnyEntity<any>>[] = [Company, Person];
+export const ENTITIES: EntityName<AnyEntity<any>>[] = [Company, Person];
 
 export const MIKRO_ORM_OPTIONS : MikroOrmModuleSyncOptions = {
   // registerRequestContext: false,       // by default enabled
@@ -35,12 +35,16 @@ export const MIKRO_ORM_OPTIONS : MikroOrmModuleSyncOptions = {
 };
 
 export const GET_MIKRO_ORM_OPTIONS = (): MikroOrmModuleSyncOptions => {
-  console.log(`>>>>>>>>>>>>> DB: ${process.env.DATABASE_USER}/${process.env.DATABASE_PASSWORD}`);
+  const dbUser = process.env.DATABASE_USER;
+  if (!dbUser) {
+    throw new Error('No DATABASE_USER specified in .env or .env not found');
+  }
+  console.log('Database user: ', dbUser);
   return {
     // registerRequestContext: false,       // by default enabled
     type: 'postgresql',
     dbName: 'mymikroormdemo',
-    user: process.env.DATABASE_USER,
+    user: dbUser,
     password: process.env.DATABASE_PASSWORD,
 
     //  metadataProvider: TsMorphMetadataProvider,

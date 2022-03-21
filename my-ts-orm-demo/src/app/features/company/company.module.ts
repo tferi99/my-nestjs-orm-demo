@@ -14,6 +14,7 @@ import {DndModule} from 'ngx-drag-drop';
 import {BrowserModule} from '@angular/platform-browser';
 import {SharedModule} from '../../shared/shared.module';
 import {PersonModule} from '../person/person.module';
+import {MomentModule} from 'ngx-moment';
 
 @NgModule({
   declarations: [
@@ -34,9 +35,10 @@ import {PersonModule} from '../person/person.module';
     RouterModule,
     DndModule,
 
-    // ngx-bootstrap
+    // ngx
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
+    MomentModule,
 
     CoreModule,
     SharedModule,

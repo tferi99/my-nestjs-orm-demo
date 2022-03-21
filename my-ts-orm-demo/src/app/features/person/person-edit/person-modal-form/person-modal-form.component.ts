@@ -13,7 +13,7 @@ import {PersonAdditional} from '../person-edit.component';
   styleUrls: ['./person-modal-form.component.scss']
 })
 export class PersonModalFormComponent extends ModalComponentBase<Person, PersonAdditional, 'id'> implements OnInit {
-  employeeTypes: KeyValuePair<string, string>[] = stringEnumToKeyValuePairArray(EmployeeType, true);
+  employeeTypes: KeyValuePair<string, string>[] = stringEnumToKeyValuePairArray(EmployeeType, false, true);
 
   form = this.fb.group({
     id: [0],

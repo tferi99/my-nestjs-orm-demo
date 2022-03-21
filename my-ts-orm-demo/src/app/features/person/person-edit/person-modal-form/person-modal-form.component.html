@@ -30,7 +30,7 @@
       <div class="col-md-4 mb-3">
         <label for="employeeType">Employee Type</label>
         <select class="custom-select" id="employeeType" [formControl]="employeeType" [ngClass]="{'is-invalid' : employeeType.invalid}" placeholder="Employee Type">
-          <option *ngFor="let t of employeeTypes" [value]="t.value">{{t.key}}</option>
+          <option *ngFor="let t of employeeTypes" [value]="t.value">{{t.key | employeeTypeFromString | employeeType}}</option>
         </select>
         <div class="invalid-feedback" *ngIf="true && employeeType.invalid">{{getFormControlErrorMessage(employeeType)}}</div>
       </div>
