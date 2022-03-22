@@ -10,7 +10,7 @@ export interface Company extends OrmIntTimestampEntity {
   name: string;
   established: Date;
   active: boolean;
-  note?: string;
+  note: string;
   workers: Person[];
 }
 
