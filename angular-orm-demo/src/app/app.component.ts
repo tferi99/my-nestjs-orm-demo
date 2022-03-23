@@ -12,7 +12,7 @@ import {AppInitAction} from './init/store/init.actions';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'my-typeorm-demo';
+  title = 'my-nestjs-orm-demo';
 
   constructor(private store: Store<AuthState>) {}
 
