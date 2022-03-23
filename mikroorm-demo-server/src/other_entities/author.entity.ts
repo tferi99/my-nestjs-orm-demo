@@ -14,7 +14,7 @@ export class Author extends OrmIntTimestampEntity {
   age?: number;
 
   @Property()
-  termsAccepted = false;
+  termsAccepted: boolean = false;
 
   @Property()
   identities?: string[];

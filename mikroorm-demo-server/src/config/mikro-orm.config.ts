@@ -14,7 +14,7 @@ export const ENTITIES: EntityName<AnyEntity<any>>[] = [Company, Person];
 export const MIKRO_ORM_OPTIONS : MikroOrmModuleSyncOptions = {
   // registerRequestContext: false,       // by default enabled
   type: 'postgresql',
-  dbName: 'mymikroormdemo',
+  dbName: 'mynestjsormdemo',
   user: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
 
@@ -43,7 +43,7 @@ export const GET_MIKRO_ORM_OPTIONS = (): MikroOrmModuleSyncOptions => {
   return {
     // registerRequestContext: false,       // by default enabled
     type: 'postgresql',
-    dbName: 'mymikroormdemo',
+    dbName: 'mynestjsormdemo',
     user: dbUser,
     password: process.env.DATABASE_PASSWORD,
 

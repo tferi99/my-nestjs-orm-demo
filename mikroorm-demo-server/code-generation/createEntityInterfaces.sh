@@ -15,6 +15,7 @@ fi
 SRC_ROOT=$1
 
 echo "//!!!!!!!!!!!!!!!!!! GENARATED BY ${APP} - DON'T CHANGE IT !!!!!!!!!!!!!!!!!!"
+echo "import { EmployeeType } from '@app/client-lib/client-lib.model';"
 
 convert() {
 	if [ $# -ne 1 ]
@@ -119,10 +120,10 @@ convert() {
 			next
 		}
 
-		# Collection definition -> = []																workers = new Collection<Person>(this);	->	workers = new Person[];
+		# Collection definition -> = []																workers = new Collection<Person>(this);	->	workers: Person[];
 		/[ \t]*[a-zA-Z0-9_]+[ \t]*=[ \t]*new[ \t]*Collection<[a-zA-Z_]+>/ {
 			enablePrint("property collection")
-			s = gensub(/([ \t]*[a-zA-Z0-9_]+[ \t]*=[ \t]*new[ \t]*)(Collection<)([a-zA-Z0-9_]+)>.*/, "\\1\\3[];", "g")
+			s = gensub(/([ \t]*[a-zA-Z0-9_]+)([ \t]*=[ \t]*new[ \t]*Collection<)([a-zA-Z0-9_]+)>.*/, "\\1: \\3[];", "g")
 			printf "%s\n", s
 			next
 		}

@@ -1,4 +1,5 @@
-//!!!!!!!!!!!!!!!!!! GENARATED BY createModelInterface.sh - DON'T CHANGE IT !!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!! GENARATED BY createEntityInterfaces.sh - DON'T CHANGE IT !!!!!!!!!!!!!!!!!!
+import { EmployeeType } from '@app/client-lib/client-lib.model';
 
 export interface OrmBigIntEntity {
   id: number;
@@ -35,7 +36,7 @@ export interface Company extends OrmIntTimestampEntity {
   established: Date;
   active?: boolean;
   note: string;
-  workers = new Person[];
+  workers: Person[];
 }
 
 export interface Person extends OrmIntTimestampEntity {
@@ -53,11 +54,11 @@ export interface Author extends OrmIntTimestampEntity {
   name: string;
   email: string;
   age?: number;
-  termsAccepted = false;
+  termsAccepted?: boolean;
   identities?: string[];
   born?: Date;
-  books = new Book[];
-  friends = new Author[];
+  books: Book[];
+  friends: Author[];
   favouriteBook?: Book;
   version: number;
 }
