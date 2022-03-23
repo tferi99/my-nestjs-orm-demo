@@ -62,12 +62,12 @@ Installed PostreSQL server.
 Backend:
 ```
 cd mikroorm-demo-server
-npm i
+npm install
 ```
 Frontend:
 ```
 cd angular-orm-demo
-npm i
+npm install
 ```
 
 ## Database
