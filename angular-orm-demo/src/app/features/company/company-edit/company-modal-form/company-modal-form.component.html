@@ -12,7 +12,10 @@
       </div>
       <div class="col-md-4 mb-3">
         <label for="established">Established</label>
-        <input type="text" class="form-control" id="established" [formControl]="established" [ngClass]="{'is-invalid' : established.invalid}" placeholder="Established" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
+        <input type="text" class="form-control" id="established" [formControl]="established" [ngClass]="{'is-invalid' : established.invalid}"
+           placeholder="Established"
+           bsDatepicker [bsConfig]="{ dateInputFormat: NGX_DATE_FORMAT, customTodayClass:'custom-today'}"
+        >
         <div class="invalid-feedback" *ngIf="established.errors">{{getFormControlErrorMessage(established)}}</div>
       </div>
     </div>

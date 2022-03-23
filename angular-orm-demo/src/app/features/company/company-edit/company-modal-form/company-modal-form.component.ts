@@ -4,6 +4,7 @@ import {Company} from '@app/client-lib';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormValidatorService} from '../../../../core/service/form-validator.service';
 import {ModalComponentBase} from '../../../../core/component/modal.component.base';
+import {NGX_DATE_FORMAT} from '../../../../core/app.constants';
 
 @Component({
   selector: 'app-company-modal-form-form',
@@ -11,6 +12,8 @@ import {ModalComponentBase} from '../../../../core/component/modal.component.bas
   styleUrls: ['./company-modal-form.component.scss']
 })
 export class CompanyModalFormComponent extends ModalComponentBase<Company, any, 'id'> implements OnInit {
+  NGX_DATE_FORMAT = NGX_DATE_FORMAT;
+
   constructor(
     public bsModalRef: BsModalRef,
     private fb: FormBuilder,

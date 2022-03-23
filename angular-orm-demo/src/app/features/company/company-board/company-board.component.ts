@@ -14,6 +14,7 @@ import {DataServiceErrorMessageService, ErrorMessageMapping} from '../../../core
 import {CompanyEditComponent} from '../company-edit/company-edit.component';
 import {PersonEditComponent} from '../../person/person-edit/person-edit.component';
 import {COMPANY_ID_RUBBISH_BIN, COMPANY_ID_UNEMPLOYED} from '../company.constants';
+import {CHANGE_DETECTION_STRATEGY} from '../../../app.constants';
 
 const d = new Date();
 const rubbishBin: Company = { name: 'Rubbish Bin', workers: [], id: COMPANY_ID_RUBBISH_BIN, active: true, established: d, created: d, updated: d, note: ''};
@@ -21,7 +22,8 @@ const rubbishBin: Company = { name: 'Rubbish Bin', workers: [], id: COMPANY_ID_R
 @Component({
   selector: 'app-company-board',
   templateUrl: './company-board.component.html',
-  styleUrls: ['./company-board.component.scss']
+  styleUrls: ['./company-board.component.scss'],
+  changeDetection: CHANGE_DETECTION_STRATEGY
 })
 export class CompanyBoardComponent implements OnInit {
   @ViewChild('companyEdit') companyEdit!: CompanyEditComponent;

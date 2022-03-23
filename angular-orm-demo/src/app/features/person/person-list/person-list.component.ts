@@ -13,6 +13,7 @@ import {Store} from '@ngrx/store';
 import {ListComponentBase} from '../../../core/component/list.component.base';
 import {EditComponent} from '../../../core/component/data-modal-edit-component.base';
 import {EntityCollection} from '@ngrx/data/src/reducers/entity-collection';
+import {CHANGE_DETECTION_STRATEGY} from '../../../app.constants';
 
 const errorMapping: ErrorMessageMapping<Company> = {
   'ForeignKeyConstraintViolationError' : {message: 'Item is used'}
@@ -21,7 +22,8 @@ const errorMapping: ErrorMessageMapping<Company> = {
 @Component({
   selector: 'app-person-list',
   templateUrl: './person-list.component.html',
-  styleUrls: ['./person-list.component.scss']
+  styleUrls: ['./person-list.component.scss'],
+  changeDetection: CHANGE_DETECTION_STRATEGY
 })
 export class PersonListComponent extends ListComponentBase<Person, 'name'> implements OnInit {
   @ViewChild('edit') edit!: PersonEditComponent;

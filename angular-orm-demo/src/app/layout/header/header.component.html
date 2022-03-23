@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
-  <b><a class="navbar-brand" routerLink="/home"><img src="assets/logo-small.png" width="30px" height="30px"> [ My NestJs ORM Demo ]</a></b>
+  <b><a class="navbar-brand" routerLink="/home"><img src="assets/logo-small.png" width="30px" height="30px"> {{title}}</a></b>
+
   <ng-container *ngIf="authenticated$ | async">
     <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#navbarNavMenu" (click)="isCollapsedMenu = !isCollapsedMenu" aria-controls="navbarNavMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -29,3 +30,4 @@
     </div>
   </ng-container>
 </nav>
+<span style="display: none">{{getDummy()}}</span>

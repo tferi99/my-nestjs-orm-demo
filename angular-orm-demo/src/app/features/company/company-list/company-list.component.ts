@@ -10,6 +10,7 @@ import {
 import {CompanyEditComponent} from '../company-edit/company-edit.component';
 import {ListComponentBase} from '../../../core/component/list.component.base';
 import {EditComponent} from 'src/app/core/component/data-modal-edit-component.base';
+import {CHANGE_DETECTION_STRATEGY} from '../../../app.constants';
 
 const errorMapping: ErrorMessageMapping<Company> = {
   'ForeignKeyConstraintViolationError': {message: 'Item is used'}
@@ -18,7 +19,8 @@ const errorMapping: ErrorMessageMapping<Company> = {
 @Component({
   selector: 'app-company-list',
   templateUrl: './company-list.component.html',
-  styleUrls: ['./company-list.component.scss']
+  styleUrls: ['./company-list.component.scss'],
+  changeDetection: CHANGE_DETECTION_STRATEGY
 })
 export class CompanyListComponent extends ListComponentBase<Company, 'name'> implements OnInit {
   @ViewChild('edit') edit!: CompanyEditComponent;

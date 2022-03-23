@@ -9,6 +9,7 @@ import {LoginAction} from '../store/auth.actions';
 import {Observable} from 'rxjs';
 import {selectAuthentication, selectIsAuthenticated} from '../store/auth.selectors';
 import {Auth} from '@app/client-lib';
+import {CHANGE_DETECTION_STRATEGY} from '../../app.constants';
 
 export interface LoginData {
   username: string;
@@ -18,7 +19,8 @@ export interface LoginData {
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  changeDetection: CHANGE_DETECTION_STRATEGY
 })
 export class LoginComponent implements OnInit {
   authenticated$: Observable<boolean> = this.store.pipe(select(selectIsAuthenticated));

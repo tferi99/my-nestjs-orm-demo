@@ -33,6 +33,9 @@ import {CoreModule} from './core/core.module';
 import {ModalModule} from "ngx-bootstrap/modal";
 import {PersonModule} from './features/person/person.module';
 import {appReducer} from './store/app.reducer';
+import {SharedModule} from './shared/shared.module';
+import {MomentModule} from 'ngx-moment';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,7 @@ import {appReducer} from './store/app.reducer';
     ErrorMessageComponent,
     HomeComponent,
     HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +73,7 @@ import {appReducer} from './store/app.reducer';
      *
      * If you want to save non-serialiable objects in store.
      * See also: https://nils-mehlhorn.de/posts/ngrx-store-unserializable-data
-       */
+     */
     StoreModule.forRoot(appReducer, {
       runtimeChecks: {
         strictStateImmutability: true,
@@ -91,11 +95,14 @@ import {appReducer} from './store/app.reducer';
     ),
     EntityDataModule.forRoot(entityConfig),
 
+    SharedModule,
+
     // features
     CoreModule,
     AuthModule,
     CompanyModule,
     PersonModule,
+    MomentModule,
   ],
   providers: [
     {

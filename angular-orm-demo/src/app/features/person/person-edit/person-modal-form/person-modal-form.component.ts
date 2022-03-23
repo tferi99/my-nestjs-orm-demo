@@ -6,6 +6,7 @@ import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../../../core/util
 import {FormValidatorService} from '../../../../core/service/form-validator.service';
 import {ModalComponentBase} from '../../../../core/component/modal.component.base';
 import {PersonAdditional} from '../person-edit.component';
+import {NGX_DATE_FORMAT} from '../../../../core/app.constants';
 
 @Component({
   selector: 'app-person-modal-form-form',
@@ -14,6 +15,8 @@ import {PersonAdditional} from '../person-edit.component';
 })
 export class PersonModalFormComponent extends ModalComponentBase<Person, PersonAdditional, 'id'> implements OnInit {
   employeeTypes: KeyValuePair<string, string>[] = stringEnumToKeyValuePairArray(EmployeeType, false, true);
+
+  NGX_DATE_FORMAT = NGX_DATE_FORMAT;
 
   form = this.fb.group({
     id: [0],
