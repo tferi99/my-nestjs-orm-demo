@@ -1,7 +1,7 @@
 ![](https://github.com/tferi99/my-ts-orm-demo/blob/master/my-ts-orm-demo/src/assets/logo.png)
 
 
-# MyTsOrmDemo
+# MyNestJsOrmDemo
 
 ## Intro
 
