@@ -1,4 +1,4 @@
-![](https://github.com/tferi99/my-ts-orm-demo/blob/master/my-ts-orm-demo/src/assets/logo.png)
+![](https://github.com/tferi99/angular-orm-demo/blob/master/angular-orm-demo/src/assets/logo.png)
 
 
 # MyNestJsOrmDemo
@@ -6,8 +6,8 @@
 ## Intro
 
 This is a full-stack application implemented with TypeScript that demostrates how to handle data in a relational database with ORM and howto store hierarchical data in NgRx Store and manage with NgRx Data. Repo contains two projects:
-1. my-mikroorm-demo-server (baclend)
-2. my-ts-orm-demo (frontend)
+1. mikroorm-demo-server (backend)
+2. angular-orm-demo (frontend)
 
 
 ### Technology
@@ -55,41 +55,48 @@ It's a good approach to do the same in NgRx Store. Store hierarchical data in _n
 
 If you need normalized data in hierarchical form you can read and convert it with NgRx selectors.
 
+## Prerequisites
+Installed PostreSQL server.
+
+## Installation
+Backend:
+```
+cd mikroorm-demo-server
+npm i
+```
+Frontend:
+```
+cd angular-orm-demo
+npm i
+```
+
 ## Database
 Create database:
 ```
-createdb -U postgres mymikroormdemo
+createdb -U postgres mynestjsormdemo
 ```
-Set database credentials in _**.env**_:
+Set database credentials in _**.env**_, for example:
 ```
 DATABASE_USER=postgres
 DATABASE_PASSWORD=postgres
 ```
 
-## Database schema
-Build Backend:
+Create database schema:
 ```
-cd my-mikroorm-demo-server
-npm i
-npm run build
-```
-
-Create schema (database objects):
-```
-cd my-mikroorm-demo-server/dist
-node main.js createdbschema
+cd mikroorm-demo-server
+npm run createdbschema
 ```
 
 ## Run
 Backend:
 ```
-cd my-mikroorm-demo-server
+cd mikroorm-demo-server
 npm run start
 ```
 
 Frontend:
 ```
-cd my-ts-orm-demo
+cd angular-orm-demo
 npm run start
 ```
 
