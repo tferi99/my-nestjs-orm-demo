@@ -25,7 +25,7 @@ export class CompanyEditComponent extends DataModalEditComponentBase<Company, an
     private dataServiceErrorMessageService: DataServiceErrorMessageService
 
   ) {
-    super(CompanyModalFormComponent, companyDataService, modalService, dataServiceErrorMessageService, errorMapping);
+    super(CompanyModalFormComponent, companyDataService, modalService, dataServiceErrorMessageService, errorMapping, {class: 'modal-lg'});
   }
 
   ngOnInit(): void {

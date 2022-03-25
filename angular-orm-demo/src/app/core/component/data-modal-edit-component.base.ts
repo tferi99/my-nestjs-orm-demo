@@ -16,6 +16,12 @@ export interface EditComponent<T> {
  *    A:  additional data
  */
 export abstract class DataModalEditComponentBase<T, A> {
+  private _modalComponentType: ComponentType<ModalLoadDto<T, A>>;
+  private _dataService: EntityCollectionServiceBase<T>;
+  private _modalService: BsModalService;
+  private _dataServiceErrorMessageService: DataServiceErrorMessageService;
+  private _errorMapping: ErrorMessageMapping<T>;
+  private _additionalModalOptions: Partial<ModalOptions<ModalLoadDto<T, A>>> | undefined;
   /**
    * Pass this values from constructor of inherited class:
    *
@@ -26,12 +32,21 @@ export abstract class DataModalEditComponentBase<T, A> {
    * @param _errorMapping error code-message mapping
    */
   constructor(
-    private _modalComponentType: ComponentType<ModalLoadDto<T, A>>,
-    private _dataService: EntityCollectionServiceBase<T>,
-    private _modalService: BsModalService,
-    private _dataServiceErrorMessageService: DataServiceErrorMessageService,
-    private _errorMapping: ErrorMessageMapping<T>
-  ) { }
+    modalComponentType: ComponentType<ModalLoadDto<T, A>>,
+    dataService: EntityCollectionServiceBase<T>,
+    modalService: BsModalService,
+    dataServiceErrorMessageService: DataServiceErrorMessageService,
+    errorMapping: ErrorMessageMapping<T>,
+    additionalModalOptions?: Partial<ModalOptions<ModalLoadDto<T, A>>>
+  ) {
+    this._modalComponentType = modalComponentType;
+    this._dataService = dataService;
+    this._modalService = modalService;
+    this._dataServiceErrorMessageService = dataServiceErrorMessageService;
+    this._errorMapping = errorMapping;
+    this._additionalModalOptions = additionalModalOptions;
+
+  }
 
   abstract getAdditional(): A;
   abstract beforeSave(data: T): void;
@@ -56,7 +71,8 @@ export abstract class DataModalEditComponentBase<T, A> {
       initialState: {
         in: data,
         additional: this.getAdditional()
-      }
+      },
+      ...this._additionalModalOptions
     };
     //console.log('DIALOG: ', initialState);
     const ref: BsModalRef = this._modalService.show(this._modalComponentType, modalOptions);

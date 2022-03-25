@@ -33,7 +33,7 @@ export class PersonEditComponent extends DataModalEditComponentBase<Person, Pers
     private dataServiceErrorMessageService: DataServiceErrorMessageService
 
   ) {
-    super(PersonModalFormComponent, personDataService, modalService, dataServiceErrorMessageService, errorMapping);
+    super(PersonModalFormComponent, personDataService, modalService, dataServiceErrorMessageService, errorMapping, {class: 'modal-lg'});
   }
 
   ngOnInit(): void {

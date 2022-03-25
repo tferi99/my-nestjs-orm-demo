@@ -7,6 +7,8 @@ import {FormValidatorService} from '../../../../core/service/form-validator.serv
 import {ModalComponentBase} from '../../../../core/component/modal.component.base';
 import {PersonAdditional} from '../person-edit.component';
 import {NGX_DATE_FORMAT} from '../../../../core/app.constants';
+import {faker} from '@faker-js/faker';
+import {randomNumEnum, randomStringEnum} from '../../../../core/util/random-utils';
 
 @Component({
   selector: 'app-person-modal-form-form',
@@ -54,5 +56,16 @@ export class PersonModalFormComponent extends ModalComponentBase<Person, PersonA
 
   protected getNameOfId(): 'id' {
     return 'id';
+  }
+
+  fillRandom() {
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
+    this.name.setValue(firstName + ' ' + lastName);
+    this.email.setValue(faker.internet.email(firstName, lastName));
+    this.employeeType.setValue(randomStringEnum(EmployeeType));
+    this.rank.setValue(Math.ceil(Math.random() * 90));
+    this.birth.setValue(faker.date.past(80));
+    this.active.setValue(Math.random() > .5);
   }
 }

@@ -36,6 +36,14 @@ import {appReducer} from './store/app.reducer';
 import {SharedModule} from './shared/shared.module';
 import {MomentModule} from 'ngx-moment';
 import { FooterComponent } from './layout/footer/footer.component';
+import { SandboxComponent } from './features/sandbox/sandbox/sandbox.component';
+import { CompanyPanelComponent } from './features/sandbox/company-panel/company-panel.component';
+import { PersonPanelComponent } from './features/sandbox/person-panel/person-panel.component';
+import { NotePanelComponent } from './features/sandbox/note-panel/note-panel.component';
+import {NoteModule} from './features/note/note.module';
+import * as fromNote from './features/note/store/note.reducer';
+import { SandboxHeaderComponent } from './features/sandbox/sandbox-header/sandbox-header.component';
+import {SandboxModule} from './features/sandbox/sandbox.module';
 
 @NgModule({
   declarations: [
@@ -61,12 +69,13 @@ import { FooterComponent } from './layout/footer/footer.component';
     }),
     AppRoutingModule,
 
-    // ngx-bootstrap
+    // ngx
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
     AccordionModule.forRoot(),
     ModalModule.forRoot(),
+    MomentModule,
 
     /**
      * Store options
@@ -85,6 +94,7 @@ import { FooterComponent } from './layout/footer/footer.component';
       }
     }),
     StoreModule.forFeature(fromAuth.featureKey, fromAuth.reducer),
+    StoreModule.forFeature(fromNote.notesFeatureKey, fromNote.reducer),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
 
     EffectsModule.forRoot([]),
@@ -102,7 +112,8 @@ import { FooterComponent } from './layout/footer/footer.component';
     AuthModule,
     CompanyModule,
     PersonModule,
-    MomentModule,
+    NoteModule,
+    SandboxModule
   ],
   providers: [
     {

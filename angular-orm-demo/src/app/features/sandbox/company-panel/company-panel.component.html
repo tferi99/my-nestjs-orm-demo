@@ -1,0 +1,19 @@
+<div class="devComponent">
+  <p>
+    <strong>Counter1: </strong>{{counter1 | async}}
+  </p>
+
+  <div class="card alert alert-success" title="Add random company">
+    <div class="card-header nowrapped-truncated-text textCenter" role="button" (click)="addRandomCompany()">
+      <i class="fa fa-plus mr-1"></i>
+      <i class="fas fa-industry"></i>
+    </div>
+  </div>
+
+  <ul>
+    <li *ngFor="let c of (companies$ | async)">{{c.name}}</li>
+  </ul>
+
+  {{something}}
+  <button class="btn btn-primary" (click)="triggerChangeDetection()">Change detection</button>
+</div>

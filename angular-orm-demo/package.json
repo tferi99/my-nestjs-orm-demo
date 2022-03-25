@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.config.json",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build --watch --configuration developm@",
     "test": "ng test"
   },
   "private": true,
@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@faker-js/faker": "^6.0.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@ngrx/data": "^12.4.0",
     "@ngrx/effects": "^12.4.0",

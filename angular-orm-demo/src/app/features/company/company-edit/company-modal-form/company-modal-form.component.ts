@@ -5,6 +5,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {FormValidatorService} from '../../../../core/service/form-validator.service';
 import {ModalComponentBase} from '../../../../core/component/modal.component.base';
 import {NGX_DATE_FORMAT} from '../../../../core/app.constants';
+import {faker} from '@faker-js/faker';
 
 @Component({
   selector: 'app-company-modal-form-form',
@@ -42,6 +43,12 @@ export class CompanyModalFormComponent extends ModalComponentBase<Company, any, 
 
   protected getNameOfId(): 'id' {
     return 'id';
+  }
+
+  fillRandom() {
+    this.name.setValue(faker.company.companyName());
+    this.established.setValue(faker.date.past(100));
+    this.active.setValue(Math.random() > .5);
   }
 }
 

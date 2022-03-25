@@ -1,0 +1,32 @@
+<h2>Sandbox</h2>
+<small><i>For testing OnPush change detection strategy - open JS console for debug messages</i></small>
+
+<p class="mt-2">
+  <app-sandbox-header></app-sandbox-header>
+</p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <h5>Company</h5>
+      <app-company-panel></app-company-panel>
+    </div>
+    <div class="col-4">
+      <h5>Person</h5>
+      <app-person-panel></app-person-panel>
+    </div>
+    <div class="col-4">
+      <h5>Note</h5>
+      <app-note-panel></app-note-panel>
+    </div>
+  </div>
+</div>
+
+<hr>
+<p>
+  <small><i>
+    Components have OnPush change detection strategy.
+    If a value has been changed in the Store, only those components detect the change whose selector provided this value.
+  </i></small>
+</p>
+

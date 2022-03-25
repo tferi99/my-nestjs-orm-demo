@@ -1,6 +1,8 @@
 <div class="modal-header">
-  <h2 *ngIf="isNew">New Company</h2>
-  <h2 *ngIf="!isNew">Edit Company[{{in?.id}}]</h2>
+  <h2>
+    <span>{{isNew ? 'New' : 'Edit'}} Company</span>
+  </h2>
+  <button class="btn btn-warning pull-right" (click)="fillRandom()">Random</button>
 </div>
 <form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus [focusDelayed]="true" (appOnEscape)="onCancel()">
   <div class="modal-body">
