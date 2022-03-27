@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import {PersonDataService} from '../../person/store/person-data.service';
-import {Observable} from 'rxjs';
-import {Company, EmployeeType, Person} from '@app/client-lib';
-import {faker} from '@faker-js/faker';
-import {randomStringEnum} from '../../../core/util/random-utils';
-import {ToastrService} from 'ngx-toastr';
+import { PersonDataService } from '../../person/store/person-data.service';
+import { Observable } from 'rxjs';
+import { EmployeeType, Person } from '@app/client-lib';
+import { faker } from '@faker-js/faker';
+import { randomStringEnum } from '../../../core/util/random-utils';
+import { ToastrService } from 'ngx-toastr';
 import {
   DataServiceErrorMessageService,
   ErrorMessageMapping
 } from '../../../core/store/data-service-error-message.service';
-import {CHANGE_DETECTION_STRATEGY} from '../../../app.constants';
-import {NoteService} from '../../note/note.service';
-import {addNote} from '../../note/store/note.actions';
-import {Store} from '@ngrx/store';
-import {NoteState} from '../../note/store/note.reducer';
-import {selectCounter2} from '../../note/store/note.selectors';
+import { CHANGE_DETECTION_STRATEGY } from '../../../app.constants';
+import { NoteService } from '../../note/note.service';
+import { addNote } from '../../note/store/note.actions';
+import { Store } from '@ngrx/store';
+import { NoteState } from '../../note/store/note.reducer';
+import { selectCounter2 } from '../../note/store/note.selectors';
+import { map } from 'rxjs/operators';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 const errorMapping: ErrorMessageMapping<Person> = {
 }
@@ -27,6 +29,9 @@ const errorMapping: ErrorMessageMapping<Person> = {
 })
 export class PersonPanelComponent implements OnInit {
   persons$!: Observable<Person[]>;
+  itemsForm: FormGroup = new FormGroup({
+    dummy: new FormControl()
+  });
   counter2!: Observable<number>;
 
   get something(): string {
@@ -34,19 +39,37 @@ export class PersonPanelComponent implements OnInit {
     return '...';
   }
 
+
   constructor(
     private personDataService: PersonDataService,
     private toastr: ToastrService,
     private dataServiceErrorMessageService: DataServiceErrorMessageService,
     private store: Store<NoteState>,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.personDataService.getAll();
 
-    this.persons$ = this.personDataService.entities$;
+    this.persons$ = this.personDataService.entities$.pipe(
+      map(items => {
+        this.itemsForm = this.fb.group({});
+        items.forEach(p => this.itemsForm.addControl(p.id.toString(), new FormControl(false)));
+        return items;
+      })
+    );
     this.counter2 = this.store.select(selectCounter2);
+  }
+
+  onItemsSubmit(): void {
+    const data: any = this.itemsForm.value;
+    // console.log('RESULT: ', data);
+    for (let key in data) {
+      if (data[key]) {
+        this.personDataService.delete(key);
+      }
+    }
   }
 
   addRandomPerson() {

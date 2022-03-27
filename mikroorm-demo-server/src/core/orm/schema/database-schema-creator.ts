@@ -1,5 +1,5 @@
 import { AnyEntity, EntityName, MikroORM } from '@mikro-orm/core';
-import { GET_MIKRO_ORM_OPTIONS, MIKRO_ORM_OPTIONS } from '../../../config/mikro-orm.config';
+import { GET_MIKRO_ORM_OPTIONS } from '../../../config/mikro-orm.config';
 import { BASE_ENTITIES } from '../entity/base-entities';
 
 export class DatabaseSchemaCreator {

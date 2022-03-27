@@ -12,6 +12,8 @@ import {CHANGE_DETECTION_STRATEGY} from '../../../app.constants';
 import {selectCounter1} from '../../note/store/note.selectors';
 import {Store} from '@ngrx/store';
 import {NoteState} from '../../note/store/note.reducer';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { map } from 'rxjs/operators';
 
 const errorMapping: ErrorMessageMapping<Company> = {
 }
@@ -24,6 +26,9 @@ const errorMapping: ErrorMessageMapping<Company> = {
 })
 export class CompanyPanelComponent implements OnInit {
   companies$!: Observable<Company[]>;
+  itemsForm: FormGroup = new FormGroup({
+    dummy: new FormControl()
+  });
   counter1!: Observable<number>;
 
   get something(): string {
@@ -35,14 +40,31 @@ export class CompanyPanelComponent implements OnInit {
     private companyDataService: CompanyDataService,
     private toastr: ToastrService,
     private dataServiceErrorMessageService: DataServiceErrorMessageService,
-  private store: Store<NoteState>,
+    private store: Store<NoteState>,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.companyDataService.getAll();
 
-    this.companies$ = this.companyDataService.entities$;
+    this.companies$ = this.companyDataService.entities$.pipe(
+      map(items => {
+        this.itemsForm = this.fb.group({});
+        items.forEach(p => this.itemsForm.addControl(p.id.toString(), new FormControl(false)));
+        return items;
+      })
+    );
     this.counter1 = this.store.select(selectCounter1);
+  }
+
+  onItemsSubmit(): void {
+    const data: any = this.itemsForm.value;
+    // console.log('RESULT: ', data);
+    for (let key in data) {
+      if (data[key]) {
+        this.companyDataService.delete(key);
+      }
+    }
   }
 
   addRandomCompany() {

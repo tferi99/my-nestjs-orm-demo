@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { CompanyService } from './company.service';
 import { CompanyController } from './company.controller';
 import { OrmModule } from '../../core/orm/orm.module';
 import { ConfiguredOrmModule } from '../../config/mikro-orm.config';
@@ -10,8 +9,8 @@ import { ConfiguredEventsModule } from '../../config/events.config';
     ConfiguredOrmModule(),
     ConfiguredEventsModule()
   ],
-  providers: [CompanyService],
+  providers: [],
   controllers: [CompanyController],
-  exports: [CompanyService],
+  exports: [],
 })
 export class CompanyModule {}
