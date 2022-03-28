@@ -41,7 +41,7 @@ export abstract class CrudEntityRepository<T extends AnyEntity<T>> extends Entit
     };
   }
 
-  crud(): Crud<T> {
+  get crud(): Crud<T> {
     return this._crud;
   }
 

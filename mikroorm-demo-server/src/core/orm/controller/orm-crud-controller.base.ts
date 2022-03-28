@@ -16,6 +16,10 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
     this.getAllOptions = getAllOptions;
   }
 
+  public get repo() {
+    return this._repo;
+  }
+
   @Get()
   async getAll(): Promise<T[]> {
     return this._repo.findAll(this.getAllOptions);
