@@ -9,10 +9,10 @@ import { CrudEntityRepository } from 'src/core/orm/service/crud-entity-repositor
 @Controller('company')
 export class CompanyController extends OrmCrudControllerBase<Company> {
   constructor(
-    @InjectRepository(Company) private repo: CompanyRepository,
+    @InjectRepository(Company) private companyRepository: CompanyRepository,
     private eventEmitterService: EventEmitterService,
   ) {
-    super(repo, { orderBy: { name: 'ASC' } });
+    super(companyRepository, { orderBy: { name: 'ASC' } });
   }
 
   getRepository(): CrudEntityRepository<Company> {

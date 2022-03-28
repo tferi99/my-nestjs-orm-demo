@@ -10,10 +10,10 @@ import { CompanyRepository } from '../company/company.repository';
 @Controller('person')
 export class PersonController extends OrmCrudControllerBase<Person> {
   constructor(
-    @InjectRepository(Person) private repo: PersonRepository,
+    @InjectRepository(Person) private personRepository: PersonRepository,
     @InjectRepository(Company) private companyRepo: CompanyRepository
   ) {
-    super(repo, { orderBy: { name: 'ASC' } });
+    super(personRepository, { orderBy: { name: 'ASC' } });
   }
 
   /**
@@ -26,7 +26,7 @@ export class PersonController extends OrmCrudControllerBase<Person> {
   @Post('company/:companyId')
   async insertForCompany(@Body() data: Person, @Param('companyId', ParseIntPipe) companyId: number): Promise<Person> {
     const company: Company = this.companyRepo.getReference(companyId);
-    const obj = await this._repo.crud().insertForParent(data, 'company', company);
+    const obj = await this._repo.crud.insertForParent(data, 'company', company);
     await this._repo.flush();
     return obj;
   }

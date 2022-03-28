@@ -1,3 +1,4 @@
+// loading .env
 import { config } from 'dotenv';
 config();
 
