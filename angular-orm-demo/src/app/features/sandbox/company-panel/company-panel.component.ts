@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {CompanyDataService} from '../../company/store/company-data.service';
 import {Observable} from 'rxjs';
 import {Company} from '@app/client-lib';
@@ -47,14 +47,9 @@ export class CompanyPanelComponent implements OnInit {
   ngOnInit(): void {
     this.companyDataService.getAll();
 
-    this.companies$ = this.companyDataService.entities$.pipe(
-      map(items => {
-        this.itemsForm = this.fb.group({});
-        items.forEach(p => this.itemsForm.addControl(p.id.toString(), new FormControl(false)));
-        return items;
-      })
-    );
     this.counter1 = this.store.select(selectCounter1);
+    this.itemsForm = this.fb.group({});
+    this.initDynamicForm();
   }
 
   onItemsSubmit(): void {
@@ -81,4 +76,13 @@ export class CompanyPanelComponent implements OnInit {
   }
 
   triggerChangeDetection() {}
+
+  initDynamicForm() {
+    this.companies$ = this.companyDataService.entities$.pipe(
+      map(items => {
+        items.forEach(p => this.itemsForm.addControl(p.id.toString(), new FormControl(false)));
+        return items;
+      })
+    );
+  }
 }

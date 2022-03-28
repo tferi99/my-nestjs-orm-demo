@@ -37,18 +37,13 @@ export class NotePanelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.notes$ = this.store.select(selectAllNotes).pipe(
-      map(items => {
-        this.itemsForm = this.fb.group({});
-        items.forEach(p => this.itemsForm.addControl(p.id.toString(), new FormControl(false)));
-        return items;
-      })
-    );
     this.counter3 = this.store.select(selectCounter3);
 
 /*    this.notes$ = of([
       this.noteService.createRandomNote()
     ]);*/
+    this.itemsForm = this.fb.group({});
+    this.initDynamicForm();
   }
 
   triggerChangeDetection() {}
@@ -67,5 +62,14 @@ export class NotePanelComponent implements OnInit {
     const note = this.noteService.createRandomNote();
     this.store.dispatch(addNote({note}));
     this.toastr.info(note.label + ' : has been created.');
+  }
+
+  initDynamicForm() {
+    this.notes$ = this.store.select(selectAllNotes).pipe(
+      map(items => {
+        items.forEach(p => this.itemsForm.addControl(p.id.toString(), new FormControl(false)));
+        return items;
+      })
+    );
   }
 }

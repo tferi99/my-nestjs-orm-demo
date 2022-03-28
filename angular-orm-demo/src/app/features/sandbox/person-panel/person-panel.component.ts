@@ -52,14 +52,10 @@ export class PersonPanelComponent implements OnInit {
   ngOnInit(): void {
     this.personDataService.getAll();
 
-    this.persons$ = this.personDataService.entities$.pipe(
-      map(items => {
-        this.itemsForm = this.fb.group({});
-        items.forEach(p => this.itemsForm.addControl(p.id.toString(), new FormControl(false)));
-        return items;
-      })
-    );
     this.counter2 = this.store.select(selectCounter2);
+
+    this.itemsForm = this.fb.group({});
+    this.initDynamicForm();
   }
 
   onItemsSubmit(): void {
@@ -97,5 +93,15 @@ export class PersonPanelComponent implements OnInit {
     const note = this.noteService.createRandomNote();
     this.store.dispatch(addNote({note}));
     this.toastr.info(note.label + ' : has been created.');
+  }
+
+  initDynamicForm() {
+    this.persons$ = this.personDataService.entities$.pipe(
+      map(items => {
+
+        items.forEach(p => this.itemsForm.addControl(p.id.toString(), new FormControl(false)));
+        return items;
+      })
+    );
   }
 }
