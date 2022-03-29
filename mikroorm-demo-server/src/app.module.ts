@@ -7,9 +7,11 @@ import { CompanyModule } from './features/company/company.module';
 import { PersonModule } from './features/person/person.module';
 import { SandboxModule } from './sandbox/sandbox.module';
 import { AuthModule } from './auth/auth.module';
-import { UserService } from './auth/user.service';
+import { UserService } from './admin/user/user.service';
 import { GlobalExceptionFilter } from './core/filter/global-exception-filter';
 import { APP_FILTER } from '@nestjs/core';
+import { AdminModule } from './admin/admin.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -21,6 +23,7 @@ import { APP_FILTER } from '@nestjs/core';
     SandboxModule,
     AuthModule,
     InitModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [
