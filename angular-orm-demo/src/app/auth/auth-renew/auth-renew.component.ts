@@ -4,6 +4,10 @@ import {AppState} from '../../store/app.reducer';
 import {Store} from '@ngrx/store';
 import {RenewAction} from '../store/auth.actions';
 import {CHANGE_DETECTION_STRATEGY} from '../../app.constants';
+import { Observable, Subscription } from 'rxjs';
+import { Auth } from '@app/client-lib';
+import { selectAuthentication } from '../store/auth.selectors';
+import { AuthWithExpiration } from '../model/auth-with-expiration';
 
 const RENEW_RATIO = 0.8;
 
@@ -19,14 +23,17 @@ const RENEW_RATIO = 0.8;
 export class AuthRenewComponent implements OnInit {
   @Input() trace = false;
 
+  auth$!: Observable<AuthWithExpiration>;
+  authSub!: Subscription;
+
   loop = 0; // inactive
   constructor(
-    private authService: AuthService,
     private store: Store<AppState>
   ) { }
 
   ngOnInit(): void {
-    const auth = this.authService.getCurrentAuth();
+
+    this.authSub = this.store.select(selectAuthentication).subscribe()
     if (auth) {
       this.loop = (auth.expiration - Date.now()) * RENEW_RATIO * 10;
     }
