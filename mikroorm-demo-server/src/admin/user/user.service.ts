@@ -12,7 +12,7 @@ const USERS: User[] = [
 export class UserService {
   private readonly logger = new Logger(UserService.name);
 
-  async validateUser(username: string, password: string): Promise<User> {
+  async validateUser(username: string, password: string): Promise<Partial<User>> {
     const user: User = await this.getUserByName(username);
     if (user) {
       //if (await SecurityUtils.validateString(pass, user.password)) {        // if encrypted

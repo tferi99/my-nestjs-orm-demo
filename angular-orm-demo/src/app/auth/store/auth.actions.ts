@@ -33,41 +33,20 @@ export const LogoutAction = createAction(
   PREFIX + 'Logout',
 );
 
-/*
-export const AuthRoleTestAction = createAction(
-  PREFIX + 'AuthRoleTest',
+export const RenewAction = createAction(
+  PREFIX + 'Renew',
+);
+
+export const RenewSuccessAction = createAction(
+  PREFIX + 'RenewSuccess',
   props<{
-    role: Role,
-    onOkActions?: Action[],     // if empty or undefined default action will be fired: AuthRoleTestOkAction
-    onErrorActions?: Action[],  // if empty or undefined default action will be fired: AuthTestErrorAction
-    navigateTarget?: string     // navigate here in LoginSuccessAction (default is '')
+    auth: AuthWithExpiration,
+    navigateTarget?: string     // navigate here in (default is '')
   }>()
 );
 
-
-export const AuthRoleTestOkAction = createAction(
-  PREFIX + 'AuthRoleTestOk',
-  props<{role: Role}>()
+export const RenewErrorAction = createAction(
+  PREFIX + 'RenewError',
+  props<{errorMessage: string}>()
 );
-
-export const AuthRoleTestErrorAction = createAction(
-  PREFIX + 'AuthRoleTestError',
-  props<{role: Role, message: string}>()
-);
-
-export const AuthTest1Action = createAction(
-  PREFIX + 'AuthTest1'
-);
-
-export const AuthTest2Action = createAction(
-  PREFIX + 'AuthTest2'
-);
-
-export const AuthTest3Action = createAction(
-  PREFIX + 'AuthTest3'
-);
-
-export const DummyAction = createAction(
-  PREFIX + 'DUMMY'
-);*/
 

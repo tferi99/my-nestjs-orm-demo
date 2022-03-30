@@ -17,7 +17,7 @@ export class AuthService {
    * @param username
    * @param pass
    */
-  async validateUser(username: string, pwd: string): Promise<User> {
+  async validateUser(username: string, pwd: string): Promise<Partial<User>> {
     LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', `--> AuthService.validateUser [${username}|${pwd}]`);
     return this.userService.validateUser(username, pwd);
   }

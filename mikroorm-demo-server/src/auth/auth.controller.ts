@@ -1,4 +1,4 @@
-import { Controller, Logger, Post, Req, UseGuards } from '@nestjs/common';
+import {Controller, Get, Logger, Post, Req, UseGuards} from '@nestjs/common';
 import { OverrideGlobalGuard } from './passport/override-global-guard.decorator';
 import { NoAuth } from './passport/no-auth.decorator';
 import { AuthService } from './auth.service';
@@ -35,5 +35,11 @@ export class AuthController {
 
     // TODO
     // some token cleanup (or removing token from IP bound JWT based on IP address)
+  }
+
+  @Post('renew')
+  async renew(@Req() req: any): Promise<LoginResult> {
+    LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', 'renew token for ' + req.user.name);
+    return this.jwtStrategy.createJwtForlogin(req.user);
   }
 }

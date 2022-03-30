@@ -17,6 +17,7 @@ import {ErrorMessageUtils} from './error-message-utils';
 import {CustomHttpStatus, ResponseErrorPayload, ServerError} from '@app/client-lib';
 import {ForeignKeyConstraintViolationError, ServerAppError, UniqueConstraintError} from './app-error';
 import {AppState} from '../../store/app.reducer';
+import {LogoutAction} from '../../auth/store/auth.actions';
 
 
 /**
@@ -55,10 +56,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         case HttpStatusCode.Unauthorized:
           if (err.url?.endsWith('/login')) {
             notify = false;
+          } else {
+            this.store.dispatch(LogoutAction());
           }
-/*          if (err.url?.endsWith('/testAdmin') || err.url?.endsWith('/testUser')) {
-              notify = false;
-          }*/
           break;
         case HttpStatusCode.Forbidden:
           if (err.url?.includes('/testAdmin') || err.url?.includes('/testUser')) {

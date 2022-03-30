@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
-import {LogoutAction} from '../../auth/store/auth.actions';
+import {LogoutAction, RenewAction} from '../../auth/store/auth.actions';
 import {Observable} from 'rxjs';
 import {selectAuthentication, selectIsAuthenticated} from '../../auth/store/auth.selectors';
 import {Auth} from '@app/client-lib';
@@ -34,5 +34,9 @@ export class HeaderComponent implements OnInit {
   getDummy(): string {
     console.log('getDummy() - if you see this often then check CHANGE_DETECTION_STRATEGY');
     return 'dummy';
+  }
+
+  renew() {
+    this.store.dispatch(RenewAction());
   }
 }

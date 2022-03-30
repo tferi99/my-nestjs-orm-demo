@@ -17,7 +17,9 @@ export class ValueRefreshedByTimerComponent implements OnInit {
   constructor(private timerService: TimerService) { }
 
   ngOnInit() {
-    // the same interval uses the same timer instance
-    this.timer$ = this.timerService.getTimer(this.interval);
+    if (this.interval > 0) {
+      // the same interval uses the same timer instance
+      this.timer$ = this.timerService.getTimer(this.interval);
+    }
   }
 }

@@ -6,15 +6,19 @@ import {AuthJwtTokenApplyInterceptor} from './auth-jwt-token-apply-interceptor.s
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {CoreModule} from '../core/core.module';
+import { AuthRenewComponent } from './auth-renew/auth-renew.component';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    AuthRenewComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
+    SharedModule,
 
     CoreModule
   ],
@@ -26,5 +30,9 @@ import {CoreModule} from '../core/core.module';
     },
   ],
 
+  exports: [
+    AuthRenewComponent,
+    AuthRenewComponent
+  ]
 })
 export class AuthModule { }

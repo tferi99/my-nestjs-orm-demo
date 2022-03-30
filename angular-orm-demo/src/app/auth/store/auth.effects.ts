@@ -1,7 +1,14 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {AuthService} from '../auth.service';
-import {AuthInitilizedAction, LoginAction, LoginErrorAction, LoginSuccessAction, LogoutAction} from './auth.actions';
+import {
+  AuthInitilizedAction,
+  LoginAction,
+  LoginErrorAction,
+  LoginSuccessAction,
+  LogoutAction,
+  RenewAction, RenewErrorAction, RenewSuccessAction
+} from './auth.actions';
 import {catchError, exhaustMap, map, tap} from 'rxjs/operators';
 import {LocalStorageService} from '../../core/service/local-storage.service';
 import {of} from 'rxjs';
@@ -30,6 +37,9 @@ export class AuthEffects {
     ofType(LoginAction),
     exhaustMap(action => this.authService.login(action.username, action.password).pipe(
       map(result => {
+          // re-creating Auth in service
+          // next authService.getCurrentAuth() will create Auth into service
+          this.authService.clearAuthentication();
           // writing token into local storage
           this.localStorageService.setAuthToken(result.access_token);
 
@@ -84,4 +94,31 @@ export class AuthEffects {
   ), {
     dispatch: false
   });
+
+  renew$ = createEffect(() => this.actions$.pipe(
+    ofType(RenewAction),
+    exhaustMap(action => this.authService.renew().pipe(
+      map(result => {
+          // re-creating Auth in service
+          // next authService.getCurrentAuth() will create Auth into service
+          this.authService.clearAuthentication();
+          // writing token into local storage
+          this.localStorageService.setAuthToken(result.access_token);
+
+          // retrieving Auth from service that initilizes it from token
+          const auth: AuthWithExpiration | undefined = this.authService.getCurrentAuth();
+          if (auth) {
+            return RenewSuccessAction({auth});
+          }
+          return RenewErrorAction({errorMessage: 'Unexpected error during renew: current Auth cannot be generated.'});
+        }
+      ),
+      catchError(err => {
+        this.toastr.error('Renew error');
+        this.logger.error('Renew error:', err);
+        return of (RenewErrorAction(err.message));
+      })
+    ))
+  ));
+
 }

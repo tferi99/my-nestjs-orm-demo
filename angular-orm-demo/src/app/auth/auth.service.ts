@@ -121,6 +121,10 @@ export class AuthService extends ServiceBase {
     return this.http.post<void>(this.getBasePath() + '/logout', {});
   }
 
+  renew(): Observable<LoginResult> {
+    return this.http.post<LoginResult>(this.getBasePath() + '/renew', {});
+  }
+
   /**
    * It parses JWT token and creates Auth.
    *
