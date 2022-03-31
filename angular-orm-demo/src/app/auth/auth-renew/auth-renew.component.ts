@@ -85,29 +85,3 @@ export class AuthRenewComponent implements OnInit, OnDestroy {
     }, this.waitTime);
   }
 }
-
-/*export class AuthRenewComponent implements OnInit {
-  @Input() trace = false;
-
-  loop = 0; // inactive
-  constructor(
-    private authService: AuthService,
-    private store: Store<AppState>
-  ) { }
-
-  ngOnInit(): void {
-    const auth = this.authService.getCurrentAuth();
-    if (auth) {
-      this.loop = (auth.expiration - Date.now()) * RENEW_RATIO * 10;
-    }
-  }
-
-  callRenew(): string {
-    this.store.dispatch(RenewAction());
-    if (this.trace) {
-      return 'Renew interval: ' + this.loop;
-    }
-    return '';
-  }
-}
-*/
