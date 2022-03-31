@@ -103,5 +103,5 @@ npm run start
 Call frontend: [http://localhost:4201](http://localhost:4201)
 
 ## Test
-You can test backend with [Postman](https://www.postman.com/).
+You can test manually the backend with [Postman](https://www.postman.com/).
 Import this [workspace](mikroorm-demo-server/test/postman/mikroorm-demo-server.postman_collection.json) for testing.
