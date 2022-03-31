@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "03372c06-cad0-4ba6-8147-83c110cce589",
+		"name": "mikroorm-demo-server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "renew",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/renew",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"renew"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "company",
+			"item": [
+				{
+					"name": "company ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/company",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "company",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 55,\r\n    \"name\": \"Abc Inc. 2\",\r\n    \"established\": \"2022-02-06T10:14:31.000Z\",\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/company",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "company",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/company/20",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"company",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "company",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Abc Inc. 22\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/company/20",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"company",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "company NATIVE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Abc Inc. 22\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/company/20/native",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"company",
+								"20",
+								"native"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "company",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/company/17",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"company",
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "company NATIVE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/company/20/native",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"company",
+								"20",
+								"native"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "company NATIVE ALL",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/company/20/native",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"company",
+								"20",
+								"native"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ORM",
+			"item": [
+				{
+					"name": "EM dump",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/orm/em",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orm",
+								"em"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EM clear",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/orm/em",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orm",
+								"em"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sandbox",
+			"item": [
+				{
+					"name": "emDumpWithFind",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/sandbox/emDumpWithFind",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"sandbox",
+								"emDumpWithFind"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "manyToOneOptional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/sandbox/manyToOneOptional?assign=true",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"sandbox",
+								"manyToOneOptional"
+							],
+							"query": [
+								{
+									"key": "assign",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "person",
+			"item": [
+				{
+					"name": "person ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/person",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "person",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"John Smith\",\r\n    \"email\": \"js@test.org\",\r\n    \"birth\": \"1976-02-06T10:14:31.000Z\",\r\n    \"employeeType\": \"m\",\r\n    \"rank\": 3,\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/person/company/31",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"person",
+								"company",
+								"31"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwic3ViIjowLCJyb2xlcyI6WyJ1c2VyIiwiYWRtaW4iXSwiaWF0IjoxNjQ4NzE3NjgwLCJleHAiOjE2NDg3MTc5ODB9.mVGdQtTLbUhMe1fCsgbcL0U9QRvOFjZu8dCXSItW0k0",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:3001",
+			"type": "string"
+		}
+	]
+}

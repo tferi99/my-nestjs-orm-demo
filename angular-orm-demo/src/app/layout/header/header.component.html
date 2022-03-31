@@ -24,8 +24,6 @@
         </li>
       </ul>
 
-      <button class="btn btn-warning" (click)="renew()">Renew</button>
-
       <div class="btn-group" dropdown>
         <button type="button" dropdownToggle class="btn btn-secondary btn-rounded btn-icon dropdown-toggle" aria-controls="dropdown-basic" [title]="(auth$ | async)?.name"> <i class="fa fa-user"></i></button>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu mt-3" role="menu" aria-labelledby="button-basic">

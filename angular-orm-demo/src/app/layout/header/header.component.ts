@@ -35,8 +35,4 @@ export class HeaderComponent implements OnInit {
     console.log('getDummy() - if you see this often then check CHANGE_DETECTION_STRATEGY');
     return 'dummy';
   }
-
-  renew() {
-    this.store.dispatch(RenewAction());
-  }
 }
