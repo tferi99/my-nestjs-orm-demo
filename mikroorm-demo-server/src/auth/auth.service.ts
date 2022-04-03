@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { UserService } from '../admin/user/user.service';
 import { LoggerUtils } from '../core/util/logger.utils';
-import { User } from '../admin/admin.model';
+import { User } from '@app/client-lib';
 
 @Injectable()
 export class AuthService {

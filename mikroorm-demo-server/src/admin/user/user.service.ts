@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as _ from 'lodash';
-import { User } from '../admin.model';
+import { User } from '../model/admin.model';
 import { LoggerUtils } from '../../core/util/logger.utils';
 
 const USERS: User[] = [
