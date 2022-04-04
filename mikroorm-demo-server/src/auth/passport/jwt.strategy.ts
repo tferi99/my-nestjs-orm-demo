@@ -4,6 +4,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Auth, JwtPayload, Role, User } from '@app/client-lib';
 import { LoggerUtils } from '../../core/util/logger.utils';
+import { LoginResult } from '../model/auth.model';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -40,7 +41,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    *    - roles (roles)
    * @param user
    */
-  async createJwtForlogin(user: Partial<User>) {
+  async createJwtForlogin(user: Partial<User>): Promise<LoginResult> {
     LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', '--> createJwtForlogin() from ' + JSON.stringify(user));
     const roles: Role[] = [Role.User];
     if (user.admin) {

@@ -11,7 +11,6 @@ import { UserService } from './admin/user/user.service';
 import { GlobalExceptionFilter } from './core/filter/global-exception-filter';
 import { APP_FILTER } from '@nestjs/core';
 import { AdminModule } from './admin/admin.module';
-import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
