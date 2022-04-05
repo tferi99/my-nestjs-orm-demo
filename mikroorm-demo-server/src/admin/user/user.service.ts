@@ -1,8 +1,8 @@
-import {Injectable, Logger} from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import * as _ from 'lodash';
-import {LoggerUtils} from '../../core/util/logger.utils';
-import {User} from './user.model';
-import {Auth, Role} from '@app/client-lib';
+import { LoggerUtils } from '../../core/util/logger.utils';
+import { User } from './user.model';
+import { Auth, Role } from '@app/client-lib';
 
 const USERS: User[] = [
   { id: 0, name: 'admin', password: 'admin', admin: true },
@@ -21,7 +21,7 @@ export class UserService {
         const auth: Auth = {
           id: user.id,
           name: user.name,
-          roles: []
+          roles: [],
         };
         auth.roles.push(Role.User);
         if (user.admin) {
@@ -40,5 +40,4 @@ export class UserService {
     this.logger.debug(`getUserByName(${name})`);
     return _.find(USERS, { name: name });
   }
-
 }

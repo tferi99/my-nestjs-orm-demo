@@ -24,8 +24,9 @@ export class SandboxController {
   }
 
   add(first: number, second: number): number; //Overload signature with two parameters
-  add(first: number, second: number, third: number): number;  //Overload signature with three parameters
-  add(first: number, second: number, third?: number, fourth?: number): number {  //Implementation signature
+  add(first: number, second: number, third: number): number; //Overload signature with three parameters
+  add(first: number, second: number, third?: number, fourth?: number): number {
+    //Implementation signature
     if (first !== undefined && second !== undefined && third !== undefined) {
       return first + second + third;
     } else {

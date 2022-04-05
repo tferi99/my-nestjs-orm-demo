@@ -14,7 +14,7 @@ export class Author extends OrmIntTimestampEntity {
   age?: number;
 
   @Property()
-  termsAccepted: boolean = false;
+  termsAccepted = false;
 
   @Property()
   identities?: string[];
@@ -22,7 +22,7 @@ export class Author extends OrmIntTimestampEntity {
   @Property()
   born?: Date;
 
-  @OneToMany(() => Book, book => book.author)
+  @OneToMany(() => Book, (book) => book.author)
   books = new Collection<Book>(this);
 
   @ManyToMany(() => Author)

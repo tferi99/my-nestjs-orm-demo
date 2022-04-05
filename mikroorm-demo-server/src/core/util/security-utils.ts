@@ -5,7 +5,7 @@ export class SecurityUtils {
   public static async hashString(str: string): Promise<string> {
     return bcrypt.hash(str, 10);
 
-/*    // dev
+    /*    // dev
     console.log('HASH[' + str + ']');
     return str + '.encrypted';*/
   }
@@ -14,7 +14,7 @@ export class SecurityUtils {
     return bcrypt.compare(str, hash);
 
     // dev
-/*    const items = hash.split('.');
+    /*    const items = hash.split('.');
     const decrypted = items[0];
     return str === decrypted;*/
   }

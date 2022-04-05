@@ -5,9 +5,7 @@ import { Injectable, Logger } from '@nestjs/common';
 export class OrmUtilsService {
   private readonly logger = new Logger(OrmUtilsService.name);
 
-  constructor(
-    private em: EntityManager,
-  ) {}
+  constructor(private em: EntityManager) {}
 
   dumpEm(label = 'DUMP') {
     OrmUtilsService.dumpUnitOfWork(this.em, label);

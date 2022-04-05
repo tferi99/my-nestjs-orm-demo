@@ -16,7 +16,18 @@ const ConsoleLoggingFormat = winston.format.printf(({ context, level, timestamp,
   timestamp = moment().format('YYYY-MM-DD HH:mm:ss');
   //}
 
-  return ('undefined' !== typeof timestamp ? `${timestamp}` : '') + '|' + level.charAt(0).toUpperCase() + level.slice(1) + '|' + ('undefined' !== typeof context ? `${context}` : '') + '|' + message + '|' + safeStringify(meta);
+  return (
+    ('undefined' !== typeof timestamp ? `${timestamp}` : '') +
+    '|' +
+    level.charAt(0).toUpperCase() +
+    level.slice(1) +
+    '|' +
+    ('undefined' !== typeof context ? `${context}` : '') +
+    '|' +
+    message +
+    '|' +
+    safeStringify(meta)
+  );
 });
 
 /**

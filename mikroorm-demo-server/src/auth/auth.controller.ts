@@ -1,4 +1,4 @@
-import {Controller, Get, Logger, Post, Req, UseGuards} from '@nestjs/common';
+import { Controller, Get, Logger, Post, Req, UseGuards } from '@nestjs/common';
 import { OverrideGlobalGuard } from './passport/override-global-guard.decorator';
 import { NoAuth } from './passport/no-auth.decorator';
 import { AuthService } from './auth.service';
@@ -11,10 +11,7 @@ import { LoggerUtils } from '../core/util/logger.utils';
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
 
-  constructor(
-    private authService: AuthService,
-    private jwtStrategy: JwtStrategy,
-  ) {}
+  constructor(private authService: AuthService, private jwtStrategy: JwtStrategy) {}
 
   /**
    * Login for JWT

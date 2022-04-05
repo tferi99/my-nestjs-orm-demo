@@ -15,10 +15,7 @@ export class LocalAuthGuard extends AuthGuard('local') {
   canActivate(context: ExecutionContext) {
     LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', '--> LocalAuthGuard');
 
-    const isPublic = this.reflector.getAllAndOverride<boolean>(NO_AUTH_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
+    const isPublic = this.reflector.getAllAndOverride<boolean>(NO_AUTH_KEY, [context.getHandler(), context.getClass()]);
     if (isPublic) {
       return true;
     }

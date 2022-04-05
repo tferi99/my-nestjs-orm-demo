@@ -4,10 +4,7 @@ import { ConfiguredOrmModule } from '../../config/mikro-orm.config';
 import { ConfiguredEventsModule } from '../../config/events.config';
 
 @Module({
-  imports: [
-    ConfiguredOrmModule(),
-    ConfiguredEventsModule()
-  ],
+  imports: [ConfiguredOrmModule(), ConfiguredEventsModule()],
   providers: [],
   controllers: [CompanyController],
   exports: [],

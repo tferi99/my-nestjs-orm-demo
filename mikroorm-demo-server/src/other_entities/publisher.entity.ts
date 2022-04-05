@@ -6,4 +6,3 @@ export class Publisher extends OrmIntTimestampEntity {
   @Property()
   name: string;
 }
-

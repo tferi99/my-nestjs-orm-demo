@@ -4,7 +4,7 @@
  * @param origVal
  * @param newVal
  */
-export function assignIfNullish<T extends any>(origVal: T, newVal: any): T {
+export function assignIfNullish<T>(origVal: T, newVal: any): T {
   if (origVal == undefined || origVal == null) {
     return newVal;
   }

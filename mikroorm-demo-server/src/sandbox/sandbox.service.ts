@@ -28,7 +28,7 @@ export class SandboxService {
         email: 'jd@test.org',
         birth,
         employeeType: EmployeeType.DIRECTOR,
-        rank: 1
+        rank: 1,
       });
       em.persist(p);
 

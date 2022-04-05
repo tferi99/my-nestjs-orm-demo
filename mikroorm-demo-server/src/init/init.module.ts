@@ -7,12 +7,7 @@ import { ConfiguredOrmModule } from '../config/mikro-orm.config';
 import { ConfiguredEventsModule } from '../config/events.config';
 
 @Module({
-  imports: [
-    ConfiguredOrmModule(),
-    CompanyModule,
-    PersonModule,
-    ConfiguredEventsModule()
-  ],
+  imports: [ConfiguredOrmModule(), CompanyModule, PersonModule, ConfiguredEventsModule()],
   providers: [InitService],
   controllers: [InitController],
 })
