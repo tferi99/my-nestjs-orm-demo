@@ -1,6 +1,5 @@
-import {AuthState} from '../auth/store/auth.reducer';
-import {LogoutAction} from '../auth/store/auth.actions';
-import {createReducer, on} from '@ngrx/store';
+import { LogoutAction } from '../auth/store/auth.actions';
+import { createReducer, on } from '@ngrx/store';
 
 export interface AppState {}
 
