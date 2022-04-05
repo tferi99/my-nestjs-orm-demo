@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { UserService } from '../admin/user/user.service';
 import { LoggerUtils } from '../core/util/logger.utils';
-import { User } from '@app/client-lib';
+import {Auth} from '@app/client-lib';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +17,7 @@ export class AuthService {
    * @param username
    * @param pass
    */
-  async validateUser(username: string, pwd: string): Promise<Partial<User>> {
+  async validateUser(username: string, pwd: string): Promise<Auth> {
     LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', `--> AuthService.validateUser [${username}|${pwd}]`);
     return this.userService.validateUser(username, pwd);
   }

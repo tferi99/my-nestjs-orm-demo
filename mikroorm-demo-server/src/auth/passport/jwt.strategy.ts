@@ -1,10 +1,10 @@
-import { ExtractJwt, Strategy } from 'passport-jwt';
-import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, Logger } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { Auth, JwtPayload, Role, User } from '@app/client-lib';
-import { LoggerUtils } from '../../core/util/logger.utils';
-import { LoginResult } from '../model/auth.model';
+import {ExtractJwt, Strategy} from 'passport-jwt';
+import {PassportStrategy} from '@nestjs/passport';
+import {Injectable, Logger} from '@nestjs/common';
+import {JwtService} from '@nestjs/jwt';
+import {Auth, JwtPayload, Role} from '@app/client-lib';
+import {LoggerUtils} from '../../core/util/logger.utils';
+import {LoginResult} from '../model/auth.model';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -41,13 +41,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    *    - roles (roles)
    * @param user
    */
-  async createJwtForlogin(user: Partial<User>): Promise<LoginResult> {
-    LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', '--> createJwtForlogin() from ' + JSON.stringify(user));
+  async createJwtForLogin(auth: Partial<Auth>): Promise<LoginResult> {
+    LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', '--> createJwtForlogin() from ' + JSON.stringify(auth));
     const roles: Role[] = [Role.User];
-    if (user.admin) {
+    const isAdmin = auth.roles.includes(Role.Admin);
+    if (isAdmin) {
       roles.push(Role.Admin);
     }
-    const payload = { username: user.name, sub: user.id, roles };
+    const payload = { username: auth.name, sub: auth.id, roles };
     return {
       access_token: this.jwtService.sign(payload),
     };

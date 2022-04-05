@@ -25,7 +25,7 @@ export class AuthController {
   @Post('login')
   async login(@Req() req: any): Promise<LoginResult> {
     LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', '--> AuthController.login()');
-    return this.jwtStrategy.createJwtForlogin(req.user);
+    return this.jwtStrategy.createJwtForLogin(req.user);
   }
 
   @Post('logout')
@@ -40,6 +40,6 @@ export class AuthController {
   @Post('renew')
   async renew(@Req() req: any): Promise<LoginResult> {
     LoggerUtils.debugIfEnv(this.logger, 'TRACE_AUTH', 'renew token for ' + req.user.name);
-    return this.jwtStrategy.createJwtForlogin(req.user);
+    return this.jwtStrategy.createJwtForLogin(req.user);
   }
 }

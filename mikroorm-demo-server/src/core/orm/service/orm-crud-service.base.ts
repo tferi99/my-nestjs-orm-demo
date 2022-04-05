@@ -1,8 +1,7 @@
-import { FilterQuery, IPrimaryKeyValue, Populate, Primary, PrimaryKeyType } from '@mikro-orm/core/typings';
-import { EntityRepository } from '@mikro-orm/core';
-import { QueryOrderMap } from '@mikro-orm/core/enums';
-import { OrmBaseEntity } from '../entity';
-import { Company } from '../../../features/company/model/company.entity';
+import {FilterQuery, Populate, Primary} from '@mikro-orm/core/typings';
+import {EntityRepository} from '@mikro-orm/core';
+import {QueryOrderMap} from '@mikro-orm/core/enums';
+import {OrmBaseEntity} from '../entity';
 
 export abstract class OrmCrudServiceBase<T extends OrmBaseEntity> {
   abstract getEntityRepository(): EntityRepository<T>;
