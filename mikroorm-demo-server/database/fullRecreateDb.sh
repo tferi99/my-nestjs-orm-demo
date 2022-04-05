@@ -1,5 +1,7 @@
 . .config
 
+cp ../.env $ORM_DIST
+
 dropDb -U postgres ${DB}
 
 createDb -U postgres ${DB}

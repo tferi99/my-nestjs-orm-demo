@@ -10,7 +10,7 @@ export class SecurityUtils {
     return str + '.encrypted';*/
   }
 
-  public static async validateString(str: string, hash: string): Promise<boolean> {
+  public static async validateStringAndHash(str: string, hash: string): Promise<boolean> {
     return bcrypt.compare(str, hash);
 
     // dev
