@@ -4,14 +4,19 @@ import { AnyEntity, FindOptions } from '@mikro-orm/core';
 import { Primary } from '@mikro-orm/core/typings';
 import { ControllerBase } from '../../controller/controller.base';
 
+export interface OrmCrudControllerOptions<T extends AnyEntity<T>> {
+  repository: CrudEntityRepository<T>;
+  getAllOptions?: FindOptions<T>;
+}
+
 export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends ControllerBase {
   protected _repo: CrudEntityRepository<T>;
   protected getAllOptions?: FindOptions<T>;
 
-  protected constructor(repo: CrudEntityRepository<T>, getAllOptions?: FindOptions<T>) {
+  protected constructor(options: OrmCrudControllerOptions<T>) {
     super();
-    this._repo = repo;
-    this.getAllOptions = getAllOptions;
+    this._repo = options.repository;
+    this.getAllOptions = options.getAllOptions;
   }
 
   public get repo() {

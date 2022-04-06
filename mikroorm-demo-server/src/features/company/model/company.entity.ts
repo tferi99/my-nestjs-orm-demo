@@ -15,7 +15,7 @@ export class Company extends OrmIntTimestampEntity {
   established: Date;
 
   @Property({ default: true })
-  active = true;
+  active: boolean;
 
   @Property({ length: 1024, nullable: true })
   note: string;
@@ -28,6 +28,7 @@ export class Company extends OrmIntTimestampEntity {
 
   constructor(obj?: Partial<Company>) {
     super();
+    this.active = true;
     if (obj) {
       assign(this, obj);
     }

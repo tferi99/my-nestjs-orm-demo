@@ -10,7 +10,7 @@ import { CompanyRepository } from '../company/company.repository';
 @Controller('person')
 export class PersonController extends OrmCrudControllerBase<Person> {
   constructor(@InjectRepository(Person) private personRepository: PersonRepository, @InjectRepository(Company) private companyRepo: CompanyRepository) {
-    super(personRepository, { orderBy: { name: 'ASC' } });
+    super({ repository: personRepository, getAllOptions: { orderBy: { name: 'ASC' } } });
   }
 
   /**

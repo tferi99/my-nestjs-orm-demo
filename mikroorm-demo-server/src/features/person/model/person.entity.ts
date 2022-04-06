@@ -21,7 +21,7 @@ export class Person extends OrmIntTimestampEntity {
   rank: number;
 
   @Property({ default: true })
-  active = true;
+  active: boolean;
 
   @Property({ length: 1024, nullable: true })
   note?: string;
@@ -31,6 +31,7 @@ export class Person extends OrmIntTimestampEntity {
 
   constructor(obj?: Partial<Person>) {
     super();
+    this.active = true;
     assign(this, obj);
   }
 }
