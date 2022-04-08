@@ -1,4 +1,4 @@
-import {Decision, DecisionContext, Op} from "./decision-types";
+import { DecisionContext, Op } from "./decision-types";
 
 export abstract class LogicalEvaluator<D> {
   ctx: DecisionContext;

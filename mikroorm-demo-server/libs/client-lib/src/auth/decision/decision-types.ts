@@ -1,6 +1,5 @@
-import {Auth} from "@app/easy-trader-lib";
-import {LogicalEvaluator} from "./LogicalEvaluator";
-import {DecisionsEvaluator} from "./DecisionsEvaluator";
+import { DecisionsEvaluator } from "./DecisionsEvaluator";
+import { Auth } from '@app/client-lib';
 
 export interface DecisionContext {
   currentUser: Auth;
