@@ -5,8 +5,8 @@ import { Company } from '../company/model/company.entity';
 
 @Repository(Person)
 export class PersonRepository extends CrudEntityRepository<Person> {
-  public config(): CrudEntityRepositoryConfig<Person> {
-    const defaultConfig = super.config();
+  get config(): CrudEntityRepositoryConfig<Person> {
+    const defaultConfig = super.config;
     return {
       ...defaultConfig,
       associatedParentEntities: [{ parentId: 'company', parentEntity: Company }],

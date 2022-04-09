@@ -34,7 +34,7 @@ export abstract class CrudEntityRepository<T extends AnyEntity<T>> extends Entit
    *  - PK name is: id
    *  - ID generated automatically in database (should be removed from input data)
    */
-  public config(): CrudEntityRepositoryConfig<T> {
+  public get config(): CrudEntityRepositoryConfig<T> {
     return {
       pkName: 'id',
       autoIncrement: true,
@@ -65,13 +65,13 @@ class Crud<T extends AnyEntity<T>> {
    * @param data
    */
   async insert(data: EntityData<T>): Promise<T> {
-    if (this.repo.config().autoIncrement) {
-      delete data[this.repo.config().pkName];
+    if (this.repo.config.autoIncrement) {
+      delete data[this.repo.config.pkName];
     }
     // collecting parent associations and deleting foreign IDs from data
     const parentAssociations = {};
-    if (this.repo.config().associatedParentEntities) {
-      this.repo.config().associatedParentEntities.forEach((parent) => {
+    if (this.repo.config.associatedParentEntities) {
+      this.repo.config.associatedParentEntities.forEach((parent) => {
         if (data[parent.parentId] !== undefined) {
           const parentIdName = parent.parentId as string;
           parentAssociations[parentIdName] = data[parent.parentId]; // save parent id
@@ -91,8 +91,8 @@ class Crud<T extends AnyEntity<T>> {
   }
 
   async insertForParent(data: EntityData<T>, parentKey: keyof T, parent: any): Promise<T> {
-    if (this.repo.config().autoIncrement) {
-      delete data[this.repo.config().pkName];
+    if (this.repo.config.autoIncrement) {
+      delete data[this.repo.config.pkName];
     }
 
     const obj = this.repo.create(data);
