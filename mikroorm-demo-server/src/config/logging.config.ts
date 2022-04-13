@@ -1,7 +1,6 @@
 import { WinstonModuleOptions } from 'nest-winston/dist/winston.interfaces';
 import * as winston from 'winston';
 import { LogginFormats } from './logging-formats';
-import * as moment from 'moment';
 
 export const LOG_DIR = 'logs';
 
