@@ -1,5 +1,5 @@
 import {Decision, DecisionContext, Op} from "./decision-types";
-import {Role} from "@app/easy-trader-lib";
+import { Role } from '@app/client-lib';
 
 export class RoleDecision implements Decision {
   role: Role;

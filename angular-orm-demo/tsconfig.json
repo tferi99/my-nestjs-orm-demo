@@ -21,8 +21,8 @@
       "dom"
     ],
     "paths": {
-      "@app/client-lib": ["./libs/client-lib"],
-      "@app/client-lib/*": ["./libs/client-lib/*"]
+      "@app/client-lib": ["../mikroorm-demo-server/libs/client-lib/src"],
+      "@app/client-lib/*": ["../mikroorm-demo-server/libs/client-lib/src/*"]
     }
   },
   "angularCompilerOptions": {

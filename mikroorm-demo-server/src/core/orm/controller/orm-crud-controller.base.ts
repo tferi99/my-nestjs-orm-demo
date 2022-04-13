@@ -1,12 +1,12 @@
 import { Body, Delete, ForbiddenException, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CrudEntityRepository } from '../service/crud-entity-repository';
 import { AnyEntity, FindOptions } from '@mikro-orm/core';
-import { Primary } from '@mikro-orm/core/typings';
+import { FilterQuery, Primary } from '@mikro-orm/core/typings';
 import { ControllerBase } from '../../controller/controller.base';
 
 export interface OrmCrudControllerOptions<T extends AnyEntity<T>> {
   repository: CrudEntityRepository<T>;
-  getAllOptions?: FindOptions<T>;
+  defaultGetAllOptions?: FindOptions<T>;
 }
 
 export interface EnabledFeatures {
@@ -29,14 +29,14 @@ export function EnabledFeatures(features: EnabledFeatures) {
 
 export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends ControllerBase {
   protected _repo: CrudEntityRepository<T>;
-  protected getAllOptions?: FindOptions<T>;
+  protected defaultGetAllOptions?: FindOptions<T>;
 
   enabledFeatures?: EnabledFeatures;
 
   protected constructor(options: OrmCrudControllerOptions<T>) {
     super();
     this._repo = options.repository;
-    this.getAllOptions = options.getAllOptions;
+    this.defaultGetAllOptions = options.defaultGetAllOptions;
   }
 
   public get repo() {
@@ -44,12 +44,15 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
   }
 
   @Get()
-  async getAll(): Promise<T[]> {
+  async getAll(options?: FindOptions<T>): Promise<T[]> {
     if (this.enabledFeatures && !this.enabledFeatures.getAll) {
       throw new ForbiddenException('OrmCrudControllerBase.getAll()');
     }
-
-    return this._repo.findAll(this.getAllOptions);
+    if (options) {
+      const opts = { ...this.defaultGetAllOptions, ...options };
+      return this._repo.findAll(opts);
+    }
+    return this._repo.findAll(this.defaultGetAllOptions);
   }
 
   @Get('/:id')
@@ -79,7 +82,7 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
       throw new ForbiddenException('OrmCrudControllerBase.update()');
     }
 
-    const obj = await this._repo.crud.update(id, dto);
+    const obj = await this._repo.crud.update( id, dto);
     await this._repo.flush();
     return obj;
   }
@@ -90,7 +93,10 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
       throw new ForbiddenException('OrmCrudControllerBase.nativeUpdate()');
     }
 
-    return this._repo.crud.nativeUpdate(id, data);
+    const idName = this._repo.config.pkName;
+    const filter: FilterQuery<T> = {};
+    filter[idName] = id;
+    return this._repo.crud.nativeUpdate(filter, data);
   }
 
   @Delete('native')

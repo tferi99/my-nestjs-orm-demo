@@ -2,7 +2,7 @@ import { Body, Controller, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { Person } from './model/person.entity';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { PersonRepository } from './person.repository';
-import { EnabledFeatures, OrmCrudControllerBase } from '../../core/orm/controller/orm-crud-controller.base';
+import { OrmCrudControllerBase } from '../../core/orm/controller/orm-crud-controller.base';
 import { CrudEntityRepository } from '../../core/orm/service/crud-entity-repository';
 import { Company } from '../company/model/company.entity';
 import { CompanyRepository } from '../company/company.repository';
@@ -20,7 +20,7 @@ import { CompanyRepository } from '../company/company.repository';
 })*/
 export class PersonController extends OrmCrudControllerBase<Person> {
   constructor(@InjectRepository(Person) private personRepository: PersonRepository, @InjectRepository(Company) private companyRepo: CompanyRepository) {
-    super({ repository: personRepository, getAllOptions: { orderBy: { name: 'ASC' } } });
+    super({ repository: personRepository, defaultGetAllOptions: { orderBy: { name: 'ASC' } } });
   }
 
   /**
