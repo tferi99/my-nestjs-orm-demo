@@ -1,6 +1,9 @@
-import { Repository } from '@mikro-orm/core';
 import { Company } from './model/company.entity';
 import { CrudEntityRepository } from '../../core/orm/service/crud-entity-repository';
+import { FilterQuery } from '@mikro-orm/core';
 
-@Repository(Company)
-export class CompanyRepository extends CrudEntityRepository<Company> {}
+export class CompanyRepository extends CrudEntityRepository<Company> {
+  getEmptyFilterQuery(): FilterQuery<Company> {
+    return {};
+  }
+}

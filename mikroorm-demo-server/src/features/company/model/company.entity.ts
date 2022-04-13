@@ -1,8 +1,9 @@
-import { assign, Collection, Entity, OneToMany, PrimaryKey, Property, Unique } from '@mikro-orm/core';
+import { assign, Collection, Entity, OneToMany, PrimaryKey, Property, Unique, EntityData } from '@mikro-orm/core';
 import { Person } from '../../person/model/person.entity';
 import { OrmIntTimestampEntity } from '../../../core/orm/entity';
+import { CompanyRepository } from '../company.repository';
 
-@Entity()
+@Entity({ customRepository: () => CompanyRepository })
 export class Company extends OrmIntTimestampEntity {
   @PrimaryKey()
   id!: number;
@@ -26,7 +27,7 @@ export class Company extends OrmIntTimestampEntity {
   })
   workers = new Collection<Person>(this);
 
-  constructor(obj?: Partial<Company>) {
+  constructor(obj?: EntityData<Company>) {
     super();
     this.active = true;
     if (obj) {

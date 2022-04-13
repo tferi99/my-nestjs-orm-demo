@@ -1,5 +1,4 @@
-import { AnyEntity, EntityName, EntityRepository } from '@mikro-orm/core';
-import { EntityData, FilterQuery, Primary } from '@mikro-orm/core/typings';
+import { AnyEntity, EntityName, EntityRepository, EntityData, FilterQuery, Primary, RequiredEntityData } from '@mikro-orm/core';
 import { EntityManager } from '@mikro-orm/core/EntityManager';
 
 export interface AssociatedParentEntity<C extends AnyEntity, P extends AnyEntity> {
@@ -26,6 +25,17 @@ export interface CrudEntityRepositoryConfig<T extends AnyEntity<T>> {
 export abstract class CrudEntityRepository<T extends AnyEntity<T>> extends EntityRepository<T> {
   private _crud: Crud<T> = new Crud<T>(this);
 
+  getEmptyFilterQuery(): FilterQuery<T> {
+    return {} as FilterQuery<T>;
+  }
+
+  getFilterQueryForId(id: Primary<T>): FilterQuery<T> {
+    const idName = this.config.pkName;
+    const filter: FilterQuery<T> = this.getEmptyFilterQuery();
+    filter[idName] = id;
+    return filter;
+  }
+
   /**
    * To describes crud behavior.
    * Override to change default behavior.
@@ -34,7 +44,7 @@ export abstract class CrudEntityRepository<T extends AnyEntity<T>> extends Entit
    *  - PK name is: id
    *  - ID generated automatically in database (should be removed from input data)
    */
-  public get config(): CrudEntityRepositoryConfig<T> {
+  get config(): CrudEntityRepositoryConfig<T> {
     return {
       pkName: 'id',
       autoIncrement: true,
@@ -64,7 +74,7 @@ class Crud<T extends AnyEntity<T>> {
    *
    * @param data
    */
-  async insert(data: EntityData<T>): Promise<T> {
+  async insert(data: RequiredEntityData<T>): Promise<T> {
     if (this.repo.config.autoIncrement) {
       delete data[this.repo.config.pkName];
     }
@@ -72,10 +82,10 @@ class Crud<T extends AnyEntity<T>> {
     const parentAssociations = {};
     if (this.repo.config.associatedParentEntities) {
       this.repo.config.associatedParentEntities.forEach((parent) => {
-        if (data[parent.parentId] !== undefined) {
-          const parentIdName = parent.parentId as string;
-          parentAssociations[parentIdName] = data[parent.parentId]; // save parent id
-          delete data[parent.parentId]; // delete parent key from parent property
+        const parentIdName = parent.parentId as string;
+        if (data[parentIdName] !== undefined) {
+          parentAssociations[parentIdName] = data[parentIdName]; // save parent id
+          delete data[parentIdName]; // delete parent key from parent property
         }
       });
     }
@@ -90,7 +100,7 @@ class Crud<T extends AnyEntity<T>> {
     return obj;
   }
 
-  async insertForParent(data: EntityData<T>, parentKey: keyof T, parent: any): Promise<T> {
+  async insertForParent(data: RequiredEntityData<T>, parentKey: keyof T, parent: any): Promise<T> {
     if (this.repo.config.autoIncrement) {
       delete data[this.repo.config.pkName];
     }
@@ -101,7 +111,7 @@ class Crud<T extends AnyEntity<T>> {
     return obj;
   }
 
-  async update(filter: FilterQuery<T>, data: Partial<T>): Promise<T> {
+  async update(filter: FilterQuery<T>, data: EntityData<T>): Promise<T> {
     const obj = await this.repo.findOne(filter);
     if (!obj) {
       return null;
@@ -111,7 +121,7 @@ class Crud<T extends AnyEntity<T>> {
     return obj;
   }
 
-  async nativeUpdate(filter: FilterQuery<T>, data: Partial<T>): Promise<number> {
+  async nativeUpdate(filter: FilterQuery<T>, data: EntityData<T>): Promise<number> {
     return this.repo.nativeUpdate(filter, data);
   }
 

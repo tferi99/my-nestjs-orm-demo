@@ -1,7 +1,6 @@
 import { Body, Delete, ForbiddenException, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CrudEntityRepository } from '../service/crud-entity-repository';
-import { AnyEntity, FindOptions } from '@mikro-orm/core';
-import { FilterQuery, Primary } from '@mikro-orm/core/typings';
+import { AnyEntity, FindOptions, EntityData, FilterQuery, Primary } from '@mikro-orm/core';
 import { ControllerBase } from '../../controller/controller.base';
 
 export interface OrmCrudControllerOptions<T extends AnyEntity<T>> {
@@ -61,7 +60,8 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
       throw new ForbiddenException('OrmCrudControllerBase.get()');
     }
 
-    return this._repo.crud.get(id);
+    const filter: FilterQuery<T> = this._repo.getFilterQueryForId(id);
+    return this._repo.crud.get(filter);
   }
 
   @Post()
@@ -77,25 +77,24 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
   }
 
   @Put('/:id')
-  async update(@Param('id', ParseIntPipe) id: Primary<T>, @Body() dto: Partial<T>): Promise<T> {
+  async update(@Param('id', ParseIntPipe) id: Primary<T>, @Body() data: EntityData<T>): Promise<T> {
     if (this.enabledFeatures && !this.enabledFeatures.update) {
       throw new ForbiddenException('OrmCrudControllerBase.update()');
     }
 
-    const obj = await this._repo.crud.update( id, dto);
+    const filter: FilterQuery<T> = this._repo.getFilterQueryForId(id);
+    const obj = await this._repo.crud.update(filter, data);
     await this._repo.flush();
     return obj;
   }
 
   @Put('/:id/native')
-  async nativeUpdate(@Param('id', ParseIntPipe) id: Primary<T>, @Body() data: Partial<T>): Promise<number> {
+  async nativeUpdate(@Param('id', ParseIntPipe) id: Primary<T>, @Body() data: EntityData<T>): Promise<number> {
     if (this.enabledFeatures && !this.enabledFeatures.nativeUpdate) {
       throw new ForbiddenException('OrmCrudControllerBase.nativeUpdate()');
     }
 
-    const idName = this._repo.config.pkName;
-    const filter: FilterQuery<T> = {};
-    filter[idName] = id;
+    const filter: FilterQuery<T> = this._repo.getFilterQueryForId(id);
     return this._repo.crud.nativeUpdate(filter, data);
   }
 
@@ -105,7 +104,7 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
       throw new ForbiddenException('OrmCrudControllerBase.nativeDelete()');
     }
 
-    await this._repo.crud.nativeDelete({});
+    await this._repo.crud.nativeDelete(this._repo.getEmptyFilterQuery());
   }
 
   @Delete('/:id')
@@ -123,7 +122,7 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
     if (this.enabledFeatures && !this.enabledFeatures.nativeDelete) {
       throw new ForbiddenException('OrmCrudControllerBase.nativeDelete()');
     }
-
-    return this._repo.crud.nativeDelete(id);
+    const filter: FilterQuery<T> = this._repo.getFilterQueryForId(id);
+    return this._repo.crud.nativeDelete(filter);
   }
 }

@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Timeout } from '@nestjs/schedule';
 import { Company } from '../features/company/model/company.entity';
 import { CompanyRepository } from '../features/company/company.repository';
-import { EntityManager } from '@mikro-orm/core';
+import { EntityManager, UseRequestContext } from '@mikro-orm/core';
 import { OrmUtilsService } from '../core/orm/service/orm-utils.service';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { PersonRepository } from '../features/person/person.repository';
@@ -18,16 +18,22 @@ import { EmployeeType } from '@app/client-lib';
 @Injectable()
 export class InitService {
   private readonly logger = new Logger(InitService.name);
+  companyRepository: CompanyRepository;
+  personRepository: PersonRepository;
+  em: EntityManager;
 
   constructor(
-    private em: EntityManager,
-    //private companyService: CompanyService,
-    @InjectRepository(Company)
-    private companyRepository: CompanyRepository,
-    @InjectRepository(Person)
-    private personRepository: PersonRepository,
+    private _em: EntityManager,
     private eventEmitterService: EventEmitterService,
-  ) {}
+  ) {
+    // In MikroORM v5, it is no longer possible to use the global identity map.
+    // You need to fork it before using from a global service.
+    // Repositories should be retrieved from forked EM.
+    this.em = this._em.fork({ clear: true });
+    this._em = undefined;
+    this.companyRepository = this.em.getRepository(Company);
+    this.personRepository = this.em.getRepository(Person);
+  }
 
   @Timeout(500)
   async initApplication() {

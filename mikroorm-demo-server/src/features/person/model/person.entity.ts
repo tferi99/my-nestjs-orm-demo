@@ -1,9 +1,10 @@
-import { assign, Entity, Enum, ManyToOne, Property } from '@mikro-orm/core';
+import { assign, Entity, Enum, ManyToOne, Property, EntityData } from '@mikro-orm/core';
 import { Company } from '../../company/model/company.entity';
 import { OrmIntTimestampEntity } from '../../../core/orm/entity';
 import { EmployeeType } from '@app/client-lib';
+import { PersonRepository } from '../person.repository';
 
-@Entity()
+@Entity({ customRepository: () => PersonRepository })
 export class Person extends OrmIntTimestampEntity {
   @Property({ length: 64 })
   name: string;
@@ -29,7 +30,7 @@ export class Person extends OrmIntTimestampEntity {
   @ManyToOne({ entity: () => Company, nullable: true })
   company?: Company;
 
-  constructor(obj?: Partial<Person>) {
+  constructor(obj?: EntityData<Person>) {
     super();
     this.active = true;
     assign(this, obj);

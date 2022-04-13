@@ -1,4 +1,3 @@
-import { Format } from 'logform';
 import * as winston from 'winston';
 import safeStringify from 'fast-safe-stringify';
 import * as moment from 'moment';

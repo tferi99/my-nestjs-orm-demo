@@ -2,9 +2,9 @@ import { DynamicModule, Logger, Module } from '@nestjs/common';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { OrmController } from './orm.controller';
 import { OrmUtilsService } from './service/orm-utils.service';
-import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs/typings';
 import { AnyEntity, EntityName } from '@mikro-orm/core';
 import { BASE_ENTITIES } from './entity/base-entities';
+import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
 
 const logger = new Logger('MikroORM');
 
