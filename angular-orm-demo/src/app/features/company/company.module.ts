@@ -12,7 +12,7 @@ import {CoreModule} from '../../core/core.module';
 import {CompanyEditComponent} from './company-edit/company-edit.component';
 import {DndModule} from 'ngx-drag-drop';
 import {BrowserModule} from '@angular/platform-browser';
-import {SharedModule} from '../../shared/shared.module';
+import {FeatureSharedModule} from '../../feature-shared/feature-shared.module';
 import {PersonModule} from '../person/person.module';
 import {MomentModule} from 'ngx-moment';
 
@@ -41,7 +41,7 @@ import {MomentModule} from 'ngx-moment';
     MomentModule,
 
     CoreModule,
-    SharedModule,
+    FeatureSharedModule,
     PersonModule
   ],
   providers: [

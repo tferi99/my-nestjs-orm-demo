@@ -9,7 +9,7 @@ import {CoreModule} from '../../core/core.module';
 import {PersonListComponent} from './person-list/person-list.component';
 import {PersonModalFormComponent} from './person-edit/person-modal-form/person-modal-form.component';
 import {PersonEditComponent} from './person-edit/person-edit.component';
-import {SharedModule} from '../../shared/shared.module';
+import {FeatureSharedModule} from '../../feature-shared/feature-shared.module';
 import {MomentModule} from 'ngx-moment';
 
 @NgModule({
@@ -35,7 +35,7 @@ import {MomentModule} from 'ngx-moment';
     MomentModule,
 
     CoreModule,
-    SharedModule
+    FeatureSharedModule
   ],
   providers: [
     BsModalRef

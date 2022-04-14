@@ -1,49 +1,43 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ReactiveFormsModule} from '@angular/forms';
-import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-import {HomeComponent} from './layout/home/home.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {ToastrModule} from 'ngx-toastr';
-import {PopoverModule} from 'ngx-bootstrap/popover';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { HomeComponent } from './layout/home/home.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
-import {StoreModule} from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import * as fromAuth from './auth/store/auth.reducer';
-import {EffectsModule} from '@ngrx/effects';
-import {AuthEffects} from './auth/store/auth.effects';
-import {environment} from '../environments/environment';
-import {LoggerModule} from 'ngx-logger';
-import {HttpErrorInterceptor} from './core/error/http-error.interceptor';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {AuthModule} from './auth/auth.module';
-import {ValidatorErrorMessageDirective} from './core/directive/validator-error-message.directive';
-import {ErrorMessageComponent} from './core/error/error-message/error-message.component';
-import {EntityDataModule} from '@ngrx/data';
-import {entityConfig} from './store/entity-metadata';
-import {CollapseModule} from 'ngx-bootstrap/collapse';
-import {AccordionModule} from 'ngx-bootstrap/accordion';
-import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
-import {HeaderComponent} from './layout/header/header.component';
-import {CompanyModule} from './features/company/company.module';
-import {CoreModule} from './core/core.module';
-import {ModalModule} from "ngx-bootstrap/modal";
-import {PersonModule} from './features/person/person.module';
-import {appReducer} from './store/app.reducer';
-import {SharedModule} from './shared/shared.module';
-import {MomentModule} from 'ngx-moment';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './auth/store/auth.effects';
+import { environment } from '../environments/environment';
+import { LoggerModule } from 'ngx-logger';
+import { HttpErrorInterceptor } from './core/error/http-error.interceptor';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AuthModule } from './auth/auth.module';
+import { ValidatorErrorMessageDirective } from './core/directive/validator-error-message.directive';
+import { ErrorMessageComponent } from './core/error/error-message/error-message.component';
+import { EntityDataModule } from '@ngrx/data';
+import { entityConfig } from './store/entity-metadata';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { HeaderComponent } from './layout/header/header.component';
+import { CompanyModule } from './features/company/company.module';
+import { CoreModule } from './core/core.module';
+import { ModalModule } from "ngx-bootstrap/modal";
+import { PersonModule } from './features/person/person.module';
+import { appReducer } from './store/app.reducer';
+import { MomentModule } from 'ngx-moment';
 import { FooterComponent } from './layout/footer/footer.component';
-import { SandboxComponent } from './features/sandbox/sandbox/sandbox.component';
-import { CompanyPanelComponent } from './features/sandbox/company-panel/company-panel.component';
-import { PersonPanelComponent } from './features/sandbox/person-panel/person-panel.component';
-import { NotePanelComponent } from './features/sandbox/note-panel/note-panel.component';
-import {NoteModule} from './features/note/note.module';
+import { NoteModule } from './features/note/note.module';
 import * as fromNote from './features/note/store/note.reducer';
-import { SandboxHeaderComponent } from './features/sandbox/sandbox-header/sandbox-header.component';
-import {SandboxModule} from './features/sandbox/sandbox.module';
+import { SandboxModule } from './features/sandbox/sandbox.module';
 
 @NgModule({
   declarations: [
@@ -104,8 +98,6 @@ import {SandboxModule} from './features/sandbox/sandbox.module';
       ]
     ),
     EntityDataModule.forRoot(entityConfig),
-
-    SharedModule,
 
     // features
     CoreModule,

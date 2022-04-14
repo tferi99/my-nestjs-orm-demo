@@ -18,7 +18,7 @@ export class TimerService {
   }
 
   /**
-   * Creates/returns a shared timer as Observable<number>.
+   * Creates/returns a feature-shared timer as Observable<number>.
    *
    * Timers with the same interval created only once. Next time with the same interval it will return
    * the previously created (cached) timer.

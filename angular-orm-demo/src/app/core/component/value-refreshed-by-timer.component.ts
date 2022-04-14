@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {TimerService} from '../../../core/service/timer.service';
+import {TimerService} from '../service/timer.service';
 
 @Component({
   selector: 'app-value-refreshed-by-timer',

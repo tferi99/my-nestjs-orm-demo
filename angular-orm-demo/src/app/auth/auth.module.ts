@@ -7,7 +7,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {CoreModule} from '../core/core.module';
 import { AuthRenewComponent } from './auth-renew/auth-renew.component';
-import {SharedModule} from '../shared/shared.module';
+import {FeatureSharedModule} from '../feature-shared/feature-shared.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import {SharedModule} from '../shared/shared.module';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    SharedModule,
+    FeatureSharedModule,
 
     CoreModule
   ],
