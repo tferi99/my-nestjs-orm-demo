@@ -1,9 +1,9 @@
-{
+  {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "my-ts-orm-demo": {
+    "angular-orm-demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/my-ts-orm-demo",
+            "outputPath": "dist/angular-orm-demo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -38,7 +38,8 @@
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-              "./node_modules/@fortawesome/fontawesome-free/js/all.js"
+              "./node_modules/@fortawesome/fontawesome-free/js/all.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
@@ -46,8 +47,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "4mb",
-                  "maximumError": "6mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -78,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "my-ts-orm-demo:build:production"
+              "browserTarget": "angular-orm-demo:build:production"
             },
             "development": {
-              "browserTarget": "my-ts-orm-demo:build:development",
+              "browserTarget": "angular-orm-demo:build:development",
               "port": 4201
             }
           },
@@ -90,7 +91,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "my-ts-orm-demo:build"
+            "browserTarget": "angular-orm-demo:build"
           }
         },
         "test": {
@@ -106,8 +107,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -116,5 +115,5 @@
       }
     }
   },
-  "defaultProject": "my-ts-orm-demo"
+  "defaultProject": "angular-orm-demo"
 }

@@ -20,7 +20,7 @@ export class PersonModalFormComponent extends ModalComponentBase<Person, PersonA
 
   NGX_DATE_FORMAT = NGX_DATE_FORMAT;
 
-  form = this.fb.group({
+  override form = this.fb.group({
     id: [0],
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
@@ -33,14 +33,14 @@ export class PersonModalFormComponent extends ModalComponentBase<Person, PersonA
   });
 
   // form controls (used in template here)
-  name = this.form.controls.name as FormControl;
-  email = this.form.controls.email as FormControl;
-  employeeType = this.form.controls.employeeType as FormControl;
-  rank = this.form.controls.rank as FormControl;
-  birth = this.form.controls.birth as FormControl;
-  note = this.form.controls.note as FormControl;
-  active = this.form.controls.active as FormControl;
-  company = this.form.controls.company as FormControl;
+  name = this.form.controls['name'] as FormControl;
+  email = this.form.controls['email'] as FormControl;
+  employeeType = this.form.controls['employeeType'] as FormControl;
+  rank = this.form.controls['rank'] as FormControl;
+  birth = this.form.controls['birth'] as FormControl;
+  note = this.form.controls['note'] as FormControl;
+  active = this.form.controls['active'] as FormControl;
+  company = this.form.controls['company'] as FormControl;
 
   constructor(
     public bsModalRef: BsModalRef,

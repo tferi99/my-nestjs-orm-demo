@@ -41,10 +41,10 @@
       </td>
       <td>{{getCompanyById(companiesEntityCollection, p?.company, p)?.name}}</td>
       <td style="text-align: right; white-space: nowrap">
-        <button class="btn btn-outline-primary mr-2" (click)="onEdit(p)"><i class="fas fa-pen"></i></button>
-        <button class="btn btn-outline-primary mr-2" (click)="onCopy(p)"><i class="fas fa-copy"></i></button>
-        <button class="btn btn-outline-danger mr-2" (click)="onDelete(p)" [disabled]="deleting"><i class="fas fa-trash"></i></button>
-        <button class="btn btn-outline-primary mr-2" (click)="onDump(p)" *ngIf="enabledDump"><i class="fas fa-shoe-prints"></i></button>
+        <button class="btn btn-outline-primary mx-1" (click)="onEdit(p)"><i class="fas fa-pen"></i></button>
+        <button class="btn btn-outline-primary mx-1" (click)="onCopy(p)"><i class="fas fa-copy"></i></button>
+        <button class="btn btn-outline-danger mx-1" (click)="onDelete(p)" [disabled]="deleting"><i class="fas fa-trash"></i></button>
+        <button class="btn btn-outline-primary mx-1" (click)="onDump(p)" *ngIf="enabledDump"><i class="fas fa-shoe-prints"></i></button>
       </td>
     </tr>
   </table>

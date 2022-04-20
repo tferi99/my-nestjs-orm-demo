@@ -31,8 +31,8 @@ export class LoginComponent implements OnInit {
     password: [environment.defaultPassword, Validators.required],
   });
 
-  username = this.form.controls.username as FormControl;
-  password = this.form.controls.password as FormControl;
+  username = this.form.controls['username'] as FormControl;
+  password = this.form.controls['password'] as FormControl;
 
   constructor(
     private readonly fb: FormBuilder,

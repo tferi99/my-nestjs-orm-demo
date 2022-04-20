@@ -15,20 +15,20 @@ export class FormValidatorService {
     if (!ctrl.errors) {
       return '';
     }
-    if (ctrl.errors.required) {
+    if (ctrl.errors['required']) {
       return 'Required';
-    } else if (ctrl.errors.email) {
+    } else if (ctrl.errors['email']) {
       return 'Bad email format';
-    } else if (ctrl.errors.minlength) {
-      return 'Minimal length is: ' + ctrl.errors.minlength.requiredLength;
-    } else if (ctrl.errors.maxlength) {
-      return 'Maximal length is: ' + ctrl.errors.maxlength.requiredLength;
-    } else if (ctrl.errors.min) {
-      return 'Minimal value is: ' + ctrl.errors.min.min;
-    } else if (ctrl.errors.max) {
-      return 'Maximal value is: ' + ctrl.errors.max.max;
-    } else if (ctrl.errors.badFormat) {
-      return 'Bad format: ' + ctrl.errors.badFormat.cause;
+    } else if (ctrl.errors['minlength']) {
+      return 'Minimal length is: ' + ctrl.errors['minlength'].requiredLength;
+    } else if (ctrl.errors['maxlength']) {
+      return 'Maximal length is: ' + ctrl.errors['maxlength'].requiredLength;
+    } else if (ctrl.errors['min']) {
+      return 'Minimal value is: ' + ctrl.errors['min'].min;
+    } else if (ctrl.errors['max']) {
+      return 'Maximal value is: ' + ctrl.errors['max'].max;
+    } else if (ctrl.errors['badFormat']) {
+      return 'Bad format: ' + ctrl.errors['badFormat'].cause;
     } else {
       return 'Unknown error';
     }

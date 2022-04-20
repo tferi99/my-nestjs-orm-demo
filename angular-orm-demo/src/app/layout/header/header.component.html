@@ -1,36 +1,40 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-2">
-  <b><a class="navbar-brand" routerLink="/home"><img src="assets/logo-small.png" width="30px" height="30px"> {{title}}</a></b>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-2 sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <a class="navbar-brand" routerLink="/home"><img src="assets/logo-small.png" width="30px" height="30px"><b> {{title}}</b></a>
+    </a>
 
-  <ng-container *ngIf="authenticated$ | async">
-    <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#navbarNavMenu" (click)="isCollapsedMenu = !isCollapsedMenu" aria-controls="navbarNavMenu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <ng-container *ngIf="authenticated$ | async">
+      <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#navbarNavMenu" (click)="isCollapsedMenu = !isCollapsedMenu" aria-controls="navbarNavMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse" [collapse]="isCollapsedMenu" id="#navbarNavMenu">
-      <!--
-      -->
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/company">Companies</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/person">Persons</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/companyBoard">Board</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/sandbox">Sandbox</a>
-        </li>
-      </ul>
-
-      <div class="btn-group" dropdown>
-        <button type="button" dropdownToggle class="btn btn-secondary btn-rounded btn-icon dropdown-toggle" aria-controls="dropdown-basic" [title]="(auth$ | async)?.name"> <i class="fa fa-user"></i></button>
+      <div class="collapse navbar-collapse" [collapse]="isCollapsedMenu" id="#navbarNavMenu">
+        <!--
+        -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/company">Companies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/person">Persons</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/companyBoard">Board</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/sandbox">Sandbox</a>
+          </li>
+        </ul>
+      </div>
+      <div class="btn-group d-flex" dropdown>
+        <button type="button" dropdownToggle class="btn btn-secondary btn-rounded btn-icon dropdown-toggle" aria-controls="dropdown-basic" [title]="(auth$ | async)?.name"> <i class="fa-solid fa-user"></i></button>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu mt-3" role="menu" aria-labelledby="button-basic">
           <li role="menuitem"><a class="dropdown-item" (click)="logout()">Logout</a></li>
         </ul>
       </div>
-    </div>
-  </ng-container>
+    </ng-container>
+  </div>
 </nav>
+
 <span style="display: none">{{getDummy()}}</span>

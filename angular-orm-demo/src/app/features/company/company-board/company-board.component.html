@@ -3,70 +3,77 @@
   <small><i>Drag &amp; Drop elements</i></small>
 </p>
 
-<div class="card-columns">
-  <div class="card alert" *ngFor="let ass of (companies$ | async)"
-       [ngClass]="getClassByCompany(ass.parent)"
-       [dndDropzone]="['person']"
-       [dndDisableDropIf]="!ass.parent.active"
-       (dndDrop)="handler.onDrop(ass.parent.id.toString(), $event)"
-  >
-    <div *ngIf="isTargetNormal(ass.parent.id)" class="card-header nowrapped-truncated-text draggable"
-         [dndDraggable]="ass.parent"
-         dndType="company"
-         dndEffectAllowed="move"
-         (dndStart)="handler.onDragStart(ass.parent.id.toString(), $event)"
-         (dndMoved)="handler.onMoved(ass.parent.id.toString(), $event)"
-         title="You can drop a company into the Rubbish Bin"
-    >
-      <i class="fas fa-industry"></i> [{{ass.parent.id}}] - {{ass.parent.name}}
-      <span class="toRight"><app-company-delete [data]="ass.parent"></app-company-delete></span>
-      <span class="toRight mr-2" role="button" (click)="editCompany(ass.parent)">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4" *ngFor="let ass of (companies$ | async)">
+      <div class="card alert"
+           [ngClass]="getClassByCompany(ass.parent)"
+           [dndDropzone]="['person']"
+           [dndDisableDropIf]="!ass.parent.active"
+           (dndDrop)="handler.onDrop(ass.parent.id.toString(), $event)"
+      >
+        <div *ngIf="isTargetNormal(ass.parent.id)" class="card-header nowrapped-truncated-text draggable"
+             [dndDraggable]="ass.parent"
+             dndType="company"
+             dndEffectAllowed="move"
+             (dndStart)="handler.onDragStart(ass.parent.id.toString(), $event)"
+             (dndMoved)="handler.onMoved(ass.parent.id.toString(), $event)"
+             title="You can drop a company into the Rubbish Bin"
+        >
+          <i class="fas fa-industry"></i> [{{ass.parent.id}}] - {{ass.parent.name}}
+          <span class="float-end"><app-company-delete [data]="ass.parent"></app-company-delete></span>
+          <span class="float-end mx-2" role="button" (click)="editCompany(ass.parent)">
           <i class="fa fa-pen"></i>
         </span>
 
-    </div>
-    <div *ngIf="isTargetUnemployed(ass.parent.id)" class="card-header nowrapped-truncated-text" role="button" (click)="addPerson()" title="Add new unemployed person">
-      <i class="fas fa-users-slash"></i> UNEMPLOYED
-      <span class="toRight">
-        <i class="fa fa-plus"></i>
-        <i class="fa fa-user"></i>
-      </span>
-    </div>
-    <div class="card-body" *ngIf="isTargetNormal(ass.parent.id) || isTargetUnemployed(ass.parent.id)">
-      <div *ngFor="let p of ass.children"
-           class="alert draggable" role="alert"
-           [ngClass]="{'alert-light': p.active, 'alert-dark': !p.active}"
-           [dndDraggable]="p"
-           dndType="person"
-           dndEffectAllowed="move"
-           [dndDisableIf]="false"
-           (dndStart)="handler.onDragStart(ass.parent.id.toString(), $event)"
-           (dndMoved)="handler.onMoved(ass.parent.id.toString(), $event)"
-           title="You can drop a person into another active company or into the Rubbish Bin"
-      >
-        <i class="fas fa-user"></i> [{{p.id}}] - {{p.name}}
-        <span style="float: right"><app-person-delete [data]="p"></app-person-delete></span>
-        <span class="toRight mr-2" role="button" (click)="editPerson(p)">
-          <i class="fa fa-pen"></i>
-        </span>
+        </div>
+        <div *ngIf="isTargetUnemployed(ass.parent.id)" class="card-header nowrapped-truncated-text" role="button" (click)="addPerson()" title="Add new unemployed person">
+          <i class="fas fa-users-slash"></i> UNEMPLOYED
+          <span class="float-end">
+            <i class="fa fa-plus mx-2"></i>
+            <i class="fa fa-user"></i>
+          </span>
+        </div>
+        <div class="card-body" *ngIf="isTargetNormal(ass.parent.id) || isTargetUnemployed(ass.parent.id)">
+          <div *ngFor="let p of ass.children"
+               class="alert draggable" role="alert"
+               [ngClass]="{'alert-light': p.active, 'alert-dark': !p.active}"
+               [dndDraggable]="p"
+               dndType="person"
+               dndEffectAllowed="move"
+               [dndDisableIf]="false"
+               (dndStart)="handler.onDragStart(ass.parent.id.toString(), $event)"
+               (dndMoved)="handler.onMoved(ass.parent.id.toString(), $event)"
+               title="You can drop a person into another active company or into the Rubbish Bin"
+          >
+            <i class="fas fa-user"></i> [{{p.id}}] - {{p.name}}
+            <span style="float: right"><app-person-delete [data]="p"></app-person-delete></span>
+            <span class="float-end" role="button" (click)="editPerson(p)">
+              <i class="fa fa-pen mx-2"></i>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <hr>
-
-<div class="card-columns">
-  <div class="card alert alert-secondary" title="Add new company">
-    <div class="card-header nowrapped-truncated-text textCenter" role="button" (click)="addCompany()">
-      <i class="fa fa-plus mr-1"></i>
-      <i class="fas fa-industry"></i>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4">
+      <div class="card alert alert-secondary" title="Add new company">
+        <div class="card-header nowrapped-truncated-text d-flex justify-content-center" role="button" (click)="addCompany()">
+          <i class="fa fa-plus mx-1"></i>
+          <i class="fas fa-industry mx-1"></i>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <div class="card alert alert-danger" [dndDropzone]="['person', 'company']" (dndDrop)="handler.onDropRubbish($event)" title="Rubbish Bin">
-    <div class="card-header nowrapped-truncated-text textCenter"><i class="fa fa-trash"></i></div>
-  </div>
+    <div class="col-4">
+      <div class="card alert alert-danger" [dndDropzone]="['person', 'company']" (dndDrop)="handler.onDropRubbish($event)" title="Rubbish Bin">
+        <div class="card-header nowrapped-truncated-text d-flex justify-content-center"><i class="fa fa-trash"></i></div>
+      </div>
+    </div>
 </div>
 
 <div class="d-flex justify-content-center">

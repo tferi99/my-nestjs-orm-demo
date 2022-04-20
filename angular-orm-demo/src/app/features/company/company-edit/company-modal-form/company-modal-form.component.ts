@@ -23,7 +23,7 @@ export class CompanyModalFormComponent extends ModalComponentBase<Company, any, 
     super(bsModalRef, formValidatorService);
   }
 
-  form = this.fb.group({
+  override form = this.fb.group({
     id: [0],
     name: ['', [Validators.required]],
     established: ['', Validators.required],
@@ -32,10 +32,10 @@ export class CompanyModalFormComponent extends ModalComponentBase<Company, any, 
   });
 
   // form controls (used in template here)
-  name = this.form.controls.name as FormControl;
-  established = this.form.controls.established as FormControl;
-  note = this.form.controls.note as FormControl;
-  active = this.form.controls.active as FormControl;
+  name = this.form.controls['name'] as FormControl;
+  established = this.form.controls['established'] as FormControl;
+  note = this.form.controls['note'] as FormControl;
+  active = this.form.controls['active'] as FormControl;
 
   protected getForm(): FormGroup {
     return this.form;

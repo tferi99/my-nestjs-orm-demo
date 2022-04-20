@@ -5,71 +5,63 @@
   <button class="btn btn-warning pull-right" (click)="fillRandom()">Random</button>
 
 </div>
-<form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus [focusDelayed]="true" (appOnEscape)="onCancel()">
-  <div class="modal-body">
-    <div class="form-row">
-      <div class="col-md-4 mb-2">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" [formControl]="name" [ngClass]="{'is-invalid' : name.invalid}" placeholder="Name">
-        <div class="invalid-feedback" *ngIf="name.invalid">{{getFormControlErrorMessage(name)}}</div>
-      </div>
-      <div class="col-md-4 mb-2">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" [formControl]="email" [ngClass]="{'is-invalid' : email.invalid}" placeholder="Email">
-        <div class="invalid-feedback" *ngIf="email.invalid">{{getFormControlErrorMessage(email)}}</div>
-      </div>
-      <div class="col-md-4 mb-2" *ngIf="additional.companies">
-        <label for="company">Company</label>
-        <select class="custom-select" id="company" [formControl]="company" [ngClass]="{'is-invalid' : company.invalid}" placeholder="Company">
-          <option value="-1"></option>
-          <option *ngFor="let c of additional.companies" value="{{c.id}}">{{c.name}}</option>
-        </select>
-        <div class="invalid-feedback" *ngIf="true && company.invalid">{{getFormControlErrorMessage(company)}}</div>
-
-      </div>
+<div class="modal-body">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus [focusDelayed]="true" (appOnEscape)="onCancel()" class="row g-3">
+    <div class="col-4">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" [formControl]="name" [ngClass]="{'is-invalid' : name.invalid}" placeholder="Name">
+      <div class="invalid-feedback" *ngIf="name.invalid">{{getFormControlErrorMessage(name)}}</div>
+    </div>
+    <div class="col-4">
+      <label for="email">Email</label>
+      <input type="text" class="form-control" id="email" [formControl]="email" [ngClass]="{'is-invalid' : email.invalid}" placeholder="Email">
+      <div class="invalid-feedback" *ngIf="email.invalid">{{getFormControlErrorMessage(email)}}</div>
+    </div>
+    <div class="col-4" *ngIf="additional.companies">
+      <label for="company">Company</label>
+      <select class="form-select" id="company" [formControl]="company" [ngClass]="{'is-invalid' : company.invalid}" placeholder="Company">
+        <option value="-1"></option>
+        <option *ngFor="let c of additional.companies" value="{{c.id}}">{{c.name}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="true && company.invalid">{{getFormControlErrorMessage(company)}}</div>
     </div>
 
-    <div class="form-row">
-      <div class="col-md-4 mb-3">
-        <label for="employeeType">Employee Type</label>
-        <select class="custom-select" id="employeeType" [formControl]="employeeType" [ngClass]="{'is-invalid' : employeeType.invalid}" placeholder="Employee Type">
-          <option *ngFor="let t of employeeTypes" [value]="t.value">{{t.key | employeeTypeFromString | employeeType}}</option>
-        </select>
-        <div class="invalid-feedback" *ngIf="true && employeeType.invalid">{{getFormControlErrorMessage(employeeType)}}</div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <label for="birth">Birth</label>
-        <input type="text" class="form-control" id="birth" [formControl]="birth" [ngClass]="{'is-invalid' : birth.invalid}"
-           placeholder="Birth"
-           bsDatepicker [bsConfig]="{ dateInputFormat: NGX_DATE_FORMAT, customTodayClass:'custom-today'}"
-        >
-        <div class="invalid-feedback" *ngIf="birth.errors">{{getFormControlErrorMessage(birth)}}</div>
-      </div>
-      <div class="col-md-4 mb-3">
-        <label for="rank">Rank</label>
-        <input type="number" class="form-control" id="rank" [formControl]="rank" [ngClass]="{'is-invalid' : rank.invalid}" placeholder="Rank">
-        <div class="invalid-feedback" *ngIf="rank.errors">{{getFormControlErrorMessage(rank)}}</div>
-      </div>
+    <div class="col-4">
+      <label for="employeeType">Employee Type</label>
+      <select class="form-select" id="employeeType" [formControl]="employeeType" [ngClass]="{'is-invalid' : employeeType.invalid}" placeholder="Employee Type">
+        <option *ngFor="let t of employeeTypes" [value]="t.value">{{t.key | employeeTypeFromString | employeeType}}</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="true && employeeType.invalid">{{getFormControlErrorMessage(employeeType)}}</div>
     </div>
-    <div class="form-row">
-      <div class="col-md-12 mb-3">
-        <label for="note">Note</label>
-        <textarea class="form-control" id="note" [formControl]="note" [ngClass]="{'is-invalid' : note.invalid}" placeholder="Note" rows="3"></textarea>
-        <div class="invalid-feedback" *ngIf="note.errors">{{getFormControlErrorMessage(note)}}</div>
-      </div>
+    <div class="col-4">
+      <label for="birth">Birth</label>
+      <input type="text" class="form-control" id="birth" [formControl]="birth" [ngClass]="{'is-invalid' : birth.invalid}"
+         placeholder="Birth"
+         bsDatepicker [bsConfig]="{ dateInputFormat: NGX_DATE_FORMAT, customTodayClass:'custom-today'}"
+      >
+      <div class="invalid-feedback" *ngIf="birth.errors">{{getFormControlErrorMessage(birth)}}</div>
+    </div>
+    <div class="col-4">
+      <label for="rank">Rank</label>
+      <input type="number" class="form-control" id="rank" [formControl]="rank" [ngClass]="{'is-invalid' : rank.invalid}" placeholder="Rank">
+      <div class="invalid-feedback" *ngIf="rank.errors">{{getFormControlErrorMessage(rank)}}</div>
     </div>
 
-    <div class="form-row">
-      <div class="form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" [formControl]="active" id="active">
-          <label class="form-check-label" for="active">Active</label>
-        </div>
+    <div class="col-12">
+      <label for="note">Note</label>
+      <textarea class="form-control" id="note" [formControl]="note" [ngClass]="{'is-invalid' : note.invalid}" placeholder="Note" rows="3"></textarea>
+      <div class="invalid-feedback" *ngIf="note.errors">{{getFormControlErrorMessage(note)}}</div>
+    </div>
+
+    <div class="form-group">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" [formControl]="active" id="active">
+        <label class="form-check-label" for="active">Active</label>
       </div>
     </div>
-  </div>
-  <div class="modal-footer modal-form-footer">
-    <button type="submit" class="btn btn-primary mr-2" [disabled]="!form.valid">OK</button>
-    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
-  </div>
-</form>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">OK</button>
+      <button type="button" class="btn btn-danger mx-2" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>
