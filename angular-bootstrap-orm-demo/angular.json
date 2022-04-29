@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-orm-demo": {
+    "angular-bootstrap-orm-demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-orm-demo",
+            "outputPath": "dist/angular-bootstrap-orm-demo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -79,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-orm-demo:build:production"
+              "browserTarget": "angular-bootstrap-orm-demo:build:production"
             },
             "development": {
-              "browserTarget": "angular-orm-demo:build:development",
+              "browserTarget": "angular-bootstrap-orm-demo:build:development",
               "port": 4201
             }
           },
@@ -91,7 +91,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-orm-demo:build"
+            "browserTarget": "angular-bootstrap-orm-demo:build"
           }
         },
         "test": {
@@ -115,5 +115,5 @@
       }
     }
   },
-  "defaultProject": "angular-orm-demo"
+  "defaultProject": "angular-bootstrap-orm-demo"
 }
