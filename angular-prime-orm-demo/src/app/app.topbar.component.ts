@@ -1,6 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { AppMainComponent } from './app.main.component';
-import { Subscription } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -8,8 +7,5 @@ import { MenuItem } from 'primeng/api';
     templateUrl: './app.topbar.component.html'
 })
 export class AppTopBarComponent {
-
-    items: MenuItem[];
-
     constructor(public appMain: AppMainComponent) { }
 }

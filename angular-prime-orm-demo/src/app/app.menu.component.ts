@@ -21,7 +21,7 @@ import { AppMainComponent } from './app.main.component';
 })
 export class AppMenuComponent implements OnInit {
 
-    model: any[];
+    model!: any[];
 
     constructor(public appMain: AppMainComponent) { }
 
