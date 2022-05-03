@@ -117,6 +117,8 @@ import { appReducer } from './store/app.reducer';
 import { MessageService } from 'primeng/api';
 import { AuthModule } from './auth/auth.module';
 import { InputComponent } from './sandbox/components/input/input.component';
+import { NodeService } from './sandbox/service/nodeservice';
+import { CountryService } from './sandbox/service/countryservice';
 
 @NgModule({
   imports: [
@@ -273,6 +275,9 @@ import { InputComponent } from './sandbox/components/input/input.component';
     MenuService,
     ConfigService,
     MessageService,
+
+    CountryService,
+    NodeService,
   ],
   bootstrap: [AppComponent],
 })

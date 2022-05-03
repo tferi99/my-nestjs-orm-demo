@@ -16,7 +16,11 @@ const routes: Routes = [
   {
     path: '',
     component: AppMainComponent,
-    children: [{ path: '', component: DashboardComponent }],
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'input', component: InputComponent },
+    ],
   },
   { path: 'pages/login', component: LoginComponent },
   { path: 'pages/error', component: ErrorComponent },

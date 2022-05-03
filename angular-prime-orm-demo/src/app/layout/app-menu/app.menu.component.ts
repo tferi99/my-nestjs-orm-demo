@@ -28,7 +28,7 @@ export class AppMenuComponent implements OnInit {
     this.model = [
       {
         label: 'Home',
-        items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }],
+        items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/dashboard'] }],
       },
       {
         label: 'Pages',
@@ -42,7 +42,7 @@ export class AppMenuComponent implements OnInit {
       {
         label: 'Sandbox',
         items: [
-          { label: 'Input', icon: 'pi pi-fw pi-sign-in', routerLink: ['sandbox/input'] },
+          { label: 'Input', icon: 'pi pi-fw pi-sign-in', routerLink: ['/input'] },
         ],
       },
     ];
