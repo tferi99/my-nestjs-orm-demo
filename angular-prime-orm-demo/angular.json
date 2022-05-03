@@ -33,20 +33,23 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "chart.js"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ],
               "fileReplacements": [
@@ -75,7 +78,8 @@
               "browserTarget": "angular-prime-orm-demo:build:production"
             },
             "development": {
-              "browserTarget": "angular-prime-orm-demo:build:development"
+              "browserTarget": "angular-prime-orm-demo:build:development",
+              "port": 4202
             }
           },
           "defaultConfiguration": "development"
@@ -103,9 +107,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "angular-prime-orm-demo"
+  "defaultProject": "angular-prime-orm-demo",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

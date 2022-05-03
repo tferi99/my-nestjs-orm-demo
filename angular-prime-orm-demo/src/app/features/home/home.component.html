@@ -1,0 +1,23 @@
+<blockquote class="blockquote">
+  <div class="card">
+    <div class="card-body">
+      <p>
+        This is a full-stack application that demostrates how to handle data in a relational database with ORM
+        and howto store hierarchical data in NgRx Store and manage with NgRx Data.
+      </p>
+
+      <h4>How to store hierarchical data into NgRx Store?</h4>
+      Store hierarchical data in <i>normalized</i> form. The basic concepts of normalizing data are:
+      <ul>
+        <li>Each type of data gets its own "table" in the state.</li>
+        <li>Each "data table" should store the individual items in an object, with the IDs of the items as keys and the items themselves as the values.</li>
+        <li>Any references to individual items should be done by storing the item's ID.</li>
+        <li>Arrays of IDs should be used to indicate ordering.</li>
+      </ul>
+
+      <h4>Howto render normalized data hierarchical?</h4>
+      If you need normalized data in hierarchical form you can read and convert it with NgRx selectors.
+    </div>
+  </div>
+</blockquote>
+

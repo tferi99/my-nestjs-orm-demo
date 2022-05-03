@@ -1,19 +1,11 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ConfigService } from './service/app.config.service';
-import { AppMainComponent } from './app.main.component';
-import { AppMenuitemComponent } from './app.menuitem.component';
-import { MenuService } from './service/app.menu.service';
-import { AppTopBarComponent } from './app.topbar.component';
-import { AppFooterComponent } from './app.footer.component';
-import { AppConfigComponent } from './app.config.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { AppMenuComponent } from './app.menu.component';
 
-// PrimeMG
 import { StyleClassModule } from 'primeng/styleclass';
 import { AccordionModule } from 'primeng/accordion';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -95,25 +87,50 @@ import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppComponent } from './app.component';
+import { AppMainComponent } from './layout/app-main/app.main.component';
+import { AppTopBarComponent } from './layout/app-topbar/app.topbar.component';
+import { AppFooterComponent } from './layout/app-footer/app.footer.component';
+import { AppConfigComponent } from './layout/app-config/app.config.component';
+import { AppMenuComponent } from './layout/app-menu/app.menu.component';
+import { AppMenuitemComponent } from './layout/app-menu/app.menuitem.component';
+
+import { DashboardComponent } from './layout/components/dashboard/dashboard.component';
+import { MenuService } from './layout/service/app.menu.service';
+import { ConfigService } from './layout/service/app.config.service';
+import { LoginComponent } from './layout/components/login/login.component';
+import { ErrorComponent } from './layout/components/error/error.component';
+import { NotfoundComponent } from './layout/components/notfound/notfound.component';
+import { AccessComponent } from './layout/components/access/access.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { EntityDataModule } from '@ngrx/data';
+import { entityConfig } from './store/entity-metadata';
+import { LoggerModule } from 'ngx-logger';
+import * as fromAuth from './auth/store/auth.reducer';
+import * as fromNote from './features/note/store/note.reducer';
+import { AuthEffects } from './auth/store/auth.effects';
+import { appReducer } from './store/app.reducer';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AppMainComponent,
-    AppMenuitemComponent,
-    AppTopBarComponent,
-    AppFooterComponent,
-    AppConfigComponent,
-    AppMenuComponent,
-    AppMenuitemComponent,
-    DashboardComponent,
-
-  ],
   imports: [
+    CommonModule,
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
+    LoggerModule.forRoot({
+      colorScheme: ['purple', 'teal', 'gray', 'gray', 'red', 'red', 'red'],
+      level: environment.logLevel,
+      serverLogLevel: environment.serverLogLevel,
+      disableConsoleLogging: false,
+    }),
+
 
     // PrimeNG
     AccordionModule,
@@ -198,11 +215,57 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     VirtualScrollerModule,
     StyleClassModule,
 
+    /**
+     * Store options
+     *
+     * If you want to save non-serialiable objects in store.
+     * See also: https://nils-mehlhorn.de/posts/ngrx-store-unserializable-data
+     */
+    StoreModule.forRoot(appReducer, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: false,    // otherwise Date cannot be used
+        strictActionSerializability: false,   // otherwise Date cannot be used
+        strictActionWithinNgZone: true,
+        strictActionTypeUniqueness: true,
+      }
+    }),
+    StoreModule.forFeature(fromAuth.featureKey, fromAuth.reducer),
+    StoreModule.forFeature(fromNote.notesFeatureKey, fromNote.reducer),
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+
+    EffectsModule.forRoot([]),
+    EffectsModule.forFeature(
+      [
+        AuthEffects,
+      ]
+    ),
+    EntityDataModule.forRoot(entityConfig),
+  ],
+  declarations: [
+    AppComponent,
+    AppMainComponent,
+    AppTopBarComponent,
+    AppFooterComponent,
+    AppConfigComponent,
+    AppMenuComponent,
+    AppMenuitemComponent,
+    DashboardComponent,
+    LoginComponent,
+    ErrorComponent,
+    NotfoundComponent,
+    AccessComponent,
   ],
   providers: [
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
+    MenuService,
     ConfigService,
-    MenuService
+    MessageService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

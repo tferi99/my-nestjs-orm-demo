@@ -21,7 +21,11 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@app/client-lib": ["../mikroorm-demo-server/libs/client-lib/src"],
+      "@app/client-lib/*": ["../mikroorm-demo-server/libs/client-lib/src/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

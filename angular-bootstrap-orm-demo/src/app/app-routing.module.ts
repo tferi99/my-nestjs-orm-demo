@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: "person", component: PersonListComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard]},
   { path: "sandbox", component: SandboxComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard]},
 
-  {path: '',   redirectTo: '/home', pathMatch: 'full' },   // default
+  { path: '',   redirectTo: '/home', pathMatch: 'full' },   // default
 ];
 
 @NgModule({
