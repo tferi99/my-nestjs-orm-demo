@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {ToastrService} from 'ngx-toastr';
 import {DataServiceError} from '@ngrx/data';
 import {ForeignKeyConstraintViolationError, UniqueConstraintError} from '../error/app-error';
+import { ToastrService } from '../../prime-core/service/toastr.service';
 
 /**
  * It retrieves data from error.

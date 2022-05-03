@@ -27,6 +27,8 @@ export class  AuthGuard implements CanActivate {
     if (this.inited) {
       this.logger.info('AuthGuard?');
     }
+    //return true;
+
     this.logger.info('AuthGuard?');
     return this.store.select(selectIsAuthenticated).pipe(
       tap(authenticated => this.logger.log('Authenticated: ', authenticated)),

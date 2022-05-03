@@ -1,4 +1,46 @@
-<div class="d-flex align-items-center justify-content-center" style="height: 70vh; width: 100%">
+<div class="grid p-fluid">
+  <div class="col-12 md:col-6">
+    <div class="card">
+      <h5>InputText</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <input pInputText type="text" placeholder="Default" />
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <input pInputText type="text" placeholder="Disabled" disabled />
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <input pInputText type="text" placeholder="Invalid" class="ng-invalid ng-dirty" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+<div class="surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+  <div class="grid justify-content-center p-2 lg:p-0" style="min-width: 80%">
+    <div class="col-12 xl:col-6">
+      <div class="card w-full md:w-10 mx-auto grid formgrid">
+        <form id="login-form" class="form" [formGroup]="form" (ngSubmit)="onLogin()" appFormFocus>
+          <h5>Login</h5>
+          <p>Sign In to your account</p>
+          <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+            <span class="p-input-icon-left">
+              <i class="pi pi-user"></i>
+              <input pInputText type="text" placeholder="Username" />
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+
+<!--
+
+  <div class="d-flex align-items-center justify-content-center" style="height: 70vh; width: 100%">
   <div class="card-group">
     <div class="card p-4">
       <div class="card-body">
@@ -20,11 +62,6 @@
             <div class="col-6">
               <button type="submit" name="submit" class="btn btn-primary btn-md px-4" [disabled]="!form.valid">Login</button>
             </div>
-            <!--
-            <div class="col-6 text-right">
-              <button type="button" class="btn btn-link px-0">Forgot password?</button>
-            </div>
-            -->
           </div>
         </form>
         <small>(admin / admin)</small>
@@ -32,13 +69,6 @@
     </div>
     <div class="card text-white py-5 d-md-down-none" style="width:44%">
       <div class="card-body text-center" style="display: flex; align-items: center; flex-wrap: wrap">
-        <!--
-        <div>
-          <h2>Sign up</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <button type="button" class="btn btn-primary active mt-3">Register Now!</button>
-        </div>
-        -->
         <img src="assets/logo.png" class="center">
       </div>
     </div>
@@ -52,6 +82,7 @@
     </div>
   </div>
 </div>
+-->
 
 <h2 *ngIf="authenticated$ | async" class="bg-success" style="text-align: center"><a [routerLink]="['/']">You are already authenticated: {{(currentAuth$ | async)?.name}}</a></h2>
 

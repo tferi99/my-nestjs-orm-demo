@@ -99,7 +99,7 @@ import { AppMenuitemComponent } from './layout/app-menu/app.menuitem.component';
 import { DashboardComponent } from './layout/components/dashboard/dashboard.component';
 import { MenuService } from './layout/service/app.menu.service';
 import { ConfigService } from './layout/service/app.config.service';
-import { LoginComponent } from './layout/components/login/login.component';
+import { Login2Component } from './layout/components/login/login2.component';
 import { ErrorComponent } from './layout/components/error/error.component';
 import { NotfoundComponent } from './layout/components/notfound/notfound.component';
 import { AccessComponent } from './layout/components/access/access.component';
@@ -115,6 +115,8 @@ import * as fromNote from './features/note/store/note.reducer';
 import { AuthEffects } from './auth/store/auth.effects';
 import { appReducer } from './store/app.reducer';
 import { MessageService } from 'primeng/api';
+import { AuthModule } from './auth/auth.module';
+import { InputComponent } from './sandbox/components/input/input.component';
 
 @NgModule({
   imports: [
@@ -242,6 +244,9 @@ import { MessageService } from 'primeng/api';
       ]
     ),
     EntityDataModule.forRoot(entityConfig),
+
+    // features
+    AuthModule,
   ],
   declarations: [
     AppComponent,
@@ -252,10 +257,13 @@ import { MessageService } from 'primeng/api';
     AppMenuComponent,
     AppMenuitemComponent,
     DashboardComponent,
-    LoginComponent,
+    Login2Component,
     ErrorComponent,
     NotfoundComponent,
     AccessComponent,
+
+    // sandbox
+    InputComponent
   ],
   providers: [
     {

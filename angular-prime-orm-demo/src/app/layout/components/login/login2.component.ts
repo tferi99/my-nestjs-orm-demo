@@ -4,7 +4,7 @@ import { AppConfig } from '../../appconfig';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
+  templateUrl: './login2.component.html',
   styles: [
     `
       :host ::ng-deep .p-password input {
@@ -26,7 +26,7 @@ import { Subscription } from 'rxjs';
     `,
   ],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class Login2Component implements OnInit, OnDestroy {
   valCheck: string[] = ['remember'];
 
   password?: string;

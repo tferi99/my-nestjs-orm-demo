@@ -39,6 +39,12 @@ export class AppMenuComponent implements OnInit {
           { label: 'Access Denied', icon: 'pi pi-fw pi-lock', routerLink: ['pages/access'] },
         ],
       },
+      {
+        label: 'Sandbox',
+        items: [
+          { label: 'Input', icon: 'pi pi-fw pi-sign-in', routerLink: ['sandbox/input'] },
+        ],
+      },
     ];
   }
 
