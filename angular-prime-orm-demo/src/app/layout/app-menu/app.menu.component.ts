@@ -40,9 +40,15 @@ export class AppMenuComponent implements OnInit {
         ],
       },
       {
-        label: 'Sandbox',
+        label: 'Components',
         items: [
           { label: 'Input', icon: 'pi pi-fw pi-sign-in', routerLink: ['/input'] },
+        ],
+      },
+      {
+        label: 'Sandbox',
+        items: [
+          { label: 'Input', icon: 'pi pi-fw pi-sign-in', routerLink: ['sandbox/input'] },
         ],
       },
     ];
