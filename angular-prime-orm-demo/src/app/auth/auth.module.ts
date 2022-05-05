@@ -8,6 +8,7 @@ import {RouterModule} from '@angular/router';
 import {CoreModule} from '../core/core.module';
 import { AuthRenewComponent } from './auth-renew/auth-renew.component';
 import {FeatureSharedModule} from '../feature-shared/feature-shared.module';
+import { APP_PRIMENG_MODULES } from '../layout/primeng-modules';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,9 @@ import {FeatureSharedModule} from '../feature-shared/feature-shared.module';
     ReactiveFormsModule,
     RouterModule,
     FeatureSharedModule,
+
+    // PrimeNG
+    APP_PRIMENG_MODULES,
 
     CoreModule
   ],

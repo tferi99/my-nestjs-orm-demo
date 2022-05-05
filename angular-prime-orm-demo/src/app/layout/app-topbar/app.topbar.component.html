@@ -1,7 +1,10 @@
-<div class="layout-topbar">
+<div class="layout-topbar" (mouseover)="userMenu.hide()">
   <a class="layout-topbar-logo" routerLink="">
+    <!--
     <img src="assets/layout/images/{{ appMain.config.dark ? 'logo-white' : 'logo-dark' }}.svg" alt="logo" />
-    <span>SAKAI</span>
+    -->
+    <img src="assets/logo-small.png" alt="logo" />
+    <span>MIKRO-ORM DEMO</span>
   </a>
 
   <a class="p-link layout-menu-button layout-topbar-button" href="#" (click)="appMain.toggleMenu($event)">
@@ -22,8 +25,10 @@
       <span>Settings</span>
     </a>
     <a href="#" class="p-link layout-topbar-button">
-      <i class="pi pi-user"></i>
+      <i class="pi pi-user" (mouseenter)="userMenu.show($event)"></i>
       <span>Profile</span>
     </a>
   </div>
 </div>
+
+<p-menu #userMenu [popup]="true" [model]="userMenuItems" (mouseleave)="userMenu.hide()"></p-menu>

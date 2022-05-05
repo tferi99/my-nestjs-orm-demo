@@ -1,107 +1,65 @@
-<div class="grid p-fluid">
-  <div class="col-12 md:col-6">
-    <div class="card">
-      <h5>InputText</h5>
-      <div class="grid formgrid">
-        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-          <input pInputText type="text" placeholder="Default" />
-        </div>
-        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-          <input pInputText type="text" placeholder="Disabled" disabled />
-        </div>
-        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-          <input pInputText type="text" placeholder="Invalid" class="ng-invalid ng-dirty" />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="grid p-fluid">
-  <div class="col-12 md:col-6">
-    <div class="card">
-      <h5>InputText</h5>
-      <div class="grid formgrid">
-        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-          <input pInputText type="text" placeholder="Default" />
-        </div>
-        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-          <input pInputText type="text" placeholder="Disabled" disabled />
-        </div>
-        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-          <input pInputText type="text" placeholder="Invalid" class="ng-invalid ng-dirty" />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--
 <div class="surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
   <div class="grid justify-content-center p-2 lg:p-0" style="min-width: 80%">
-    <div class="col-12 xl:col-6">
-      <div class="card w-full md:w-10 mx-auto grid formgrid">
-        <form id="login-form" class="form" [formGroup]="form" (ngSubmit)="onLogin()" appFormFocus>
-          <h5>Login</h5>
-          <p>Sign In to your account</p>
-          <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-            <span class="p-input-icon-left">
+    <div class="col-12 xl:col-6" style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
+      <div class="h-full w-full m-0 py-7 px-4" style="border-radius: 53px; background: var(--surface-0)">
+        <div class="text-center mb-5">
+          <h3>Login</h3>
+        </div>
+        <div class="grid formgrid">
+          <div class="col-12 mb-5 lg:col-4 lg:mb-0">
+            <span class="p-input-icon-left p-float-label">
               <i class="pi pi-user"></i>
-              <input pInputText type="text" placeholder="Username" />
+              <input pInputText type="text" id="username"/>
+              <label for="username">Username</label>
             </span>
           </div>
-        </form>
+          <div class="col-12 mb-5 lg:col-4 lg:mb-0">
+            <span class="p-input-icon-left p-float-label">
+              <i class="pi pi-user"></i>
+              <p-password id="password" [(ngModel)]="value4" [toggleMask]="true" [feedback]="false">
+                <ng-template pTemplate="header">
+                  <h6>Pick a password</h6>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                  <p-divider></p-divider>
+                  <p class="mt-2">Suggestions</p>
+                  <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                    <li>At least one lowercase</li>
+                    <li>At least one uppercase</li>
+                    <li>At least one numeric</li>
+                    <li>Minimum 8 characters</li>
+                  </ul>
+                </ng-template>
+              </p-password>
+              <label for="password">Password</label>
+            </span>
+          </div>
+
+          <div class="col-12 mb-3 lg:col-4 lg:mb-0">
+            <span class="p-float-label">
+              <p-password id="pwd2" [(ngModel)]="value4" [toggleMask]="true" [feedback]="false">
+                <ng-template pTemplate="header">
+                  <h6>Pick a password</h6>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                  <p-divider></p-divider>
+                  <p class="mt-2">Suggestions</p>
+                  <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                    <li>At least one lowercase</li>
+                    <li>At least one uppercase</li>
+                    <li>At least one numeric</li>
+                    <li>Minimum 8 characters</li>
+                  </ul>
+                </ng-template>
+              </p-password>
+              <label for="pwd2">Password</label>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
--->
-
-<!--
-
-  <div class="d-flex align-items-center justify-content-center" style="height: 70vh; width: 100%">
-  <div class="card-group">
-    <div class="card p-4">
-      <div class="card-body">
-        <form id="login-form" class="form" [formGroup]="form" (ngSubmit)="onLogin()" appFormFocus>
-          <h1>Login</h1>
-          <p class="text-muted">Sign In to your account</p>
-
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="lblUser"><i class="fa-solid fa-user"></i></span>
-            <input type="text" class="form-control" [formControl]="username" [ngClass]="{'is-invalid' : username.invalid}" placeholder="Username" autocomplete="username" aria-label="Username" aria-describedby="lblUser" required>
-            <div class="invalid-feedback" *ngIf="form.touched && username.invalid">{{getFormControlErrorMessage(username)}}</div>
-          </div>
-          <div class="input-group mb-4">
-            <span class="input-group-text" id="lblPwd"><i class="fa-solid fa-key"></i></span>
-            <input type="password" class="form-control" [formControl]="password" [ngClass]="{'is-invalid' : password.invalid}" placeholder="Password" autocomplete="current-password" aria-label="Password" aria-describedby="lblPwd" required>
-            <div class="invalid-feedback" *ngIf="form.touched && password.invalid">{{getFormControlErrorMessage(password)}}</div>
-          </div>
-          <div class="row">
-            <div class="col-6">
-              <button type="submit" name="submit" class="btn btn-primary btn-md px-4" [disabled]="!form.valid">Login</button>
-            </div>
-          </div>
-        </form>
-        <small>(admin / admin)</small>
-      </div>
-    </div>
-    <div class="card text-white py-5 d-md-down-none" style="width:44%">
-      <div class="card-body text-center" style="display: flex; align-items: center; flex-wrap: wrap">
-        <img src="assets/logo.png" class="center">
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="container h-75">
-  <div class="row h-75 justify-content-center align-items-center">
-    <div class="col-md-11 mx-auto">
-    </div>
-  </div>
-</div>
--->
 
 <h2 *ngIf="authenticated$ | async" class="bg-success" style="text-align: center"><a [routerLink]="['/']">You are already authenticated: {{(currentAuth$ | async)?.name}}</a></h2>
 

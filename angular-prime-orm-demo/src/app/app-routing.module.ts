@@ -13,16 +13,17 @@ import { InputComponent } from './sandbox/components/input/input.component';
 
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
   {
     path: '',
     component: AppMainComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', component: HomeComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'input', component: InputComponent },
     ],
   },
-  { path: 'pages/login', component: LoginComponent },
   { path: 'pages/error', component: ErrorComponent },
   { path: 'pages/notfound', component: NotfoundComponent },
   { path: 'pages/access', component: AccessComponent },

@@ -25,6 +25,7 @@ export interface LoginData {
 export class LoginComponent implements OnInit {
   authenticated$: Observable<boolean> = this.store.pipe(select(selectIsAuthenticated));
   currentAuth$: Observable<Auth|undefined> = this.store.pipe(select(selectAuthentication));
+  value4!: string;
 
   form = this.fb.group({
     username: [environment.defaultUsername, Validators.required],
