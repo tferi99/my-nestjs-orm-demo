@@ -39,6 +39,7 @@ import { NodeService } from './sandbox/service/nodeservice';
 import { CountryService } from './sandbox/service/countryservice';
 
 import { APP_PRIMENG_MODULES } from './layout/primeng-modules';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   imports: [
@@ -105,6 +106,7 @@ import { APP_PRIMENG_MODULES } from './layout/primeng-modules';
 
     // sandbox
     InputComponent,
+     TestComponent,
   ],
   providers: [
     {

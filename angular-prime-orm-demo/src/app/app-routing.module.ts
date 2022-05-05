@@ -10,15 +10,18 @@ import { HomeComponent } from './features/home/home.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { InputComponent } from './sandbox/components/input/input.component';
+import { TestComponent } from './test/test.component';
 
 
 const routes: Routes = [
+  { path: 'test', component: TestComponent },
   { path: 'login', component: LoginComponent },
   {
     path: '',
     component: AppMainComponent,
     canActivate: [AuthGuard],
     children: [
+
       { path: '', component: HomeComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'input', component: InputComponent },
