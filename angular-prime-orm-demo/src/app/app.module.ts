@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,7 +38,9 @@ import { InputComponent } from './sandbox/components/input/input.component';
 import { NodeService } from './sandbox/service/nodeservice';
 import { CountryService } from './sandbox/service/countryservice';
 
-import { APP_PRIMENG_MODULES } from './layout/primeng-modules';
+import { APP_PRIMENG_MODULES, APP_PRIMENG_PROVIDERS } from './layout/primeng-modules';
+import { HttpErrorInterceptor } from './core/error/http-error.interceptor';
+import { HomeComponent } from './features/home/home.component';
 
 @NgModule({
   imports: [
@@ -102,6 +104,7 @@ import { APP_PRIMENG_MODULES } from './layout/primeng-modules';
     ErrorComponent,
     NotfoundComponent,
     AccessComponent,
+    HomeComponent,
 
     // sandbox
     InputComponent,
@@ -111,10 +114,16 @@ import { APP_PRIMENG_MODULES } from './layout/primeng-modules';
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
     },
-    MenuService,
-    ConfigService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    },
+    APP_PRIMENG_PROVIDERS,
     MessageService,
 
+    MenuService,
+    ConfigService,
     CountryService,
     NodeService,
   ],

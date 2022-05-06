@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
-import {ToastrService} from 'ngx-toastr';
+
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -18,6 +18,7 @@ import {CustomHttpStatus, ResponseErrorPayload, ServerError} from '@app/client-l
 import {ForeignKeyConstraintViolationError, ServerAppError, UniqueConstraintError} from './app-error';
 import {AppState} from '../../store/app.reducer';
 import {LogoutAction} from '../../auth/store/auth.actions';
+import { ToastrService } from '../../prime-core/service/toastr.service';
 
 
 /**
@@ -44,7 +45,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
 
   private handleError(err: HttpErrorResponse): Observable<any> {
-    //console.log('>>>>>>> Error caught by interceptor:', err);
+    console.log('>>>>>>> Error caught by interceptor:', err);
     let errorMessage = '';
     let errorMessageExt;
     let notify = true;

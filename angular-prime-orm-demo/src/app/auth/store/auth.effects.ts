@@ -48,7 +48,9 @@ export class AuthEffects {
           if (auth) {
             return LoginSuccessAction({auth});
           }
-          return LoginErrorAction({errorMessage: 'Unexpected error during login: current Auth cannot be generated.'});
+          const msg = 'Unexpected error during login: current Auth cannot be generated.';
+          this.logger.error(msg);
+          return LoginErrorAction({errorMessage: msg});
         }
       ),
       catchError(err => {

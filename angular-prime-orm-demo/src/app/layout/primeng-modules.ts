@@ -79,7 +79,7 @@ import { TreeModule } from 'primeng/tree';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
-import { ConfirmationService, Footer, Header } from 'primeng/api';
+import { ConfirmationService, Footer, Header, MessageService } from 'primeng/api';
 
 export const APP_PRIMENG_MODULES = [
   StyleClassModule,
@@ -173,5 +173,5 @@ export const APP_PRIMENG_COMPONENTS = [
   Footer
 ];
 export const APP_PRIMENG_PROVIDERS = [
-  ConfirmationService
+  ConfirmationService,
 ];

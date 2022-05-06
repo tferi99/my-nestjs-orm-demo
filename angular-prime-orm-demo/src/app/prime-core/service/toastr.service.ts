@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
-const MSG_KEY = 'tst';
+const MSG_KEY = 'global';
 
 /**
  * It's a wrapper service to simulate ngx-toastr ToastrService
@@ -12,7 +12,7 @@ const MSG_KEY = 'tst';
 })
 export class ToastrService {
 
-  constructor(private service: MessageService) { }
+  constructor(public service: MessageService) { }
 
   info(message?: string, title?: string): void {
     this.service.add({ key: MSG_KEY, severity: 'info', summary: title, detail: message });

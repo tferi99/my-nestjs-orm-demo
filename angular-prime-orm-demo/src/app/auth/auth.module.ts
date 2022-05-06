@@ -8,7 +8,7 @@ import {RouterModule} from '@angular/router';
 import {CoreModule} from '../core/core.module';
 import { AuthRenewComponent } from './auth-renew/auth-renew.component';
 import {FeatureSharedModule} from '../feature-shared/feature-shared.module';
-import { APP_PRIMENG_MODULES } from '../layout/primeng-modules';
+import { APP_PRIMENG_MODULES, APP_PRIMENG_PROVIDERS } from '../layout/primeng-modules';
 
 @NgModule({
   declarations: [
@@ -32,6 +32,7 @@ import { APP_PRIMENG_MODULES } from '../layout/primeng-modules';
       useClass: AuthJwtTokenApplyInterceptor,
       multi: true
     },
+    APP_PRIMENG_PROVIDERS,
   ],
 
   exports: [

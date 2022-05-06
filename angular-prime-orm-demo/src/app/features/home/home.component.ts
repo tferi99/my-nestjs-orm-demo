@@ -3,6 +3,7 @@ import {Store} from '@ngrx/store';
 import {AuthState} from '../../auth/store/auth.reducer';
 import {LogoutAction} from '../../auth/store/auth.actions';
 import {CHANGE_DETECTION_STRATEGY} from '../../app.constants';
+import { ToastrService } from '../../prime-core/service/toastr.service';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private store: Store<AuthState>,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -21,5 +23,9 @@ export class HomeComponent implements OnInit {
 
   logout(): void {
     this.store.dispatch(LogoutAction());
+  }
+
+  info() {
+    this.toastrService.info('This is info Toastr');
   }
 }

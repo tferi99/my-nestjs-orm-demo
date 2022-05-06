@@ -1,65 +1,49 @@
+<p-toast key="global"></p-toast>
+
 <div class="surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
   <div class="grid justify-content-center p-2 lg:p-0" style="min-width: 80%">
+
+    <p-card>
+    <!--
     <div class="col-12 xl:col-6" style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
       <div class="h-full w-full m-0 py-7 px-4" style="border-radius: 53px; background: var(--surface-0)">
+      -->
         <div class="text-center mb-5">
           <h3>Login</h3>
         </div>
-        <div class="grid formgrid">
-          <div class="col-12 mb-5 lg:col-4 lg:mb-0">
-            <span class="p-input-icon-left p-float-label">
-              <i class="pi pi-user"></i>
-              <input pInputText type="text" id="username"/>
-              <label for="username">Username</label>
-            </span>
-          </div>
-          <div class="col-12 mb-5 lg:col-4 lg:mb-0">
-            <span class="p-input-icon-left p-float-label">
-              <i class="pi pi-user"></i>
-              <p-password id="password" [(ngModel)]="value4" [toggleMask]="true" [feedback]="false">
-                <ng-template pTemplate="header">
-                  <h6>Pick a password</h6>
-                </ng-template>
-                <ng-template pTemplate="footer">
-                  <p-divider></p-divider>
-                  <p class="mt-2">Suggestions</p>
-                  <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                    <li>At least one lowercase</li>
-                    <li>At least one uppercase</li>
-                    <li>At least one numeric</li>
-                    <li>Minimum 8 characters</li>
-                  </ul>
-                </ng-template>
-              </p-password>
-              <label for="password">Password</label>
-            </span>
+        <div class="grid p-fluid">
+          <div class="col-5 p-fluid">
+            <form id="login-form" [formGroup]="form" (ngSubmit)="onLogin()" appFormFocus>
+              <div class="mb-5">
+                <span class="p-input-icon-right p-float-label">
+                  <input pInputText type="text" id="username" [formControl]="username" [ngClass]="{'is-invalid' : username.invalid}" autocomplete="username"  required>
+                  <label for="username">Username</label>
+                  <i class="pi pi-user"></i>
+                </span>
+              </div>
+
+              <div class="mb-5">
+                <span class="p-float-label">
+                  <p-password #pwd id="password" [formControl]="password" [toggleMask]="true" [feedback]="false"></p-password>
+                  <label for="password">Password</label>
+                </span>
+              </div>
+              <button pButton pRipple type="submit" label="Sign In" class="w-full p-3 text-xl" [disabled]="!form.valid"></button>
+            </form>
           </div>
 
-          <div class="col-12 mb-3 lg:col-4 lg:mb-0">
-            <span class="p-float-label">
-              <p-password id="pwd2" [(ngModel)]="value4" [toggleMask]="true" [feedback]="false">
-                <ng-template pTemplate="header">
-                  <h6>Pick a password</h6>
-                </ng-template>
-                <ng-template pTemplate="footer">
-                  <p-divider></p-divider>
-                  <p class="mt-2">Suggestions</p>
-                  <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                    <li>At least one lowercase</li>
-                    <li>At least one uppercase</li>
-                    <li>At least one numeric</li>
-                    <li>Minimum 8 characters</li>
-                  </ul>
-                </ng-template>
-              </p-password>
-              <label for="pwd2">Password</label>
-            </span>
+          <div class="col-2">
+            <p-divider layout="vertical"></p-divider>
+          </div>
+
+          <div class="col-5 flex align-items-center justify-content-center">
+            <img src="assets/logo.png" alt="logo" style="width: 180px; height: auto"/>
           </div>
         </div>
-      </div>
-    </div>
+    </p-card>
   </div>
 </div>
+
 
 <h2 *ngIf="authenticated$ | async" class="bg-success" style="text-align: center"><a [routerLink]="['/']">You are already authenticated: {{(currentAuth$ | async)?.name}}</a></h2>
 
