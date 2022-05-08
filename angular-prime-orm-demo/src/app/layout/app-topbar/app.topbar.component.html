@@ -1,4 +1,4 @@
-<div class="layout-topbar" (mouseover)="userMenu.hide()">
+<div class="layout-topbar">
   <a class="layout-topbar-logo" routerLink="">
     <!--
     <img src="assets/layout/images/{{ appMain.config.dark ? 'logo-white' : 'logo-dark' }}.svg" alt="logo" />
@@ -25,10 +25,10 @@
       <span>Settings</span>
     </a>
     <a href="#" class="p-link layout-topbar-button">
-      <i class="pi pi-user" (mouseenter)="userMenu.show($event)"></i>
+      <i class="pi pi-user" (click)="userMenu.toggle($event)"></i>
       <span>Profile</span>
     </a>
   </div>
 </div>
 
-<p-menu #userMenu [popup]="true" [model]="userMenuItems" (mouseleave)="userMenu.hide()"></p-menu>
+<p-menu #userMenu [popup]="true" [model]="userMenuItems"></p-menu>
