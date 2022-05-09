@@ -1,5 +1,9 @@
 <p-toast key="global"></p-toast>
 
+<div class="loading-indicator" *ngIf="loading$ | async">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+
 <div class="surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
   <div class="grid justify-content-center p-2 lg:p-0" style="min-width: 80%">
 

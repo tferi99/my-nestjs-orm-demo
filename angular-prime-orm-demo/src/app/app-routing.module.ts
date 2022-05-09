@@ -15,6 +15,8 @@ import { CompanyListComponent } from './features/company/company-list/company-li
 
 
 const routes: Routes = [
+  { path: '',   redirectTo: '/company', pathMatch: 'full' },   // default
+
   { path: 'test', component: TestComponent },
   { path: 'login', component: LoginComponent },
   {
@@ -35,7 +37,6 @@ const routes: Routes = [
 
   { path: 'sandbox/input', component: InputComponent },
 
-  { path: '',   redirectTo: '/home', pathMatch: 'full' },   // default
   { path: '**', redirectTo: 'pages/notfound' },
 ];
 

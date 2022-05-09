@@ -13,6 +13,9 @@ import { CHANGE_DETECTION_STRATEGY } from '../../app.constants';
 import { Password } from 'primeng/password';
 import { MessageService } from 'primeng/api';
 import { ToastrService } from '../../prime-core/service/toastr.service';
+import { selectLoading } from '../../store/app.selectors';
+import { AppState } from '../../store/app.reducer';
+import { LoadingAction } from '../../store/app.actions';
 
 export interface LoginData {
   username: string;
@@ -31,6 +34,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   authenticated$: Observable<boolean> = this.store.pipe(select(selectIsAuthenticated));
   currentAuth$: Observable<Auth|undefined> = this.store.pipe(select(selectAuthentication));
 
+  loading$!: Observable<boolean>;
+
   form = this.fb.group({
     username: [environment.defaultUsername, Validators.required],
     password: [environment.defaultPassword, Validators.required],
@@ -42,18 +47,21 @@ export class LoginComponent implements OnInit, AfterViewInit {
   constructor(
     private readonly fb: FormBuilder,
     private authService: AuthService,
-    private store: Store<AuthState>,
+    private store: Store<AppState>,
     private formValidatorService: FormValidatorService,
     public messageService : MessageService,
     private toastrService: ToastrService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loading$ = this.store.select(selectLoading);
+  }
 
   onLogin(): void {
     const f: LoginData = this.form.getRawValue();
     console.log('Login: ', f);
     const {username, password} = f;
+    this.store.dispatch(LoadingAction());
     this.store.dispatch(LoginAction({username, password}));
   }
 

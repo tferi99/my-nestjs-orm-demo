@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {LocalStorageService} from '../core/service/local-storage.service';
 import jwt_decode from 'jwt-decode';
-import {Observable} from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import {LoginResult} from './model/login-result';
 import {NGXLogger} from 'ngx-logger';
 import {Router} from '@angular/router';
@@ -114,7 +114,9 @@ export class AuthService extends ServiceBase {
   }
 
   login(username: string, password: string): Observable<LoginResult> {
-    return this.http.post<LoginResult>(this.getBasePath() + '/login', { username, password });
+    return this.http.post<LoginResult>(this.getBasePath() + '/login', { username, password }).pipe(
+      delay(1000)
+    );
   }
 
   logout(): Observable<void> {

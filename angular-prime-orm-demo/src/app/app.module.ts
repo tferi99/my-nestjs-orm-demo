@@ -67,7 +67,7 @@ import { CompanyModule } from './features/company/company.module';
      * If you want to save non-serialiable objects in store.
      * See also: https://nils-mehlhorn.de/posts/ngrx-store-unserializable-data
      */
-    StoreModule.forRoot(appReducer, {
+    StoreModule.forRoot({app: appReducer}, {
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,

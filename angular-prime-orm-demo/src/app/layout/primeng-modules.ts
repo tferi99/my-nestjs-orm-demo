@@ -80,6 +80,8 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { ConfirmationService, Footer, Header, MessageService } from 'primeng/api';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 export const APP_PRIMENG_MODULES = [
   StyleClassModule,
@@ -105,6 +107,7 @@ export const APP_PRIMENG_MODULES = [
   ContextMenuModule,
   DataViewModule,
   DialogModule,
+  DynamicDialogModule,
   DividerModule,
   DropdownModule,
   FieldsetModule,
@@ -135,6 +138,7 @@ export const APP_PRIMENG_MODULES = [
   PasswordModule,
   PickListModule,
   ProgressBarModule,
+  ProgressSpinnerModule,
   RadioButtonModule,
   RatingModule,
   RippleModule,
