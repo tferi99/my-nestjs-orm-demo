@@ -29,9 +29,9 @@ export class CompanyListComponent extends ListComponentBase<Company, 'name'> imp
   loading$!: Observable<boolean>;
 
   constructor(
-    private companyDataService: CompanyDataService,
-    private modalService: BsModalService,
-    private dataServiceErrorMessageService: DataServiceErrorMessageService
+      private companyDataService: CompanyDataService,
+      private modalService: BsModalService,
+      private dataServiceErrorMessageService: DataServiceErrorMessageService
   ) {
     super(companyDataService, modalService, dataServiceErrorMessageService, errorMapping);
   }

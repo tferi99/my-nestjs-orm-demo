@@ -1,6 +1,6 @@
 import {HttpClient} from "@angular/common/http";
 import {AppInjector} from "../util/app-injector";
-import {SERVER_API_CONTEXT_PATH} from "../../app.constants";
+import { SERVER_API_CONTEXT_PATH } from '../core.constants';
 
 export class ServiceBase {
   protected apiBasePath: string;

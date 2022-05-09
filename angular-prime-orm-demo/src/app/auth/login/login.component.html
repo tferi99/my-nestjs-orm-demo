@@ -16,7 +16,7 @@
             <form id="login-form" [formGroup]="form" (ngSubmit)="onLogin()" appFormFocus>
               <div class="mb-5">
                 <span class="p-input-icon-right p-float-label">
-                  <input pInputText type="text" id="username" [formControl]="username" [ngClass]="{'is-invalid' : username.invalid}" autocomplete="username"  required>
+                  <input pInputText type="text" id="username" class="focus" [formControl]="username" autocomplete="username" required>
                   <label for="username">Username</label>
                   <i class="pi pi-user"></i>
                 </span>

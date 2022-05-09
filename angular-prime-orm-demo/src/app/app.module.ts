@@ -41,6 +41,7 @@ import { CountryService } from './sandbox/service/countryservice';
 import { APP_PRIMENG_MODULES, APP_PRIMENG_PROVIDERS } from './layout/primeng-modules';
 import { HttpErrorInterceptor } from './core/error/http-error.interceptor';
 import { HomeComponent } from './features/home/home.component';
+import { CompanyModule } from './features/company/company.module';
 
 @NgModule({
   imports: [
@@ -90,6 +91,7 @@ import { HomeComponent } from './features/home/home.component';
 
     // features
     AuthModule,
+    CompanyModule,
   ],
   declarations: [
     AppComponent,

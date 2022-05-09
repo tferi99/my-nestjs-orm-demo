@@ -11,6 +11,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { InputComponent } from './sandbox/components/input/input.component';
 import { TestComponent } from './test/test.component';
+import { CompanyListComponent } from './features/company/company-list/company-list.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
 
       { path: '', component: HomeComponent },
       { path: 'dashboard', component: DashboardComponent },
+      { path: "company", component: CompanyListComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
       { path: 'input', component: InputComponent },
     ],
   },

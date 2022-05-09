@@ -1,5 +1,5 @@
 import {Observable} from 'rxjs';
-import {DATE_FORMAT} from '../app.constants';
+import {DATE_FORMAT} from '../core.constants';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
 import {DialogResult} from '../form/modal/modal.model';
 import {take} from 'rxjs/operators';
