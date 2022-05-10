@@ -5,6 +5,8 @@ import {OnEscapeDirective} from "../core/directive/on-escape.directive";
 ////import {ConfirmDialogComponent} from './form/modal/confirm-dialog/confirm-dialog.component';
 ////import {DndModule} from 'ngx-drag-drop';
 import { ValueRefreshedByTimerComponent } from './component/value-refreshed-by-timer.component';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -16,12 +18,19 @@ import { ValueRefreshedByTimerComponent } from './component/value-refreshed-by-t
   imports: [
     CommonModule,
 ////    DndModule
+    // PrimeNG
+    DialogModule,
+    DynamicDialogModule,
   ],
   exports: [
     FormFocusDirective,
     OnEscapeDirective,
 ////    ConfirmDialogComponent,
     ValueRefreshedByTimerComponent
+  ],
+  providers: [
+    //ConfirmationService
   ]
+
 })
 export class CoreModule { }

@@ -12,6 +12,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { InputComponent } from './sandbox/components/input/input.component';
 import { TestComponent } from './test/test.component';
 import { CompanyListComponent } from './features/company/company-list/company-list.component';
+import {
+  CompanyModalFormComponent
+} from './features/company/company-edit/company-modal-form/company-modal-form.component';
 
 
 const routes: Routes = [
@@ -29,6 +32,8 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: "company", component: CompanyListComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
       { path: 'input', component: InputComponent },
+      { path: 'c', component: CompanyModalFormComponent },
+
     ],
   },
   { path: 'pages/error', component: ErrorComponent },

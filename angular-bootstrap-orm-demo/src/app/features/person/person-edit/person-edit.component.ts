@@ -12,7 +12,7 @@ const errorMapping: ErrorMessageMapping<Person> = {
   'UniqueConstraintError' : {message: 'already exists', retriever: (data => data.name)},
 }
 
-export interface PersonAdditional {
+export interface PersonAdditionalData {
   companies: Company[] | null;
 }
 
@@ -24,7 +24,7 @@ export interface PersonAdditional {
     -->`,
   styles: []
 })
-export class PersonEditComponent extends DataModalEditComponentBase<Person, PersonAdditional> implements OnInit, EditComponent<Person> {
+export class PersonEditComponent extends DataModalEditComponentBase<Person, PersonAdditionalData> implements OnInit, EditComponent<Person> {
   @Input() companies!: Company[] | null;
 
   constructor(
@@ -43,7 +43,7 @@ export class PersonEditComponent extends DataModalEditComponentBase<Person, Pers
     console.log("COMP:", )
   }
 
-  getAdditional(): PersonAdditional {
+  getAdditionalData(): PersonAdditionalData {
     return {
       companies: this.companies
     };

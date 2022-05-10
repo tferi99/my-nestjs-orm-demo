@@ -80,7 +80,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { ConfirmationService, Footer, Header, MessageService } from 'primeng/api';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 export const APP_PRIMENG_MODULES = [
@@ -178,4 +178,5 @@ export const APP_PRIMENG_COMPONENTS = [
 ];
 export const APP_PRIMENG_PROVIDERS = [
   ConfirmationService,
+  DialogService,
 ];

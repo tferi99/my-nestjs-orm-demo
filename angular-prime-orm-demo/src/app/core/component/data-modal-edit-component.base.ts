@@ -1,8 +1,8 @@
-import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
-import {ModalLoadDto, ModalResult} from '../form/modal/modal.model';
-import {DataServiceErrorMessageService, ErrorMessageMapping} from '../store/data-service-error-message.service';
-import {EntityCollectionServiceBase} from '@ngrx/data';
-import {ComponentType} from 'ngx-toastr';
+import { ModalLoadDto, ModalResult } from '../form/modal/modal.model';
+import { DataServiceErrorMessageService, ErrorMessageMapping } from '../store/data-service-error-message.service';
+import { EntityCollectionServiceBase } from '@ngrx/data';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Type } from '@angular/core';
 
 export interface EditComponent<T> {
   onNew(): void;
@@ -16,35 +16,36 @@ export interface EditComponent<T> {
  *    A:  additional data
  */
 export abstract class DataModalEditComponentBase<T, A> {
-  private _modalComponentType: ComponentType<ModalLoadDto<T, A>>;
+  private _dialogComponentType: Type<ModalLoadDto<T, A>>;
   private _dataService: EntityCollectionServiceBase<T>;
-  private _modalService: BsModalService;
+  private _dialogService: DialogService;
   private _dataServiceErrorMessageService: DataServiceErrorMessageService;
   private _errorMapping: ErrorMessageMapping<T>;
-  private _additionalModalOptions: Partial<ModalOptions<ModalLoadDto<T, A>>> | undefined;
+  private _additionalDialogOptions: Partial<DynamicDialogConfig> | undefined;
   /**
    * Pass this values from constructor of inherited class:
    *
-   * @param _modalComponentType component type of model form
-   * @param _dataService NgRx Data service
-   * @param _modalService ngx-bootstrap modal service
-   * @param _dataServiceErrorMessageService error message generator service
-   * @param _errorMapping error code-message mapping
+   * @param dialogComponentType component type of model form
+   * @param dataService NgRx Data service
+   * @param dialogService PrimeNG modal service
+   * @param dataServiceErrorMessageService error message generator service
+   * @param errorMapping error code-message mapping
+   * @param additionalDialogOptions additional dialog options
    */
   constructor(
-    modalComponentType: ComponentType<ModalLoadDto<T, A>>,
+    dialogComponentType: Type<ModalLoadDto<T, A>>,
     dataService: EntityCollectionServiceBase<T>,
-    modalService: BsModalService,
+    dialogService: DialogService,
     dataServiceErrorMessageService: DataServiceErrorMessageService,
     errorMapping: ErrorMessageMapping<T>,
-    additionalModalOptions?: Partial<ModalOptions<ModalLoadDto<T, A>>>
+    additionalDialogOptions?: Partial<DynamicDialogConfig>
   ) {
-    this._modalComponentType = modalComponentType;
+    this._dialogComponentType = dialogComponentType;
     this._dataService = dataService;
-    this._modalService = modalService;
+    this._dialogService = dialogService;
     this._dataServiceErrorMessageService = dataServiceErrorMessageService;
     this._errorMapping = errorMapping;
-    this._additionalModalOptions = additionalModalOptions;
+    this._additionalDialogOptions = additionalDialogOptions;
 
   }
 
@@ -67,30 +68,31 @@ export abstract class DataModalEditComponentBase<T, A> {
   }
 
   openEditModal(data?: T) {
-    const modalOptions: ModalOptions<ModalLoadDto<T, A>> = {
-      initialState: {
-        in: data,
-        additional: this.getAdditionalData()
+    const modalOptions: DynamicDialogConfig = {
+      data: {
+        ...data,
+        ...this.getAdditionalData()
       },
-      ...this._additionalModalOptions
+      width: '80%',
+      ...this._additionalDialogOptions
     };
     //console.log('DIALOG: ', initialState);
-    const ref: BsModalRef = this._modalService.show(this._modalComponentType, modalOptions);
-    ref.content.out.subscribe((out: ModalResult<T>) => {
+    const ref: DynamicDialogRef = this._dialogService.open(this._dialogComponentType, modalOptions);
+    ref.onClose.subscribe((out: ModalResult<T>) => {
         console.log('Dialog returns:', out);
 
         this.beforeSave(out.data);
 
         if (out.isNew) {
           this._dataService.add(out.data).subscribe(
-            () => ref.hide(),
+            () => ref.close(),
             error => {
               this._dataServiceErrorMessageService.showErrorMessage(error, this._errorMapping);
             }
           );
         } else {
           this._dataService.update(out.data).subscribe(
-            () => ref.hide(),
+            () => ref.close(),
             error => {
               this._dataServiceErrorMessageService.showErrorMessage(error, this._errorMapping);
             }

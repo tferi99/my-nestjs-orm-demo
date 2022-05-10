@@ -5,7 +5,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {KeyValuePair, stringEnumToKeyValuePairArray} from '../../../../core/util/key-value-pair';
 import {FormValidatorService} from '../../../../core/service/form-validator.service';
 import {ModalComponentBase} from '../../../../core/component/modal.component.base';
-import {PersonAdditional} from '../person-edit.component';
+import {PersonAdditionalData} from '../person-edit.component';
 import {NGX_DATE_FORMAT} from '../../../../core/core.constants';
 import {faker} from '@faker-js/faker';
 import {randomNumEnum, randomStringEnum} from '../../../../core/util/random-utils';
@@ -15,7 +15,7 @@ import {randomNumEnum, randomStringEnum} from '../../../../core/util/random-util
   templateUrl: './person-modal-form.component.html',
   styleUrls: ['./person-modal-form.component.scss']
 })
-export class PersonModalFormComponent extends ModalComponentBase<Person, PersonAdditional, 'id'> implements OnInit {
+export class PersonModalFormComponent extends ModalComponentBase<Person, PersonAdditionalData, 'id'> implements OnInit {
   employeeTypes: KeyValuePair<string, string>[] = stringEnumToKeyValuePairArray(EmployeeType, false, true);
 
   NGX_DATE_FORMAT = NGX_DATE_FORMAT;

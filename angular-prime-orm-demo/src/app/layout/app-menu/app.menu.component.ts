@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppMainComponent } from '../app-main/app.main.component';
+import {
+  CompanyModalFormComponent
+} from '../../features/company/company-edit/company-modal-form/company-modal-form.component';
 
 @Component({
   selector: 'app-menu',
@@ -30,7 +33,8 @@ export class AppMenuComponent implements OnInit {
         label: 'Home',
         items: [
           { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/dashboard'] },
-          { label: 'Companies', icon: 'pi pi-fw pi-book', routerLink: ['/company'] }
+          { label: 'Companies', icon: 'pi pi-fw pi-book', routerLink: ['/company'] },
+          { label: 'Comp', icon: 'pi pi-fw pi-book', routerLink: ['/c'] }
         ],
       },
       {
