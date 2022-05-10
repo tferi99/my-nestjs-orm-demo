@@ -51,30 +51,32 @@ export abstract class DataModalEditComponentBase<T, A> {
 
   abstract getAdditionalData(): A;
   abstract beforeSave(data: T): void;
+  abstract getDialogTitle(data: T): string;
 
-  onNew(): void {
+  onNew(additionalDialogOptions?: Partial<DynamicDialogConfig>): void {
     this.openEditModal();
   }
 
-  onCopy(data: T): void  {
+  onCopy(data: T, additionalDialogOptions?: Partial<DynamicDialogConfig>): void  {
     const copy: T = {...data};
     // @ts-ignore
     delete copy['id'];
     this.openEditModal(copy);
   }
 
-  onEdit(data: T): void  {
+  onEdit(data: T, additionalDialogOptions?: Partial<DynamicDialogConfig>): void  {
     this.openEditModal(data);
   }
 
-  openEditModal(data?: T) {
+  openEditModal(data?: T, additionalDialogOptions?: Partial<DynamicDialogConfig>) {
     const modalOptions: DynamicDialogConfig = {
       data: {
         ...data,
         ...this.getAdditionalData()
       },
       width: '80%',
-      ...this._additionalDialogOptions
+      ...this._additionalDialogOptions,
+      ...additionalDialogOptions
     };
     //console.log('DIALOG: ', initialState);
     const ref: DynamicDialogRef = this._dialogService.open(this._dialogComponentType, modalOptions);

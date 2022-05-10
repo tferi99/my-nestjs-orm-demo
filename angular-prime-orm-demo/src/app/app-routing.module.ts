@@ -32,8 +32,6 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: "company", component: CompanyListComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
       { path: 'input', component: InputComponent },
-      { path: 'c', component: CompanyModalFormComponent },
-
     ],
   },
   { path: 'pages/error', component: ErrorComponent },
