@@ -1,46 +1,34 @@
-<h3>
-  <span>{{isNew ? 'New' : 'Edit'}} Company</span>
-</h3>
-
-<div class="p-fluid p-formgrid grid">
-  <div class="field col-12 md:col-6">
-    <label htmlFor="firstname2">Firstname</label>
-    <input pInputText id="firstname2" type="text" />
+<form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus [focusDelayed]="true" (appOnEscape)="onCancel()">
+  <div class="p-fluid p-formgrid grid">
+    <div class="field col-6">
+      <label htmlFor="name">Name</label>
+      <input pInputText id="name" type="text" [formControl]="name" placeholder="Name"/>
+      <small id="name-help" class="p-error block">{{getFormControlErrorMessage(name)}}</small>
+    </div>
+    <div class="field col-4">
+      <label htmlFor="established">DateFormat</label>
+      <p-calendar [dateFormat]="dateFormat" inputId="established" placeholder="Established" [formControl]="established"></p-calendar>
+      <small id="established-help" class="p-error block">{{getFormControlErrorMessage(name)}}</small>
+    </div>
   </div>
-  <div class="field col-12 md:col-6">
-    <label htmlFor="lastname2">Lastname</label>
-    <input pInputText id="lastname2" type="text" />
-  </div>
-  <div class="field col-12">
-    <label htmlFor="address">Address</label>
-    <input pInputTextarea id="address" rows="4" />
-  </div>
-  <div class="field col-12 md:col-6">
-    <label htmlFor="city">City</label>
-    <input pInputText id="city" type="text" />
-  </div>
-  <div class="field col-12 md:col-3">
-    <label htmlFor="zip">Zip</label>
-    <input pInputText id="zip" type="text" />
+  <div class="p-formgrid grid">
+    <div class="field col-12">
+      <label class="form-check-label" htmlFor="note">Note</label>
+      <textarea [rows]="5" inputId="note" style="width: 100%" pInputTextarea [formControl]="note"></textarea>
+    </div>
   </div>
 
+  <div class="field-checkbox">
+    <p-checkbox [formControl]="active" inputId="active"></p-checkbox>
+    <label htmlFor="active">Active</label>
+  </div>
+  <div class="p-formgrid grid">
+    <div class="col-2">
+      <button pButton pRipple type="submit" [disabled]="!form.valid" label="OK"></button>
+    </div>
+  </div>
+</form>
 <!--
-<h5>Vertical and Grid</h5>
-<div class="formgrid grid">
-  <div class="field col">
-    <label for="firstname2">Firstname</label>
-    <input id="firstname2" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-  </div>
-  <div class="field col">
-    <label for="lastname2">Lastname</label>
-    <input id="lastname2" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-  </div>
-</div>
-
-
-<h2>
-  <span>{{isNew ? 'New' : 'Edit'}} Company</span>
-</h2>
 <button class="btn btn-warning pull-right" (click)="fillRandom()">Random</button>
 
 <div class="modal-body">

@@ -25,10 +25,11 @@ export class CompanyEditComponent extends DataModalEditComponentBase<Company, an
     private dataServiceErrorMessageService: DataServiceErrorMessageService
 
   ) {
-    super(CompanyModalFormComponent, companyDataService, dialogService, dataServiceErrorMessageService, errorMapping, {
+    super('Company', CompanyModalFormComponent, companyDataService, dialogService, dataServiceErrorMessageService, errorMapping, {
       header: 'Choose a Product',
       width: '70%',
-      contentStyle: {"max-height": "500px", "overflow": "auto"},
+      height: '550px',
+      contentStyle: {"overflow": "hidden"},
     });
   }
 

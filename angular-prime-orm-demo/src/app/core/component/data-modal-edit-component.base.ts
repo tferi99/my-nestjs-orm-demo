@@ -22,6 +22,7 @@ export abstract class DataModalEditComponentBase<T, A> {
   private _dataServiceErrorMessageService: DataServiceErrorMessageService;
   private _errorMapping: ErrorMessageMapping<T>;
   private _additionalDialogOptions: Partial<DynamicDialogConfig> | undefined;
+  private entityName : string;
   /**
    * Pass this values from constructor of inherited class:
    *
@@ -33,6 +34,7 @@ export abstract class DataModalEditComponentBase<T, A> {
    * @param additionalDialogOptions additional dialog options
    */
   constructor(
+    entityName: string,
     dialogComponentType: Type<ModalLoadDto<T, A>>,
     dataService: EntityCollectionServiceBase<T>,
     dialogService: DialogService,
@@ -40,6 +42,7 @@ export abstract class DataModalEditComponentBase<T, A> {
     errorMapping: ErrorMessageMapping<T>,
     additionalDialogOptions?: Partial<DynamicDialogConfig>
   ) {
+    this.entityName = entityName;
     this._dialogComponentType = dialogComponentType;
     this._dataService = dataService;
     this._dialogService = dialogService;
@@ -51,10 +54,12 @@ export abstract class DataModalEditComponentBase<T, A> {
 
   abstract getAdditionalData(): A;
   abstract beforeSave(data: T): void;
-  abstract getDialogTitle(data: T): string;
 
   onNew(additionalDialogOptions?: Partial<DynamicDialogConfig>): void {
-    this.openEditModal();
+    this.openEditModal(undefined, {
+      ...additionalDialogOptions,
+      header: 'New ' + this.entityName
+    });
   }
 
   onCopy(data: T, additionalDialogOptions?: Partial<DynamicDialogConfig>): void  {
@@ -65,7 +70,10 @@ export abstract class DataModalEditComponentBase<T, A> {
   }
 
   onEdit(data: T, additionalDialogOptions?: Partial<DynamicDialogConfig>): void  {
-    this.openEditModal(data);
+    this.openEditModal(data, {
+      ...additionalDialogOptions,
+      header: 'Edit ' + this.entityName
+    });
   }
 
   openEditModal(data?: T, additionalDialogOptions?: Partial<DynamicDialogConfig>) {

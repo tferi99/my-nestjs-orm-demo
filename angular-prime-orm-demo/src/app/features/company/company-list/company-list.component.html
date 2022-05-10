@@ -2,7 +2,7 @@
 
 <div class="col-12">
   <div class="card">
-    <h5>Frozen Columns</h5>
+    <h5>Companies</h5>
 
     <p-table [value]="(companies$ | async)!" styleClass="p-datatable-sm p-datatable-striped" responsiveLayout="scroll">
       <ng-template pTemplate="header">
@@ -13,7 +13,9 @@
           <th>Updated</th>
           <th>Active</th>
           <th>Note</th>
-          <th></th>
+          <th class="text-right">
+            <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text" (click)="onNew()"></button>
+          </th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-company>
@@ -41,4 +43,4 @@
   </div>
 </div>
 
-<app-company-edit #edit></app-company-edit>
+<app-company-edit #edit [style]="{'overflow':'visible'}"></app-company-edit>

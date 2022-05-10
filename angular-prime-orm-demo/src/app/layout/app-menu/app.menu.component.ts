@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppMainComponent } from '../app-main/app.main.component';
-import {
-  CompanyModalFormComponent
-} from '../../features/company/company-edit/company-modal-form/company-modal-form.component';
 
 @Component({
   selector: 'app-menu',
