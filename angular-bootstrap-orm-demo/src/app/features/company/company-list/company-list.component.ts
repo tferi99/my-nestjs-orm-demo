@@ -9,7 +9,7 @@ import {
 } from '../../../core/store/data-service-error-message.service';
 import {CompanyEditComponent} from '../company-edit/company-edit.component';
 import {ListComponentBase} from '../../../core/component/list.component.base';
-import {EditComponent} from 'src/app/core/component/data-modal-edit-component.base';
+import {EditComponent} from 'src/app/core/component/modal-edit-component.base';
 import {CHANGE_DETECTION_STRATEGY} from '../../../app.constants';
 
 const errorMapping: ErrorMessageMapping<Company> = {

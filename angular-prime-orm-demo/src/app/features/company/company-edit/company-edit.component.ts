@@ -6,7 +6,7 @@ import {
   DataServiceErrorMessageService,
   ErrorMessageMapping
 } from '../../../core/store/data-service-error-message.service';
-import {DataModalEditComponentBase, EditComponent} from '../../../core/component/data-modal-edit-component.base';
+import {ModalEditComponentBase, EditComponent} from '../../../core/component/modal-edit-component.base';
 import { DialogService } from 'primeng/dynamicdialog';
 
 const errorMapping: ErrorMessageMapping<Company> = {
@@ -18,7 +18,7 @@ const errorMapping: ErrorMessageMapping<Company> = {
   template: ``,
   styles: []
 })
-export class CompanyEditComponent extends DataModalEditComponentBase<Company, any> implements EditComponent<Company> {
+export class CompanyEditComponent extends ModalEditComponentBase<Company, any> implements EditComponent<Company> {
   constructor(
     private companyDataService: CompanyDataService,
     private dialogService: DialogService,
@@ -28,7 +28,7 @@ export class CompanyEditComponent extends DataModalEditComponentBase<Company, an
     super('Company', CompanyModalFormComponent, companyDataService, dialogService, dataServiceErrorMessageService, errorMapping, {
       header: 'Choose a Product',
       width: '70%',
-      height: '550px',
+      height: '500px',
       contentStyle: {"overflow": "hidden"},
     });
   }

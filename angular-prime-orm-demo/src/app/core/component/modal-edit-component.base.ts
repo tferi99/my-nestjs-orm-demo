@@ -1,8 +1,9 @@
-import { ModalLoadDto, ModalResult } from '../form/modal/modal.model';
+import { DialogInput, DialogOutput } from '../form/modal/modal.model';
 import { DataServiceErrorMessageService, ErrorMessageMapping } from '../store/data-service-error-message.service';
 import { EntityCollectionServiceBase } from '@ngrx/data';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Type } from '@angular/core';
+import { ModalComponentBase } from './modal.component.base';
 
 export interface EditComponent<T> {
   onNew(): void;
@@ -15,8 +16,8 @@ export interface EditComponent<T> {
  *    T:  type edited
  *    A:  additional data
  */
-export abstract class DataModalEditComponentBase<T, A> {
-  private _dialogComponentType: Type<ModalLoadDto<T, A>>;
+export abstract class ModalEditComponentBase<T, A> {
+  private _dialogComponentType: Type<ModalComponentBase<T, A, keyof T>>;
   private _dataService: EntityCollectionServiceBase<T>;
   private _dialogService: DialogService;
   private _dataServiceErrorMessageService: DataServiceErrorMessageService;
@@ -35,7 +36,7 @@ export abstract class DataModalEditComponentBase<T, A> {
    */
   constructor(
     entityName: string,
-    dialogComponentType: Type<ModalLoadDto<T, A>>,
+    dialogComponentType: Type<ModalComponentBase<T, A, keyof T>>,
     dataService: EntityCollectionServiceBase<T>,
     dialogService: DialogService,
     dataServiceErrorMessageService: DataServiceErrorMessageService,
@@ -56,7 +57,7 @@ export abstract class DataModalEditComponentBase<T, A> {
   abstract beforeSave(data: T): void;
 
   onNew(additionalDialogOptions?: Partial<DynamicDialogConfig>): void {
-    this.openEditModal(undefined, {
+    this.openEditModal({isNew: true}, {
       ...additionalDialogOptions,
       header: 'New ' + this.entityName
     });
@@ -66,29 +67,40 @@ export abstract class DataModalEditComponentBase<T, A> {
     const copy: T = {...data};
     // @ts-ignore
     delete copy['id'];
-    this.openEditModal(copy);
+    this.openEditModal({
+      data: copy,
+      additional: undefined,
+      isNew: true
+    });
   }
 
   onEdit(data: T, additionalDialogOptions?: Partial<DynamicDialogConfig>): void  {
-    this.openEditModal(data, {
+    this.openEditModal({
+      data,
+      isNew: false
+    }, {
       ...additionalDialogOptions,
       header: 'Edit ' + this.entityName
     });
   }
 
-  openEditModal(data?: T, additionalDialogOptions?: Partial<DynamicDialogConfig>) {
+  openEditModal(dialogInputData: DialogInput<T, A>, additionalDialogOptions?: Partial<DynamicDialogConfig>) {
+    const extendedAdditionalData: A = {
+      ...dialogInputData.additional, ...this.getAdditionalData()
+    }
+    const extendedeDialogInputData: DialogInput<T, A> = {
+      ...dialogInputData,
+      additional: extendedAdditionalData
+    }
     const modalOptions: DynamicDialogConfig = {
-      data: {
-        ...data,
-        ...this.getAdditionalData()
-      },
+      data: extendedeDialogInputData,
       width: '80%',
       ...this._additionalDialogOptions,
       ...additionalDialogOptions
     };
-    //console.log('DIALOG: ', initialState);
+    console.log('DIALOG init: ', modalOptions);
     const ref: DynamicDialogRef = this._dialogService.open(this._dialogComponentType, modalOptions);
-    ref.onClose.subscribe((out: ModalResult<T>) => {
+    ref.onClose.subscribe((out: DialogOutput<T>) => {
         console.log('Dialog returns:', out);
 
         this.beforeSave(out.data);

@@ -1,16 +1,12 @@
-export enum DialogResult {
-  OK = 'OK',
-  CANCEL = 'CANCEL'
-}
 
-export interface ModalResult<T> {
-  command: DialogResult | string;
+export interface DialogInput<T, A> {
+  data?: T,
+  additional?: A
   isNew: boolean;
-  data: T;
 }
 
-export interface ModalLoadDto<T, A> {
-  in: T;
-  additional: A
+export interface DialogOutput<T> {
+  data: T;
+  isNew: boolean;
 }
 

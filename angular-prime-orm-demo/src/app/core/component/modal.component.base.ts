@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {DialogResult, ModalResult} from '../form/modal/modal.model';
-import {AbstractControl, FormGroup} from '@angular/forms';
-import {FormValidatorService} from '../service/form-validator.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { AbstractControl, FormGroup } from '@angular/forms';
+import { FormValidatorService } from '../service/form-validator.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogOutput } from '../form/modal/modal.model';
 
 
 @Component({
@@ -15,7 +15,6 @@ export abstract class ModalComponentBase<T, A, PK extends keyof T> implements On
   @Input() in!: T;
   @Input() additional!: A;
   @Input() autoHide = false;
-  @Output() out = new EventEmitter<ModalResult<T>>();
 
   form!: FormGroup;
   isNew = false;
@@ -31,6 +30,7 @@ export abstract class ModalComponentBase<T, A, PK extends keyof T> implements On
   ngOnInit(): void {
     this.isNew = this.in === undefined || this.in[this.getNameOfId()] === undefined;
 
+    console.log('DIALOG INPUT: ', this.in);
     if (this.in) {
       this.form.patchValue(this.in);
     }
@@ -38,8 +38,13 @@ export abstract class ModalComponentBase<T, A, PK extends keyof T> implements On
 
   onSubmit(): void {
     const data: T = this.form.getRawValue();
-    console.log('RESULT: ', data);
-    this.out.emit({command: DialogResult.OK, isNew: this.isNew, data});
+    console.log('FORM DATA: ', data);
+    const result: DialogOutput<T> = {
+      data,
+      isNew: this.isNew
+    };
+    console.log('DIALOG OUTPUT: ', data);
+    this._modalRef.close(data);
   }
 
   getFormControlErrorMessage(ctr: AbstractControl): string {

@@ -7,7 +7,7 @@ import {
   DataServiceErrorMessageService,
   ErrorMessageMapping
 } from '../../../core/store/data-service-error-message.service';
-import {DataModalEditComponentBase, EditComponent} from '../../../core/component/data-modal-edit-component.base';
+import {ModalEditComponentBase, EditComponent} from '../../../core/component/modal-edit-component.base';
 
 const errorMapping: ErrorMessageMapping<Company> = {
   'UniqueConstraintError' : {message: 'already exists', retriever: (data => data.name)},
@@ -18,7 +18,7 @@ const errorMapping: ErrorMessageMapping<Company> = {
   template: ``,
   styles: []
 })
-export class CompanyEditComponent extends DataModalEditComponentBase<Company, any> implements OnInit, EditComponent<Company> {
+export class CompanyEditComponent extends ModalEditComponentBase<Company, any> implements OnInit, EditComponent<Company> {
   constructor(
     private companyDataService: CompanyDataService,
     private modalService: BsModalService,

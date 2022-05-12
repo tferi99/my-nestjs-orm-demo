@@ -3,16 +3,24 @@ import { DataServiceErrorMessageService, ErrorMessageMapping } from '../store/da
 import { EntityCollectionServiceBase } from '@ngrx/data';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Confirmation, ConfirmationService } from 'primeng/api';
-import { EditComponent } from './data-modal-edit-component.base';
+import { EditComponent } from './modal-edit-component.base';
 
+/**
+ * Provides common features of a list of items:
+ * - add new list item by calling an edit component with {@link onNew}
+ * - edit list item by calling an edit component with {@link onEdit}
+ * - delete a list item by calling a confirmation and NgRX entity collection service {@link onDelete}
+ *
+ * Edit component can be rendered here (e.g. a modal dialog or in-place editor) - no routing involved.
+ */
 export abstract class ListComponentBase<T, NAME extends keyof T> {
   deleting = false;
   enabledDump = true;
 
   dateFormat = DATE_FORMAT;
 
-  protected abstract getEditComponent(): EditComponent<T>;
-  protected abstract getNameOfName(): NAME;
+  protected abstract getEditComponent(): EditComponent<T>;  // used for calling new/edit/copy
+  protected abstract getNameOfName(): NAME;     // used for Delete confirmation
 
   _dataService: EntityCollectionServiceBase<T>;
   _dialogService: DialogService;
@@ -75,5 +83,4 @@ export abstract class ListComponentBase<T, NAME extends keyof T> {
   onDump(data: T) {
     console.log('DUMP:', data);
   }
-
 }

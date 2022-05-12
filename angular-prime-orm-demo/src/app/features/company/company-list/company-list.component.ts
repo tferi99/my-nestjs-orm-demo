@@ -10,7 +10,7 @@ import { CHANGE_DETECTION_STRATEGY } from '../../../app.constants';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ListComponentBase } from '../../../core/component/list.component.base';
 import { ConfirmationService } from 'primeng/api';
-import { EditComponent } from '../../../core/component/data-modal-edit-component.base';
+import { EditComponent } from '../../../core/component/modal-edit-component.base';
 import { CompanyEditComponent } from '../company-edit/company-edit.component';
 
 const errorMapping: ErrorMessageMapping<Company> = {

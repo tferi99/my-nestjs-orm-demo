@@ -15,7 +15,7 @@ export interface EditComponent<T> {
  *    T:  type edited
  *    A:  additional data
  */
-export abstract class DataModalEditComponentBase<T, A> {
+export abstract class ModalEditComponentBase<T, A> {
   private _modalComponentType: ComponentType<ModalLoadDto<T, A>>;
   private _dataService: EntityCollectionServiceBase<T>;
   private _modalService: BsModalService;

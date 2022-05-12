@@ -11,7 +11,7 @@ import {PersonDataService} from '../store/person-data.service';
 import {CompanyDataService} from '../../company/store/company-data.service';
 import {Store} from '@ngrx/store';
 import {ListComponentBase} from '../../../core/component/list.component.base';
-import {EditComponent} from '../../../core/component/data-modal-edit-component.base';
+import {EditComponent} from '../../../core/component/modal-edit-component.base';
 import {EntityCollection} from '@ngrx/data/src/reducers/entity-collection';
 import {CHANGE_DETECTION_STRATEGY} from '../../../app.constants';
 

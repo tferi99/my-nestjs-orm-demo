@@ -4,7 +4,7 @@ import {BsModalService} from 'ngx-bootstrap/modal';
 import {PersonModalFormComponent} from './person-modal-form/person-modal-form.component';
 import {PersonDataService} from '../store/person-data.service';
 import {DataServiceErrorMessageService, ErrorMessageMapping} from '../../../core/store/data-service-error-message.service';
-import {DataModalEditComponentBase, EditComponent} from '../../../core/component/data-modal-edit-component.base';
+import {ModalEditComponentBase, EditComponent} from '../../../core/component/modal-edit-component.base';
 import {Observable} from 'rxjs';
 import {EntityCollection} from '@ngrx/data/src/reducers/entity-collection';
 
@@ -24,7 +24,7 @@ export interface PersonAdditionalData {
     -->`,
   styles: []
 })
-export class PersonEditComponent extends DataModalEditComponentBase<Person, PersonAdditionalData> implements OnInit, EditComponent<Person> {
+export class PersonEditComponent extends ModalEditComponentBase<Person, PersonAdditionalData> implements OnInit, EditComponent<Person> {
   @Input() companies!: Company[] | null;
 
   constructor(

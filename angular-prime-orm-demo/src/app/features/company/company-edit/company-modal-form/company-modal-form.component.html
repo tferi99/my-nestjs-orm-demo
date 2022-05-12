@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus [focusDelayed]="true" (appOnEscape)="onCancel()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus [focusDelayed]="true" (appOnEscape)="onCancel()" style="height: 100%">
   <div class="p-fluid p-formgrid grid">
     <div class="field col-6">
       <label htmlFor="name">Name</label>
@@ -19,15 +19,17 @@
   </div>
 
   <div class="field-checkbox">
-    <p-checkbox [formControl]="active" inputId="active"></p-checkbox>
+    <p-checkbox [formControl]="active" inputId="active" [binary]="true"></p-checkbox>
     <label htmlFor="active">Active</label>
   </div>
-  <div class="p-formgrid grid">
-    <div class="col-2">
-      <button pButton pRipple type="submit" [disabled]="!form.valid" label="OK"></button>
-    </div>
+  <div class="field">
+    <button pButton pRipple type="submit" class="p-button-success mr-2" [disabled]="!form.valid" label="OK"></button>
+    <button pButton pRipple type="button" class="p-button-danger" label="Cancel" (click)="onCancel()"></button>
   </div>
 </form>
+
+
+
 <!--
 <button class="btn btn-warning pull-right" (click)="fillRandom()">Random</button>
 

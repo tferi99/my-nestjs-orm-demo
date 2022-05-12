@@ -5,7 +5,7 @@ import {DialogResult} from '../form/modal/modal.model';
 import {take} from 'rxjs/operators';
 import {DataServiceErrorMessageService, ErrorMessageMapping} from '../store/data-service-error-message.service';
 import {ConfirmDialogComponent, ConfirmDialogConfig} from '../form/modal/confirm-dialog/confirm-dialog.component';
-import {EditComponent} from './data-modal-edit-component.base';
+import {EditComponent} from './modal-edit-component.base';
 import {EntityCollectionServiceBase} from '@ngrx/data';
 
 export abstract class ListComponentBase<T, NAME extends keyof T> {
