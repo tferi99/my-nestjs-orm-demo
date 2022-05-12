@@ -1,4 +1,4 @@
-import { DialogInput, DialogOutput } from '../form/modal/modal.model';
+import { DialogInput, DialogOutput, modalTraceLog } from '../form/modal/modal.model';
 import { DataServiceErrorMessageService, ErrorMessageMapping } from '../store/data-service-error-message.service';
 import { EntityCollectionServiceBase } from '@ngrx/data';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -75,6 +75,7 @@ export abstract class ModalEditComponentBase<T, A> {
   }
 
   onEdit(data: T, additionalDialogOptions?: Partial<DynamicDialogConfig>): void  {
+
     this.openEditModal({
       data,
       isNew: false
@@ -98,11 +99,14 @@ export abstract class ModalEditComponentBase<T, A> {
       ...this._additionalDialogOptions,
       ...additionalDialogOptions
     };
-    console.log('DIALOG init: ', modalOptions);
+    modalTraceLog('openEditModal() DIALOG init: ', modalOptions);
+
     const ref: DynamicDialogRef = this._dialogService.open(this._dialogComponentType, modalOptions);
     ref.onClose.subscribe((out: DialogOutput<T>) => {
-        console.log('Dialog returns:', out);
-
+        modalTraceLog('dialog onClose callback returns:', out);
+        if (!out) {
+          return;
+        }
         this.beforeSave(out.data);
 
         if (out.isNew) {

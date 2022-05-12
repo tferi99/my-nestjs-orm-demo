@@ -5,7 +5,7 @@ import { FormValidatorService } from '../../../../core/service/form-validator.se
 import { ModalComponentBase } from '../../../../core/component/modal.component.base';
 import { NG_DATE_FORMAT } from '../../../../core/core.constants';
 import { faker } from '@faker-js/faker';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-company-modal-form-form',
@@ -19,8 +19,9 @@ export class CompanyModalFormComponent extends ModalComponentBase<Company, any, 
     public modalRef: DynamicDialogRef,
     private fb: FormBuilder,
     private formValidatorService: FormValidatorService,
+    public modalConfig: DynamicDialogConfig,
   ) {
-    super(modalRef, formValidatorService);
+    super(modalRef, modalConfig, formValidatorService);
   }
 
   override form = this.fb.group({
