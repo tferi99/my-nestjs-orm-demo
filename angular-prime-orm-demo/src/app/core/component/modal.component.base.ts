@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { FormValidatorService } from '../service/form-validator.service';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { DialogOutput } from '../form/modal/modal.model';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogInput, DialogOutput } from '../form/modal/modal.model';
 
 
 @Component({
@@ -12,15 +12,16 @@ import { DialogOutput } from '../form/modal/modal.model';
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export abstract class ModalComponentBase<T, A, PK extends keyof T> implements OnInit {
-  @Input() in!: T;
-  @Input() additional!: A;
-  @Input() autoHide = false;
+  in!: DialogInput<T, A>;
+/*  @Input() additional!: A;
+  @Input() autoHide = false;*/
 
   form!: FormGroup;
   isNew = false;
 
   constructor(
     public _modalRef: DynamicDialogRef,
+    public _modalConfig: DynamicDialogConfig,
     private _formValidatorService: FormValidatorService,
   ) {}
 
@@ -28,9 +29,10 @@ export abstract class ModalComponentBase<T, A, PK extends keyof T> implements On
   protected abstract getForm(): FormGroup;
 
   ngOnInit(): void {
-    this.isNew = this.in === undefined || this.in[this.getNameOfId()] === undefined;
-
+    this.in = this._modalConfig.data;
     console.log('DIALOG INPUT: ', this.in);
+
+    this.isNew = this.in.isNew === undefined || this.in.data?[this.getNameOfId()] == undefined;
     if (this.in) {
       this.form.patchValue(this.in);
     }
