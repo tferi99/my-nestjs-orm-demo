@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {DialogResult, ModalResult} from '../form/modal/modal.model';
+import { DialogResult, ModalResult, modalTraceLog } from '../form/modal/modal.model';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {FormValidatorService} from '../service/form-validator.service';
@@ -28,15 +28,17 @@ export abstract class ModalComponentBase<T, A, PK extends keyof T> implements On
 
   ngOnInit(): void {
     this.isNew = this.in === undefined || this.in[this.getNameOfId()] === undefined;
+    modalTraceLog('ModalComponentBase DIALOG INPUT: ', this.in);
 
     if (this.in) {
       this.form.patchValue(this.in);
+      modalTraceLog('ModalComponentBase Form patched:', this.form.value);
     }
   }
 
   onSubmit(): void {
     const data: T = this.form.getRawValue();
-    console.log('RESULT: ', data);
+    modalTraceLog('onSubmit() FORM DATA: ', data);
     this.out.emit({command: DialogResult.OK, isNew: this.isNew, data});
   }
 
@@ -45,6 +47,7 @@ export abstract class ModalComponentBase<T, A, PK extends keyof T> implements On
   }
 
   onCancel() {
+    modalTraceLog('onCancel()');
     this._bsModalRef.hide();
   }
 }

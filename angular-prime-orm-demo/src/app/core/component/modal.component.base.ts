@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { FormValidatorService } from '../service/form-validator.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { DialogInput, DialogOutput, MODAL_TRACE, modalTraceLog } from '../form/modal/modal.model';
+import { DialogInput, DialogOutput, modalTraceLog } from '../form/modal/modal.model';
 
 
 @Component({
@@ -27,6 +27,7 @@ export abstract class ModalComponentBase<T, A, PK extends keyof T> implements On
 
   protected abstract getNameOfId(): PK;
   protected abstract getForm(): FormGroup;
+  protected abstract beforePatchForm(data: T): void;
 
   ngOnInit(): void {
     this.initForm();
@@ -67,9 +68,15 @@ export abstract class ModalComponentBase<T, A, PK extends keyof T> implements On
       const data: T = this.in.data;
       this.isNew = data[this.getNameOfId()] === undefined;
       if (!this.isNew) {
-        this.form.patchValue(data);
-        modalTraceLog('ModalComponentBase Form patched:', this.form.value);
+        this.beforePatchForm(data);
+        //this.form.patchValue(data);
+        //modalTraceLog('ModalComponentBase Form patched:', this.form.value);
+        setTimeout(() => this.deferredFormPatch(data), 1500);
       }
     }
+  }
+  private deferredFormPatch(data: T) {
+    this.form.patchValue(data);
+    modalTraceLog('ModalComponentBase Form patched:', this.form.value);
   }
 }

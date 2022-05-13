@@ -103,7 +103,7 @@ export abstract class ModalEditComponentBase<T, A> {
 
     const ref: DynamicDialogRef = this._dialogService.open(this._dialogComponentType, modalOptions);
     ref.onClose.subscribe((out: DialogOutput<T>) => {
-        modalTraceLog('dialog onClose callback returns:', out);
+        modalTraceLog('dialog closed - onClose callback returns:', out);
         if (!out) {
           return;
         }

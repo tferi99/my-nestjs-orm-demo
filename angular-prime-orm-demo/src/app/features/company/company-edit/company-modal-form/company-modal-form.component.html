@@ -25,48 +25,9 @@
   <div class="field">
     <button pButton pRipple type="submit" class="p-button-success mr-2" [disabled]="!form.valid" label="OK"></button>
     <button pButton pRipple type="button" class="p-button-danger" label="Cancel" (click)="onCancel()"></button>
+    <button pButton pRipple type="button" class="p-button-warning" label="Test" (click)="onTest()"></button>
+
   </div>
 </form>
 
 
-
-<!--
-<button class="btn btn-warning pull-right" (click)="fillRandom()">Random</button>
-
-<div class="modal-body">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus [focusDelayed]="true" (appOnEscape)="onCancel()" class="row g-3">
-    <div class="col-6">
-      <label for="name">Name</label>
-      <input type="text" class="form-control" id="name" [formControl]="name" [ngClass]="{'is-invalid' : name.invalid}" placeholder="Name">
-      <div class="invalid-feedback" *ngIf="name.invalid">{{getFormControlErrorMessage(name)}}</div>
-    </div>
-    <div class="col-4">
-      <label for="established">Established</label>
-
-      <input type="text" class="form-control" id="established" [formControl]="established" [ngClass]="{'is-invalid' : established.invalid}"
-         placeholder="Established"
-         bsDatepicker [bsConfig]="{ dateInputFormat: NGX_DATE_FORMAT, customTodayClass:'custom-today'}"
-      >
-      <div class="invalid-feedback" *ngIf="established.errors">{{getFormControlErrorMessage(established)}}</div>
-    </div>
-
-    <div class="col-12">
-      <label for="note">Note</label>
-      <textarea class="form-control" id="note" [formControl]="note" [ngClass]="{'is-invalid' : note.invalid}" placeholder="Note" rows="3"></textarea>
-      <div class="invalid-feedback" *ngIf="note.errors">{{getFormControlErrorMessage(note)}}</div>
-    </div>
-
-    <div class="form-group">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" [formControl]="active" id="active">
-        <label class="form-check-label" for="active">Active</label>
-      </div>
-    </div>
-    <div class="col-12">
-      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">OK</button>
-      <button type="button" class="btn btn-danger mx-2" (click)="onCancel()">Cancel</button>
-    </div>
-  </form>
-</div>
-
--->

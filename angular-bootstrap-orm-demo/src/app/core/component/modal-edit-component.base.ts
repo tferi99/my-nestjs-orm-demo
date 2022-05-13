@@ -1,5 +1,5 @@
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
-import {ModalLoadDto, ModalResult} from '../form/modal/modal.model';
+import { ModalLoadDto, ModalResult, modalTraceLog } from '../form/modal/modal.model';
 import {DataServiceErrorMessageService, ErrorMessageMapping} from '../store/data-service-error-message.service';
 import {EntityCollectionServiceBase} from '@ngrx/data';
 import {ComponentType} from 'ngx-toastr';
@@ -74,10 +74,11 @@ export abstract class ModalEditComponentBase<T, A> {
       },
       ...this._additionalModalOptions
     };
-    //console.log('DIALOG: ', initialState);
+
+    modalTraceLog('openEditModal() DIALOG init: ', modalOptions);
     const ref: BsModalRef = this._modalService.show(this._modalComponentType, modalOptions);
     ref.content.out.subscribe((out: ModalResult<T>) => {
-        console.log('Dialog returns:', out);
+      modalTraceLog('dialog closed - callback returns:', out);
 
         this.beforeSave(out.data);
 

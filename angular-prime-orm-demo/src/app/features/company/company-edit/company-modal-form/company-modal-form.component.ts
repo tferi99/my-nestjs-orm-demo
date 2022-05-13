@@ -39,6 +39,14 @@ export class CompanyModalFormComponent extends ModalComponentBase<Company, any, 
   active = this.form.controls['active'] as FormControl;
   display: any;
 
+
+  protected beforePatchForm(data: Company): void {
+/*    if (data && data.established) {
+      this.established.setValue(new Date());
+    }
+    console.log('BEFORE PATCH:', this.form.value);*/
+  }
+
   protected getForm(): FormGroup {
     return this.form;
   }
@@ -51,6 +59,10 @@ export class CompanyModalFormComponent extends ModalComponentBase<Company, any, 
     this.name.setValue(faker.company.companyName());
     this.established.setValue(faker.date.past(100));
     this.active.setValue(Math.random() > .5);
+  }
+
+  onTest() {
+    this.established.setValue(new Date());
   }
 }
 
