@@ -5,11 +5,20 @@
       <input pInputText id="name" type="text" [formControl]="name" placeholder="Name"/>
       <small id="name-help" class="p-error block">{{getFormControlErrorMessage(name)}}</small>
     </div>
+    <!--
+    -->
     <div class="field col-4">
       <label htmlFor="established">Established</label>
       <p-calendar [dateFormat]="dateFormat" inputId="established" [formControl]="established"></p-calendar>
-      <small id="established-help" class="p-error block">{{getFormControlErrorMessage(name)}}</small>
+      <small id="established-help" class="p-error block">{{getFormControlErrorMessage(established)}}</small>
     </div>
+    <!--
+    <div class="field col-4">
+      <label htmlFor="created">Created</label>
+      <p-calendar [dateFormat]="dateFormat" inputId="created" [formControl]="created"></p-calendar>
+      <small id="created-help" class="p-error block">{{getFormControlErrorMessage(created)}}</small>
+    </div>
+    -->
   </div>
   <div class="p-formgrid grid">
     <div class="field col-12">
@@ -25,6 +34,7 @@
   <div class="field">
     <button pButton pRipple type="submit" class="p-button-success mr-2" [disabled]="!form.valid" label="OK"></button>
     <button pButton pRipple type="button" class="p-button-danger" label="Cancel" (click)="onCancel()"></button>
+    <button pButton pRipple type="button" class="p-button-warning" label="Populate date" (click)="onPopulate()"></button>
     <button pButton pRipple type="button" class="p-button-warning" label="Test" (click)="onTest()"></button>
 
   </div>

@@ -15,6 +15,7 @@ import { CompanyListComponent } from './features/company/company-list/company-li
 import {
   CompanyModalFormComponent
 } from './features/company/company-edit/company-modal-form/company-modal-form.component';
+import { ModalTestComponent } from './sandbox/components/modal-test/modal-test.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'pages/access', component: AccessComponent },
 
   { path: 'sandbox/input', component: InputComponent },
+  { path: 'sandbox/modaltest', component: ModalTestComponent },
 
   { path: '**', redirectTo: 'pages/notfound' },
 ];

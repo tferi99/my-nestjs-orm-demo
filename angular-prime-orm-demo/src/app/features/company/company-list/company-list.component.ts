@@ -10,8 +10,9 @@ import { CHANGE_DETECTION_STRATEGY } from '../../../app.constants';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ListComponentBase } from '../../../core/component/list.component.base';
 import { ConfirmationService } from 'primeng/api';
-import { EditComponent } from '../../../core/component/modal-edit-component.base';
-import { CompanyEditComponent } from '../company-edit/company-edit.component';
+import { EditComponent } from '../../../core/component/modal-edit-adapter.base';
+import { CompanyEditAdapterComponent } from '../company-edit/company-edit-adapter.component';
+import { map, tap } from 'rxjs/operators';
 
 const errorMapping: ErrorMessageMapping<Company> = {
   'ForeignKeyConstraintViolationError': {message: 'Item is used'}
@@ -24,7 +25,7 @@ const errorMapping: ErrorMessageMapping<Company> = {
   changeDetection: CHANGE_DETECTION_STRATEGY
 })
 export class CompanyListComponent extends ListComponentBase<Company, 'name'> implements OnInit {
-  @ViewChild('edit') edit!: CompanyEditComponent;
+  @ViewChild('edit') edit!: CompanyEditAdapterComponent;
 
   companies$!: Observable<Company[]>;
   loading$!: Observable<boolean>;
@@ -42,7 +43,11 @@ export class CompanyListComponent extends ListComponentBase<Company, 'name'> imp
     // load
     this.companyDataService.getAll();
 
-    this.companies$ = this.companyDataService.entities$;
+    this.companies$ = this.companyDataService.entities$.pipe(
+      tap(data => console.log('COMPANIES DATA BEFORE:', data)),
+      map((data) => data.map(c => ({...c, established: new Date(c.established)}))),
+      tap(data => console.log('COMPANIES DATA AFTER:', data)),
+    );
     this.loading$ = this.companyDataService.loading$;
   }
 

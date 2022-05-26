@@ -1,130 +1,83 @@
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AbstractControl, FormGroup } from '@angular/forms';
+import { FormValidatorService } from '../service/form-validator.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DialogInput, DialogOutput, modalTraceLog } from '../form/modal/modal.model';
-import { DataServiceErrorMessageService, ErrorMessageMapping } from '../store/data-service-error-message.service';
-import { EntityCollectionServiceBase } from '@ngrx/data';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Type } from '@angular/core';
-import { ModalComponentBase } from './modal.component.base';
 
-export interface EditComponent<T> {
-  onNew(): void;
-  onCopy(data: T): void;
-  onEdit(data: T): void;
-}
 
-/**
- * Base component to render modal form for to edit data using NgRx Data service.
- *    T:  type edited
- *    A:  additional data
- */
-export abstract class ModalEditComponentBase<T, A> {
-  private _dialogComponentType: Type<ModalComponentBase<T, A, keyof T>>;
-  private _dataService: EntityCollectionServiceBase<T>;
-  private _dialogService: DialogService;
-  private _dataServiceErrorMessageService: DataServiceErrorMessageService;
-  private _errorMapping: ErrorMessageMapping<T>;
-  private _additionalDialogOptions: Partial<DynamicDialogConfig> | undefined;
-  private entityName : string;
-  /**
-   * Pass this values from constructor of inherited class:
-   *
-   * @param dialogComponentType component type of model form
-   * @param dataService NgRx Data service
-   * @param dialogService PrimeNG modal service
-   * @param dataServiceErrorMessageService error message generator service
-   * @param errorMapping error code-message mapping
-   * @param additionalDialogOptions additional dialog options
-   */
+@Component({
+  selector: 'app-modal-component-base',
+  template: ``,
+  styles: []
+})
+// eslint-disable-next-line @angular-eslint/component-class-suffix
+export abstract class ModalEditComponentBase<T, A, PK extends keyof T> implements OnInit, AfterViewInit {
+  in!: DialogInput<T, A>;
+/*  @Input() additional!: A;
+  @Input() autoHide = false;*/
+
+  form!: FormGroup;
+  isNew = false;
+
   constructor(
-    entityName: string,
-    dialogComponentType: Type<ModalComponentBase<T, A, keyof T>>,
-    dataService: EntityCollectionServiceBase<T>,
-    dialogService: DialogService,
-    dataServiceErrorMessageService: DataServiceErrorMessageService,
-    errorMapping: ErrorMessageMapping<T>,
-    additionalDialogOptions?: Partial<DynamicDialogConfig>
-  ) {
-    this.entityName = entityName;
-    this._dialogComponentType = dialogComponentType;
-    this._dataService = dataService;
-    this._dialogService = dialogService;
-    this._dataServiceErrorMessageService = dataServiceErrorMessageService;
-    this._errorMapping = errorMapping;
-    this._additionalDialogOptions = additionalDialogOptions;
+    public _modalRef: DynamicDialogRef,
+    public _modalConfig: DynamicDialogConfig,
+    private _formValidatorService: FormValidatorService,
+  ) {}
 
+  protected abstract getNameOfId(): PK;
+  protected abstract getForm(): FormGroup;
+  protected abstract beforePatchForm(data: T): void;
+
+  ngOnInit(): void {
+    this.initForm();
   }
 
-  abstract getAdditionalData(): A;
-  abstract beforeSave(data: T): void;
-
-  onNew(additionalDialogOptions?: Partial<DynamicDialogConfig>): void {
-    this.openEditModal({isNew: true}, {
-      ...additionalDialogOptions,
-      header: 'New ' + this.entityName
-    });
+  ngAfterViewInit(): void {
   }
 
-  onCopy(data: T, additionalDialogOptions?: Partial<DynamicDialogConfig>): void  {
-    const copy: T = {...data};
-    // @ts-ignore
-    delete copy['id'];
-    this.openEditModal({
-      data: copy,
-      additional: undefined,
-      isNew: true
-    });
-  }
-
-  onEdit(data: T, additionalDialogOptions?: Partial<DynamicDialogConfig>): void  {
-
-    this.openEditModal({
+  onSubmit(): void {
+    const data: T = this.form.getRawValue();
+    modalTraceLog('onSubmit() FORM DATA: ', data);
+    const result: DialogOutput<T> = {
       data,
-      isNew: false
-    }, {
-      ...additionalDialogOptions,
-      header: 'Edit ' + this.entityName
-    });
+      isNew: this.isNew
+    };
+    modalTraceLog('DIALOG OUTPUT: ', result);
+    this._modalRef.close(result);
   }
 
-  openEditModal(dialogInputData: DialogInput<T, A>, additionalDialogOptions?: Partial<DynamicDialogConfig>) {
-    const extendedAdditionalData: A = {
-      ...dialogInputData.additional, ...this.getAdditionalData()
-    }
-    const extendedeDialogInputData: DialogInput<T, A> = {
-      ...dialogInputData,
-      additional: extendedAdditionalData
-    }
-    const modalOptions: DynamicDialogConfig = {
-      data: extendedeDialogInputData,
-      width: '80%',
-      ...this._additionalDialogOptions,
-      ...additionalDialogOptions
-    };
-    modalTraceLog('openEditModal() DIALOG init: ', modalOptions);
+  getFormControlErrorMessage(ctr: AbstractControl): string {
+    return this._formValidatorService.getFormControlErrorMessage(ctr);
+  }
 
-    const ref: DynamicDialogRef = this._dialogService.open(this._dialogComponentType, modalOptions);
-    ref.onClose.subscribe((out: DialogOutput<T>) => {
-        modalTraceLog('dialog closed - onClose callback returns:', out);
-        if (!out) {
-          return;
-        }
-        this.beforeSave(out.data);
+  onCancel() {
+    modalTraceLog('onCancel()');
+    this._modalRef.close();
+  }
 
-        if (out.isNew) {
-          this._dataService.add(out.data).subscribe(
-            () => ref.close(),
-            error => {
-              this._dataServiceErrorMessageService.showErrorMessage(error, this._errorMapping);
-            }
-          );
-        } else {
-          this._dataService.update(out.data).subscribe(
-            () => ref.close(),
-            error => {
-              this._dataServiceErrorMessageService.showErrorMessage(error, this._errorMapping);
-            }
-          );
-        }
+  private initForm(): void {
+    this.in = this._modalConfig.data;
+    modalTraceLog('ModalComponentBase DIALOG INPUT: ', this.in);
+
+    if (!this.in) {
+      this.isNew = true;
+    } else if (!this.in.data) {
+      this.isNew = true;
+    } else {
+      const data: T = this.in.data;
+      this.isNew = data[this.getNameOfId()] === undefined;
+      if (!this.isNew) {
+        this.form.patchValue(data);
+/*        this.beforePatchForm(data);
+        //this.form.patchValue(data);
+        //modalTraceLog('ModalComponentBase Form patched:', this.form.value);
+        setTimeout(() => this.deferredFormPatch(data), 1500);*/
       }
-    );
+    }
+  }
+  private deferredFormPatch(data: T) {
+    this.form.patchValue(data);
+    modalTraceLog('ModalComponentBase Form patched:', this.form.value);
   }
 }

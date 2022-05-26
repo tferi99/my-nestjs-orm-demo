@@ -1,0 +1,30 @@
+<h3>Modal Test Form</h3>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus style="height: 100%">
+  <div class="p-fluid p-formgrid grid">
+    <div class="field col-6">
+      <label htmlFor="name">Name</label>
+      <input pInputText id="name" type="text" [formControl]="name" placeholder="Name"/>
+      <small id="name-help" class="p-error block">{{getFormControlErrorMessage(name)}}</small>
+    </div>
+    <div class="field col-6">
+      <label htmlFor="weigth">Weigth</label>
+      <input pInputText id="weigth" type="number" [formControl]="weight" placeholder="Weight"/>
+      <small id="weigth-help" class="p-error block">{{getFormControlErrorMessage(weight)}}</small>
+    </div>
+    <div class="field col-4">
+      <label htmlFor="birth">Birth</label>
+      <p-calendar [dateFormat]="dateFormat" inputId="birth" [formControl]="birth"></p-calendar>
+      <small id="birth-help" class="p-error block">{{getFormControlErrorMessage(birth)}}</small>
+    </div>
+  </div>
+  <div class="field">
+    <button pButton pRipple type="submit" class="p-button-success mr-2" [disabled]="!form.valid" label="OK"></button>
+    <button pButton pRipple type="button" class="p-button-danger" label="Cancel" (click)="onCancel()"></button>
+    <!--
+    <button pButton pRipple type="button" class="p-button-warning" label="Populate date" (click)="onPopulate()"></button>
+    <button pButton pRipple type="button" class="p-button-warning" label="Test" (click)="onTest()"></button>
+    -->
+  </div>
+</form>
+

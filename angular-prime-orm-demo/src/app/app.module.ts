@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
@@ -42,57 +42,60 @@ import { APP_PRIMENG_MODULES, APP_PRIMENG_PROVIDERS } from './layout/primeng-mod
 import { HttpErrorInterceptor } from './core/error/http-error.interceptor';
 import { HomeComponent } from './features/home/home.component';
 import { CompanyModule } from './features/company/company.module';
+import { ModalTestComponent } from './sandbox/components/modal-test/modal-test.component';
+import { ModalTestFormComponent } from './sandbox/components/modal-test/modal-test-form/modal-test-form.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    LoggerModule.forRoot({
-      colorScheme: ['purple', 'teal', 'gray', 'gray', 'red', 'red', 'red'],
-      level: environment.logLevel,
-      serverLogLevel: environment.serverLogLevel,
-      disableConsoleLogging: false,
-    }),
+    imports: [
+        CommonModule,
+        BrowserModule,
+        FormsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        LoggerModule.forRoot({
+            colorScheme: ['purple', 'teal', 'gray', 'gray', 'red', 'red', 'red'],
+            level: environment.logLevel,
+            serverLogLevel: environment.serverLogLevel,
+            disableConsoleLogging: false,
+        }),
 
-    // PrimeNG
-    APP_PRIMENG_MODULES,
+        // PrimeNG
+        APP_PRIMENG_MODULES,
 
-    /**
-     * Store options
-     *
-     * If you want to save non-serialiable objects in store.
-     * See also: https://nils-mehlhorn.de/posts/ngrx-store-unserializable-data
-     */
-    StoreModule.forRoot({app: appReducer}, {
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-        strictStateSerializability: false,    // otherwise Date cannot be used
-        strictActionSerializability: false,   // otherwise Date cannot be used
-        strictActionWithinNgZone: true,
-        strictActionTypeUniqueness: true,
-      }
-    }),
-    StoreModule.forFeature(fromAuth.featureKey, fromAuth.reducer),
-    StoreModule.forFeature(fromNote.notesFeatureKey, fromNote.reducer),
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
+        /**
+         * Store options
+         *
+         * If you want to save non-serialiable objects in store.
+         * See also: https://nils-mehlhorn.de/posts/ngrx-store-unserializable-data
+         */
+        StoreModule.forRoot({app: appReducer}, {
+            runtimeChecks: {
+                strictStateImmutability: true,
+                strictActionImmutability: true,
+                strictStateSerializability: false,    // otherwise Date cannot be used
+                strictActionSerializability: false,   // otherwise Date cannot be used
+                strictActionWithinNgZone: true,
+                strictActionTypeUniqueness: true,
+            }
+        }),
+        StoreModule.forFeature(fromAuth.featureKey, fromAuth.reducer),
+        StoreModule.forFeature(fromNote.notesFeatureKey, fromNote.reducer),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
 
-    EffectsModule.forRoot([]),
-    EffectsModule.forFeature(
-      [
-        AuthEffects,
-      ]
-    ),
-    EntityDataModule.forRoot(entityConfig),
+        EffectsModule.forRoot([]),
+        EffectsModule.forFeature(
+            [
+                AuthEffects,
+            ]
+        ),
+        EntityDataModule.forRoot(entityConfig),
 
-    // features
-    AuthModule,
-    CompanyModule,
-  ],
+        // features
+        AuthModule,
+        CompanyModule,
+        ReactiveFormsModule,
+    ],
   declarations: [
     AppComponent,
     AppMainComponent,
@@ -110,6 +113,8 @@ import { CompanyModule } from './features/company/company.module';
 
     // sandbox
     InputComponent,
+     ModalTestComponent,
+     ModalTestFormComponent,
   ],
   providers: [
     {

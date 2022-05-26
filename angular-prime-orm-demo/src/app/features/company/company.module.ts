@@ -4,7 +4,7 @@ import { CompanyListComponent } from './company-list/company-list.component';
 import { APP_PRIMENG_MODULES, APP_PRIMENG_PROVIDERS } from '../../layout/primeng-modules';
 import { MomentModule } from 'ngx-moment';
 import { CompanyModalFormComponent } from './company-edit/company-modal-form/company-modal-form.component';
-import { CompanyEditComponent } from './company-edit/company-edit.component';
+import { CompanyEditAdapterComponent } from './company-edit/company-edit-adapter.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from '../../core/core.module';
@@ -14,7 +14,7 @@ import { FeatureSharedModule } from '../../feature-shared/feature-shared.module'
   declarations: [
     CompanyListComponent,
     CompanyModalFormComponent,
-    CompanyEditComponent
+    CompanyEditAdapterComponent
   ],
   imports: [
     CommonModule,

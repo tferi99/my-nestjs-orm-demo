@@ -10,7 +10,7 @@ import {EntityCollectionServiceBase} from '@ngrx/data';
 
 export abstract class ListComponentBase<T, NAME extends keyof T> {
   deleting = false;
-  enabledDump = false;
+  enabledDump = true;
 
   dateFormat = DATE_FORMAT;
 

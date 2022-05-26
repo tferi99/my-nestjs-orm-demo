@@ -3,7 +3,7 @@ import { DataServiceErrorMessageService, ErrorMessageMapping } from '../store/da
 import { EntityCollectionServiceBase } from '@ngrx/data';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Confirmation, ConfirmationService } from 'primeng/api';
-import { EditComponent } from './modal-edit-component.base';
+import { EditComponent } from './modal-edit-adapter.base';
 
 /**
  * Provides common features of a list of items:
