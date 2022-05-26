@@ -12,8 +12,8 @@ export class Company extends OrmIntTimestampEntity {
   @Unique()
   name: string;
 
-  @Property()
-  established: Date;
+  @Property({ columnType: 'timestamp' })
+  established: Date = new Date();
 
   @Property({ default: true })
   active: boolean;

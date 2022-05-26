@@ -2,7 +2,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { DashboardComponent } from './layout/components/dashboard/dashboard.component';
 import { AppMainComponent } from './layout/app-main/app.main.component';
-import { Login2Component } from './layout/components/login/login2.component';
 import { ErrorComponent } from './layout/components/error/error.component';
 import { NotfoundComponent } from './layout/components/notfound/notfound.component';
 import { AccessComponent } from './layout/components/access/access.component';
@@ -12,10 +11,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { InputComponent } from './sandbox/components/input/input.component';
 import { TestComponent } from './test/test.component';
 import { CompanyListComponent } from './features/company/company-list/company-list.component';
-import {
-  CompanyModalFormComponent
-} from './features/company/company-edit/company-modal-form/company-modal-form.component';
 import { ModalTestComponent } from './sandbox/components/modal-test/modal-test.component';
+import { PersonListComponent } from './features/person/person-list/person-list.component';
 
 
 const routes: Routes = [
@@ -32,6 +29,7 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: "company", component: CompanyListComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
+      { path: "person", component: PersonListComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
       { path: 'input', component: InputComponent },
     ],
   },

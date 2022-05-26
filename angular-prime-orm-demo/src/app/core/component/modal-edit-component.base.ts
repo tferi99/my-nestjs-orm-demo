@@ -13,8 +13,6 @@ import { DialogInput, DialogOutput, modalTraceLog } from '../form/modal/modal.mo
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export abstract class ModalEditComponentBase<T, A, PK extends keyof T> implements OnInit, AfterViewInit {
   in!: DialogInput<T, A>;
-/*  @Input() additional!: A;
-  @Input() autoHide = false;*/
 
   form!: FormGroup;
   isNew = false;
@@ -27,7 +25,6 @@ export abstract class ModalEditComponentBase<T, A, PK extends keyof T> implement
 
   protected abstract getNameOfId(): PK;
   protected abstract getForm(): FormGroup;
-  protected abstract beforePatchForm(data: T): void;
 
   ngOnInit(): void {
     this.initForm();

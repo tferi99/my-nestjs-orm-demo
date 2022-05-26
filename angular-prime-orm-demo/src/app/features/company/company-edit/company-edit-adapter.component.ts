@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Company} from '@app/client-lib';
-import {CompanyModalFormComponent} from './company-modal-form/company-modal-form.component';
-import {CompanyDataService} from '../store/company-data.service';
+import { Component } from '@angular/core';
+import { Company } from '@app/client-lib';
+import { CompanyModalFormComponent } from './company-modal-form/company-modal-form.component';
+import { CompanyDataService } from '../store/company-data.service';
 import {
   DataServiceErrorMessageService,
   ErrorMessageMapping
 } from '../../../core/store/data-service-error-message.service';
-import {ModalEditAdapterBase, EditComponent} from '../../../core/component/modal-edit-adapter.base';
+import { EditComponent, ModalEditAdapterBase } from '../../../core/component/modal-edit-adapter.base';
 import { DialogService } from 'primeng/dynamicdialog';
 
 const errorMapping: ErrorMessageMapping<Company> = {

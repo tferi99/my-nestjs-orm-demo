@@ -1,12 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Company, Person} from '@app/client-lib';
-import {BsModalService} from 'ngx-bootstrap/modal';
-import {PersonModalFormComponent} from './person-modal-form/person-modal-form.component';
-import {PersonDataService} from '../store/person-data.service';
-import {DataServiceErrorMessageService, ErrorMessageMapping} from '../../../core/store/data-service-error-message.service';
-import {ModalEditComponentBase, EditComponent} from '../../../core/component/modal-edit-component.base';
-import {Observable} from 'rxjs';
-import {EntityCollection} from '@ngrx/data/src/reducers/entity-collection';
+import { Component, Input, OnInit } from '@angular/core';
+import { Company, Person } from '@app/client-lib';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { PersonModalFormComponent } from './person-modal-form/person-modal-form.component';
+import { PersonDataService } from '../store/person-data.service';
+import {
+  DataServiceErrorMessageService,
+  ErrorMessageMapping
+} from '../../../core/store/data-service-error-message.service';
+import { EditComponent, ModalEditComponentBase } from '../../../core/component/modal-edit-component.base';
 
 const errorMapping: ErrorMessageMapping<Person> = {
   'UniqueConstraintError' : {message: 'already exists', retriever: (data => data.name)},

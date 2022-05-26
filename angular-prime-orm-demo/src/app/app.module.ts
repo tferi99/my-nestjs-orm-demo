@@ -44,6 +44,7 @@ import { HomeComponent } from './features/home/home.component';
 import { CompanyModule } from './features/company/company.module';
 import { ModalTestComponent } from './sandbox/components/modal-test/modal-test.component';
 import { ModalTestFormComponent } from './sandbox/components/modal-test/modal-test-form/modal-test-form.component';
+import { PersonModule } from './features/person/person.module';
 
 @NgModule({
     imports: [
@@ -94,6 +95,7 @@ import { ModalTestFormComponent } from './sandbox/components/modal-test/modal-te
         // features
         AuthModule,
         CompanyModule,
+        PersonModule,
         ReactiveFormsModule,
     ],
   declarations: [

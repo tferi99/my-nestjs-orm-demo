@@ -9,8 +9,9 @@
         <tr>
           <th pFrozenColumn>#</th>
           <th pFrozenColumn>Name</th>
-          <th>Established</th>
+          <th>Created</th>
           <th>Updated</th>
+          <th>Established</th>
           <th>Active</th>
           <th>Note</th>
           <th class="text-right">
@@ -22,8 +23,9 @@
         <tr>
           <td pFrozenColumn>{{company.id}}</td>
           <td pFrozenColumn>{{company.name}}</td>
-          <td>{{company.established | date: dateFormat}}</td>
+          <td>{{company.created | date: dateTimeFormat}}</td>
           <td>{{company.updated | amTimeAgo}}</td>
+          <td>{{company.established | date: dateTimeFormat}}</td>
           <td class="text-center">
             <i *ngIf="company.active" class="pi pi-check p-button-success font-bold"></i>
           </td>

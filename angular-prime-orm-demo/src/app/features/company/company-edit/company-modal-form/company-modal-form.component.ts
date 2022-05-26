@@ -28,7 +28,7 @@ export class CompanyModalFormComponent extends ModalEditComponentBase<Company, a
     id: [0],
     name: ['', [Validators.required]],
     established: ['', Validators.required],
-    created: ['', Validators.required],
+//    created: ['', Validators.required],
     note: [null, [Validators.maxLength(1024)]],
     active: [true]
   });
@@ -40,14 +40,6 @@ export class CompanyModalFormComponent extends ModalEditComponentBase<Company, a
   note = this.form.controls['note'] as FormControl;
   active = this.form.controls['active'] as FormControl;
   display: any;
-
-
-  protected beforePatchForm(data: Company): void {
-/*    if (data && data.established) {
-      this.established.setValue(new Date());
-    }
-    console.log('BEFORE PATCH:', this.form.value);*/
-  }
 
   protected getForm(): FormGroup {
     return this.form;

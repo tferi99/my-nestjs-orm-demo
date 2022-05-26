@@ -1,4 +1,4 @@
-import { DATE_FORMAT } from '../core.constants';
+import { DATE_FORMAT, DATE_TIME_FORMAT } from '../core.constants';
 import { DataServiceErrorMessageService, ErrorMessageMapping } from '../store/data-service-error-message.service';
 import { EntityCollectionServiceBase } from '@ngrx/data';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -18,6 +18,7 @@ export abstract class ListComponentBase<T, NAME extends keyof T> {
   enabledDump = true;
 
   dateFormat = DATE_FORMAT;
+  dateTimeFormat = DATE_TIME_FORMAT;
 
   protected abstract getEditComponent(): EditComponent<T>;  // used for calling new/edit/copy
   protected abstract getNameOfName(): NAME;     // used for Delete confirmation

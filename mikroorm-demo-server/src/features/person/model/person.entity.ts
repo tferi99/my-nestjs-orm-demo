@@ -12,7 +12,7 @@ export class Person extends OrmIntTimestampEntity {
   @Property({ length: 256 })
   email: string;
 
-  @Property()
+  @Property({ columnType: 'timestamp' })
   birth: Date;
 
   @Enum(() => EmployeeType)

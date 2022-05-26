@@ -1,0 +1,58 @@
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+
+<div class="col-12">
+  <div class="card">
+    <h5>Persons</h5>
+
+    <ng-container *ngIf="companiesEntityCollection$ | async as companiesEntityCollection">
+      <p-table [value]="(persons$ | async)!" styleClass="p-datatable-sm p-datatable-striped" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pFrozenColumn>#</th>
+            <th pFrozenColumn>Name</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Email</th>
+            <th>Birth</th>
+            <th>EmpType</th>
+            <th>Rank</th>
+            <th>Active</th>
+            <th>Note</th>
+            <th>Company</th>
+
+            <th class="text-right">
+              <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-text" (click)="onNew()"></button>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-person>
+          <tr>
+            <td pFrozenColumn>{{person.id}}</td>
+            <td pFrozenColumn>{{person.name}}</td>
+            <td>{{person.created | date: dateTimeFormat}}</td>
+            <td>{{person.updated | amTimeAgo}}</td>
+            <td>{{person.email}}</td>
+            <td>{{person.birth | date: dateTimeFormat}}</td>
+            <td>{{person.employeeType | employeeType}}</td>
+            <td>{{person.rank}}</td>
+            <td class="text-center">
+              <i *ngIf="person.active" class="pi pi-check p-button-success font-bold"></i>
+            </td>
+            <td class="text-center">
+              <i *ngIf="person.note" class="pi pi-eye p-error font-bold" pTooltip="{{person.note}}" tooltipPosition="top"></i>
+            </td>
+            <td>{{getCompanyById(companiesEntityCollection, person?.company, person)?.name}}</td>
+            <td class="text-right">
+              <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="onEdit(person)"></button>
+              <button pButton pRipple type="button" icon="pi pi-copy" class="p-button-rounded p-button-text" (click)="onCopy(person)"></button>
+              <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" (click)="onDelete(person)" [disabled]="deleting"></button>
+              <button pButton pRipple type="button" icon="pi pi-arrow-circle-down" class="p-button-rounded p-button-text" (click)="onDump(person)" *ngIf="enabledDump"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </ng-container>
+  </div>
+</div>
+
+<app-person-edit-adapter #edit [style]="{'overflow':'visible'}" [companies]="(companyEntities$ | async)"></app-person-edit-adapter>
