@@ -53,6 +53,10 @@ export abstract class ModalEditComponentBase<T, A, PK extends keyof T> implement
     this._modalRef.close();
   }
 
+  onDump() {
+    console.log('FORM DATA:', this.form.value);
+  }
+
   private initForm(): void {
     this.in = this._modalConfig.data;
     modalTraceLog('ModalComponentBase DIALOG INPUT: ', this.in);

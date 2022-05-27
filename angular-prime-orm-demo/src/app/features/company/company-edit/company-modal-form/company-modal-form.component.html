@@ -1,15 +1,15 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus [focusDelayed]="true" (appOnEscape)="onCancel()" style="height: 100%">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" (appOnEscape)="onCancel()" style="height: 100%">
   <div class="p-fluid p-formgrid grid">
     <div class="field col-6">
       <label htmlFor="name">Name</label>
-      <input pInputText id="name" type="text" [formControl]="name" placeholder="Name"/>
+      <input pInputText id="name" type="text" [formControl]="name" placeholder="Name" autofocus/>
       <small id="name-help" class="p-error block">{{getFormControlErrorMessage(name)}}</small>
     </div>
     <!--
     -->
     <div class="field col-4">
       <label htmlFor="established">Established</label>
-      <p-calendar [dateFormat]="dateFormat" inputId="established" [formControl]="established"></p-calendar>
+      <p-calendar [dateFormat]="dateFormat" inputId="established" [formControl]="established" appendTo="body"></p-calendar>
       <small id="established-help" class="p-error block">{{getFormControlErrorMessage(established)}}</small>
     </div>
     <!--

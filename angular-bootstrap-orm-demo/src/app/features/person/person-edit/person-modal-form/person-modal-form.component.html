@@ -17,6 +17,15 @@
       <input type="text" class="form-control" id="email" [formControl]="email" [ngClass]="{'is-invalid' : email.invalid}" placeholder="Email">
       <div class="invalid-feedback" *ngIf="email.invalid">{{getFormControlErrorMessage(email)}}</div>
     </div>
+    <div class="col-4">
+      <label for="birth">Birth</label>
+      <input type="text" class="form-control" id="birth" [formControl]="birth" [ngClass]="{'is-invalid' : birth.invalid}"
+             placeholder="Birth"
+             bsDatepicker [bsConfig]="{ dateInputFormat: NGX_DATE_FORMAT, customTodayClass:'custom-today'}"
+      >
+      <div class="invalid-feedback" *ngIf="birth.errors">{{getFormControlErrorMessage(birth)}}</div>
+    </div>
+
     <div class="col-4" *ngIf="additional.companies">
       <label for="company">Company</label>
       <select class="form-select" id="company" [formControl]="company" [ngClass]="{'is-invalid' : company.invalid}" placeholder="Company">
@@ -25,21 +34,12 @@
       </select>
       <div class="invalid-feedback" *ngIf="true && company.invalid">{{getFormControlErrorMessage(company)}}</div>
     </div>
-
     <div class="col-4">
       <label for="employeeType">Employee Type</label>
       <select class="form-select" id="employeeType" [formControl]="employeeType" [ngClass]="{'is-invalid' : employeeType.invalid}" placeholder="Employee Type">
         <option *ngFor="let t of employeeTypes" [value]="t.value">{{t.key | employeeTypeFromString | employeeType}}</option>
       </select>
       <div class="invalid-feedback" *ngIf="true && employeeType.invalid">{{getFormControlErrorMessage(employeeType)}}</div>
-    </div>
-    <div class="col-4">
-      <label for="birth">Birth</label>
-      <input type="text" class="form-control" id="birth" [formControl]="birth" [ngClass]="{'is-invalid' : birth.invalid}"
-         placeholder="Birth"
-         bsDatepicker [bsConfig]="{ dateInputFormat: NGX_DATE_FORMAT, customTodayClass:'custom-today'}"
-      >
-      <div class="invalid-feedback" *ngIf="birth.errors">{{getFormControlErrorMessage(birth)}}</div>
     </div>
     <div class="col-4">
       <label for="rank">Rank</label>
@@ -62,6 +62,7 @@
     <div class="col-12">
       <button type="submit" class="btn btn-primary" [disabled]="!form.valid">OK</button>
       <button type="button" class="btn btn-danger mx-2" (click)="onCancel()">Cancel</button>
+      <button type="button" class="btn btn-warning mx-2" (click)="onDump()">Dump</button>
     </div>
   </form>
 </div>

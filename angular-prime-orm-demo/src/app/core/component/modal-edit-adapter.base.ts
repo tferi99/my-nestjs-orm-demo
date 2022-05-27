@@ -11,6 +11,12 @@ export interface EditComponent<T> {
   onEdit(data: T): void;
 }
 
+const DEFAULT_DIALOG_PROPERTIES: Partial<DynamicDialogConfig> = {
+  width: '70%',
+  contentStyle: {"overflow": "hidden"},
+  dismissableMask: true
+}
+
 /**
  * Base component to render modal form for to edit data using NgRx Data service.
  *    T:  type edited
@@ -49,7 +55,7 @@ export abstract class ModalEditAdapterBase<T, A> {
     this._dialogService = dialogService;
     this._dataServiceErrorMessageService = dataServiceErrorMessageService;
     this._errorMapping = errorMapping;
-    this._additionalDialogOptions = additionalDialogOptions;
+    this._additionalDialogOptions = {...DEFAULT_DIALOG_PROPERTIES, ...additionalDialogOptions};
 
   }
 
@@ -97,13 +103,13 @@ export abstract class ModalEditAdapterBase<T, A> {
       data: extendedDialogInputData,
       width: '80%',
       ...this._additionalDialogOptions,
-      ...additionalDialogOptions
+      ...additionalDialogOptions,
     };
     modalTraceLog('openEditModal() DIALOG init: ', modalOptions);
 
     const ref: DynamicDialogRef = this._dialogService.open(this._dialogComponentType, modalOptions);
     ref.onClose.subscribe((out: DialogOutput<T>) => {
-        modalTraceLog('dialog closed - onClose callback returns:', out);
+        modalTraceLog('onClose: data from dialog:', out);
         if (!out) {
           return;
         }
@@ -111,14 +117,18 @@ export abstract class ModalEditAdapterBase<T, A> {
 
         if (out.isNew) {
           this._dataService.add(out.data).subscribe(
-            () => ref.close(),
+            () => {
+              //ref.close();
+            },
             error => {
               this._dataServiceErrorMessageService.showErrorMessage(error, this._errorMapping);
             }
           );
         } else {
           this._dataService.update(out.data).subscribe(
-            () => ref.close(),
+            () => {
+              //ref.close()
+            },
             error => {
               this._dataServiceErrorMessageService.showErrorMessage(error, this._errorMapping);
             }

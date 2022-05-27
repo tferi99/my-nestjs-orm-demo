@@ -83,5 +83,4 @@ export abstract class ListComponentBase<T, NAME extends keyof T> {
   onDump(data: T) {
     console.log('DUMP:', data);
   }
-
 }

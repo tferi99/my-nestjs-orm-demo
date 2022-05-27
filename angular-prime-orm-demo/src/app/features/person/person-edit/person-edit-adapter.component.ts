@@ -28,10 +28,7 @@ export class PersonEditAdapterComponent extends ModalEditAdapterBase<Person, any
 
   ) {
     super('Person', PersonModalFormComponent, personDataService, dialogService, dataServiceErrorMessageService, errorMapping, {
-      header: 'Choose a Product',
-      width: '70%',
-      height: '500px',
-      contentStyle: {"overflow": "hidden"},
+      header: 'Choose a Product'
     });
   }
 

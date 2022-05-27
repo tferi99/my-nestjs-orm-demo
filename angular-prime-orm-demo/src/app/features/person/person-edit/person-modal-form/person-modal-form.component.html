@@ -1,8 +1,8 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" appFormFocus [focusDelayed]="true" (appOnEscape)="onCancel()" style="height: 100%">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" (appOnEscape)="onCancel()" style="height: 100%">
   <div class="p-fluid p-formgrid grid">
     <div class="field col-4">
       <label htmlFor="name">Name</label>
-      <input pInputText id="name" type="text" [formControl]="name" placeholder="Name"/>
+      <input pInputText id="name" type="text" [formControl]="name" placeholder="Name" autofocus/>
       <small id="name-help" class="p-error block">{{getFormControlErrorMessage(name)}}</small>
     </div>
     <div class="field col-4">
@@ -10,21 +10,38 @@
       <input pInputText id="email" type="text" [formControl]="email" placeholder="Email"/>
       <small id="email-help" class="p-error block">{{getFormControlErrorMessage(email)}}</small>
     </div>
+    <div class="field col-4">
+      <label htmlFor="birth">Birth</label>
+      <p-calendar [dateFormat]="dateFormat" inputId="birth" [formControl]="birth" appendTo="body"></p-calendar>
+      <small id="birth-help" class="p-error block">{{getFormControlErrorMessage(birth)}}</small>
+    </div>
+
+  </div>
+  <div class="p-fluid p-formgrid grid">
     <div class="field col-4" *ngIf="in.additional.companies">
       <label htmlFor="company">Company</label>
-      <p-dropdown id="company" [options]="in.additional.companies" [formControl]="company" placeholder="Select a company" optionLabel="name" [showClear]="true"></p-dropdown>
+      <p-dropdown id="company" [options]="in.additional.companies" [formControl]="company" placeholder="Select a company" optionLabel="name" optionValue="id" [showClear]="true" appendTo="body"></p-dropdown>
+    </div>
+    <div class="field col-4" *ngIf="in.additional.companies">
+      <label htmlFor="employeeType">Employee Type</label>
+      <p-dropdown id="employeeType" [options]="employeeTypes" [formControl]="employeeType" placeholder="Select employee type" optionLabel="key" optionValue="value" [showClear]="true" appendTo="body"></p-dropdown>
+    </div>
+    <div class="field col-4">
+      <label htmlFor="email">Email</label>
+      <input pInputText id="rank" type="number" [formControl]="rank" placeholder="Rank"/>
+      <small id="rank-help" class="p-error block">{{getFormControlErrorMessage(rank)}}</small>
     </div>
   </div>
   <div class="field">
     <button pButton pRipple type="submit" class="p-button-success mr-2" [disabled]="!form.valid" label="OK"></button>
-    <button pButton pRipple type="button" class="p-button-danger" label="Cancel" (click)="onCancel()"></button>
+    <button pButton pRipple type="button" class="p-button-danger mr-2" label="Cancel" (click)="onCancel()"></button>
+    <button pButton pRipple type="button" class="p-button-warning" label="Dump" (click)="onDump()"></button>
     <!--
     <button pButton pRipple type="button" class="p-button-warning" label="Populate date" (click)="onPopulate()"></button>
     <button pButton pRipple type="button" class="p-button-warning" label="Test" (click)="onTest()"></button>
     -->
   </div>
 </form>
-
 
 
 <!--

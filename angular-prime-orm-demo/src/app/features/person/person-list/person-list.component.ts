@@ -47,6 +47,7 @@ export class PersonListComponent extends ListComponentBase<Person, 'name'> imple
   ngOnInit(): void {
     // load
     this.personDataService.getAll();
+    this.companyDataService.getAll();
 
     this.persons$ = this.personDataService.entities$.pipe(
       tap(data => console.log('PERSONS DATA BEFORE:', data)),

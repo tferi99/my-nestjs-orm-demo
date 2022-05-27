@@ -50,4 +50,8 @@ export abstract class ModalComponentBase<T, A, PK extends keyof T> implements On
     modalTraceLog('onCancel()');
     this._bsModalRef.hide();
   }
+
+  onDump() {
+    console.log('FORM DATA:', this.form.value);
+  }
 }

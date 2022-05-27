@@ -26,10 +26,7 @@ export class CompanyEditAdapterComponent extends ModalEditAdapterBase<Company, a
 
   ) {
     super('Company', CompanyModalFormComponent, companyDataService, dialogService, dataServiceErrorMessageService, errorMapping, {
-      header: 'Choose a Product',
-      width: '70%',
-      height: '500px',
-      contentStyle: {"overflow": "hidden"},
+      header: 'Choose a Product'
     });
   }
 
