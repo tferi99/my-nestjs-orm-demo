@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Company, Person } from '@app/client-lib';
 import {
   DataServiceErrorMessageService,
@@ -18,7 +18,7 @@ const errorMapping: ErrorMessageMapping<Person> = {
   template: ``,
   styles: []
 })
-export class PersonEditAdapterComponent extends ModalEditAdapterBase<Person, any> implements EditComponent<Person> {
+export class PersonEditAdapterComponent extends ModalEditAdapterBase<Person, any> implements EditComponent<Person>, OnDestroy {
   @Input() companies!: Company[] | null;
 
   constructor(
@@ -46,5 +46,9 @@ export class PersonEditAdapterComponent extends ModalEditAdapterBase<Person, any
       data.company = null;
     }
     console.log('BEFORE SAVE:', data);
+  }
+
+  ngOnDestroy(): void {
+    this.cleanup();
   }
 }

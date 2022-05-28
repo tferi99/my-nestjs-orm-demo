@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Company } from '@app/client-lib';
 import { CompanyModalFormComponent } from './company-modal-form/company-modal-form.component';
 import { CompanyDataService } from '../store/company-data.service';
@@ -18,7 +18,7 @@ const errorMapping: ErrorMessageMapping<Company> = {
   template: ``,
   styles: []
 })
-export class CompanyEditAdapterComponent extends ModalEditAdapterBase<Company, any> implements EditComponent<Company> {
+export class CompanyEditAdapterComponent extends ModalEditAdapterBase<Company, any> implements EditComponent<Company>, OnDestroy {
   constructor(
     private companyDataService: CompanyDataService,
     private dialogService: DialogService,
@@ -35,5 +35,9 @@ export class CompanyEditAdapterComponent extends ModalEditAdapterBase<Company, a
   }
 
   beforeSave(data: Company): void {
+  }
+
+  ngOnDestroy(): void {
+    this.cleanup();
   }
 }

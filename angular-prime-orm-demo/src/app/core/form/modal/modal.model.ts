@@ -1,7 +1,9 @@
+import { Observable, Subject } from 'rxjs';
 
-export interface DialogInput<T, A> {
-  data?: T,
-  additional?: A
+export interface DialogCallInfo<T, A> {
+  inputData?: T,
+  additionalInput?: A
+  outputData: Subject<DialogOutput<T>>,
   isNew: boolean;
 }
 

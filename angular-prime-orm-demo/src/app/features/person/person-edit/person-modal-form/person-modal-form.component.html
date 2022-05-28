@@ -18,11 +18,11 @@
 
   </div>
   <div class="p-fluid p-formgrid grid">
-    <div class="field col-4" *ngIf="in.additional.companies">
+    <div class="field col-4" *ngIf="in.additionalInput.companies">
       <label htmlFor="company">Company</label>
-      <p-dropdown id="company" [options]="in.additional.companies" [formControl]="company" placeholder="Select a company" optionLabel="name" optionValue="id" [showClear]="true" appendTo="body"></p-dropdown>
+      <p-dropdown id="company" [options]="in.additionalInput.companies" [formControl]="company" placeholder="Select a company" optionLabel="name" optionValue="id" [showClear]="true" appendTo="body"></p-dropdown>
     </div>
-    <div class="field col-4" *ngIf="in.additional.companies">
+    <div class="field col-4" *ngIf="in.additionalInput.companies">
       <label htmlFor="employeeType">Employee Type</label>
       <p-dropdown id="employeeType" [options]="employeeTypes" [formControl]="employeeType" placeholder="Select employee type" optionLabel="key" optionValue="value" [showClear]="true" appendTo="body"></p-dropdown>
     </div>

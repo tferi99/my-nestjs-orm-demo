@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { FormValidatorService } from '../service/form-validator.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { DialogInput, DialogOutput, modalTraceLog } from '../form/modal/modal.model';
+import { DialogCallInfo, DialogOutput, modalTraceLog } from '../form/modal/modal.model';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { DialogInput, DialogOutput, modalTraceLog } from '../form/modal/modal.mo
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export abstract class ModalEditComponentBase<T, A, PK extends keyof T> implements OnInit, AfterViewInit {
-  in!: DialogInput<T, A>;
+  in!: DialogCallInfo<T, A>;
 
   form!: FormGroup;
   isNew = false;
@@ -41,7 +41,8 @@ export abstract class ModalEditComponentBase<T, A, PK extends keyof T> implement
       isNew: this.isNew
     };
     modalTraceLog('DIALOG OUTPUT: ', result);
-    this._modalRef.close(result);
+    //this._modalRef.close(result);
+    this.in.outputData.next(result);
   }
 
   getFormControlErrorMessage(ctr: AbstractControl): string {
@@ -63,10 +64,10 @@ export abstract class ModalEditComponentBase<T, A, PK extends keyof T> implement
 
     if (!this.in) {
       this.isNew = true;
-    } else if (!this.in.data) {
+    } else if (!this.in.inputData) {
       this.isNew = true;
     } else {
-      const data: T = this.in.data;
+      const data: T = this.in.inputData;
       this.isNew = data[this.getNameOfId()] === undefined;
       if (!this.isNew) {
         this.form.patchValue(data);

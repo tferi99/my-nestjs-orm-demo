@@ -64,8 +64,8 @@ export class CompanyModalFormComponent extends ModalEditComponentBase<Company, a
 
   onPopulate() {
     console.log('IN: ', this.in);
-    console.log('TYPE: ' + typeof this.in.data?.established);
-    this.established.setValue(this.in.data?.established);
+    console.log('TYPE: ' + typeof this.in.inputData?.established);
+    this.established.setValue(this.in.inputData?.established);
   }
 }
 

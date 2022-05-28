@@ -1,9 +1,10 @@
-import { DialogInput, DialogOutput, modalTraceLog } from '../form/modal/modal.model';
+import { DialogCallInfo, DialogOutput, modalTraceLog } from '../form/modal/modal.model';
 import { DataServiceErrorMessageService, ErrorMessageMapping } from '../store/data-service-error-message.service';
 import { EntityCollectionServiceBase } from '@ngrx/data';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Type } from '@angular/core';
+import { Component, OnDestroy, OnInit, Type } from '@angular/core';
 import { ModalEditComponentBase } from './modal-edit-component.base';
+import { Subject, Subscription } from 'rxjs';
 
 export interface EditComponent<T> {
   onNew(): void;
@@ -30,6 +31,9 @@ export abstract class ModalEditAdapterBase<T, A> {
   private _errorMapping: ErrorMessageMapping<T>;
   private _additionalDialogOptions: Partial<DynamicDialogConfig> | undefined;
   private entityName : string;
+  private result: Subject<DialogOutput<T>> = new Subject<DialogOutput<T>>();
+  private resultSub?: Subscription;
+
   /**
    * Pass this values from constructor of inherited class:
    *
@@ -63,8 +67,11 @@ export abstract class ModalEditAdapterBase<T, A> {
   abstract beforeSave(data: T): void;
 
   onNew(additionalDialogOptions?: Partial<DynamicDialogConfig>): void {
-    this.openEditModal({isNew: true}, {
-      ...additionalDialogOptions,
+    this.openEditModal({
+      outputData: this.result,
+      isNew: true
+    }, {
+    ...additionalDialogOptions,
       header: 'New ' + this.entityName
     });
   }
@@ -74,8 +81,9 @@ export abstract class ModalEditAdapterBase<T, A> {
     // @ts-ignore
     delete copy['id'];
     this.openEditModal({
-      data: copy,
-      additional: undefined,
+      inputData: copy,
+      additionalInput: undefined,
+      outputData: this.result,
       isNew: true
     });
   }
@@ -83,7 +91,8 @@ export abstract class ModalEditAdapterBase<T, A> {
   onEdit(data: T, additionalDialogOptions?: Partial<DynamicDialogConfig>): void  {
 
     this.openEditModal({
-      data,
+      inputData: data,
+      outputData: this.result,
       isNew: false
     }, {
       ...additionalDialogOptions,
@@ -91,13 +100,14 @@ export abstract class ModalEditAdapterBase<T, A> {
     });
   }
 
-  openEditModal(dialogInputData: DialogInput<T, A>, additionalDialogOptions?: Partial<DynamicDialogConfig>) {
+  private openEditModal(dialogInputData: DialogCallInfo<T, A>, additionalDialogOptions?: Partial<DynamicDialogConfig>) {
+
     const extendedAdditionalData: A = {
-      ...dialogInputData.additional, ...this.getAdditionalData()
+      ...dialogInputData.additionalInput, ...this.getAdditionalData()
     }
-    const extendedDialogInputData: DialogInput<T, A> = {
+    const extendedDialogInputData: DialogCallInfo<T, A> = {
       ...dialogInputData,
-      additional: extendedAdditionalData
+      additionalInput: extendedAdditionalData
     }
     const modalOptions: DynamicDialogConfig = {
       data: extendedDialogInputData,
@@ -107,10 +117,17 @@ export abstract class ModalEditAdapterBase<T, A> {
     };
     modalTraceLog('openEditModal() DIALOG init: ', modalOptions);
 
+    this.unsubscribeResult();
     const ref: DynamicDialogRef = this._dialogService.open(this._dialogComponentType, modalOptions);
-    ref.onClose.subscribe((out: DialogOutput<T>) => {
-        modalTraceLog('onClose: data from dialog:', out);
-        if (!out) {
+    this.initResultHandler(ref);
+  }
+
+  private initResultHandler(ref: DynamicDialogRef): void {
+    this.resultSub = this.result.subscribe(
+      (out: DialogOutput<T>) => {
+        modalTraceLog('Result dialog:', out);
+        if (!out.data) {
+          ref.close();
           return;
         }
         this.beforeSave(out.data);
@@ -118,7 +135,7 @@ export abstract class ModalEditAdapterBase<T, A> {
         if (out.isNew) {
           this._dataService.add(out.data).subscribe(
             () => {
-              //ref.close();
+              ref.close();
             },
             error => {
               this._dataServiceErrorMessageService.showErrorMessage(error, this._errorMapping);
@@ -127,7 +144,7 @@ export abstract class ModalEditAdapterBase<T, A> {
         } else {
           this._dataService.update(out.data).subscribe(
             () => {
-              //ref.close()
+              ref.close();
             },
             error => {
               this._dataServiceErrorMessageService.showErrorMessage(error, this._errorMapping);
@@ -136,5 +153,16 @@ export abstract class ModalEditAdapterBase<T, A> {
         }
       }
     );
+  }
+
+  private unsubscribeResult() {
+    if (this.resultSub) {
+      this.resultSub.unsubscribe();
+      this.resultSub = undefined;
+    }
+  }
+
+  protected cleanup() {
+    this.unsubscribeResult();
   }
 }
