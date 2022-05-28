@@ -32,7 +32,7 @@
           <td class="text-center">
             <i *ngIf="company.note" class="pi pi-eye p-error font-bold" pTooltip="{{company.note}}" tooltipPosition="top"></i>
           </td>
-          <td class="text-right">
+          <td class="text-right nowrap">
             <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="onEdit(company)"></button>
             <button pButton pRipple type="button" icon="pi pi-copy" class="p-button-rounded p-button-text" (click)="onCopy(company)"></button>
             <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" (click)="onDelete(company)" [disabled]="deleting"></button>

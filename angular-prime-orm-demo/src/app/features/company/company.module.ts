@@ -9,12 +9,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from '../../core/core.module';
 import { FeatureSharedModule } from '../../feature-shared/feature-shared.module';
+import { CompanyBoardComponent } from './company-board/company-board.component';
 
 @NgModule({
   declarations: [
     CompanyListComponent,
     CompanyModalFormComponent,
-    CompanyEditAdapterComponent
+    CompanyEditAdapterComponent,
+    CompanyBoardComponent
   ],
   imports: [
     CommonModule,

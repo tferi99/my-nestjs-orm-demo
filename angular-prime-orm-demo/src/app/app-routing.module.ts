@@ -13,11 +13,11 @@ import { TestComponent } from './test/test.component';
 import { CompanyListComponent } from './features/company/company-list/company-list.component';
 import { ModalTestComponent } from './sandbox/components/modal-test/modal-test.component';
 import { PersonListComponent } from './features/person/person-list/person-list.component';
+import { CompanyBoardComponent } from './features/company/company-board/company-board.component';
 
 
 const routes: Routes = [
-  { path: '',   redirectTo: '/company', pathMatch: 'full' },   // default
-
+  //{ path: '',   redirectTo: '/home', pathMatch: 'full' },   // default
   { path: 'test', component: TestComponent },
   { path: 'login', component: LoginComponent },
   {
@@ -29,6 +29,7 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: "company", component: CompanyListComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
+      { path: "companyBoard", component: CompanyBoardComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
       { path: "person", component: PersonListComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
       { path: 'input', component: InputComponent },
     ],

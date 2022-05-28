@@ -42,7 +42,7 @@
               <i *ngIf="person.note" class="pi pi-eye p-error font-bold" pTooltip="{{person.note}}" tooltipPosition="top"></i>
             </td>
             <td>{{getCompanyById(companiesEntityCollection, person?.company, person)?.name}}</td>
-            <td class="text-right">
+            <td class="text-right nowrap">
               <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text" (click)="onEdit(person)"></button>
               <button pButton pRipple type="button" icon="pi pi-copy" class="p-button-rounded p-button-text" (click)="onCopy(person)"></button>
               <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger" (click)="onDelete(person)" [disabled]="deleting"></button>
