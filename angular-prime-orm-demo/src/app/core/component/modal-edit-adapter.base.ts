@@ -5,6 +5,7 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { Component, OnDestroy, OnInit, Type } from '@angular/core';
 import { ModalEditComponentBase } from './modal-edit-component.base';
 import { Subject, Subscription } from 'rxjs';
+import { DataConverter } from '../form/DataConverter';
 
 export interface EditComponent<T> {
   onNew(): void;
@@ -65,6 +66,7 @@ export abstract class ModalEditAdapterBase<T, A> {
 
   abstract getAdditionalData(): A;
   abstract beforeSave(data: T): void;
+  abstract getEditConverter(): DataConverter<T>;
 
   onNew(additionalDialogOptions?: Partial<DynamicDialogConfig>): void {
     this.openEditModal({
@@ -89,9 +91,10 @@ export abstract class ModalEditAdapterBase<T, A> {
   }
 
   onEdit(data: T, additionalDialogOptions?: Partial<DynamicDialogConfig>): void  {
+    const converter = this.getEditConverter();
 
     this.openEditModal({
-      inputData: data,
+      inputData: converter ? converter.convert(data) : data,
       outputData: this.result,
       isNew: false
     }, {

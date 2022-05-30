@@ -49,11 +49,7 @@ export class PersonListComponent extends ListComponentBase<Person, 'name'> imple
     this.personDataService.getAll();
     this.companyDataService.getAll();
 
-    this.persons$ = this.personDataService.entities$.pipe(
-      tap(data => console.log('PERSONS DATA BEFORE:', data)),
-      map((data) => data.map(p => ({...p, birth: new Date(p.birth)}))),
-      tap(data => console.log('PERSONS DATA AFTER:', data)),
-    );
+    this.persons$ = this.personDataService.entities$;
     this.companiesEntityCollection$ = this.companyDataService.collection$
     this.companyEntities$ = this.companyDataService.entities$;
 

@@ -5,13 +5,35 @@
 <div class="grid">
   <div class="col-4" *ngFor="let ass of (companies$ | async)">
     <p-panel header="[{{ass.parent.id}}] - {{ass.parent.name}}">
+      <ng-template pTemplate="header">
+        aaaaa
+      </ng-template>
       <ng-template pTemplate="icons">
         <button pButton class="p-panel-header-icon p-link" (click)="editCompany(ass.parent)">
           <span class="pi pi-pencil"></span>
         </button>
         <app-company-delete [data]="ass.parent"></app-company-delete>
       </ng-template>
-      Body Content
+      <ng-template pTemplate="content" ngClass="bg-pink-700">
+        <div class="card-body" *ngIf="isTargetNormal(ass.parent.id) || isTargetUnemployed(ass.parent.id)">
+
+          <p-chip *ngFor="let p of ass.children" label="[{{p.id}}] - {{p.name}}" icon="pi pi-user" styleClass="m-1"></p-chip>
+          <!--
+          <div *ngFor="let p of ass.children"
+               class="alert draggable" role="alert"
+               [ngClass]="{'alert-light': p.active, 'alert-dark': !p.active}"
+               title="You can drop a person into another active company or into the Rubbish Bin"
+          >
+            <i class="fas fa-user"></i> [{{p.id}}] - {{p.name}}
+            <span style="float: right"><app-person-delete [data]="p"></app-person-delete></span>
+            <span class="float-end" role="button" (click)="editPerson(p)">
+              <i class="fa fa-pen mx-2"></i>
+            </span>
+          </div>
+          -->
+        </div>
+      </ng-template>
+
     </p-panel>
     <!--
     <p-card>

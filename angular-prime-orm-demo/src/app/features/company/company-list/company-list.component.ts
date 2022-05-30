@@ -43,11 +43,7 @@ export class CompanyListComponent extends ListComponentBase<Company, 'name'> imp
     // load
     this.companyDataService.getAll();
 
-    this.companies$ = this.companyDataService.entities$.pipe(
-      tap(data => console.log('COMPANIES DATA BEFORE:', data)),
-      map((data) => data.map(c => ({...c, established: new Date(c.established)}))),
-      tap(data => console.log('COMPANIES DATA AFTER:', data)),
-    );
+    this.companies$ = this.companyDataService.entities$;
     this.loading$ = this.companyDataService.loading$;
   }
 

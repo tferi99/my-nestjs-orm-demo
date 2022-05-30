@@ -8,6 +8,8 @@ import {
 } from '../../../core/store/data-service-error-message.service';
 import { EditComponent, ModalEditAdapterBase } from '../../../core/component/modal-edit-adapter.base';
 import { DialogService } from 'primeng/dynamicdialog';
+import { CompanyEditCoverter } from '../company-list/company-edit-coverter';
+import { DataConverter } from '../../../core/form/DataConverter';
 
 const errorMapping: ErrorMessageMapping<Company> = {
   'UniqueConstraintError' : {message: 'already exists', retriever: (data => data.name)},
@@ -19,6 +21,8 @@ const errorMapping: ErrorMessageMapping<Company> = {
   styles: []
 })
 export class CompanyEditAdapterComponent extends ModalEditAdapterBase<Company, any> implements EditComponent<Company>, OnDestroy {
+  private editConverter = new CompanyEditCoverter();
+
   constructor(
     private companyDataService: CompanyDataService,
     private dialogService: DialogService,
@@ -39,5 +43,9 @@ export class CompanyEditAdapterComponent extends ModalEditAdapterBase<Company, a
 
   ngOnDestroy(): void {
     this.cleanup();
+  }
+
+  getEditConverter(): DataConverter<Company> {
+    return this.editConverter;
   }
 }

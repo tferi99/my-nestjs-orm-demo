@@ -8,6 +8,9 @@ import { EditComponent, ModalEditAdapterBase } from '../../../core/component/mod
 import { DialogService } from 'primeng/dynamicdialog';
 import { PersonDataService } from '../store/person-data.service';
 import { PersonModalFormComponent } from './person-modal-form/person-modal-form.component';
+import { DataConverter } from '../../../core/form/DataConverter';
+import { CompanyEditCoverter } from '../../company/company-list/company-edit-coverter';
+import { PersonEditConverter } from './person-edit-converter';
 
 const errorMapping: ErrorMessageMapping<Person> = {
   'UniqueConstraintError' : {message: 'already exists', retriever: (data => data.name)},
@@ -20,6 +23,7 @@ const errorMapping: ErrorMessageMapping<Person> = {
 })
 export class PersonEditAdapterComponent extends ModalEditAdapterBase<Person, any> implements EditComponent<Person>, OnDestroy {
   @Input() companies!: Company[] | null;
+  private editConverter = new PersonEditConverter();
 
   constructor(
     private personDataService: PersonDataService,
@@ -50,5 +54,9 @@ export class PersonEditAdapterComponent extends ModalEditAdapterBase<Person, any
 
   ngOnDestroy(): void {
     this.cleanup();
+  }
+
+  getEditConverter(): DataConverter<Person> {
+    return this.editConverter;
   }
 }
