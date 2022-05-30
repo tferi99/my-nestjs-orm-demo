@@ -11,27 +11,30 @@ import { PersonEditAdapterComponent } from './person-edit/person-edit-adapter.co
 import { PersonModalFormComponent } from './person-edit/person-modal-form/person-modal-form.component';
 
 @NgModule({
-  declarations: [
-    PersonListComponent,
-    PersonEditAdapterComponent,
-    PersonModalFormComponent
-  ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    ReactiveFormsModule,
+    declarations: [
+        PersonListComponent,
+        PersonEditAdapterComponent,
+        PersonModalFormComponent
+    ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        ReactiveFormsModule,
 
-    MomentModule,
+        MomentModule,
 
-    CoreModule,
-    FeatureSharedModule,
+        CoreModule,
+        FeatureSharedModule,
 
-    // PrimeNG
-    APP_PRIMENG_MODULES,
-  ],
-  providers: [
-    APP_PRIMENG_PROVIDERS,
-  ]
+        // PrimeNG
+        APP_PRIMENG_MODULES,
+    ],
+    exports: [
+        PersonEditAdapterComponent
+    ],
+    providers: [
+        APP_PRIMENG_PROVIDERS,
+    ]
 
 })
 export class PersonModule { }

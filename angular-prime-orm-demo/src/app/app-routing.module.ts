@@ -14,6 +14,7 @@ import { CompanyListComponent } from './features/company/company-list/company-li
 import { ModalTestComponent } from './sandbox/components/modal-test/modal-test.component';
 import { PersonListComponent } from './features/person/person-list/person-list.component';
 import { CompanyBoardComponent } from './features/company/company-board/company-board.component';
+import { PanelTestComponent } from './sandbox/components/panel-test/panel-test.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
 
   { path: 'sandbox/input', component: InputComponent },
   { path: 'sandbox/modaltest', component: ModalTestComponent },
+  { path: 'sandbox/paneltest', component: PanelTestComponent },
 
   { path: '**', redirectTo: 'pages/notfound' },
 ];

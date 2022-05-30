@@ -10,6 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from '../../core/core.module';
 import { FeatureSharedModule } from '../../feature-shared/feature-shared.module';
 import { CompanyBoardComponent } from './company-board/company-board.component';
+import { PersonModule } from '../person/person.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CompanyBoardComponent } from './company-board/company-board.component';
 
     // PrimeNG
     APP_PRIMENG_MODULES,
+    PersonModule,
   ],
   providers: [
     APP_PRIMENG_PROVIDERS,

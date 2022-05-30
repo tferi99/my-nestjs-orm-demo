@@ -45,6 +45,7 @@ import { CompanyModule } from './features/company/company.module';
 import { ModalTestComponent } from './sandbox/components/modal-test/modal-test.component';
 import { ModalTestFormComponent } from './sandbox/components/modal-test/modal-test-form/modal-test-form.component';
 import { PersonModule } from './features/person/person.module';
+import { PanelTestComponent } from './sandbox/components/panel-test/panel-test.component';
 
 @NgModule({
     imports: [
@@ -117,6 +118,7 @@ import { PersonModule } from './features/person/person.module';
     InputComponent,
      ModalTestComponent,
      ModalTestFormComponent,
+     PanelTestComponent,
   ],
   providers: [
     {

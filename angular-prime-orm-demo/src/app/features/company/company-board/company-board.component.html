@@ -1,1 +1,32 @@
-<p>company-board works!</p>
+<h3>Companies &amp; Persons</h3>
+<p>
+  <small><i>Drag &amp; Drop elements</i></small>
+</p>
+<div class="grid">
+  <div class="col-4" *ngFor="let ass of (companies$ | async)">
+    <p-panel header="[{{ass.parent.id}}] - {{ass.parent.name}}">
+      <ng-template pTemplate="icons">
+        <button pButton class="p-panel-header-icon p-link" (click)="editCompany(ass.parent)">
+          <span class="pi pi-pencil"></span>
+        </button>
+        <app-company-delete [data]="ass.parent"></app-company-delete>
+      </ng-template>
+      Body Content
+    </p-panel>
+    <!--
+    <p-card>
+      <ng-template pTemplate="header">
+        <h5>[{{ass.parent.id}}] - {{ass.parent.name}}</h5>
+        Header content here
+      </ng-template>
+      Body Content
+      <ng-template pTemplate="footer">
+        Footer content here
+      </ng-template>
+    </p-card>
+    -->
+  </div>
+</div>
+
+<app-company-edit-adapter #companyEdit [style]="{'overflow':'visible'}"></app-company-edit-adapter>
+<app-person-edit-adapter #personEdit [style]="{'overflow':'visible'}"></app-person-edit-adapter>
