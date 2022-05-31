@@ -1,0 +1,27 @@
+:host ::ng-deep .company-panel.p-panel {
+  .p-panel-header {
+    background: var(--blue-200);
+  }
+  .p-panel-content {
+    background: var(--blue-100);
+  }
+}
+
+:host ::ng-deep .unemployed-panel.p-panel {
+  .p-panel-header {
+    background: var(--yellow-200);
+  }
+  .p-panel-content {
+    background: var(--yellow-100);
+  }
+}
+
+:host ::ng-deep .rubbish-panel.p-panel {
+  .p-panel-header {
+    background: var(--red-200);
+  }
+  .p-panel-content {
+    background: var(--red-100);
+  }
+}
+

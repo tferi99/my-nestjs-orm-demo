@@ -14,6 +14,8 @@ import {CHANGE_DETECTION_STRATEGY} from '../../../app.constants';
 import { PersonEditAdapterComponent } from '../../person/person-edit/person-edit-adapter.component';
 import { CompanyEditAdapterComponent } from '../company-edit/company-edit-adapter.component';
 import { MenuItem } from 'primeng/api';
+import { DragDropService } from '../drag-drop.service';
+import { DragDropAction } from '../drag-drop-service.base';
 
 const d = new Date();
 const rubbishBin: Company = { name: 'Rubbish Bin', workers: [], id: COMPANY_ID_RUBBISH_BIN, active: true, established: d, created: d, updated: d, note: ''};
@@ -29,13 +31,13 @@ export class CompanyBoardComponent implements OnInit {
   @ViewChild('personEdit') personEdit!: PersonEditAdapterComponent;
 
   companies$!: Observable<OneToManyAssociation<Company, Person>[]>;
-  items!: MenuItem[];
 
   loadingP$!: Observable<boolean>;
   loadingC$!: Observable<boolean>;
 
   deleting = false;
   COMPANY_ID_RUBBISH_BIN = COMPANY_ID_RUBBISH_BIN.toString();
+  dragDropActionEnum = DragDropAction;
 
   companyErrorMapping: ErrorMessageMapping<Company> = {
     'ForeignKeyConstraintViolationError': {message: 'Item is used'}
@@ -45,7 +47,7 @@ export class CompanyBoardComponent implements OnInit {
     private store: Store<AppState>,
     private companyDataService: CompanyDataService,
     private personDataService: PersonDataService,
-//    public handler: DragDropService,
+    public handler: DragDropService,
   ) {}
 
   ngOnInit(): void {
@@ -56,49 +58,16 @@ export class CompanyBoardComponent implements OnInit {
 
     this.loadingP$ = this.personDataService.loading$;
     this.loadingC$ = this.companyDataService.loading$;
-
-    this.items = [
-      {
-        label: 'Options',
-        items: [{
-          label: 'Update',
-          icon: 'pi pi-refresh',
-          command: () => {
-            this.test();
-          }
-        },
-          {
-            label: 'Delete',
-            icon: 'pi pi-times',
-            command: () => {
-              this.test();
-            }
-          }
-        ]},
-      {
-        label: 'Navigate',
-        items: [{
-          label: 'Angular',
-          icon: 'pi pi-external-link',
-          url: 'http://angular.io'
-        },
-          {
-            label: 'Router',
-            icon: 'pi pi-upload',
-            routerLink: '/fileupload'
-          }
-        ]}
-    ];
   }
 
   getClassByCompany(company: Company): string {
     switch (company.id) {
       case COMPANY_ID_UNEMPLOYED:
-        return "alert-warning";
+        return "unemployed-panel";
       case COMPANY_ID_RUBBISH_BIN:
-        return "alert-danger";
+        return "rubbish-panel";
       default:
-        return company.active ? "alert-primary" : 'alert-secondary';
+        return company.active ? "company-panel" : '';
     }
   }
 
@@ -133,5 +102,15 @@ export class CompanyBoardComponent implements OnInit {
 
   private test() {
 
+  }
+
+  getHeaderForCompany(company: Company): string {
+    if (this.isTargetNormal(company.id)) {
+      return `[${company.id}] - ${company.name}`;
+    }
+    if (this.isTargetUnemployed(company.id)) {
+      return 'UNEMPLOYED'
+    };
+    return '';
   }
 }

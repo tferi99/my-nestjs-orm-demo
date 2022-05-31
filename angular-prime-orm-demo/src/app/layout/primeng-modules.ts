@@ -82,6 +82,7 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { ConfirmationService, Footer, Header, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DragDropModule } from 'primeng/dragdrop';
 
 export const APP_PRIMENG_MODULES = [
   StyleClassModule,
@@ -109,6 +110,7 @@ export const APP_PRIMENG_MODULES = [
   DialogModule,
   DynamicDialogModule,
   DividerModule,
+  DragDropModule,
   DropdownModule,
   FieldsetModule,
   FileUploadModule,

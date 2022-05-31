@@ -3,38 +3,60 @@
   <small><i>Drag &amp; Drop elements</i></small>
 </p>
 <div class="grid">
-  <div class="col-4" *ngFor="let ass of (companies$ | async)">
-    <p-panel header="[{{ass.parent.id}}] - {{ass.parent.name}}">
-      <ng-template pTemplate="header">
-        aaaaa
-      </ng-template>
-      <ng-template pTemplate="icons">
-        <button pButton class="p-panel-header-icon p-link" (click)="editCompany(ass.parent)">
-          <span class="pi pi-pencil"></span>
-        </button>
-        <app-company-delete [data]="ass.parent"></app-company-delete>
-      </ng-template>
-      <ng-template pTemplate="content" ngClass="bg-pink-700">
-        <div class="card-body" *ngIf="isTargetNormal(ass.parent.id) || isTargetUnemployed(ass.parent.id)">
+  <div class="col-4" *ngFor="let ass of (companies$ | async)" dragHandle=".p-panel-titlebar">
+      <p-panel [header]="getHeaderForCompany(ass.parent)" [styleClass]="getClassByCompany(ass.parent)"
+             pDroppable="person" [pDroppableDisabled]="!ass.parent.active" (onDrop)="handler.drop(dragDropActionEnum.Add)">
 
-          <p-chip *ngFor="let p of ass.children" label="[{{p.id}}] - {{p.name}}" icon="pi pi-user" styleClass="m-1"></p-chip>
-          <!--
-          <div *ngFor="let p of ass.children"
-               class="alert draggable" role="alert"
-               [ngClass]="{'alert-light': p.active, 'alert-dark': !p.active}"
-               title="You can drop a person into another active company or into the Rubbish Bin"
-          >
-            <i class="fas fa-user"></i> [{{p.id}}] - {{p.name}}
-            <span style="float: right"><app-person-delete [data]="p"></app-person-delete></span>
-            <span class="float-end" role="button" (click)="editPerson(p)">
-              <i class="fa fa-pen mx-2"></i>
-            </span>
+        <!-- header main icon -->
+        <ng-template pTemplate="header" pDraggable="company" *ngIf="isTargetNormal(ass.parent.id)">
+          <i class="pi pi-briefcase mr-2"></i>
+        </ng-template>
+        <ng-template pTemplate="header" pDraggable="company" *ngIf="isTargetUnemployed(ass.parent.id)"
+                     (onDragStart)="handler.dragStart(ass.parent)" (onDragEnd)="handler.dragEnd()">
+          <i class="pi pi-users mr-2"></i>
+        </ng-template>
+
+        <!-- header function icons -->
+        <ng-template pTemplate="icons" *ngIf="isTargetNormal(ass.parent.id)">
+          <button pButton class="p-panel-header-icon p-link" (click)="editCompany(ass.parent)">
+            <span class="pi pi-pencil"></span>
+          </button>
+          <app-company-delete [data]="ass.parent"></app-company-delete>
+        </ng-template>
+        <ng-template pTemplate="icons" *ngIf="isTargetUnemployed(ass.parent.id)">
+          <button pButton class="p-panel-header-icon p-link" (click)="addPerson()">
+            <span class="pi pi-plus"></span>
+            <span class="pi pi-user"></span>
+          </button>
+        </ng-template>
+
+        <ng-template pTemplate="content">
+          <div class="card-body" *ngIf="isTargetNormal(ass.parent.id) || isTargetUnemployed(ass.parent.id)">
+            <ul class="no-bullets">
+              <li *ngFor="let p of ass.children" class="m-1" pDraggable="person" (onDragStart)="handler.dragStart(p)" (onDragEnd)="handler.dragEnd()">
+                <p-chip label="[{{p.id}}] - {{p.name}}" icon="pi pi-user" styleClass="nowrap"></p-chip>
+              </li>
+            </ul>
+
+
+            <!--
+            <div *ngFor="let p of ass.children"
+                 class="alert draggable" role="alert"
+                 [ngClass]="{'alert-light': p.active, 'alert-dark': !p.active}"
+                 title="You can drop a person into another active company or into the Rubbish Bin"
+            >
+              <i class="fas fa-user"></i> [{{p.id}}] - {{p.name}}
+              <span style="float: right"><app-person-delete [data]="p"></app-person-delete></span>
+              <span class="float-end" role="button" (click)="editPerson(p)">
+                <i class="fa fa-pen mx-2"></i>
+              </span>
+            </div>
+            -->
           </div>
-          -->
-        </div>
-      </ng-template>
+        </ng-template>
 
-    </p-panel>
+      </p-panel>
+    </div>
     <!--
     <p-card>
       <ng-template pTemplate="header">
@@ -48,7 +70,7 @@
     </p-card>
     -->
   </div>
-</div>
+
 
 <app-company-edit-adapter #companyEdit [style]="{'overflow':'visible'}"></app-company-edit-adapter>
 <app-person-edit-adapter #personEdit [style]="{'overflow':'visible'}"></app-person-edit-adapter>
