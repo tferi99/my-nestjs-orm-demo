@@ -3,10 +3,16 @@ import { NGXLogger } from 'ngx-logger';
 
 export enum DragDropAction {
   Delete = 'DELETE',
-  Add = 'ADD'
+  Move = 'MOVE',
+  Copy = 'COPY'
 }
 
+const DRAG_DROP_TRACE_PREFIX = 'DRAG_DROP: '
+
 export abstract class DragDropServiceBase<T> {
+  type?: string
+  dragZoneId?: string;
+  dropZoneId?: string;
   dragged?: T;
   protected tracing = false;
 
@@ -19,29 +25,46 @@ export abstract class DragDropServiceBase<T> {
     }
   }
 
-  dragStart(obj: T) {
-    this.dragged = obj;
-    if (this.tracing) {
-      this._logger.info('dragStart', obj);
+  dragStart(type: string, dragZoneId: string, data: T) {
+    this.type = type;
+    this.dragZoneId = dragZoneId;
+    this.dragged = data;
+
+    this.trace(`dragStart[${type}] ${dragZoneId} => ...`, data);
+    if (!type || !dragZoneId || data === undefined) {
+      throw new Error("Bad ")
     }
   }
 
   dragEnd() {
+    this.type = undefined;
     this.dragged = undefined;
-    if (this.tracing) {
-      this._logger.info('dragEnd');
-    }
+    this.dragZoneId = undefined;
+    this.dropZoneId = undefined;
+
+    this.trace('dragEnd');
   }
 
-  drop(action: DragDropAction) {
-    if (this.tracing) {
-      this._logger.info('drop[' + action + ']:', this.dragged);
-    }
+  drop(dropZoneId: string, action: DragDropAction) {
+    this.dropZoneId = dropZoneId;
+    this.trace(`drop[${this.type}|${action}]: ${this.dragZoneId} => ${this.dropZoneId}`, this.dragged);
+
     if (this.dragged) {
-      this.handleDrop(action, this.dragged);
+      this.handleDrop(this.type ? this.type : '', action, this.dragged, this.dragZoneId, this.dropZoneId);
       this.dragged = undefined;
     }
   }
 
-  abstract handleDrop(action: DragDropAction, obj: T): void;
+  abstract handleDrop(type: string, action: DragDropAction, data: T, dragZoneId?: string, dropZoneId?: string): void;
+
+  private trace(msg: string, data?: any) {
+    if (!this.tracing) {
+      return;
+    }
+    if (msg) {
+      this._logger.info(DRAG_DROP_TRACE_PREFIX + msg, data);
+    } else {
+      this._logger.info(DRAG_DROP_TRACE_PREFIX + msg);
+    }
+  }
 }

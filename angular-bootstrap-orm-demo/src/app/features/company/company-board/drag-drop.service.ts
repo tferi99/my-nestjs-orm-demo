@@ -42,7 +42,7 @@ export class DragDropService extends DragDropServiceBase {
 
   private handleDropPerson(action: DragDropAction): void {
     const person: Person = action.draggedData;
-    if (action.state === DragDropState.Dropped) {
+/*    if (action.state === DragDropState.Dropped) {
       const targetCompanyId: number = Number(action.dropZoneId);
       if (targetCompanyId === COMPANY_ID_UNEMPLOYED) {
         // @ts-ignore
@@ -54,6 +54,6 @@ export class DragDropService extends DragDropServiceBase {
       this.personDataService.update(person).subscribe();
     } else if (action.state === DragDropState.DroppedToRubbish) {
       this.personDataService.delete(person).subscribe();
-    }
+    }*/
   }
 }

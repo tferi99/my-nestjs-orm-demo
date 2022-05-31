@@ -5,14 +5,14 @@
 <div class="grid">
   <div class="col-4" *ngFor="let ass of (companies$ | async)" dragHandle=".p-panel-titlebar">
       <p-panel [header]="getHeaderForCompany(ass.parent)" [styleClass]="getClassByCompany(ass.parent)"
-             pDroppable="person" [pDroppableDisabled]="!ass.parent.active" (onDrop)="handler.drop(dragDropActionEnum.Add)">
+             pDroppable="person" [pDroppableDisabled]="!ass.parent.active" (onDrop)="handler.drop(ass.parent.id.toString(), dragDropActionEnum.Move)">
 
         <!-- header main icon -->
         <ng-template pTemplate="header" pDraggable="company" *ngIf="isTargetNormal(ass.parent.id)">
           <i class="pi pi-briefcase mr-2"></i>
         </ng-template>
         <ng-template pTemplate="header" pDraggable="company" *ngIf="isTargetUnemployed(ass.parent.id)"
-                     (onDragStart)="handler.dragStart(ass.parent)" (onDragEnd)="handler.dragEnd()">
+                     (onDragStart)="handler.dragStart('company', ass.parent.id.toString(), ass.parent)" (onDragEnd)="handler.dragEnd()">
           <i class="pi pi-users mr-2"></i>
         </ng-template>
 
@@ -33,7 +33,7 @@
         <ng-template pTemplate="content">
           <div class="card-body" *ngIf="isTargetNormal(ass.parent.id) || isTargetUnemployed(ass.parent.id)">
             <ul class="no-bullets">
-              <li *ngFor="let p of ass.children" class="m-1" pDraggable="person" (onDragStart)="handler.dragStart(p)" (onDragEnd)="handler.dragEnd()">
+              <li *ngFor="let p of ass.children" class="m-1" pDraggable="person" (onDragStart)="handler.dragStart('person', ass.parent.id.toString(), p)" (onDragEnd)="handler.dragEnd()">
                 <p-chip label="[{{p.id}}] - {{p.name}}" icon="pi pi-user" styleClass="nowrap"></p-chip>
               </li>
             </ul>

@@ -4,6 +4,7 @@ import { PersonDataService } from '../person/store/person-data.service';
 import { Company, Person } from '@app/client-lib';
 import { Injectable } from '@angular/core';
 import { DragDropAction, DragDropServiceBase } from './drag-drop-service.base';
+import { COMPANY_ID_UNEMPLOYED } from './company.constants';
 
 
 @Injectable({
@@ -15,10 +16,31 @@ export class DragDropService extends DragDropServiceBase<Person | Company> {
     private companyDataService: CompanyDataService,
     private personDataService: PersonDataService
   ) {
-    super(logger)
+    super(logger, true);
   }
 
-  handleDrop(action: DragDropAction, obj: Person | Company): void {
-    console.log('handleDrop: ' + action, obj);
+  handleDrop(type: string, action: DragDropAction, data: Person | Company, dragZoneId?: string, dropZoneId?: string): void {
+    console.log(`handleDrop[${type}|${action}]: ${dragZoneId} => ${dropZoneId}`, data);
+
+    if (type === 'person') {
+      const d: Person = data as Person;
+      this.handleDropPerson(action, d, dragZoneId, dropZoneId);
+    }
+  }
+
+  private handleDropPerson(action: DragDropAction, person: Person, dragZoneId?: string, dropZoneId?: string): void {
+    if (action === DragDropAction.Move) {
+      const targetCompanyId: number = Number(dropZoneId);
+      if (targetCompanyId === COMPANY_ID_UNEMPLOYED) {
+        // @ts-ignore
+        person.company = null;
+      } else {
+        // @ts-ignore
+        person.company = targetCompanyId as number;
+      }
+      this.personDataService.update(person).subscribe();
+    } else if (action === DragDropAction.Delete) {
+      this.personDataService.delete(person).subscribe();
+    }
   }
 }
