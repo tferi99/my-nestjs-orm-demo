@@ -44,7 +44,7 @@ export class PersonEditAdapterComponent extends ModalEditAdapterBase<Person, any
   }
 
   beforeSave(data: Person): void {
-    const companyId: number = data.company as unknown as number;
+    const companyId: number = Number(data.company);
     if (companyId < 0) {
       // @ts-ignore
       data.company = null;

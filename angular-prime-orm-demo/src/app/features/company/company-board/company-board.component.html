@@ -2,10 +2,11 @@
 <p>
   <small><i>Drag &amp; Drop elements</i></small>
 </p>
-<div class="grid">
-  <div class="col-4" *ngFor="let ass of (companies$ | async)" dragHandle=".p-panel-titlebar">
+<div style="display: flex; flex-direction: column">
+  <div class="grid" style="flex: 1 1 100%">
+    <div class="col-4" *ngFor="let ass of (companies$ | async)" dragHandle=".p-panel-titlebar">
       <p-panel [header]="getHeaderForCompany(ass.parent)" [styleClass]="getClassByCompany(ass.parent)"
-             pDroppable="person" [pDroppableDisabled]="!ass.parent.active" (onDrop)="handler.drop(ass.parent.id.toString(), dragDropActionEnum.Move)">
+               pDroppable="person" [pDroppableDisabled]="!ass.parent.active" (onDrop)="handler.drop(ass.parent.id.toString(), dragDropActionEnum.Move)">
 
         <!-- header main icon -->
         <ng-template pTemplate="header" pDraggable="company" *ngIf="isTargetNormal(ass.parent.id)">
@@ -34,7 +35,9 @@
           <div class="card-body" *ngIf="isTargetNormal(ass.parent.id) || isTargetUnemployed(ass.parent.id)">
             <ul class="no-bullets">
               <li *ngFor="let p of ass.children" class="m-1" pDraggable="person" (onDragStart)="handler.dragStart('person', ass.parent.id.toString(), p)" (onDragEnd)="handler.dragEnd()">
-                <p-chip label="[{{p.id}}] - {{p.name}}" icon="pi pi-user" styleClass="nowrap"></p-chip>
+                <p-chip label="[{{p.id}}] - {{p.name}}" icon="pi pi-user" styleClass="nowrap" title="You can drop a person into another active company or into the Rubbish Bin">
+                  CICA
+                </p-chip>
               </li>
             </ul>
 
@@ -57,20 +60,12 @@
 
       </p-panel>
     </div>
-    <!--
-    <p-card>
-      <ng-template pTemplate="header">
-        <h5>[{{ass.parent.id}}] - {{ass.parent.name}}</h5>
-        Header content here
-      </ng-template>
-      Body Content
-      <ng-template pTemplate="footer">
-        Footer content here
-      </ng-template>
-    </p-card>
-    -->
   </div>
-
+  <div style="background-color: red; flex: 1 1 auto">
+    <div class="col-4" *ngFor="let ass of (companies$ | async)" dragHandle=".p-panel-titlebar">
+    </div>
+  </div>
+</div>
 
 <app-company-edit-adapter #companyEdit [style]="{'overflow':'visible'}"></app-company-edit-adapter>
 <app-person-edit-adapter #personEdit [style]="{'overflow':'visible'}"></app-person-edit-adapter>

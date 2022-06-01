@@ -28,7 +28,9 @@ export class DragDropService extends DragDropServiceBase<Person | Company> {
     }
   }
 
-  private handleDropPerson(action: DragDropAction, person: Person, dragZoneId?: string, dropZoneId?: string): void {
+  private handleDropPerson(action: DragDropAction, data: Person, dragZoneId?: string, dropZoneId?: string): void {
+    const person: Person = {...data};
+    console.log(`>>>>>>>>>> handleDropPerson: ${action} ${dragZoneId} => ${dropZoneId}`, person);
     if (action === DragDropAction.Move) {
       const targetCompanyId: number = Number(dropZoneId);
       if (targetCompanyId === COMPANY_ID_UNEMPLOYED) {
@@ -36,7 +38,7 @@ export class DragDropService extends DragDropServiceBase<Person | Company> {
         person.company = null;
       } else {
         // @ts-ignore
-        person.company = targetCompanyId as number;
+        person.company = targetCompanyId;
       }
       this.personDataService.update(person).subscribe();
     } else if (action === DragDropAction.Delete) {
