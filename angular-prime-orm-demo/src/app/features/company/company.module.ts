@@ -11,13 +11,17 @@ import { CoreModule } from '../../core/core.module';
 import { FeatureSharedModule } from '../../feature-shared/feature-shared.module';
 import { CompanyBoardComponent } from './company-board/company-board.component';
 import { PersonModule } from '../person/person.module';
+import { CompanyItemComponent } from './company-board/company-item/company-item.component';
+import { PersonItemComponent } from './company-board/person-item/person-item.component';
 
 @NgModule({
   declarations: [
     CompanyListComponent,
     CompanyModalFormComponent,
     CompanyEditAdapterComponent,
-    CompanyBoardComponent
+    CompanyBoardComponent,
+    CompanyItemComponent,
+    PersonItemComponent
   ],
   imports: [
     CommonModule,

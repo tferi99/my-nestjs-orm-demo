@@ -22,9 +22,15 @@ export class DragDropService extends DragDropServiceBase<Person | Company> {
   handleDrop(type: string, action: DragDropAction, data: Person | Company, dragZoneId?: string, dropZoneId?: string): void {
     console.log(`handleDrop[${type}|${action}]: ${dragZoneId} => ${dropZoneId}`, data);
 
-    if (type === 'person') {
-      const d: Person = data as Person;
-      this.handleDropPerson(action, d, dragZoneId, dropZoneId);
+    if (type === 'company') {
+      if (action === DragDropAction.Delete) {
+        const company: Company = data as Company;
+        this.companyDataService.delete(company).subscribe();
+      }
+    }
+    else if (type === 'person') {
+      const person: Person = data as Person;
+      this.handleDropPerson(action, person, dragZoneId, dropZoneId);
     }
   }
 

@@ -1,11 +1,11 @@
-import {Company, Person} from '@app/client-lib';
-import {createSelector} from '@ngrx/store';
-import {AppState} from '../../../store/app.reducer';
-import {EntitySelectorsFactory} from '@ngrx/data';
-import {DataEntity} from '../../../store/data-entity';
-import {Dictionary} from '@ngrx/entity';
-import {OneToManyAssociation} from '../../../core/store/store-utils';
-import {COMPANY_ID_RUBBISH_BIN, COMPANY_ID_UNEMPLOYED} from '../company.constants';
+import { Company, Person } from '@app/client-lib';
+import { createSelector } from '@ngrx/store';
+import { AppState } from '../../../store/app.reducer';
+import { EntitySelectorsFactory } from '@ngrx/data';
+import { DataEntity } from '../../../store/data-entity';
+import { Dictionary } from '@ngrx/entity';
+import { OneToManyAssociation } from '../../../core/store/store-utils';
+import { COMPANY_ID_UNEMPLOYED } from '../company.constants';
 
 const factory = new EntitySelectorsFactory();
 const companySelectors = factory.create<Company>(DataEntity.Company);

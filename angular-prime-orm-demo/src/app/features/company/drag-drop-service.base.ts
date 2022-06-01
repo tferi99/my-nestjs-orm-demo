@@ -1,4 +1,3 @@
-import { Person } from '@app/client-lib';
 import { NGXLogger } from 'ngx-logger';
 
 export enum DragDropAction {
