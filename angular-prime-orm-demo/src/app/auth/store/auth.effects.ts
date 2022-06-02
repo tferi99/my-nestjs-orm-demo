@@ -11,7 +11,7 @@ import {
 } from './auth.actions';
 import {catchError, exhaustMap, map, tap} from 'rxjs/operators';
 import {LocalStorageService} from '../../core/service/local-storage.service';
-import {of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {Router} from '@angular/router';
 import {NGXLogger} from 'ngx-logger';
 import {AppDataLoadAction} from '../../init/store/init.actions';
@@ -91,8 +91,8 @@ export class AuthEffects {
       this.personDataService.clearCache();
       this.companyDataService.clearCache();
     }),
-    exhaustMap(action => this.authService.logout().pipe()),
-    tap(() => this.router.navigateByUrl('/login'))
+    tap(() => this.router.navigateByUrl('/login')),
+    exhaustMap(action => this.authService.logout())
   ), {
     dispatch: false
   });

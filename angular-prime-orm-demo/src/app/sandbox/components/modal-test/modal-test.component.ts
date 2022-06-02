@@ -3,6 +3,7 @@ import { DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ModalTestFormComponent } from './modal-test-form/modal-test-form.component';
 import { ModalTestData, ModalTestInput } from './modal-test.model';
 import { DialogOutput } from '../../../core/form/modal/modal.model';
+import { ToastrService } from '../../../prime-core/service/toastr.service';
 
 @Component({
   selector: 'app-modal-test',
@@ -12,7 +13,10 @@ import { DialogOutput } from '../../../core/form/modal/modal.model';
 export class ModalTestComponent implements OnInit {
   data!: ModalTestData;
 
-  constructor(public dialogService: DialogService) {}
+  constructor(
+    public dialogService: DialogService,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit(): void {
     console.log('MODAL INIT');
@@ -40,6 +44,18 @@ export class ModalTestComponent implements OnInit {
         this.data = out;
       }
       });
+  }
+
+  msg1() {
+    this.toastrService.info('fasz');
+  }
+
+  msg2() {
+    this.toastrService.info('fasz', 'picsa');
+  }
+
+  msg3() {
+    this.toastrService.error('valag');
   }
 }
 

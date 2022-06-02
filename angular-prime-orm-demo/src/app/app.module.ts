@@ -46,6 +46,7 @@ import { ModalTestComponent } from './sandbox/components/modal-test/modal-test.c
 import { ModalTestFormComponent } from './sandbox/components/modal-test/modal-test-form/modal-test-form.component';
 import { PersonModule } from './features/person/person.module';
 import { PanelTestComponent } from './sandbox/components/panel-test/panel-test.component';
+import { InitEffects } from './init/store/init.effect';
 
 @NgModule({
     imports: [
@@ -89,6 +90,7 @@ import { PanelTestComponent } from './sandbox/components/panel-test/panel-test.c
         EffectsModule.forFeature(
             [
                 AuthEffects,
+                InitEffects,
             ]
         ),
         EntityDataModule.forRoot(entityConfig),

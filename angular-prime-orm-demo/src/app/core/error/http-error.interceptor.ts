@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Observable, throwError} from 'rxjs';
-import {catchError, retry} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable, Subject, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 import {
   HttpErrorResponse,
@@ -10,14 +10,14 @@ import {
   HttpRequest,
   HttpStatusCode
 } from '@angular/common/http';
-import {NGXLogger} from 'ngx-logger';
-import {Store} from '@ngrx/store';
+import { NGXLogger } from 'ngx-logger';
+import { Store } from '@ngrx/store';
 
-import {ErrorMessageUtils} from './error-message-utils';
-import {CustomHttpStatus, ResponseErrorPayload, ServerError} from '@app/client-lib';
-import {ForeignKeyConstraintViolationError, ServerAppError, UniqueConstraintError} from './app-error';
-import {AppState} from '../../store/app.reducer';
-import {LogoutAction} from '../../auth/store/auth.actions';
+import { ErrorMessageUtils } from './error-message-utils';
+import { CustomHttpStatus, ResponseErrorPayload, ServerError } from '@app/client-lib';
+import { ForeignKeyConstraintViolationError, ServerAppError, UniqueConstraintError } from './app-error';
+import { AppState } from '../../store/app.reducer';
+import { LogoutAction } from '../../auth/store/auth.actions';
 import { ToastrService } from '../../prime-core/service/toastr.service';
 
 
@@ -30,11 +30,17 @@ import { ToastrService } from '../../prime-core/service/toastr.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
+  messenger: Subject<string> = new Subject<string>();
+
   constructor(
     private toastr: ToastrService,
     private logger: NGXLogger,
     private store: Store<AppState>,
-  ) {}
+  ) {
+    this.messenger.subscribe(
+      msg => this.toastr.error( msg)
+    );
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
@@ -46,7 +52,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
   private handleError(err: HttpErrorResponse): Observable<any> {
     console.log('>>>>>>> Error caught by interceptor:', err);
-    let errorMessage = '';
+    let errorMessage;
     let errorMessageExt;
     let notify = true;
     if (err.error instanceof ErrorEvent) {                    // client-side error
@@ -69,6 +75,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         case HttpStatusCode.NotFound:
           break;
         case HttpStatusCode.GatewayTimeout:
+          errorMessage = 'Server is inaccessible';
           break;
         case CustomHttpStatus.ApplicationError:
           const ex = this.identifyServerApplicationErrors(err.error as ResponseErrorPayload);
@@ -82,13 +89,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       }
     }
 
-    if (notify) {
-      errorMessage = ErrorMessageUtils.getErrorMessage('SERVER ERROR:\n', err);
-      if (errorMessageExt) {
-        errorMessage += ' : ' + errorMessageExt;
+    if (errorMessage || notify) {
+      if (errorMessage) {
+        this.toastr.error(errorMessage);
+      } else {
+        errorMessage = '[INTERCEPTOR] - ' + ErrorMessageUtils.getErrorMessage('SERVER ERROR:\n', err);
+        if (errorMessageExt) {
+          errorMessage += ' : ' + errorMessageExt;
+        }
+        this.toastr.error(errorMessage);
+        console.log(errorMessage);
       }
-      this.toastr.error('[INTERCEPTOR] - ' + errorMessage);
-      console.log(errorMessage);
     }
     return throwError(err);
   }
