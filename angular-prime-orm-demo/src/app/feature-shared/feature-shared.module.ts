@@ -4,6 +4,8 @@ import { CompanyDeleteComponent } from './component/company-delete/company-delet
 import { PersonDeleteComponent } from './component/person-delete/person-delete.component';
 import { EmployeeTypeFromStringPipe } from './pipe/employee-type-from-string.pipe';
 import { CommonModule } from '@angular/common';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,12 @@ import { CommonModule } from '@angular/common';
     PersonDeleteComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+
+    ConfirmDialogModule
   ],
+  providers: [
+    ConfirmationService
+  ]
 })
 export class FeatureSharedModule { }

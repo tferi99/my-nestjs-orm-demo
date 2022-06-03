@@ -7,12 +7,13 @@ import {OnEscapeDirective} from "../core/directive/on-escape.directive";
 import { ValueRefreshedByTimerComponent } from './component/value-refreshed-by-timer.component';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
     FormFocusDirective,
     OnEscapeDirective,
-////    ConfirmDialogComponent,
     ValueRefreshedByTimerComponent
   ],
   imports: [
@@ -21,6 +22,7 @@ import { DialogModule } from 'primeng/dialog';
     // PrimeNG
     DialogModule,
     DynamicDialogModule,
+    ConfirmDialogModule
   ],
   exports: [
     FormFocusDirective,
@@ -29,8 +31,7 @@ import { DialogModule } from 'primeng/dialog';
     ValueRefreshedByTimerComponent
   ],
   providers: [
-    //ConfirmationService
+    ConfirmationService
   ]
-
 })
 export class CoreModule { }

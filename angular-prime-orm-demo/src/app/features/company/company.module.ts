@@ -35,6 +35,7 @@ import { PersonItemComponent } from './company-board/person-item/person-item.com
 
     // PrimeNG
     APP_PRIMENG_MODULES,
+
     PersonModule,
   ],
   providers: [

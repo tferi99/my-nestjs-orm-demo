@@ -19,7 +19,7 @@ export class CompanyDeleteComponent extends DeleteWithConfirmComponent<Company> 
 
   constructor(
     private companyDataService: CompanyDataService,
-    confirmationService: ConfirmationService,
+    public confirmationService: ConfirmationService,
     private dataServiceErrorMessageService: DataServiceErrorMessageService
   ) {
     super(companyDataService, confirmationService, dataServiceErrorMessageService, errorMapping);

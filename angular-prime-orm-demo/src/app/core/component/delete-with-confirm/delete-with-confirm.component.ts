@@ -31,6 +31,7 @@ export abstract class DeleteWithConfirmComponent<T> {
       console.error('No data specified for <app-delete-with-confirm>');
       return;
     }
+    console.log('DELETE: ', this.getData());
 
     const name = this.getName(this.getData());
     const confirmation: Confirmation = {

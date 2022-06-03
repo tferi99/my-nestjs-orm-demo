@@ -9,12 +9,14 @@
   <hr>
   <div class="grid" style="flex: 1 1 auto">
     <div class="col-4">
-      <p-panel>
-        <p-button label="Submit" icon="pi pi-briefcase" (click)="addCompany()"></p-button>
+      <p-panel header="Create new company">
+        <div class="flex justify-content-center">
+          <p-button label="New" icon="pi pi-briefcase" (click)="addCompany()"></p-button>
+        </div>
       </p-panel>
     </div>
     <div class="col-4 flex justify-content-center align-items-center">
-      <p-panel class="text-center text-red-500" style="flex: 1 1 100%" pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
+      <p-panel class="text-center text-red-500" style="flex: 1 1 100%" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
         <i class="pi pi-trash text-lg"></i>
       </p-panel>
     </div>
