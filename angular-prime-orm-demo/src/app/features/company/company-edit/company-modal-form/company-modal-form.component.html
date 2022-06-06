@@ -28,9 +28,10 @@
   </div>
 
   <div class="field-checkbox">
-    <p-checkbox [formControl]="active" inputId="active" [binary]="true"></p-checkbox>
+    <p-inputSwitch formControlName="active"></p-inputSwitch>
     <label htmlFor="active">Active</label>
   </div>
+
   <div class="grid">
     <div class="field col-6">
       <button pButton pRipple type="submit" class="p-button-success mr-2" [disabled]="!form.valid" label="OK"></button>

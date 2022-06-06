@@ -1,22 +1,22 @@
 <h3>Companies &amp; Persons</h3>
 <p>
-  <small><i>Drag &amp; Drop elements</i></small>
+  <small><i>Drag &amp; Drop elements (you can drag companies on header icon)</i></small>
 </p>
 <div style="display: flex; flex-direction: column">
   <div style="flex: 1 1 100%">
     <app-company-item [companies]="companies$ | async" [handler]="handler" [companyEdit]="companyEdit" [personEdit]="personEdit"></app-company-item>
   </div>
   <hr>
-  <div class="grid" style="flex: 1 1 auto">
+  <div class="grid footer-panel" style="flex: 1 1 auto">
     <div class="col-4">
       <p-panel header="Create new company">
         <div class="flex justify-content-center">
-          <p-button label="New" icon="pi pi-briefcase" (click)="addCompany()"></p-button>
+          <p-button label="+" icon="pi pi-briefcase" (click)="addCompany()"></p-button>
         </div>
       </p-panel>
     </div>
     <div class="col-4 flex justify-content-center align-items-center">
-      <p-panel class="text-center text-red-500" style="flex: 1 1 100%" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
+      <p-panel class="text-center" styleClass="rubbish-panel" style="flex: 1 1 100%" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
         <i class="pi pi-trash text-lg"></i>
       </p-panel>
     </div>
@@ -25,3 +25,4 @@
 
 <app-company-edit-adapter #companyEdit [style]="{'overflow':'visible'}"></app-company-edit-adapter>
 <app-person-edit-adapter #personEdit [style]="{'overflow':'visible'}"></app-person-edit-adapter>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>

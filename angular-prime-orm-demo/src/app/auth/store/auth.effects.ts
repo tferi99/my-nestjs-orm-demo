@@ -91,8 +91,11 @@ export class AuthEffects {
       this.personDataService.clearCache();
       this.companyDataService.clearCache();
     }),
+    exhaustMap(action => this.authService.logout()),
+    catchError(err => {
+      return of(null);
+    }),
     tap(() => this.router.navigateByUrl('/login')),
-    exhaustMap(action => this.authService.logout())
   ), {
     dispatch: false
   });

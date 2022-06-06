@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Person } from '@app/client-lib';
 
 @Component({
   selector: 'app-person-item',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./person-item.component.scss']
 })
 export class PersonItemComponent implements OnInit {
+  @Input() data!: Person;
 
   constructor() { }
 
