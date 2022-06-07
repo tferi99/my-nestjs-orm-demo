@@ -34,19 +34,14 @@ import { AuthEffects } from './auth/store/auth.effects';
 import { appReducer } from './store/app.reducer';
 import { MessageService } from 'primeng/api';
 import { AuthModule } from './auth/auth.module';
-import { InputComponent } from './sandbox/components/input/input.component';
-import { NodeService } from './sandbox/service/nodeservice';
-import { CountryService } from './sandbox/service/countryservice';
 
 import { APP_PRIMENG_MODULES, APP_PRIMENG_PROVIDERS } from './layout/primeng-modules';
 import { HttpErrorInterceptor } from './core/error/http-error.interceptor';
 import { HomeComponent } from './features/home/home.component';
 import { CompanyModule } from './features/company/company.module';
-import { ModalTestComponent } from './sandbox/components/modal-test/modal-test.component';
-import { ModalTestFormComponent } from './sandbox/components/modal-test/modal-test-form/modal-test-form.component';
 import { PersonModule } from './features/person/person.module';
-import { PanelTestComponent } from './sandbox/components/panel-test/panel-test.component';
 import { InitEffects } from './init/store/init.effect';
+import { SandboxModule } from './features/sandbox/sandbox.module';
 
 @NgModule({
     imports: [
@@ -62,6 +57,7 @@ import { InitEffects } from './init/store/init.effect';
             serverLogLevel: environment.serverLogLevel,
             disableConsoleLogging: false,
         }),
+        ReactiveFormsModule,
 
         // PrimeNG
         APP_PRIMENG_MODULES,
@@ -99,7 +95,7 @@ import { InitEffects } from './init/store/init.effect';
         AuthModule,
         CompanyModule,
         PersonModule,
-        ReactiveFormsModule,
+        SandboxModule
     ],
   declarations: [
     AppComponent,
@@ -115,12 +111,6 @@ import { InitEffects } from './init/store/init.effect';
     NotfoundComponent,
     AccessComponent,
     HomeComponent,
-
-    // sandbox
-    InputComponent,
-     ModalTestComponent,
-     ModalTestFormComponent,
-     PanelTestComponent,
   ],
   providers: [
     {
@@ -137,8 +127,6 @@ import { InitEffects } from './init/store/init.effect';
 
     MenuService,
     ConfigService,
-    CountryService,
-    NodeService,
   ],
   bootstrap: [AppComponent],
 })

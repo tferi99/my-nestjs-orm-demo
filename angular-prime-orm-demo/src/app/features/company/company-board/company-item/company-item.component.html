@@ -30,7 +30,7 @@
         <div class="card-body" *ngIf="isTargetNormal(ass.parent.id) || isTargetUnemployed(ass.parent.id)">
           <ul class="no-bullets">
             <li *ngFor="let p of ass.children" class="m-1" pDraggable="person" (onDragStart)="handler.dragStart('person', ass.parent.id.toString(), p)" (onDragEnd)="handler.dragEnd()">
-              <app-person-item [data]="p"></app-person-item>
+              <app-person-item [person]="p" [personEdit]="personEdit"></app-person-item>
               <!--
               <p-chip label="[{{p.id}}] - {{p.name}}" icon="pi pi-user" styleClass="nowrap" title="You can drop a person into another active company or into the Rubbish Bin">
                 CICA

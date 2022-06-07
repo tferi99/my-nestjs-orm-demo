@@ -1,3 +1,15 @@
-<div class="flex">
-  {{data.name}}
+<div class="flex personItem" [ngClass]="{'personNormal': person.active, 'personDisabled': !person.active}">
+  <div class="flex-1 flex align-items-baseline">
+    <i class="pi pi-user mr-2"></i>[{{person.id}}] - {{person.name}}
+  </div>
+  <div class="flex-1 flex align-items-baseline justify-content-end">
+    <button pButton class="p-link mr-2" (click)="editPerson(person)">
+      <span class="pi pi-pencil"></span>
+    </button>
+    <app-person-delete [data]="person"></app-person-delete>
+    <!--
+    <i class="pi pi-pencil mr-2" style="cursor: pointer"></i>
+    <i class="pi pi-trash mr-2"></i>
+    -->
+  </div>
 </div>
