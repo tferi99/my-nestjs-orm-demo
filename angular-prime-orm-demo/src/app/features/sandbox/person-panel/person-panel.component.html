@@ -1,0 +1,22 @@
+<div class="devComponent">
+  <p>
+    <strong>Counter2: </strong>{{counter2 | async}}
+  </p>
+
+  <div class="flex justify-content-center ">
+    <p-button label="+" icon="pi pi-user" (click)="addRandomPerson()"></p-button>
+  </div>
+
+  <form [formGroup]="itemsForm" (ngSubmit)="onItemsSubmit()" class="mb-3">
+    <div *ngFor="let p of (persons$ | async)" class="form-check mb-2" >
+      <input class="form-check-input" type="checkbox" [formControlName]="p.id">
+      <label class="form-check-label">{{p.name}}</label> [{{p.id}}]
+    </div>
+    <button pButton pRipple type="submit" label="Delete selected" class="p-button-danger" icon="pi pi-trash"></button>
+  </form>
+
+  {{something}}
+  <p-button type="submit" class="p-button-danger" label="Change detection" icon="pi pi-trash" (click)="triggerChangeDetection()"></p-button>
+  <p-button label="+" icon="pi pi-file" (click)="addRandomNote()"></p-button>
+</div>
+

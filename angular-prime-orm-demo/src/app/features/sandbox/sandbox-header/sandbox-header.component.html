@@ -1,0 +1,20 @@
+<div class="devComponent">
+  <hr>
+  <div class="grid">
+    <div class="col-2">
+      <button pButton pRipple type="button" (click)="incrementCounter1()" label="Counter1++"></button>
+    </div>
+    <div class="col-1">{{counter1 | async}}</div>
+
+    <div class="col-2">
+      <button pButton pRipple type="button" (click)="incrementCounter2()" label="Counter2++"></button>
+    </div>
+    <div class="col-1">{{counter2 | async}}</div>
+
+    <div class="col-2">
+      <button pButton pRipple type="button" (click)="incrementCounter3()" label="Counter3++"></button>
+    </div>
+    <div class="col-1">{{counter3 | async}}</div>
+  </div>
+  <hr>
+</div>
