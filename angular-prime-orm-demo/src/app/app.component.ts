@@ -4,6 +4,7 @@ import { PrimeNGConfig } from 'primeng/api';
 import { AuthState } from './auth/store/auth.reducer';
 import { Title } from '@angular/platform-browser';
 import { AppInitAction } from './init/store/init.actions';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
