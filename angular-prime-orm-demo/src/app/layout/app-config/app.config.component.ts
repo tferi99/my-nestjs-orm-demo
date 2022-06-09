@@ -65,6 +65,14 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
   }
 
+  changeThemeNative(theme: string, dark: boolean) {
+    let themeElement = document.getElementById('theme-css');
+    const themeScss = 'assets/theme/' + theme + '.scss';
+    console.log('THEME FROM: ' + themeScss);
+    themeElement?.setAttribute('href', themeScss);
+    this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
+  }
+
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();

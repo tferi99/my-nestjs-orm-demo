@@ -5,6 +5,7 @@ import { MenuItem } from 'primeng/api';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.reducer';
 import { LogoutAction } from '../../auth/store/auth.actions';
+import { LocalStorageService } from '../../core/service/local-storage.service';
 
 @Component({
   selector: 'app-topbar',
@@ -15,7 +16,8 @@ export class AppTopBarComponent implements OnInit {
 
   constructor(
     public appMain: AppMainComponent,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -26,5 +28,13 @@ export class AppTopBarComponent implements OnInit {
 
   logout(): void {
     this.store.dispatch(LogoutAction());
+  }
+
+  getThemeIcon(): string {
+    return this.localStorageService.getDark() ? 'pi-sun' : 'pi-moon';
+  }
+
+  toggleDark(): void {
+    this.localStorageService.setDark(!this.localStorageService.getDark());
   }
 }

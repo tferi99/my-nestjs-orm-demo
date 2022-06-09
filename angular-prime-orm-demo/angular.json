@@ -31,7 +31,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              {
+                "input": "src/assets/theme/bootstrap4-light-blue.scss",
+                "bundleName": "bootstrap4-light-blue",
+                "inject": false
+              }
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [

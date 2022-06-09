@@ -6,24 +6,44 @@ import {Injectable} from '@angular/core';
 })
 export class LocalStorageService {
   public static LOC_STORE_KEY_AUTH_TOKEN = 'myTsOrmDemoAuthToken';
+  public static LOC_STORE_KEY_THEME_DARK = 'themeDark';
 
   constructor(private logger: NGXLogger) {}
 
   // ------------------------------- JWT auth token ------------------------------------
   setAuthToken(token: string): void {
-    localStorage.setItem(LocalStorageService.LOC_STORE_KEY_AUTH_TOKEN, token);
+    this.setValue(LocalStorageService.LOC_STORE_KEY_AUTH_TOKEN, token);
   }
 
   deleteAuthToken(): void {
-    localStorage.removeItem(LocalStorageService.LOC_STORE_KEY_AUTH_TOKEN);
+    this.delete(LocalStorageService.LOC_STORE_KEY_AUTH_TOKEN);
   }
 
   getAuthToken(): string | undefined {
-    const u = localStorage.getItem(LocalStorageService.LOC_STORE_KEY_AUTH_TOKEN);
-    if (u) {
-      return u;
-    }
-    return undefined;
+    return this.getValue(LocalStorageService.LOC_STORE_KEY_AUTH_TOKEN);
+  }
+
+  // ------------------------------- dark theme ------------------------------------
+  setDark(dark: boolean): void {
+    this.setValue(LocalStorageService.LOC_STORE_KEY_THEME_DARK, String(dark));
+  }
+
+  getDark(): boolean {
+    return (this.getValue(LocalStorageService.LOC_STORE_KEY_THEME_DARK) === 'true');
+  }
+
+  // ------------------------------- helpers ------------------------------------
+  private getValue(key: string): string | undefined {
+    const val = localStorage.getItem(key);
+    return val ? val : undefined;
+  }
+
+  private setValue(key: string, value: string): void {
+    localStorage.setItem(key, value);
+  }
+
+  private delete(key: string): void {
+    localStorage.removeItem(key);
   }
 }
 
