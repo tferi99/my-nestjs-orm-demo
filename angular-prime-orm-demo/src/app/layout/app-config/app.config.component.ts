@@ -5,6 +5,7 @@ import { AppConfig } from '../appconfig';
 import { AppComponent } from '../../app.component';
 import { AppMainComponent } from '../app-main/app.main.component';
 import { ConfigService } from '../service/app.config.service';
+import { ThemeService } from '../service/theme.service';
 
 @Component({
   selector: 'app-config',
@@ -18,7 +19,13 @@ export class AppConfigComponent implements OnInit, OnDestroy {
   config!: AppConfig;
   subscription!: Subscription;
 
-  constructor(public app: AppComponent, public appMain: AppMainComponent, public configService: ConfigService, public primengConfig: PrimeNGConfig) {}
+  constructor(
+    public app: AppComponent,
+    public appMain: AppMainComponent,
+    public configService: ConfigService,
+    public primengConfig: PrimeNGConfig,
+    private themeService: ThemeService
+  ) {}
 
   ngOnInit() {
     this.config = this.configService.config;
@@ -66,11 +73,13 @@ export class AppConfigComponent implements OnInit, OnDestroy {
   }
 
   changeThemeNative(theme: string, dark: boolean) {
-    let themeElement = document.getElementById('theme-css');
+    this.themeService.switchTheme(theme);
+    this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
+/*    let themeElement = document.getElementById('theme-css');
     const themeScss = 'assets/theme/' + theme + '.scss';
     console.log('THEME FROM: ' + themeScss);
     themeElement?.setAttribute('href', themeScss);
-    this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
+    this.configService.updateConfig({ ...this.config, ...{ theme, dark } });*/
   }
 
   ngOnDestroy() {
