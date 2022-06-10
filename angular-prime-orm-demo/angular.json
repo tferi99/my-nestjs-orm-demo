@@ -33,18 +33,33 @@
             "styles": [
               "src/styles.scss",
               {
-                "input": "src/theme-bootstrap4-light-blue.scss",
+                "input": "src/app/layout/theme/theme-arya-orange.scss",
+                "bundleName": "arya-orange",
+                "inject": false
+              },
+              {
+                "input": "src/app/layout/theme/theme-bootstrap4-light-blue.scss",
                 "bundleName": "bootstrap4-light-blue",
                 "inject": false
               },
               {
-                "input": "src/theme-saga-blue.scss",
+                "input": "src/app/layout/theme/theme-bootstrap4-dark-purple.scss",
+                "bundleName": "bootstrap4-dark-purple",
+                "inject": false
+              },
+              {
+                "input": "src/app/layout/theme/theme-saga-blue.scss",
                 "bundleName": "saga-blue",
                 "inject": false
               },
               {
-                "input": "src/theme-bootstrap4-dark-purple.scss",
-                "bundleName": "bootstrap4-dark-purple",
+                "input": "src/app/layout/theme/theme-saga-orange.scss",
+                "bundleName": "saga-orange",
+                "inject": false
+              },
+              {
+                "input": "src/app/layout/theme/theme-vela-orange.scss",
+                "bundleName": "vela-orange",
                 "inject": false
               }
             ],
@@ -58,8 +73,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "3mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "6mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",

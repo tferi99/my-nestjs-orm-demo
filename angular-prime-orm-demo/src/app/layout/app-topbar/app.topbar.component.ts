@@ -1,11 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppMainComponent } from '../app-main/app.main.component';
-import { Subscription } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.reducer';
 import { LogoutAction } from '../../auth/store/auth.actions';
-import { LocalStorageService } from '../../core/service/local-storage.service';
+import { ThemeService } from '../service/theme.service';
+import { ConfigService } from '../service/app.config.service';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'app-topbar',
@@ -17,7 +18,9 @@ export class AppTopBarComponent implements OnInit {
   constructor(
     public appMain: AppMainComponent,
     private store: Store<AppState>,
-    private localStorageService: LocalStorageService
+    private configService: ConfigService,
+    private themeService: ThemeService,
+    private logger: NGXLogger,
   ) {}
 
   ngOnInit(): void {
@@ -31,10 +34,22 @@ export class AppTopBarComponent implements OnInit {
   }
 
   getThemeIcon(): string {
-    return this.localStorageService.getDark() ? 'pi-sun' : 'pi-moon';
+    const cfg = this.configService.getConfig();
+    return cfg.dark ? 'pi-sun' : 'pi-moon';
   }
 
   toggleDark(): void {
-    this.localStorageService.setDark(!this.localStorageService.getDark());
+    const cfg = this.configService.getConfig();
+    cfg.dark = !cfg.dark;
+    this.logger.debug('Switching to dark theme:' + cfg.dark);
+    const dark = this.themeService.switchToDefaultTheme(cfg.dark);
+  }
+
+  switchTheme(theme: string) {
+    this.themeService.switchTheme(theme);
+  }
+
+  dumpConfig() {
+    console.log('CONFIG: ', this.configService.getConfig());
   }
 }

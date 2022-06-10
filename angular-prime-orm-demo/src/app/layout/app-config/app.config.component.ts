@@ -11,7 +11,7 @@ import { ThemeService } from '../service/theme.service';
   selector: 'app-config',
   templateUrl: './app.config.component.html',
 })
-export class AppConfigComponent implements OnInit, OnDestroy {
+export class AppConfigComponent { //implements OnInit, OnDestroy {
   scale: number = 14;
 
   scales: any[] = [12, 13, 14, 15, 16];
@@ -25,7 +25,8 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     public configService: ConfigService,
     public primengConfig: PrimeNGConfig,
     private themeService: ThemeService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.config = this.configService.config;
@@ -59,27 +60,22 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
   onRippleChange(ripple: boolean) {
     this.primengConfig.ripple = ripple;
-    this.configService.updateConfig({ ...this.config, ...{ ripple } });
+    this.configService.updateConfig({...this.config, ...{ripple}});
   }
 
   onInputStyleChange() {
     this.configService.updateConfig(this.config);
   }
 
-  changeTheme(theme: string, dark: boolean) {
+  changeThemeFromAssets(theme: string, dark: boolean) {
     let themeElement = document.getElementById('theme-css');
     themeElement?.setAttribute('href', 'assets/theme/' + theme + '/theme.css');
-    this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
+    this.configService.updateConfig({...this.config, ...{theme, dark}});
   }
 
-  changeThemeNative(theme: string, dark: boolean) {
+  changeTheme(theme: string, dark: boolean) {
     this.themeService.switchTheme(theme);
-    this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
-/*    let themeElement = document.getElementById('theme-css');
-    const themeScss = 'assets/theme/' + theme + '.scss';
-    console.log('THEME FROM: ' + themeScss);
-    themeElement?.setAttribute('href', themeScss);
-    this.configService.updateConfig({ ...this.config, ...{ theme, dark } });*/
+    this.configService.updateConfig({...this.config, ...{theme, dark}});
   }
 
   ngOnDestroy() {

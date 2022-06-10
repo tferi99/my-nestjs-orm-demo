@@ -1,12 +1,14 @@
 import { NGXLogger } from 'ngx-logger';
 import {Injectable} from '@angular/core';
+import { AppConfig } from '../../layout/appconfig';
+import { DEFAULT_CONFIG } from '../../layout/service/app.config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
   public static LOC_STORE_KEY_AUTH_TOKEN = 'myTsOrmDemoAuthToken';
-  public static LOC_STORE_KEY_THEME_DARK = 'themeDark';
+  public static LOC_STORE_KEY_APP_CONFIG = 'appConfig';
 
   constructor(private logger: NGXLogger) {}
 
@@ -24,12 +26,13 @@ export class LocalStorageService {
   }
 
   // ------------------------------- dark theme ------------------------------------
-  setDark(dark: boolean): void {
-    this.setValue(LocalStorageService.LOC_STORE_KEY_THEME_DARK, String(dark));
+  setAppConfig(cfg: AppConfig): void {
+    this.setValue(LocalStorageService.LOC_STORE_KEY_APP_CONFIG, JSON.stringify(cfg));
   }
 
-  getDark(): boolean {
-    return (this.getValue(LocalStorageService.LOC_STORE_KEY_THEME_DARK) === 'true');
+  getAppConfig(): AppConfig {
+    const cfgStr = this.getValue(LocalStorageService.LOC_STORE_KEY_APP_CONFIG);
+    return cfgStr ? JSON.parse(cfgStr) : DEFAULT_CONFIG;
   }
 
   // ------------------------------- helpers ------------------------------------

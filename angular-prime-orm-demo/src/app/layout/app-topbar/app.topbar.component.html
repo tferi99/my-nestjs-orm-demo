@@ -17,6 +17,21 @@
 
   <div class="layout-topbar-menu" [ngClass]="{ 'layout-topbar-menu-mobile-active': appMain.topMenuActive }">
     <a href="#" class="p-link layout-topbar-button">
+      <i class="pi pi-download" (click)="dumpConfig()"></i>
+      <span>Theme</span>
+    </a>
+
+    <a href="#" class="p-link layout-topbar-button">
+      <i class="pi pi-eye" (click)="switchTheme('bootstrap4-light-blue')"></i>
+      <span>Theme</span>
+    </a>
+
+    <a href="#" class="p-link layout-topbar-button">
+      <i class="pi pi-bell" (click)="switchTheme('bootstrap4-dark-purple')"></i>
+      <span>Theme</span>
+    </a>
+
+    <a href="#" class="p-link layout-topbar-button">
       <i class="pi" [ngClass]="getThemeIcon()" (click)="toggleDark()"></i>
       <span>Theme</span>
     </a>
