@@ -26,6 +26,18 @@ export function EnabledFeatures(features: EnabledFeatures) {
   };
 }
 
+/**
+ * End-points:
+ *
+ *  GET     /BASE                           : getAll
+ *  GET     /BASE/ID                        : get(id)
+ *  POST    /BASE               body: data  : insert(data)
+ *  PUT     /BASE/ID            body: data  : update(id, data)
+ *  PUT     /BASE/ID/native     body: data  : nativeUpdate(id, data)
+ *  DELETE  /BASE/native                    : nativeDeleteAll()
+ *  DELETE  /BASE/ID                        : delete(id)
+ *  DELETE  /BASE/ID/native                 : nativeDelete(id)
+ */
 export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends ControllerBase {
   protected _repo: CrudEntityRepository<T>;
   protected defaultGetAllOptions?: FindOptions<T>;
@@ -43,15 +55,18 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
   }
 
   @Get()
-  async getAll(options?: FindOptions<T>): Promise<T[]> {
+  async getAll(filter?: FilterQuery<T>, options?: FindOptions<T>): Promise<T[]> {
     if (this.enabledFeatures && !this.enabledFeatures.getAll) {
       throw new ForbiddenException('OrmCrudControllerBase.getAll()');
     }
+    let opts = this.defaultGetAllOptions;
     if (options) {
-      const opts = { ...this.defaultGetAllOptions, ...options };
-      return this._repo.findAll(opts);
+      opts = { ...this.defaultGetAllOptions, ...options };
     }
-    return this._repo.findAll(this.defaultGetAllOptions);
+    if (filter) {
+      return this._repo.find(filter, opts);
+    }
+    return this._repo.findAll(opts);
   }
 
   @Get('/:id')

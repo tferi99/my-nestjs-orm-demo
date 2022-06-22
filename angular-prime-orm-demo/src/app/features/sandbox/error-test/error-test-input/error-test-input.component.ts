@@ -21,11 +21,7 @@ export class ErrorTestInputComponent {
   ngOnInit(): void {
     this.errorTestInputService
       .searchBadCatch(this.searchTermError$)
-      .pipe(
-        finalize(() =>
-          console.log("searchTermError$ (bad catch) finalize called!")
-        )
-      )
+      .pipe(finalize(() => console.log("searchTermError$ (bad catch) finalize called!")))
       .subscribe(results => {
         console.log("Got results from search (bad catch)");
         this.resultsError = results.results;
