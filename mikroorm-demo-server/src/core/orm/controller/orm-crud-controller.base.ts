@@ -29,14 +29,14 @@ export function EnabledFeatures(features: EnabledFeatures) {
 /**
  * End-points:
  *
- *  GET     /BASE                           : getAll
- *  GET     /BASE/ID                        : get(id)
- *  POST    /BASE               body: data  : insert(data)
- *  PUT     /BASE/ID            body: data  : update(id, data)
- *  PUT     /BASE/ID/native     body: data  : nativeUpdate(id, data)
- *  DELETE  /BASE/native                    : nativeDeleteAll()
- *  DELETE  /BASE/ID                        : delete(id)
- *  DELETE  /BASE/ID/native                 : nativeDelete(id)
+ *  GET     /                          : getAll
+ *  GET     /ID                        : get(id)
+ *  POST    /              body: data  : insert(data)
+ *  PUT     /ID            body: data  : update(id, data)
+ *  PUT     /ID/native     body: data  : nativeUpdate(id, data)
+ *  DELETE  /native                    : nativeDeleteAll()
+ *  DELETE  /ID                        : delete(id)
+ *  DELETE  /ID/native                 : nativeDelete(id)
  */
 export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends ControllerBase {
   protected _repo: CrudEntityRepository<T>;
