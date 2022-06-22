@@ -39,6 +39,7 @@ export class AppMenuComponent implements OnInit {
         label: 'Sandbox',
         items: [
           { label: 'Test OnPush', icon: 'pi pi-fw pi-sign-in', routerLink: ['sandbox'] },
+          { label: 'Error test', icon: 'pi pi-fw pi-sign-in', routerLink: ['sandbox/errortest'] },
         ],
       },
     ];

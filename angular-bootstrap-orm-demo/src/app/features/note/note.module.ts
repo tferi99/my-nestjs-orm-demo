@@ -7,6 +7,10 @@ import * as fromNote from './store/note.reducer';
   declarations: [],
   imports: [
     CommonModule,
+
+    // store
+    StoreModule.forFeature(fromNote.notesFeatureKey, fromNote.reducer),
+
   ]
 })
 export class NoteModule { }

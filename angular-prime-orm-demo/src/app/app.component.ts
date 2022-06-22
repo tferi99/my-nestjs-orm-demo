@@ -11,7 +11,7 @@ import { AppInitAction } from './init/store/init.actions';
 })
 export class AppComponent implements OnInit {
   menuMode = 'static';
-  title = '[ My NestJs PrimeNG Demo ]';
+  title = '[ My NestJs PrimeNG ORM Demo ]';
 
   constructor(
     private primengConfig: PrimeNGConfig,

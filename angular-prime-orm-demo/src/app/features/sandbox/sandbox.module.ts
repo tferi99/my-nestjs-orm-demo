@@ -7,8 +7,8 @@ import { PersonPanelComponent } from './person-panel/person-panel.component';
 import { NotePanelComponent } from './note-panel/note-panel.component';
 import { APP_PRIMENG_MODULES, APP_PRIMENG_PROVIDERS } from '../../layout/primeng-modules';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
+import { ErrorTestComponent } from './error-test/error-test.component';
+import { ErrorTestInputComponent } from './error-test/error-test-input/error-test-input.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     SandboxHeaderComponent,
     CompanyPanelComponent,
     PersonPanelComponent,
-    NotePanelComponent
+    NotePanelComponent,
+    ErrorTestComponent,
+    ErrorTestInputComponent
   ],
   imports: [
     CommonModule,

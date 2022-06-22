@@ -3,7 +3,7 @@ import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 import {Note} from '../model/note.model';
 import * as NoteActions from './note.actions';
 
-export const notesFeatureKey = 'notes';
+export const notesFeatureKey = 'note';
 
 export interface NoteState extends EntityState<Note> {
   counter1: number;

@@ -8,6 +8,10 @@ import {RouterModule} from '@angular/router';
 import {CoreModule} from '../core/core.module';
 import { AuthRenewComponent } from './auth-renew/auth-renew.component';
 import {FeatureSharedModule} from '../feature-shared/feature-shared.module';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './store/auth.effects';
+import { StoreModule } from '@ngrx/store';
+import * as fromAuth from './store/auth.reducer';
 
 @NgModule({
   declarations: [
@@ -18,8 +22,16 @@ import {FeatureSharedModule} from '../feature-shared/feature-shared.module';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    FeatureSharedModule,
 
+    // store
+    StoreModule.forFeature(fromAuth.featureKey, fromAuth.reducer),
+    EffectsModule.forFeature(
+      [
+        AuthEffects,
+      ]
+    ),
+
+    FeatureSharedModule,
     CoreModule
   ],
   providers: [

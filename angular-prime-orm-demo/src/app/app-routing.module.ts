@@ -13,6 +13,7 @@ import { CompanyListComponent } from './features/company/company-list/company-li
 import { PersonListComponent } from './features/person/person-list/person-list.component';
 import { CompanyBoardComponent } from './features/company/company-board/company-board.component';
 import { SandboxComponent } from './features/sandbox/sandbox/sandbox.component';
+import { ErrorTestComponent } from './features/sandbox/error-test/error-test.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: "companyBoard", component: CompanyBoardComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
       { path: "person", component: PersonListComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard] },
       { path: "sandbox", component: SandboxComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard]},
+      { path: "sandbox/errortest", component: ErrorTestComponent, runGuardsAndResolvers: 'always', canActivate: [AuthGuard]},
     ],
   },
   { path: 'pages/error', component: ErrorComponent },

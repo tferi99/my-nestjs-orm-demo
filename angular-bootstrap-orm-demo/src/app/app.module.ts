@@ -87,16 +87,9 @@ import { SandboxModule } from './features/sandbox/sandbox.module';
         strictActionTypeUniqueness: true,
       }
     }),
-    StoreModule.forFeature(fromAuth.featureKey, fromAuth.reducer),
-    StoreModule.forFeature(fromNote.notesFeatureKey, fromNote.reducer),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
 
     EffectsModule.forRoot([]),
-    EffectsModule.forFeature(
-      [
-        AuthEffects,
-      ]
-    ),
     EntityDataModule.forRoot(entityConfig),
 
     // features

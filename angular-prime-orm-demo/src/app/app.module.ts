@@ -28,9 +28,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { EntityDataModule } from '@ngrx/data';
 import { entityConfig } from './store/entity-metadata';
 import { LoggerModule } from 'ngx-logger';
-import * as fromAuth from './auth/store/auth.reducer';
-import * as fromNote from './features/note/store/note.reducer';
-import { AuthEffects } from './auth/store/auth.effects';
 import { appReducer } from './store/app.reducer';
 import { MessageService } from 'primeng/api';
 import { AuthModule } from './auth/auth.module';
@@ -40,8 +37,8 @@ import { HttpErrorInterceptor } from './core/error/http-error.interceptor';
 import { HomeComponent } from './features/home/home.component';
 import { CompanyModule } from './features/company/company.module';
 import { PersonModule } from './features/person/person.module';
-import { InitEffects } from './init/store/init.effect';
 import { SandboxModule } from './features/sandbox/sandbox.module';
+import { NoteModule } from './features/note/note.module';
 
 @NgModule({
     imports: [
@@ -78,24 +75,17 @@ import { SandboxModule } from './features/sandbox/sandbox.module';
                 strictActionTypeUniqueness: true,
             }
         }),
-        StoreModule.forFeature(fromAuth.featureKey, fromAuth.reducer),
-        StoreModule.forFeature(fromNote.notesFeatureKey, fromNote.reducer),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
 
         EffectsModule.forRoot([]),
-        EffectsModule.forFeature(
-            [
-                AuthEffects,
-                InitEffects,
-            ]
-        ),
         EntityDataModule.forRoot(entityConfig),
 
         // features
         AuthModule,
         CompanyModule,
         PersonModule,
-        SandboxModule
+        SandboxModule,
+        NoteModule
     ],
   declarations: [
     AppComponent,
