@@ -11,6 +11,7 @@ export interface OrmCrudControllerOptions<T extends AnyEntity<T>> {
 export interface EnabledFeatures {
   get: boolean;
   getAll: boolean;
+  getAllFiltered: boolean;
   insert: boolean;
   update: boolean;
   nativeUpdate: boolean;
@@ -42,7 +43,17 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
   protected _repo: CrudEntityRepository<T>;
   protected defaultGetAllOptions?: FindOptions<T>;
 
-  enabledFeatures?: EnabledFeatures;
+  enabledFeatures: EnabledFeatures = {
+    get: true,
+    getAll: true,
+    getAllFiltered: true,
+    insert: true,
+    update: true,
+    nativeUpdate: true,
+    delete: true,
+    nativeDelete: true,
+    nativeDeleteAll: true,
+  }
 
   protected constructor(options: OrmCrudControllerOptions<T>) {
     super();
@@ -56,9 +67,13 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
 
   @Get()
   async getAll(filter?: FilterQuery<T>, options?: FindOptions<T>): Promise<T[]> {
-    if (this.enabledFeatures && !this.enabledFeatures.getAll) {
+    if (!this.enabledFeatures.getAll) {
       throw new ForbiddenException('OrmCrudControllerBase.getAll()');
     }
+    if (!this.enabledFeatures.getAll2) {
+      throw new ForbiddenException('OrmCrudControllerBase.getAll()');
+    }
+
     let opts = this.defaultGetAllOptions;
     if (options) {
       opts = { ...this.defaultGetAllOptions, ...options };
@@ -71,7 +86,7 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
 
   @Get('/:id')
   async get(@Param('id', ParseIntPipe) id: Primary<T>): Promise<T> {
-    if (this.enabledFeatures && !this.enabledFeatures.get) {
+    if (!this.enabledFeatures.get) {
       throw new ForbiddenException('OrmCrudControllerBase.get()');
     }
 
@@ -81,7 +96,7 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
 
   @Post()
   async insert(@Body() data: T): Promise<T> {
-    if (this.enabledFeatures && !this.enabledFeatures.insert) {
+    if (!this.enabledFeatures.insert) {
       throw new ForbiddenException('OrmCrudControllerBase.insert()');
     }
 
@@ -93,7 +108,7 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
 
   @Put('/:id')
   async update(@Param('id', ParseIntPipe) id: Primary<T>, @Body() data: EntityData<T>): Promise<T> {
-    if (this.enabledFeatures && !this.enabledFeatures.update) {
+    if (!this.enabledFeatures.update) {
       throw new ForbiddenException('OrmCrudControllerBase.update()');
     }
 
@@ -105,7 +120,7 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
 
   @Put('/:id/native')
   async nativeUpdate(@Param('id', ParseIntPipe) id: Primary<T>, @Body() data: EntityData<T>): Promise<number> {
-    if (this.enabledFeatures && !this.enabledFeatures.nativeUpdate) {
+    if (!this.enabledFeatures.nativeUpdate) {
       throw new ForbiddenException('OrmCrudControllerBase.nativeUpdate()');
     }
 
@@ -115,7 +130,7 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
 
   @Delete('native')
   async nativeDeleteAll(): Promise<void> {
-    if (this.enabledFeatures && !this.enabledFeatures.nativeDelete) {
+    if (!this.enabledFeatures.nativeDelete) {
       throw new ForbiddenException('OrmCrudControllerBase.nativeDelete()');
     }
 
@@ -134,7 +149,7 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
 
   @Delete('/:id/native')
   async nativeDelete(@Param('id', ParseIntPipe) id: Primary<T>): Promise<number> {
-    if (this.enabledFeatures && !this.enabledFeatures.nativeDelete) {
+    if (!this.enabledFeatures.nativeDelete) {
       throw new ForbiddenException('OrmCrudControllerBase.nativeDelete()');
     }
     const filter: FilterQuery<T> = this._repo.getFilterQueryForId(id);

@@ -2,6 +2,7 @@ import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Injec
 import { CustomHttpStatus, ResponseErrorPayload, ServerError } from '@app/client-lib';
 import { ForeignKeyConstraintViolationException, UniqueConstraintViolationException } from '@mikro-orm/core';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-host.interface';
+import { AccountTestFailedException, UserDisabledException } from '../exception/application-exceptions';
 
 export type HttpStatusExt = HttpStatus | CustomHttpStatus;
 
@@ -67,9 +68,12 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     let appErr: ServerError = ServerError.Unknown;
     if (exception && exception instanceof UniqueConstraintViolationException) {
       appErr = ServerError.DdUniqueConstraintError;
-    }
-    if (exception && exception instanceof ForeignKeyConstraintViolationException) {
+    } else if (exception && exception instanceof ForeignKeyConstraintViolationException) {
       appErr = ServerError.DbForeignKeyConstraintViolationError;
+    } else if (exception && exception instanceof UserDisabledException) {
+      appErr = ServerError.UserDisabled;
+    } else if (exception && exception instanceof AccountTestFailedException) {
+      appErr = ServerError.AccountTestFailed;
     }
 
     if (appErr != ServerError.Unknown) {

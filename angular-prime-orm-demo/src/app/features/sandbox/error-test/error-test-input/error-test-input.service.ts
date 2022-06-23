@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 import { LoginResult } from '../../../../auth/model/login-result';
 import { ServiceBase } from '../../../../core/service/service.base';
+import { Company } from '@app/client-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -45,12 +46,12 @@ export class ErrorTestInputService extends ServiceBase {
   }
 
   private searchCompany(term: string) {
-    let url = `https://swapi.co/api/people/?search=${term}`;
+    let url = this.getBasePath() + '?name=' + term;
     if (term === "error") {
-      url = `https://swapi.co/apix/people/?search=${term}`;
+      url = this.getBasePath() + '2?name=' + term;
     }
 
-    return this.http.post<Company>(this.getBasePath() + '/login', { username, password }).pipe(
+    return this.http.get<Company>(url).pipe(
       delay(1000)
     );
 

@@ -2,3 +2,7 @@
 <input class="form-control" (keyup)="searchTerm$.next($event)">
 <h5>Enter character of Star Wars (error)</h5>
 <input class="form-control" (keyup)="searchTermError$.next($event)">
+<p>
+  <small><i>Type 'error' to generate error. 2nd input won't work after an error (Observable will be terminated)</i></small>
+</p>
+
