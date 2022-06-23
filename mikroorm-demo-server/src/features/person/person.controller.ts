@@ -6,6 +6,7 @@ import { EnabledFeatures, OrmCrudControllerBase } from '../../core/orm/controlle
 import { CrudEntityRepository } from '../../core/orm/service/crud-entity-repository';
 import { Company } from '../company/model/company.entity';
 import { CompanyRepository } from '../company/company.repository';
+import { Reflector } from '@nestjs/core';
 
 @Controller('person')
 /*@EnabledFeatures({
@@ -19,8 +20,12 @@ import { CompanyRepository } from '../company/company.repository';
   nativeDeleteAll: true,
 })*/
 export class PersonController extends OrmCrudControllerBase<Person> {
-  constructor(@InjectRepository(Person) private personRepository: PersonRepository, @InjectRepository(Company) private companyRepo: CompanyRepository) {
-    super({ repository: personRepository, defaultGetAllOptions: { orderBy: { name: 'ASC' } } });
+  constructor(
+    @InjectRepository(Person) private personRepository: PersonRepository,
+    @InjectRepository(Company) private companyRepo: CompanyRepository,
+    private reflector: Reflector
+  ) {
+    super({ repository: personRepository, defaultGetAllOptions: { orderBy: { name: 'ASC' } } }, reflector);
   }
 
   /**

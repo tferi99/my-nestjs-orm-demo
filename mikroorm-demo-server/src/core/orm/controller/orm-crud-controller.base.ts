@@ -2,6 +2,7 @@ import { Body, Delete, ForbiddenException, Get, Param, ParseIntPipe, Post, Put }
 import { CrudEntityRepository } from '../service/crud-entity-repository';
 import { AnyEntity, FindOptions, EntityData, FilterQuery, Primary } from '@mikro-orm/core';
 import { ControllerBase } from '../../controller/controller.base';
+import { Reflector } from '@nestjs/core';
 
 export interface OrmCrudControllerOptions<T extends AnyEntity<T>> {
   repository: CrudEntityRepository<T>;
@@ -19,6 +20,35 @@ export interface EnabledFeatures {
   nativeDelete: boolean;
   nativeDeleteAll: boolean;
 }
+
+export interface FeatureConfig {
+  defaultPolicy?: EnabledFeatures;
+  features: Partial<EnabledFeatures>;
+}
+
+const OPTIMISTIC_FEATURE_POLICY: EnabledFeatures = {
+  get: true,
+  getAll: true,
+  getAllFiltered: true,
+  insert: true,
+  update: false,
+  nativeUpdate: true,
+  delete: true,
+  nativeDelete: true,
+  nativeDeleteAll: true,
+};
+
+const PESSIMISTIC_FEATURE_POLICY: EnabledFeatures = {
+  get: false,
+  getAll: false,
+  getAllFiltered: false,
+  insert: false,
+  update: false,
+  nativeUpdate: false,
+  delete: false,
+  nativeDelete: false,
+  nativeDeleteAll: false,
+};
 
 export function EnabledFeatures(features: EnabledFeatures) {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -42,23 +72,15 @@ export function EnabledFeatures(features: EnabledFeatures) {
 export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends ControllerBase {
   protected _repo: CrudEntityRepository<T>;
   protected defaultGetAllOptions?: FindOptions<T>;
+  protected _reflector: Reflector;
 
-  enabledFeatures: EnabledFeatures = {
-    get: true,
-    getAll: true,
-    getAllFiltered: true,
-    insert: true,
-    update: true,
-    nativeUpdate: true,
-    delete: true,
-    nativeDelete: true,
-    nativeDeleteAll: true,
-  }
+  enabledFeatures: EnabledFeatures = PESSIMISTIC_FEATURE_POLICY;
 
-  protected constructor(options: OrmCrudControllerOptions<T>) {
+  protected constructor(options: OrmCrudControllerOptions<T>, reflector: Reflector) {
     super();
     this._repo = options.repository;
     this.defaultGetAllOptions = options.defaultGetAllOptions;
+    this._reflector = reflector;
   }
 
   public get repo() {
@@ -67,11 +89,14 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
 
   @Get()
   async getAll(filter?: FilterQuery<T>, options?: FindOptions<T>): Promise<T[]> {
-    if (!this.enabledFeatures.getAll) {
-      throw new ForbiddenException('OrmCrudControllerBase.getAll()');
-    }
-    if (!this.enabledFeatures.getAll2) {
-      throw new ForbiddenException('OrmCrudControllerBase.getAll()');
+    if (!filter) {
+      if (!this.enabledFeatures.getAll) {
+        throw new ForbiddenException('OrmCrudControllerBase.getAll()');
+      }
+    } else {
+      if (!this.enabledFeatures.getAllFiltered) {
+        throw new ForbiddenException('OrmCrudControllerBase.getAllFiltered()');
+      }
     }
 
     let opts = this.defaultGetAllOptions;
