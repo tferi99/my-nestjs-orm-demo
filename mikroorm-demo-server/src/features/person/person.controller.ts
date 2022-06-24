@@ -42,4 +42,5 @@ export class PersonController extends OrmCrudControllerBase<Person> {
     await this._repo.flush();
     return obj;
   }
+
 }

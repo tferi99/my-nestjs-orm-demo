@@ -1,8 +1,12 @@
-import { Body, Delete, ForbiddenException, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, Delete, ForbiddenException, Get, Inject, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CrudEntityRepository } from '../service/crud-entity-repository';
 import { AnyEntity, FindOptions, EntityData, FilterQuery, Primary } from '@mikro-orm/core';
 import { ControllerBase } from '../../controller/controller.base';
 import { Reflector } from '@nestjs/core';
+import {
+  ORM_CRUD_CONTROLLER_FEATURE_VALIDATOR,
+  OrmCrudControllerFeatureValidatorService
+} from '../service/orm-crud-controller-feature-validator.service';
 
 export interface OrmCrudControllerOptions<T extends AnyEntity<T>> {
   repository: CrudEntityRepository<T>;
@@ -76,6 +80,8 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
 
   enabledFeatures: EnabledFeatures = PESSIMISTIC_FEATURE_POLICY;
 
+  @Inject(ORM_CRUD_CONTROLLER_FEATURE_VALIDATOR) featureValidator: OrmCrudControllerFeatureValidatorService;
+
   protected constructor(options: OrmCrudControllerOptions<T>, reflector: Reflector) {
     super();
     this._repo = options.repository;
@@ -90,13 +96,9 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
   @Get()
   async getAll(filter?: FilterQuery<T>, options?: FindOptions<T>): Promise<T[]> {
     if (!filter) {
-      if (!this.enabledFeatures.getAll) {
-        throw new ForbiddenException('OrmCrudControllerBase.getAll()');
-      }
+      this.featureValidator.validate(this.enabledFeatures, 'getAll');
     } else {
-      if (!this.enabledFeatures.getAllFiltered) {
-        throw new ForbiddenException('OrmCrudControllerBase.getAllFiltered()');
-      }
+      this.featureValidator.validate(this.enabledFeatures, 'getAllFiltered');
     }
 
     let opts = this.defaultGetAllOptions;
