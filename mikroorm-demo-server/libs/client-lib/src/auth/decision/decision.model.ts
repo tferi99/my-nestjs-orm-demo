@@ -1,4 +1,4 @@
-import { DecisionsEvaluator } from "./DecisionsEvaluator";
+import { DecisionsEvaluator } from "./decisions-evaluator";
 import { Auth } from '@app/client-lib';
 
 export interface DecisionContext {

@@ -1,5 +1,5 @@
-import {LogicalEvaluator} from "./LogicalEvaluator";
-import {Decision, DecisionContext, Op} from "./decision-types";
+import {LogicalEvaluator} from "./logical-evaluator";
+import {Decision, DecisionContext, Op} from "./decision.model";
 
 export class DecisionsEvaluator extends LogicalEvaluator<Decision> {
 

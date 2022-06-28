@@ -1,4 +1,4 @@
-import {Decision, DecisionContext, Op} from "./decision-types";
+import {Decision, DecisionContext, Op} from "./decision.model";
 import { Role } from '@app/client-lib';
 
 export class RoleDecision implements Decision {
