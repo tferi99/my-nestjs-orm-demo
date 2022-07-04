@@ -9,7 +9,7 @@ import { Features } from '../../core/orm/controller/features.decorator';
 
 @Controller('company')
 @Features({
-  get: true
+  get: true,
 })
 export class CompanyController extends OrmCrudControllerBase<Company> {
   constructor(
