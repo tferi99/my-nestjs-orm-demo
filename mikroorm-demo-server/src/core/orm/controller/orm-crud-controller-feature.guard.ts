@@ -52,7 +52,7 @@ export class OrmCrudControllerFeatureGuard implements CanActivate {
     console.log('FEATURES:', features);
     const handler = context.getHandler();
     //console.log('CTX:', context.getHandler().name, handler.arguments);
-    console.log('CTX:', context.getHandler().name);
+    console.log('CTX handler:', context.getHandler().name);
 
     return true;
   }

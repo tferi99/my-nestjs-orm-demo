@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, Res } from '@nestjs/common';
 import { Company } from './model/company.entity';
 import { CompanyRepository } from './company.repository';
 import { InjectRepository } from '@mikro-orm/nestjs';
@@ -19,11 +19,13 @@ export class CompanyController extends OrmCrudControllerBase<Company> {
   }
 
   @Get()
-  async getAllFiltered(@Query() query): Promise<Company[]> {
+  async getAll(@Query() query): Promise<Company[]> {
+    console.log('--> CompanyController.getAll() - query: ', query);
     let filter: FilterQuery<Company>;
     if (query.name) {
       filter = { name: { $like: '%' + query.name + '%' } };
     }
+    console.log('Calling super - filter:', filter);
     return super.getAll(filter);
   }
 }

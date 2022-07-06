@@ -3,6 +3,7 @@ import { CrudEntityRepository } from '../service/crud-entity-repository';
 import { AnyEntity, EntityData, FilterQuery, FindOptions, Primary } from '@mikro-orm/core';
 import { ControllerBase } from '../../controller/controller.base';
 import { OrmCrudControllerFeatureGuard } from './orm-crud-controller-feature.guard';
+import { OrmCrudControllerGetAllGuard } from './orm-crud-controller-getAll.guard';
 
 export interface OrmCrudControllerOptions<T extends AnyEntity<T>> {
   repository: CrudEntityRepository<T>;
@@ -37,20 +38,24 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
   }
 
   @Get()
+  @UseGuards(OrmCrudControllerGetAllGuard)
   async getAll(filter?: FilterQuery<T>, options?: FindOptions<T>): Promise<T[]> {
 /*    if (!filter) {
       this.featureValidator.validate(this.enabledFeatures, 'getAll');
     } else {
       this.featureValidator.validate(this.enabledFeatures, 'getAllFiltered');
     }*/
+    console.log('-->OrmCrudControllerBase.getAll() - filter:', filter);
 
     let opts = this.defaultGetAllOptions;
     if (options) {
       opts = { ...this.defaultGetAllOptions, ...options };
     }
     if (filter) {
+      console.log('Calling repo WITH filter');
       return this._repo.find(filter, opts);
     }
+    console.log('Calling repo WITHOUT filter');
     return this._repo.findAll(opts);
   }
 
