@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Res } from '@nestjs/common';
+import {Controller, Get, Query, Req, Res} from '@nestjs/common';
 import { Company } from './model/company.entity';
 import { CompanyRepository } from './company.repository';
 import { InjectRepository } from '@mikro-orm/nestjs';
@@ -10,6 +10,7 @@ import { Features } from '../../core/orm/controller/features.decorator';
 @Controller('company')
 @Features({
   get: true,
+  getAllFiltered: true,
 })
 export class CompanyController extends OrmCrudControllerBase<Company> {
   constructor(
@@ -19,13 +20,13 @@ export class CompanyController extends OrmCrudControllerBase<Company> {
   }
 
   @Get()
-  async getAll(@Query() query): Promise<Company[]> {
+  async getAllFiltered(@Req() req: Request, @Query() query): Promise<Company[]> {
     console.log('--> CompanyController.getAll() - query: ', query);
     let filter: FilterQuery<Company>;
     if (query.name) {
       filter = { name: { $like: '%' + query.name + '%' } };
     }
     console.log('Calling super - filter:', filter);
-    return super.getAll(filter);
+    return super.getAll(req, filter);
   }
 }

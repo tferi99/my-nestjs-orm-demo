@@ -54,13 +54,12 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
   }
 
   @Get()
-  async getAll(@Req() req: any, filter?: FilterQuery<T>, options?: FindOptions<T>): Promise<T[]> {
-    this.checkEnabledFeature(req, 'getAll');
-/*    if (!filter) {
-      this.featureValidator.validate(this.enabledFeatures, 'getAll');
+  async getAll(@Req() req: Request, filter?: FilterQuery<T>, options?: FindOptions<T>): Promise<T[]> {
+    if (!filter) {
+      this.checkEnabledFeature(req, 'getAll');
     } else {
-      this.featureValidator.validate(this.enabledFeatures, 'getAllFiltered');
-    }*/
+      this.checkEnabledFeature(req, 'getAllFiltered');
+    }
     console.log('-->OrmCrudControllerBase.getAll() - filter:', filter);
 
     let opts = this.defaultGetAllOptions;
