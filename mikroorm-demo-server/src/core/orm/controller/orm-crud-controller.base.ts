@@ -61,14 +61,17 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
     } else {
       this.featureValidator.validate(this.enabledFeatures, 'getAllFiltered');
     }*/
+    console.log('-->OrmCrudControllerBase.getAll() - filter:', filter);
 
     let opts = this.defaultGetAllOptions;
     if (options) {
       opts = { ...this.defaultGetAllOptions, ...options };
     }
     if (filter) {
+      console.log('Calling repo WITH filter');
       return this._repo.find(filter, opts);
     }
+    console.log('Calling repo WITHOUT filter');
     return this._repo.findAll(opts);
   }
 
