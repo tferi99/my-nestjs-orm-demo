@@ -1,8 +1,25 @@
-import { Body, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Delete,
+  Get,
+  Inject,
+  NotImplementedException,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Req,
+  UseGuards
+} from '@nestjs/common';
 import { CrudEntityRepository } from '../service/crud-entity-repository';
 import { AnyEntity, EntityData, FilterQuery, FindOptions, Primary } from '@mikro-orm/core';
 import { ControllerBase } from '../../controller/controller.base';
-import { OrmCrudControllerFeatureGuard } from './orm-crud-controller-feature.guard';
+import {
+  EnabledFeatures,
+  OrmCrudControllerFeatureGuard,
+  REQ_PARAM_ORM_CRUD_CONTROLLER_FEATURES
+} from './orm-crud-controller-feature.guard';
+import {REQUEST} from "@nestjs/core";
 
 export interface OrmCrudControllerOptions<T extends AnyEntity<T>> {
   repository: CrudEntityRepository<T>;
@@ -37,7 +54,8 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
   }
 
   @Get()
-  async getAll(filter?: FilterQuery<T>, options?: FindOptions<T>): Promise<T[]> {
+  async getAll(@Req() req: any, filter?: FilterQuery<T>, options?: FindOptions<T>): Promise<T[]> {
+    this.checkEnabledFeature(req, 'getAll');
 /*    if (!filter) {
       this.featureValidator.validate(this.enabledFeatures, 'getAll');
     } else {
@@ -97,5 +115,15 @@ export abstract class OrmCrudControllerBase<T extends AnyEntity<T>> extends Cont
   async nativeDelete(@Param('id', ParseIntPipe) id: Primary<T>): Promise<number> {
     const filter: FilterQuery<T> = this._repo.getFilterQueryForId(id);
     return this._repo.crud.nativeDelete(filter);
+  }
+
+  private checkEnabledFeature(req: any, feature: keyof EnabledFeatures): void {
+    const features: EnabledFeatures = req[REQ_PARAM_ORM_CRUD_CONTROLLER_FEATURES];
+    if (!features) {
+      throw new NotImplementedException('Feature not configured for feature: ' + feature);
+    }
+    if (!features[feature]) {
+      throw new NotImplementedException(feature + ' : this feature not enabled for this controller');
+    }
   }
 }

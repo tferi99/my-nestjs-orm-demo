@@ -40,6 +40,7 @@ const PessimisticFeaturePolicy: EnabledFeatures = {
 };
 
 export const DEFAULT_ORM_CRUD_CONTROLLER_FEATURE_POLICY = PessimisticFeaturePolicy;
+export const REQ_PARAM_ORM_CRUD_CONTROLLER_FEATURES = 'ReqParamOrmCrudControllerFeatures';
 
 @Injectable()
 export class OrmCrudControllerFeatureGuard implements CanActivate {
@@ -48,12 +49,13 @@ export class OrmCrudControllerFeatureGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     console.log('--> OrmCrudControllerFeatureGuard.canActivate()');
 
-    const features: EnabledFeatures = this.reflector.getAllAndOverride<EnabledFeatures>(ORM_CRUD_CONTROLLER_FEATURES_KEY, [context.getClass()]);
+    const features: EnabledFeatures = this.reflector.get<EnabledFeatures>(ORM_CRUD_CONTROLLER_FEATURES_KEY, context.getClass());
     console.log('FEATURES:', features);
-    const handler = context.getHandler();
-    //console.log('CTX:', context.getHandler().name, handler.arguments);
-    console.log('CTX:', context.getHandler().name);
 
+    if (features) {
+      const req = context.switchToHttp().getRequest();
+      req[REQ_PARAM_ORM_CRUD_CONTROLLER_FEATURES] = features;
+    }
     return true;
   }
 }
