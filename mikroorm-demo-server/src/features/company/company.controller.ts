@@ -1,16 +1,21 @@
-import {Controller, Get, Query, Req, Res} from '@nestjs/common';
+import { Controller, Get, Query, Req } from '@nestjs/common';
 import { Company } from './model/company.entity';
 import { CompanyRepository } from './company.repository';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { OrmCrudControllerBase } from '../../core/orm/controller/orm-crud-controller.base';
 import { FilterQuery } from '@mikro-orm/core';
-import { Reflector } from '@nestjs/core';
 import { Features } from '../../core/orm/controller/features.decorator';
 
 @Controller('company')
 @Features({
+  get: true,
   getAll: true,
   getAllFiltered: true,
+  update: true,
+  nativeUpdate: true,
+  insert: true,
+  delete: true,
+  nativeDelete: true,
 })
 export class CompanyController extends OrmCrudControllerBase<Company> {
   constructor(

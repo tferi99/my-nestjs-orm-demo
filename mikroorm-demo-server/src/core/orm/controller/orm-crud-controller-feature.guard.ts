@@ -1,7 +1,8 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, Logger } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { OVERRIDE_GLOBAL_GUARD_KEY } from '../../../auth/passport/override-global-guard.decorator';
 import { ORM_CRUD_CONTROLLER_FEATURES_KEY } from './features.decorator';
+import { LoggerUtils } from '../../util/logger.utils';
 
 export interface EnabledFeatures {
   get: boolean;
@@ -44,13 +45,15 @@ export const REQ_PARAM_ORM_CRUD_CONTROLLER_FEATURES = 'ReqParamOrmCrudController
 
 @Injectable()
 export class OrmCrudControllerFeatureGuard implements CanActivate {
+  private readonly logger = new Logger(OrmCrudControllerFeatureGuard.name);
+
   constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
-    console.log('--> OrmCrudControllerFeatureGuard.canActivate()');
+    LoggerUtils.debugIfEnv(this.logger, 'TRACE_FEATURES', '--> OrmCrudControllerFeatureGuard.canActivate()');
 
     const features: EnabledFeatures = this.reflector.get<EnabledFeatures>(ORM_CRUD_CONTROLLER_FEATURES_KEY, context.getClass());
-    console.log('FEATURES:', features);
+    LoggerUtils.debugIfEnv(this.logger, 'TRACE_FEATURES', 'FEATURES:', features);
 
     if (features) {
       const req = context.switchToHttp().getRequest();
