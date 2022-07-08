@@ -12,7 +12,7 @@ export class DatabaseSchemaCreator {
 
       const generator = orm.getSchemaGenerator();
 
-      const dropDump = await generator.getDropSchemaSQL();
+/*      const dropDump = await generator.getDropSchemaSQL();
       console.log(dropDump);
 
       const createDump = await generator.getCreateSchemaSQL();
@@ -23,11 +23,14 @@ export class DatabaseSchemaCreator {
 
       // there is also `generate()` method that returns drop + create queries
       const dropAndCreateDump = await generator.generate();
-      console.log(dropAndCreateDump);
+      console.log(dropAndCreateDump);*/
 
       // or you can run those queries directly, but be sure to check them first!
+      console.log("===================================================== DROP =====================================================")
       await generator.dropSchema();
+      console.log("===================================================== CREATE =====================================================")
       await generator.createSchema();
+      console.log("===================================================== UPDATE =====================================================")
       await generator.updateSchema();
 
       await orm.close(true);

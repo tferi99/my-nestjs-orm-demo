@@ -1,6 +1,6 @@
 // loading .env
 import { config } from 'dotenv';
-config();
+config(); // it should be called after importing .env
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
