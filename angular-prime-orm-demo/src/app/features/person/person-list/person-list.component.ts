@@ -71,5 +71,4 @@ export class PersonListComponent extends ListComponentBase<Person, 'name'> imple
     }
     return companies.entities[companyId];
   }
-
 }
