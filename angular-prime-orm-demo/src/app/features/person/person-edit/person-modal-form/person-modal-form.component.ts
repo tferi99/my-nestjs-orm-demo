@@ -6,15 +6,16 @@ import { FormValidatorService } from '../../../../core/service/form-validator.se
 import { NG_DATE_FORMAT } from '../../../../core/core.constants';
 import { faker } from '@faker-js/faker';
 import { randomStringEnum } from '../../../../core/util/random-utils';
-import { ModalEditComponentBase } from '../../../../core/component/modal-edit-component.base';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ModalFormComponentBase } from '../../../../core/component/modal-form-component.base';
+import { PersonAdditionalData } from '../person-edit-adapter.component';
 
 @Component({
   selector: 'app-person-modal-form-form',
   templateUrl: './person-modal-form.component.html',
   styleUrls: ['./person-modal-form.component.scss']
 })
-export class PersonModalFormComponent extends ModalEditComponentBase<Person, any, 'id'> implements OnInit {
+export class PersonModalFormComponent extends ModalFormComponentBase<Person, PersonAdditionalData, 'id'> implements OnInit {
   employeeTypes: KeyValuePair<string, string>[] = stringEnumToKeyValuePairArray(EmployeeType, false, true);
 
   dateFormat = NG_DATE_FORMAT;
@@ -54,7 +55,7 @@ export class PersonModalFormComponent extends ModalEditComponentBase<Person, any
     return this.form;
   }
 
-  protected getNameOfId(): 'id' {
+  protected override getNameOfId(): 'id' {
     return 'id';
   }
 

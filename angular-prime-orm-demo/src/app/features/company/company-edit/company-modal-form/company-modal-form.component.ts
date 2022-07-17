@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Company } from '@app/client-lib';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormValidatorService } from '../../../../core/service/form-validator.service';
-import { ModalEditComponentBase } from '../../../../core/component/modal-edit-component.base';
 import { NG_DATE_FORMAT } from '../../../../core/core.constants';
 import { faker } from '@faker-js/faker';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ModalFormComponentBase } from '../../../../core/component/modal-form-component.base';
 
 @Component({
   selector: 'app-company-modal-form-form',
   templateUrl: './company-modal-form.component.html',
   styleUrls: ['./company-modal-form.component.scss']
 })
-export class CompanyModalFormComponent extends ModalEditComponentBase<Company, any, 'id'> implements OnInit {
+export class CompanyModalFormComponent extends ModalFormComponentBase<Company, any, 'id'> implements OnInit {
   dateFormat = NG_DATE_FORMAT;
 
   constructor(
@@ -45,7 +45,7 @@ export class CompanyModalFormComponent extends ModalEditComponentBase<Company, a
     return this.form;
   }
 
-  protected getNameOfId(): 'id' {
+  protected override getNameOfId(): 'id' {
     return 'id';
   }
 
@@ -62,11 +62,11 @@ export class CompanyModalFormComponent extends ModalEditComponentBase<Company, a
     this.established.setValue(new Date());
   }
 
-  onPopulate() {
+/*  onPopulate() {
     console.log('IN: ', this.in);
     console.log('TYPE: ' + typeof this.in.inputData?.established);
     this.established.setValue(this.in.inputData?.established);
-  }
+  }*/
 }
 
 

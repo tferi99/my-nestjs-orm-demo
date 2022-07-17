@@ -8,13 +8,12 @@ import {
 } from '../../../core/store/data-service-error-message.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
-import { map, tap } from 'rxjs/operators';
-import { EditComponent } from '../../../core/component/modal-edit-adapter.base';
 import { PersonDataService } from '../store/person-data.service';
 import { ListComponentBase } from '../../../core/component/list.component.base';
 import { Company, Person } from '@app/client-lib';
 import { EntityCollection } from '@ngrx/data';
 import { CompanyDataService } from '../../company/store/company-data.service';
+import { EditComponent } from '../../../core/component/modal-form-adapter.base';
 
 const errorMapping: ErrorMessageMapping<Person> = {
   'ForeignKeyConstraintViolationError' : {message: 'Item is used'}

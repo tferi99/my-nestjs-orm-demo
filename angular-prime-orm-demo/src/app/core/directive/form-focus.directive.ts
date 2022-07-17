@@ -19,14 +19,13 @@ const FOCUS_DELAY = 10;
   selector: '[appFormFocus]'
 })
 export class FormFocusDirective implements OnInit, AfterViewInit {
-  tracing = false;
+  static tracing = false;
 
   @Input() focusDelayed = false;
 
   constructor(private el: ElementRef) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.focusDelayed) {
@@ -38,7 +37,7 @@ export class FormFocusDirective implements OnInit, AfterViewInit {
 
   private applyFocus() {
     const focus = this.el.nativeElement.querySelector('.focus');
-    this.trace('focus:', focus);
+    this.trace('class=focus:', focus);
     if (focus) {
       focus.focus();
       return;
@@ -59,10 +58,9 @@ export class FormFocusDirective implements OnInit, AfterViewInit {
     }
   }
 
-  private trace(msg: string, elem: any) {
-    if (this.tracing) {
-      console.log('FOCUS - ' + msg, elem);
+  private trace(msg: string, ...data: any[]) {
+    if (FormFocusDirective.tracing) {
+      console.log('[FOCUS]: ' + msg, data);
     }
   }
-
 }

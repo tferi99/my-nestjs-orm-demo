@@ -6,8 +6,19 @@ import { OrmCrudControllerBase } from '../../core/orm/controller/orm-crud-contro
 import { CrudEntityRepository } from '../../core/orm/service/crud-entity-repository';
 import { Company } from '../company/model/company.entity';
 import { CompanyRepository } from '../company/company.repository';
+import { Features } from '../../core/orm/controller/features.decorator';
 
 @Controller('person')
+@Features({
+  get: true,
+  getAll: true,
+  getAllFiltered: true,
+  update: true,
+  nativeUpdate: true,
+  insert: true,
+  delete: true,
+  nativeDelete: true,
+})
 export class PersonController extends OrmCrudControllerBase<Person> {
   constructor(
     @InjectRepository(Person) private personRepository: PersonRepository,

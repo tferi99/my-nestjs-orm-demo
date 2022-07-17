@@ -14,17 +14,6 @@ export class ServiceBase {
     this.apiBasePath = apiBasePath;
   }
 
-/*  protected getHttpClient(): HttpClient {
-    if (!this.http) {
-      const injector = AppInjector.getInjector();
-      if (!injector) {
-        throw new Error('AppInjector is null!');
-      }
-      this.http = injector.get(HttpClient);
-    }
-    return this.http;
-  }*/
-
   protected getBasePath(): string {
     return SERVER_API_CONTEXT_PATH + this.apiBasePath;
   }

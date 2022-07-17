@@ -4,16 +4,19 @@ import {
   DataServiceErrorMessageService,
   ErrorMessageMapping
 } from '../../../core/store/data-service-error-message.service';
-import { EditComponent, ModalEditAdapterBase } from '../../../core/component/modal-edit-adapter.base';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PersonDataService } from '../store/person-data.service';
 import { PersonModalFormComponent } from './person-modal-form/person-modal-form.component';
 import { DataConverter } from '../../../core/form/DataConverter';
-import { CompanyEditCoverter } from '../../company/company-list/company-edit-coverter';
 import { PersonEditConverter } from './person-edit-converter';
+import { EditComponent, ModalFormAdapterBase } from '../../../core/component/modal-form-adapter.base';
 
 const errorMapping: ErrorMessageMapping<Person> = {
   'UniqueConstraintError' : {message: 'already exists', retriever: (data => data.name)},
+}
+
+export interface PersonAdditionalData {
+  companies: Company[] | null;
 }
 
 @Component({
@@ -21,7 +24,7 @@ const errorMapping: ErrorMessageMapping<Person> = {
   template: ``,
   styles: []
 })
-export class PersonEditAdapterComponent extends ModalEditAdapterBase<Person, any> implements EditComponent<Person>, OnDestroy {
+export class PersonEditAdapterComponent extends ModalFormAdapterBase<Person, PersonAdditionalData> implements EditComponent<Person>, OnDestroy {
   @Input() companies!: Company[] | null;
   private editConverter = new PersonEditConverter();
 
@@ -36,11 +39,10 @@ export class PersonEditAdapterComponent extends ModalEditAdapterBase<Person, any
     });
   }
 
-  getAdditionalData(): any {
+  getAdditionalData(): PersonAdditionalData {
     return {
       companies: this.companies
     };
-
   }
 
   beforeSave(data: Person): void {

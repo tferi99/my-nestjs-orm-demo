@@ -1,9 +1,9 @@
-import { DialogCallInfo, DialogOutput, modalTraceLog } from '../form/modal/modal.model';
+import { FormDataConfig, FormOutputData } from '../form/modal/modal.model';
 import { DataServiceErrorMessageService, ErrorMessageMapping } from '../store/data-service-error-message.service';
 import { EntityCollectionServiceBase } from '@ngrx/data';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Component, OnDestroy, OnInit, Type } from '@angular/core';
-import { ModalEditComponentBase } from './modal-edit-component.base';
+import { Type } from '@angular/core';
+import { ModalFormComponentBase } from './modal-form-component.base';
 import { Subject, Subscription } from 'rxjs';
 import { DataConverter } from '../form/DataConverter';
 
@@ -24,15 +24,17 @@ const DEFAULT_DIALOG_PROPERTIES: Partial<DynamicDialogConfig> = {
  *    T:  type edited
  *    A:  additional data
  */
-export abstract class ModalEditAdapterBase<T, A> {
-  private _dialogComponentType: Type<ModalEditComponentBase<T, A, keyof T>>;
+export abstract class ModalFormAdapterBase<T, A> {
+  static tracing = false;
+
+  private _dialogComponentType: Type<ModalFormComponentBase<T, A, keyof T>>;
   private _dataService: EntityCollectionServiceBase<T>;
   private _dialogService: DialogService;
   private _dataServiceErrorMessageService: DataServiceErrorMessageService;
   private _errorMapping: ErrorMessageMapping<T>;
   private _additionalDialogOptions: Partial<DynamicDialogConfig> | undefined;
   private entityName : string;
-  private result: Subject<DialogOutput<T>> = new Subject<DialogOutput<T>>();
+  private result: Subject<FormOutputData<T>> = new Subject<FormOutputData<T>>();  // stream for pushing output
   private resultSub?: Subscription;
 
   /**
@@ -47,7 +49,7 @@ export abstract class ModalEditAdapterBase<T, A> {
    */
   constructor(
     entityName: string,
-    dialogComponentType: Type<ModalEditComponentBase<T, A, keyof T>>,
+    dialogComponentType: Type<ModalFormComponentBase<T, A, keyof T>>,
     dataService: EntityCollectionServiceBase<T>,
     dialogService: DialogService,
     dataServiceErrorMessageService: DataServiceErrorMessageService,
@@ -65,13 +67,11 @@ export abstract class ModalEditAdapterBase<T, A> {
   }
 
   abstract getAdditionalData(): A;
-  abstract beforeSave(data: T): void;
-  abstract getEditConverter(): DataConverter<T>;
+  abstract getEditConverter(): DataConverter<T> | undefined;
 
   onNew(additionalDialogOptions?: Partial<DynamicDialogConfig>): void {
     this.openEditModal({
-      outputData: this.result,
-      isNew: true
+      outputDataStream: this.result,
     }, {
     ...additionalDialogOptions,
       header: 'New ' + this.entityName
@@ -84,9 +84,8 @@ export abstract class ModalEditAdapterBase<T, A> {
     delete copy['id'];
     this.openEditModal({
       inputData: copy,
-      additionalInput: undefined,
-      outputData: this.result,
-      isNew: true
+      additionalInputData: undefined,
+      outputDataStream: this.result,
     });
   }
 
@@ -95,22 +94,20 @@ export abstract class ModalEditAdapterBase<T, A> {
 
     this.openEditModal({
       inputData: converter ? converter.convert(data) : data,
-      outputData: this.result,
-      isNew: false
+      outputDataStream: this.result,
     }, {
       ...additionalDialogOptions,
       header: 'Edit ' + this.entityName
     });
   }
 
-  private openEditModal(dialogInputData: DialogCallInfo<T, A>, additionalDialogOptions?: Partial<DynamicDialogConfig>) {
-
+  private openEditModal(dialogInputData: FormDataConfig<T, A>, additionalDialogOptions?: Partial<DynamicDialogConfig>) {
     const extendedAdditionalData: A = {
-      ...dialogInputData.additionalInput, ...this.getAdditionalData()
+      ...dialogInputData.additionalInputData, ...this.getAdditionalData()
     }
-    const extendedDialogInputData: DialogCallInfo<T, A> = {
+    const extendedDialogInputData: FormDataConfig<T, A> = {
       ...dialogInputData,
-      additionalInput: extendedAdditionalData
+      additionalInputData: extendedAdditionalData
     }
     const modalOptions: DynamicDialogConfig = {
       data: extendedDialogInputData,
@@ -118,7 +115,7 @@ export abstract class ModalEditAdapterBase<T, A> {
       ...this._additionalDialogOptions,
       ...additionalDialogOptions,
     };
-    modalTraceLog('openEditModal() DIALOG init: ', modalOptions);
+    this.trace('openEditModal() DIALOG init: ', modalOptions);
 
     this.unsubscribeResult();
     const ref: DynamicDialogRef = this._dialogService.open(this._dialogComponentType, modalOptions);
@@ -127,13 +124,12 @@ export abstract class ModalEditAdapterBase<T, A> {
 
   private initResultHandler(ref: DynamicDialogRef): void {
     this.resultSub = this.result.subscribe(
-      (out: DialogOutput<T>) => {
-        modalTraceLog('Result dialog:', out);
+      (out: FormOutputData<T>) => {
+        this.trace('Result dialog:', out);
         if (!out.data) {
           ref.close();
           return;
         }
-        this.beforeSave(out.data);
 
         if (out.isNew) {
           this._dataService.add(out.data).subscribe(
@@ -167,5 +163,11 @@ export abstract class ModalEditAdapterBase<T, A> {
 
   protected cleanup() {
     this.unsubscribeResult();
+  }
+
+  private trace(msg: string, ...data: any[]) {
+    if (ModalFormAdapterBase.tracing) {
+      console.log('[MODAL FORM ADAPTER]: ' + msg, data);
+    }
   }
 }

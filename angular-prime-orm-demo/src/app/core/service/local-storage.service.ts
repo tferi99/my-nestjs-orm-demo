@@ -7,7 +7,7 @@ import { DEFAULT_CONFIG } from '../../layout/service/app.config.service';
   providedIn: 'root'
 })
 export class LocalStorageService {
-  public static LOC_STORE_KEY_AUTH_TOKEN = 'myTsOrmDemoAuthToken';
+  public static LOC_STORE_KEY_AUTH_TOKEN = 'auth';
   public static LOC_STORE_KEY_APP_CONFIG = 'appConfig';
 
   constructor(private logger: NGXLogger) {}

@@ -15,7 +15,13 @@ import { Store } from '@ngrx/store';
 
 import { ErrorMessageUtils } from './error-message-utils';
 import { CustomHttpStatus, ResponseErrorPayload, ServerError } from '@app/client-lib';
-import { ForeignKeyConstraintViolationError, ServerAppError, UniqueConstraintError } from './app-error';
+import {
+  AccountTestFailedError,
+  ForeignKeyConstraintViolationError,
+  ServerAppError,
+  UniqueConstraintError, UnknownServerError,
+  UserDisabledError
+} from './app-error';
 import { AppState } from '../../store/app.reducer';
 import { LogoutAction } from '../../auth/store/auth.actions';
 import { ToastrService } from '../../prime-core/service/toastr.service';
@@ -82,6 +88,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if (ex !== undefined) {
             return throwError(ex);
           }
+          errorMessage = 'Server Error';
+          if (err.error) {
+            errorMessageExt = `Error Code: ${err.status}\nMessage: ${err.error.message}`;
+          }
+          break;
+        case HttpStatusCode.NotImplemented:
+          if (err.error) {
+            errorMessageExt = `Error Code: ${err.status}\nMessage: ${err.error.message}`;
+          }
           break;
         default:
           errorMessage = 'Unknown Error';
@@ -115,9 +130,18 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         case ServerError.DbForeignKeyConstraintViolationError:
           ex = new ForeignKeyConstraintViolationError(error.message, error);
           break;
+        case ServerError.UserDisabled:
+          ex = new UserDisabledError(error.message, error);
+          break;
+        case ServerError.AccountTestFailed:
+          ex = new AccountTestFailedError(error.message, error);
+          break;
+        default:
+          ex = new UnknownServerError(error.message, error);
+          break;
       }
     }
-    //console.log('### identified?: ', ex);
+    console.log('### identified?: ', ex);
     return ex;
   }
 }

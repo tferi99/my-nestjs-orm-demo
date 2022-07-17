@@ -10,9 +10,9 @@ import { CHANGE_DETECTION_STRATEGY } from '../../../app.constants';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ListComponentBase } from '../../../core/component/list.component.base';
 import { ConfirmationService } from 'primeng/api';
-import { EditComponent } from '../../../core/component/modal-edit-adapter.base';
 import { CompanyEditAdapterComponent } from '../company-edit/company-edit-adapter.component';
 import { map, tap } from 'rxjs/operators';
+import { EditComponent } from '../../../core/component/modal-form-adapter.base';
 
 const errorMapping: ErrorMessageMapping<Company> = {
   'ForeignKeyConstraintViolationError': {message: 'Item is used'}
