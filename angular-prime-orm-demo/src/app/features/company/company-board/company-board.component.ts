@@ -75,4 +75,8 @@ export class CompanyBoardComponent implements OnInit {
 
   }
 
+  search($event: KeyboardEvent) {
+    const target: HTMLInputElement = $event.target as HTMLInputElement;
+    console.log(target.value);
+  }
 }
