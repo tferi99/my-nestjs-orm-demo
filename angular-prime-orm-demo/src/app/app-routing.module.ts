@@ -38,6 +38,7 @@ const routes: Routes = [
   { path: 'pages/error', component: ErrorComponent },
   { path: 'pages/notfound', component: NotfoundComponent },
   { path: 'pages/access', component: AccessComponent },
+  { path: 'pages/test', component: TestComponent },
 
 
   { path: '**', redirectTo: 'pages/notfound' },

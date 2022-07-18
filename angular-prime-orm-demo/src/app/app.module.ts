@@ -39,6 +39,7 @@ import { CompanyModule } from './features/company/company.module';
 import { PersonModule } from './features/person/person.module';
 import { SandboxModule } from './features/sandbox/sandbox.module';
 import { NoteModule } from './features/note/note.module';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
     imports: [
@@ -101,6 +102,7 @@ import { NoteModule } from './features/note/note.module';
     NotfoundComponent,
     AccessComponent,
     HomeComponent,
+    TestComponent
   ],
   providers: [
     {
