@@ -1,15 +1,18 @@
+<!--
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <h3>Companies &amp; Persons</h3>
   </div>
 
   <div class="p-toolbar-group-right">
-    <span class="p-input-icon-left">
+    <span class="p-input-icon-left mr-2">
         <i class="pi pi-search"></i>
-        <input type="text" pInputText placeholder="Search" (keyup)="search($event)">
+        <input type="text" #searchFilter pInputText placeholder="Search" [(ngModel)]="filter">
     </span>
+    <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text"  (click)="resetFilter()"></button>
   </div>
 </p-toolbar>
+-->
 
 <p>
   <small><i>Drag &amp; Drop elements (you can drag companies on header icon)</i></small>
@@ -37,4 +40,6 @@
 
 <app-company-edit-adapter #companyEdit [style]="{'overflow':'visible'}"></app-company-edit-adapter>
 <app-person-edit-adapter #personEdit [style]="{'overflow':'visible'}"></app-person-edit-adapter>
+<!--
 <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+-->
