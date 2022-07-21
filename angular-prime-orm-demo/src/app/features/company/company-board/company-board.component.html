@@ -16,6 +16,13 @@
   <small><i>Drag &amp; Drop elements (you can drag companies on header icon)</i></small>
 </p>
 
+
+<div class="grid">
+  <div class="col-4" style="background-color: red; height: 100px">A</div>
+  <div class="col-4" style="background-color: yellow">B</div>
+  <div class="col-4" style="background-color: lightgreen">C</div>
+</div>
+
 <div style="display: flex; flex-direction: column">
   <div style="flex: 1 1 100%">
     <app-company-item [companies]="companies$ | async" [handler]="handler" [companyEdit]="companyEdit" [personEdit]="personEdit"></app-company-item>
@@ -42,9 +49,14 @@
         <p-panel class="text-center" styleClass="rubbish-panel" style="color: blue" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
       -->
       <p-panel styleClass="text-center rubbish-panel" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
-          <i class="pi pi-trash text-lg"></i>
-        </p-panel>
-      </div>
+        <i class="pi pi-trash text-lg"></i>
+      </p-panel>
+    </div>
+    <div class="col-4" style="background-color: yellow; display: flex; flex-direction: row;">
+      <p-panel header="cica" style="flex-grow: 1; align-self: stretch">
+
+      </p-panel>
+    </div>
   </div>
 </div>
 
