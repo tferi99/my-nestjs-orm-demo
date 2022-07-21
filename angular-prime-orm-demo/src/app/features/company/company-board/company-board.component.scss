@@ -16,13 +16,14 @@
   }
 }
 
-:host ::ng-deep .rubbish-panel.p-panel {
-  .p-panel-header {
+:host ::ng-deep .rubbish-panel.p-card {
+  .p-card-title2 {
     background: var(--red-200);
   }
-  .p-panel-content {
+  .p-card-body, .p-card-content {
     background: var(--red-100);
     align-self: stretch;
+    height: 100%;
   }
 }
 

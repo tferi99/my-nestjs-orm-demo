@@ -16,12 +16,17 @@
   <small><i>Drag &amp; Drop elements (you can drag companies on header icon)</i></small>
 </p>
 
-
+<!--
 <div class="grid">
-  <div class="col-4" style="background-color: red; height: 100px">A</div>
-  <div class="col-4" style="background-color: yellow">B</div>
+  <div class="col-4 flex " style="background-color: red; height: 100px">
+    <div class="flex-grow-1" style="background-color: #0d6efd">A</div>
+  </div>
+  <div class="col-4" style="background-color: yellow">
+    <div class="" style="background-color: #0d6efd">B</div>
+  </div>
   <div class="col-4" style="background-color: lightgreen">C</div>
 </div>
+-->
 
 <div style="display: flex; flex-direction: column">
   <div style="flex: 1 1 100%">
@@ -31,11 +36,9 @@
   <div class="grid footer-panel" style="flex: 1 1 auto">
 
     <div class="col-4">
-      <p-panel header="Create new company">
-        <div class="flex justify-content-center flex-grow-1">
-          <p-button label="+" icon="pi pi-briefcase" (click)="addCompany()"></p-button>
-        </div>
-      </p-panel>
+      <p-card styleClass="text-center clickable" header="Add company" (click)="addCompany()">
+        <i class="pi pi-plus text-lg"></i>
+      </p-card>
     </div>
     <!--
     <div class="col-4 flex justify-content-center align-items-center">
@@ -48,14 +51,9 @@
       <!--
         <p-panel class="text-center" styleClass="rubbish-panel" style="color: blue" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
       -->
-      <p-panel styleClass="text-center rubbish-panel" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
+      <p-card styleClass="text-center rubbish-panel" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
         <i class="pi pi-trash text-lg"></i>
-      </p-panel>
-    </div>
-    <div class="col-4" style="background-color: yellow; display: flex; flex-direction: row;">
-      <p-panel header="cica" style="flex-grow: 1; align-self: stretch">
-
-      </p-panel>
+      </p-card>
     </div>
   </div>
 </div>
