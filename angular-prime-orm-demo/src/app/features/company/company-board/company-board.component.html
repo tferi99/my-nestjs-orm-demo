@@ -30,13 +30,18 @@
         </div>
       </p-panel>
     </div>
+    <!--
     <div class="col-4 flex justify-content-center align-items-center">
+      <p-panel class="text-center" styleClass="rubbish-panel" style="flex: 1 1 100%" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
+        <i class="pi pi-trash text-lg"></i>
+      </p-panel>
+    </div>
+    -->
+    <div class="col-4">
       <!--
-        <p-panel class="text-center" styleClass="rubbish-panel" style="flex: 1 1 100%" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
-          <i class="pi pi-trash text-lg"></i>
-        </p-panel>
+        <p-panel class="text-center" styleClass="rubbish-panel" style="color: blue" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
       -->
-        <p-panel class="text-center" styleClass="rubbish-panel" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
+      <p-panel styleClass="text-center rubbish-panel" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
           <i class="pi pi-trash text-lg"></i>
         </p-panel>
       </div>
