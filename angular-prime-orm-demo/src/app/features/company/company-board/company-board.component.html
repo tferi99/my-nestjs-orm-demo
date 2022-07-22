@@ -16,7 +16,42 @@
   <small><i>Drag &amp; Drop elements (you can drag companies on header icon)</i></small>
 </p>
 
+<div style="display: flex; flex-direction: column">
+  <div style="flex: 1 1 100%">
+    <app-company-item [companies]="companies$ | async" [handler]="handler" [companyEdit]="companyEdit" [personEdit]="personEdit"></app-company-item>
+  </div>
+  <hr>
+
+  <div class="flex footer-panel align-items-stretch" style="flex: 1 1 auto">
+      <p-card class="flex-grow-1" styleClass="text-center clickable" header="Add company" (click)="addCompany()">
+        <i class="pi pi-plus text-lg"></i>
+      </p-card>
+      <p-card class="flex-grow-1" styleClass="text-center rubbish-panel" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
+        <i class="pi pi-trash text-lg"></i>
+      </p-card>
+  </div>
+</div>
+
+<app-company-edit-adapter #companyEdit [style]="{'overflow':'visible'}"></app-company-edit-adapter>
+<app-person-edit-adapter #personEdit [style]="{'overflow':'visible'}"></app-person-edit-adapter>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+
 <!--
+<div class="grid" style="background-color: lightsalmon">
+  <div class="col-12 flex align-items-stretch align-content-around">
+    <div class="flex-grow-1 flex align-items-center justify-content-center" style="background-color: red; height: 100px">
+      <i class="pi pi-trash text-lg"></i>
+    </div>
+    <div class="flex-grow-1 flex align-items-center justify-content-center" style="background-color: yellow">
+      <i class="pi pi-trash text-lg"></i>
+    </div>
+    <div class="flex-grow-1 flex align-items-center justify-content-center" style="background-color: lightgreen">
+      <i class="pi pi-trash text-lg"></i>
+    </div>
+  </div>
+</div>
+
 <div class="grid">
   <div class="col-4 flex " style="background-color: red; height: 100px">
     <div class="flex-grow-1" style="background-color: #0d6efd">A</div>
@@ -27,39 +62,4 @@
   <div class="col-4" style="background-color: lightgreen">C</div>
 </div>
 -->
-
-<div style="display: flex; flex-direction: column">
-  <div style="flex: 1 1 100%">
-    <app-company-item [companies]="companies$ | async" [handler]="handler" [companyEdit]="companyEdit" [personEdit]="personEdit"></app-company-item>
-  </div>
-  <hr>
-  <div class="grid footer-panel" style="flex: 1 1 auto">
-
-    <div class="col-4">
-      <p-card styleClass="text-center clickable" header="Add company" (click)="addCompany()">
-        <i class="pi pi-plus text-lg"></i>
-      </p-card>
-    </div>
-    <!--
-    <div class="col-4 flex justify-content-center align-items-center">
-      <p-panel class="text-center" styleClass="rubbish-panel" style="flex: 1 1 100%" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
-        <i class="pi pi-trash text-lg"></i>
-      </p-panel>
-    </div>
-    -->
-    <div class="col-4">
-      <!--
-        <p-panel class="text-center" styleClass="rubbish-panel" style="color: blue" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
-      -->
-      <p-card styleClass="text-center rubbish-panel" header="Drop here to delete..." pDroppable="company" (onDrop)="handler.drop(COMPANY_ID_RUBBISH_BIN, dragDropActionEnum.Delete)">
-        <i class="pi pi-trash text-lg"></i>
-      </p-card>
-    </div>
-  </div>
-</div>
-
-<app-company-edit-adapter #companyEdit [style]="{'overflow':'visible'}"></app-company-edit-adapter>
-<app-person-edit-adapter #personEdit [style]="{'overflow':'visible'}"></app-person-edit-adapter>
-
-<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
 
